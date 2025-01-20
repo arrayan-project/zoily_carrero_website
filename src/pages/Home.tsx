@@ -5,7 +5,11 @@ const backgrounds = [
   'https://images.unsplash.com/photo-1522093007474-d86e9bf7ba6f?auto=format&fit=crop&w=2000',
   'https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=2000',
   'https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=2000',
-  'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=2000'
+  'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=2000',
+  'https://images.squarespace-cdn.com/content/v1/583f664cbebafbe20765df66/1578095645512-BQ9UROH8F9Y8BLYE2XF9/honeygold-180.jpg?format=1500w',
+  'https://images.squarespace-cdn.com/content/v1/583f664cbebafbe20765df66/c6cccc22-90ae-4e11-b0d4-9dbd66916575/maritwilliamsphoto2021-katieelijanwedding-1212.jpg?format=1500w',
+  'https://images.squarespace-cdn.com/content/v1/583f664cbebafbe20765df66/77e16fd2-efb0-4a6a-bc04-f19f79fbdba7/maritwilliamsphoto2021-katieelijanwedding-339.jpg?format=1500w',
+  'https://images.squarespace-cdn.com/content/v1/583f664cbebafbe20765df66/1526340291692-3QY555B30SEGQOH0A1AE/0011.jpg?format=1500w'
 ];
 
 function Home() {
