@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ALaCarte() {
+function About() {
   const services = [
     {
       category: "Signature Bouquets",
@@ -73,4 +73,4 @@ function ALaCarte() {
   );
 }
 
-export default ALaCarte;
+export default About;

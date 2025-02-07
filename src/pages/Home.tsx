@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Instagram, Facebook, Pointer as Pinterest } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 const backgrounds = [
-  'https://images.unsplash.com/photo-1522093007474-d86e9bf7ba6f?auto=format&fit=crop&w=2000',
   'https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=2000',
   'https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=2000',
   'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=2000',
@@ -53,6 +53,22 @@ function Home() {
           <h2 className="font-montserrat text-xl md:text-2xl text-white tracking-[0.3em] mb-12">
             SERVICIOS PROFESIONALES DE MAQUILLAJE Y PEINADOS
           </h2>
+        
+        {/* Contenedor de botones */}
+        <div className="flex flex-col sm:flex-row gap-4">
+            <Link
+              to="/services"
+              className="px-6 py-3 bg-white text-black font-semibold rounded shadow hover:bg-gray-200 transition duration-200 text-center"
+            >
+              Ver Servicios
+            </Link>
+            <Link
+              to="/contact"
+              className="px-6 py-3 bg-pink-500 text-white font-semibold rounded shadow hover:bg-pink-600 transition duration-200 text-center"
+            >
+              Agenda tu cita
+            </Link>
+          </div>
         </main>
 
         <footer className="pb-6 md:pb-8">

@@ -43,26 +43,26 @@ function Navigation() {
             INICIO
           </Link>
           <Link 
-            to="/weddings" 
-            className={`nav-link ${isActive('/weddings') ? 'text-pink-500' : ''}`}
+            to="/services" 
+            className={`nav-link ${isActive('/services') ? 'text-pink-500' : ''}`}
           >
-            SERVICIOS
+            SERVICIOS & CURSOS
           </Link>
           <Link 
-            to="/corporate" 
-            className={`nav-link ${isActive('/corporate') ? 'text-pink-500' : ''}`}
+            to="/store" 
+            className={`nav-link ${isActive('/store') ? 'text-pink-500' : ''}`}
           >
-            CURSOS
+            TIENDA
           </Link>
           <Link 
-            to="/blog" 
-            className={`nav-link ${isActive('/blog') ? 'text-pink-500' : ''}`}
+            to="/gallery" 
+            className={`nav-link ${isActive('/gallery') ? 'text-pink-500' : ''}`}
           >
             GALERIA
           </Link>
           <Link 
-            to="/a-la-carte" 
-            className={`nav-link ${isActive('/a-la-carte') ? 'text-pink-500' : ''}`}
+            to="/about" 
+            className={`nav-link ${isActive('/about') ? 'text-pink-500' : ''}`}
           >
             ACERCA DE
           </Link>
