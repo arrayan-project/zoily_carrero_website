@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/zoily_carrero_web",
+  base: "https://arrayan-project.github.io/zoily_carrero_website/",
   plugins: [react()],
   optimizeDeps: {
     exclude: ['lucide-react'],

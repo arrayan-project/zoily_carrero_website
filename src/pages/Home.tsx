@@ -71,19 +71,7 @@ function Home() {
           </div>
         </main>
 
-        <footer className="pb-6 md:pb-8">
-          <div className="flex justify-center space-x-6">
-            <a href="#instagram" className="social-icon">
-              <Instagram size={24} />
-            </a>
-            <a href="#pinterest" className="social-icon">
-              <Pinterest size={24} />
-            </a>
-            <a href="#facebook" className="social-icon">
-              <Facebook size={24} />
-            </a>
-          </div>
-        </footer>
+        
       </div>
     </div>
   );
