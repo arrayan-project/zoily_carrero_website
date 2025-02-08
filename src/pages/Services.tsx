@@ -6,143 +6,158 @@ import pmadura from '/src/img/social14pielmadura.jpeg';
 import glam from '/src/img/social10.jpeg';
 import express from '/src/img/social3.jpeg';
 import StatsSection from "../components/StatsSection";
+import PageBanner from '../components/PageBanner'; // Ajusta la ruta si es necesario
+import servicesBanner from '/src/img/services-banner.jpg'; // Importa la imagen
 
 
 function Services() {
   return (
     // Contenedor principal: flex-col para que el footer se posicione al final
-    <div className="min-h-screen flex flex-col bg-pink-50">
+    <div className="min-h-screen flex flex-col bg-pink-50" >
+
+      {/* Banner personalizado para la sección de Servicios */}
+      <PageBanner 
+      title="NUESTROS SERVICIOS" 
+      imageSrc={servicesBanner}  
+      objectPosition="bottom"  //  <<<  CAMBIA a objectPosition="left-bottom" (o "bottom-left")
+      bannerHeight="h-screen/2"/>
+
       {/* Contenido principal: flex-grow hace que se expanda para ocupar el espacio disponible */}
       <main className="flex-grow">
-        <div className="max-w-7xl mx-auto px-2 py-16 md:py-52">
+        <div className="max-w-7xl mx-auto px-2 py-16 md:py-32">
           <h1 className="text-4xl md:text-5xl font-montserrat text-center mb-12 tracking-wider text-gray-800">
-            NUESTROS SERVICIOS
+            Realza TU Belleza Natural
           </h1>
           
-
           {/* Sección servicios de maquillaje */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20 gap-y-20">
-            <div className="space-y-6">
-              <div className="w-full h-96 rounded-lg shadow-lg overflow-hidden relative group">
-                <img
-                  src={novia}
-                  alt="Maquillaje Novia"
-                  className="w-full h-50 object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
-                />
-                <button
-                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
-                >
-                  Reserva tu cita
-                </button>
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-8 mb-20 gap-y-20">
+              {/* Item 1 */}
+              <div className="space-y-6">
+                <div className="w-full aspect-square rounded-lg shadow-lg overflow-hidden relative group">
+                  <img
+                    src={novia}
+                    alt="Maquillaje Novia"
+                    className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                  />
+                  <button
+                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
+                  >
+                    Reserva tu cita
+                  </button>
+                </div>
+                <h2 className="text-2xl font-montserrat tracking-wide text-gray-700 ">Maquillaje Novia</h2>
+                <p className="text-gray-600 leading-relaxed">
+                  Each bouquet is thoughtfully designed to complement your wedding style and color palette,
+                  creating an unforgettable statement piece for your special day.
+                </p>
               </div>
-              <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">Maquillaje Novia</h2>
-              <p className="text-gray-600 leading-relaxed">
-                Each bouquet is thoughtfully designed to complement your wedding style and color palette,
-                creating an unforgettable statement piece for your special day.
-              </p>
-            </div>
-            
-            <div className="space-y-6">
-              <div className="w-full h-96 rounded-lg shadow-lg overflow-hidden relative group">
-                <img
-                  src={social}
-                  alt="Maquillaje Social"
-                  className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
-                />
-                <button
-                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
-                >
-                  Reserva tu cita
-                </button>
-              </div>
-              <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">Maquillaje Social</h2>
-              <p className="text-gray-600 leading-relaxed">
-                From elegant centerpieces to dramatic installations, we transform your reception space
-                into a breathtaking floral paradise.
-              </p>
-            </div>
 
-            <div className="space-y-6">
-              <div className="w-full h-96 rounded-lg shadow-lg overflow-hidden relative group">
-                <img
-                  src={m_peinado}
-                  alt="Maquillaje & Peinado"
-                  className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
-                />
-                <button
-                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
-                >
-                  Reserva tu cita
-                </button>
+              {/* Item 2 */}
+              <div className="space-y-6">
+                <div className="w-full aspect-square rounded-lg shadow-lg overflow-hidden relative group">
+                  <img
+                    src={social}
+                    alt="Maquillaje Social"
+                    className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                  />
+                  <button
+                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
+                  >
+                    Reserva tu cita
+                  </button>
+                </div>
+                <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">Maquillaje Social</h2>
+                <p className="text-gray-600 leading-relaxed">
+                  From elegant centerpieces to dramatic installations, we transform your reception space
+                  into a breathtaking floral paradise.
+                </p>
               </div>
-              <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">Maquillaje & Peinado</h2>
-              <p className="text-gray-600 leading-relaxed">
-                From elegant centerpieces to dramatic installations, we transform your reception space
-                into a breathtaking floral paradise.
-              </p>
-            </div>
 
-            <div className="space-y-6">
-              <div className="w-full h-96 rounded-lg shadow-lg overflow-hidden relative group">
-                <img
-                  src={pmadura}
-                  alt="Maquillaje Piel Madura"
-                  className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
-                />
-                <button
-                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
-                >
-                  Reserva tu cita
-                </button>
+              {/* Item 3 */}
+              <div className="space-y-6">
+                <div className="w-full aspect-square rounded-lg shadow-lg overflow-hidden relative group">
+                  <img
+                    src={m_peinado}
+                    alt="Maquillaje & Peinado"
+                    className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                  />
+                  <button
+                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
+                  >
+                    Reserva tu cita
+                  </button>
+                </div>
+                <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">Maquillaje & Peinado</h2>
+                <p className="text-gray-600 leading-relaxed">
+                  From elegant centerpieces to dramatic installations, we transform your reception space
+                  into a breathtaking floral paradise.
+                </p>
               </div>
-              <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">Maquillaje Piel Madura</h2>
-              <p className="text-gray-600 leading-relaxed">
-                From elegant centerpieces to dramatic installations, we transform your reception space
-                into a breathtaking floral paradise.
-              </p>
-            </div>
 
-            <div className="space-y-6">
-              <div className="w-full h-96 rounded-lg shadow-lg overflow-hidden relative group">
-                <img
-                  src={glam}
-                  alt="Maquillaje Piel Madura"
-                  className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
-                />
-                <button
-                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
-                >
-                  Reserva tu cita
-                </button>
+              {/* Item 4 */}
+              <div className="space-y-6">
+                <div className="w-full aspect-square rounded-lg shadow-lg overflow-hidden relative group">
+                  <img
+                    src={pmadura}
+                    alt="Maquillaje Piel Madura"
+                    className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                  />
+                  <button
+                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
+                  >
+                    Reserva tu cita
+                  </button>
+                </div>
+                <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">Maquillaje Piel Madura</h2>
+                <p className="text-gray-600 leading-relaxed">
+                  From elegant centerpieces to dramatic installations, we transform your reception space
+                  into a breathtaking floral paradise.
+                </p>
               </div>
-              <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">Maquillaje Glam</h2>
-              <p className="text-gray-600 leading-relaxed">
-                From elegant centerpieces to dramatic installations, we transform your reception space
-                into a breathtaking floral paradise.
-              </p>
-            </div>
 
-            <div className="space-y-6">
-              <div className="w-full h-96 rounded-lg shadow-lg overflow-hidden relative group">
-                <img
-                  src={express}
-                  alt="Maquillaje Piel Madura"
-                  className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
-                />
-                <button
-                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
-                >
-                  Reserva tu cita
-                </button>
+              {/* Item 5 */}
+              <div className="space-y-6">
+                <div className="w-full aspect-square rounded-lg shadow-lg overflow-hidden relative group">
+                  <img
+                    src={glam}
+                    alt="Maquillaje Glam"
+                    className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                  />
+                  <button
+                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
+                  >
+                    Reserva tu cita
+                  </button>
+                </div>
+                <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">Maquillaje Glam</h2>
+                <p className="text-gray-600 leading-relaxed">
+                  From elegant centerpieces to dramatic installations, we transform your reception space
+                  into a breathtaking floral paradise.
+                </p>
               </div>
-              <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">Maquillaje Express</h2>
-              <p className="text-gray-600 leading-relaxed">
-                From elegant centerpieces to dramatic installations, we transform your reception space
-                into a breathtaking floral paradise.
-              </p>
-            </div>
 
-          </div>
+              {/* Item 6 */}
+              <div className="space-y-6">
+                <div className="w-full aspect-square rounded-lg shadow-lg overflow-hidden relative group">
+                  <img
+                    src={express}
+                    alt="Maquillaje Express"
+                    className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                  />
+                  <button
+                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
+                  >
+                    Reserva tu cita
+                  </button>
+                </div>
+                <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">Maquillaje Express</h2>
+                <p className="text-gray-600 leading-relaxed">
+                  From elegant centerpieces to dramatic installations, we transform your reception space
+                  into a breathtaking floral paradise.
+                </p>
+              </div>
+
+            </div>
           {/* Fin sección servicios de maquillaje */}
             
 

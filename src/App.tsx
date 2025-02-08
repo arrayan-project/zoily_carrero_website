@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
+import ScrollToTopButton from './components/ScrollTopButton'; // Ajusta la ruta si es necesario
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Services from './pages/Services';
@@ -15,7 +16,8 @@ function App() {
   return (
     <Router basename="/zoily_carrero_website/"> {/* Agrega basename aquí */}
       <div className="relative min-h-screen">
-        <Navigation />
+        <Navigation className="md:mb-12" />
+        
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
@@ -25,6 +27,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
         </Routes>
         <Footer />
+        <ScrollToTopButton />
       </div>
     </Router>
     

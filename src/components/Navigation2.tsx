@@ -1,20 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-interface NavigationProps {
-  className?: string; //  <<<  AÑADE ESTA LÍNEA: Define className como una prop opcional de tipo string
-}
-
-const Navigation: React.FC<NavigationProps> = ({ className }) => {
+function Navigation2() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const menuRef = useRef<HTMLDivElement>(null); // Ref para el contenedor del menú
 
   const isActive = (path: string) => {
     return location.pathname === path;
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isMenuOpen && menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMenuOpen]);
+
   return (
-    <nav className={`${className} z-50`}>
+    <nav className="absolute top-0 left-0 right-0 z-50">
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -28,24 +43,14 @@ const Navigation: React.FC<NavigationProps> = ({ className }) => {
       </button>
 
       {/* Desktop Menu */}
-      <div className={`
-        md:max-w-6xl md:mx-auto
-        ${isMenuOpen ? 'fixed inset-0 bg-white bg-opacity-95 z-50' : 'hidden'} md:block
-        transition-all duration-300 ease-in-out
-      `}>
-        {/* Botón de cierre (X) - visible solo en menú a pantalla completa */}
-        {isMenuOpen && (
-          <button
-            onClick={() => setIsMenuOpen(false)}
-            className="md:hidden absolute top-4 right-4 text-gray-800 p-2 hover:text-pink-500 transition-colors duration-300 z-50"
-          >
-            <div className="space-y-2">
-              <span className={`block w-8 h-0.5 bg-current transform transition-transform duration-300 rotate-45 translate-y-2.5`}></span>
-              <span className={`block w-8 h-0.5 bg-current transition-opacity duration-300 opacity-0`}></span>
-              <span className={`block w-8 h-0.5 bg-current transform transition-transform duration-300 -rotate-45 -translate-y-2.5`}></span>
-            </div>
-          </button>
-        )}
+      <div
+        ref={menuRef} // Asignamos la ref al div del menú
+        className={`
+          md:max-w-6xl md:mx-auto
+          ${isMenuOpen ? 'block bg-white bg-opacity-95 md:bg-transparent' : 'hidden'} md:block
+          transition-all duration-300 ease-in-out
+        `}
+      >
         <div className={`
           flex flex-col md:flex-row md:justify-center md:items-center
           space-y-4 md:space-y-0 md:space-x-8
@@ -95,4 +100,4 @@ const Navigation: React.FC<NavigationProps> = ({ className }) => {
   );
 }
 
-export default Navigation;
+export default Navigation2;

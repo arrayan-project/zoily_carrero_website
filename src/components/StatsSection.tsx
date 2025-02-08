@@ -9,7 +9,7 @@ const Counter = ({ value }: { value: number }) => {
 
   useEffect(() => {
     let start = 0;
-    const duration = 2000; // Duración del conteo en milisegundos
+    const duration = 4000; // Duración del conteo en milisegundos
     const interval = Math.max(10, duration / value); // Ajusta la velocidad del conteo
 
     const timer = setInterval(() => {
