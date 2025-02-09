@@ -18,6 +18,7 @@ import express2 from "/src/img/social7.webp";
 import StatsSection from "../components/StatsSection";
 import PageBanner from "../components/PageBanner";
 import servicesBanner from "/src/img/services-banner.webp";
+import servicesDownBanner from "/src/img/services-down-banner.webp";
 import { useSwipeable } from "react-swipeable";
 
 // Define un array de imágenes para cada servicio (ejemplo, puedes usar más imágenes)
@@ -330,7 +331,13 @@ function Services() {
                 </Slider>                                   
                 <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
                      Reserva tu cita                    
-                </button>                                 
+                </button>
+                
+                <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-7 text-pink-300">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                    </svg>
+                </div>                                 
               </div>     
                                         
               <h2 className="text-2xl font-montserrat tracking-wide text-gray-700 ">
@@ -387,7 +394,13 @@ function Services() {
                 </Slider>                                   
                 <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
                     Reserva tu cita                    
-                </button>                                 
+                </button>        
+
+                <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-7 text-pink-300">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                    </svg>
+                </div>                         
               </div>     
                                        
               <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">
@@ -445,7 +458,13 @@ function Services() {
                 </Slider>                                   
                 <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
                     Reserva tu cita                    
-                </button>                                 
+                </button>
+                
+                <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-7 text-pink-300">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                    </svg>
+                </div>                                 
               </div>  
                                           
               <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">
@@ -503,7 +522,13 @@ function Services() {
                 </Slider>                    
                 <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
                   Reserva tu cita                    
-                </button>                         
+                </button> 
+                
+                <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-7 text-pink-300">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                    </svg>
+                </div>                        
               </div>
                                
               <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">
@@ -560,7 +585,13 @@ function Services() {
                 </Slider>                                   
                 <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
                     Reserva tu cita                    
-                </button>                                 
+                </button>  
+                
+                <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-7 text-pink-300">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                    </svg>
+                </div>                               
               </div> 
                                            
               <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">
@@ -624,7 +655,13 @@ function Services() {
                 </Slider>                                   
                 <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
                    Reserva tu cita                    
-                </button>                                 
+                </button>        
+                
+                <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-7 text-pink-300">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                    </svg>
+                </div>                         
               </div>    
                                         
               <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">
@@ -934,6 +971,11 @@ function Services() {
                 {/* Fin sección Cursos */}
                          
                 </div>
+
+               
+
+
+
                 {/* Galería de imágenes modal */}
                 {isGalleryOpen && (
                   <div
@@ -1017,8 +1059,15 @@ function Services() {
                       </button>
                     </div>
                   </div>
-                )}
-        </div>           
+                )}              
+        </div>       
+                <PageBanner
+                title=" "
+                imageSrc={servicesDownBanner}
+                objectPosition="left-bottom"
+                bannerHeight="h-screen/2"
+                
+                />    
       </main>         
     </div>
   );

@@ -1,14 +1,11 @@
 import React from 'react';
-import servicesBanner from './img/services-banner.jpg'; // Make sure path is correct
-import storeBanner from './img/store-banner.jpg';     // Make sure path is correct
-import galleryBanner from './img/gallery-banner.jpg';   // Make sure path is correct
-import aboutUsBanner from './img/about-us-banner.jpg';  // Make sure path is correct
-import contactBanner from './img/contact-banner.jpg';  // Make sure path is correct
+
 
 interface PageBannerProps {
     title: string;
     imageSrc: string;
     bannerHeight?: string;
+    bannerWeight?: string;
     objectFitType?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
     objectPosition?: 'bottom' | 'center' | 'left' | 'left-bottom' | 'left-top' | 'right' | 'right-bottom' | 'right-top' | 'top';
     marginTop?: string;
