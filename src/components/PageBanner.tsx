@@ -21,7 +21,7 @@ const PageBanner: React.FC<PageBannerProps> = ({ title, imageSrc, objectFitType 
             <div className="relative">
                 <div className="absolute inset-0">
                     <img
-                        className={`h-full w-full object-cover object-${objectPosition} opacity-70`} 
+                        className={`h-full w-full object-cover object-${objectPosition}`}
                         src={imageSrc}
                         alt=""
                     />
