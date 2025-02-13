@@ -18,7 +18,7 @@ import express2 from "/src/img/social7.webp";
 import StatsSection from "../components/StatsSection";
 import PageBanner from "../components/PageBanner";
 import servicesBanner from "/src/img/services-banner.webp";
-import servicesDownBanner from "/src/img/services-down-banner.webp";
+import servicesDownBanner from "/src/img/services-banner-bottom.webp";
 import { useSwipeable } from "react-swipeable";
 
 // Define un array de imágenes para cada servicio (ejemplo, puedes usar más imágenes)
@@ -301,7 +301,6 @@ function Services() {
         title="NUESTROS SERVICIOS"
         imageSrc={servicesBanner}
         objectPosition="left-bottom"
-        bannerHeight="h-screen/2"
       />
 
       {/* Contenido principal: flex-grow hace que se expanda para ocupar el espacio disponible */}
@@ -309,7 +308,7 @@ function Services() {
       <main className="flex-grow">
         <div className="max-w-7xl mx-auto px-2 py-16 md:py-32">
           <h1 className="text-4xl md:text-5xl font-montserrat text-center mb-12 tracking-wider text-gray-800">
-                        NUESTROS SERVICIOS         
+                        CONOCE LO QUE PODEMOS HACER POR TI        
           </h1>
 
           {/* Sección servicios de maquillaje */}       
@@ -1062,10 +1061,10 @@ function Services() {
                 )}              
         </div>       
                 <PageBanner
-                title=" "
+                title="Te debes este momento"
                 imageSrc={servicesDownBanner}
-                objectPosition="left-bottom"
-                bannerHeight="h-screen/2"
+                objectPosition="bottom"
+                className="h-full"
                 
                 />    
       </main>         
