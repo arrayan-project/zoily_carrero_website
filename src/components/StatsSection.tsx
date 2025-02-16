@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { PersonStanding, Brush, Handshake } from "lucide-react";
-import StatsImage from '/src/img/zoilynegro.webp';
+import images from '../assets/img/images';
 
 // Componente de contador animado
 const Counter = ({ value, isVisible }: { value: number, isVisible: boolean }) => { // Add isVisible prop
@@ -70,7 +70,7 @@ const StatsSection = () => {
       {/* Imagen de Fondo - Absolutamente posicionada detrás */}
       <div className="absolute inset-0"> {/* Div absoluto que cubre todo el section */}
         <img
-          src={StatsImage} // Usa la imagen importada
+          src={images.zoilyblack} // Usa la imagen importada
           alt="Fondo de estadísticas"
           className="w-full h-full object-cover opacity-20 md:object-[50%_25%]" // Imagen cubre y es opaca
         />

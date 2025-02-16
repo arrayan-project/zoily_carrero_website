@@ -32,7 +32,7 @@ const Navigation: React.FC<NavigationProps> = ({ className }) => {
         md:max-w-6xl md:mx-auto
         ${isMenuOpen ? 'fixed inset-0 bg-white bg-opacity-95 z-50' : 'hidden'} md:block
         transition-all duration-300 ease-in-out
-      `}>
+      `}style={{ maxWidth: '100vw' }}>
         {/* Botón de cierre (X) - visible solo en menú a pantalla completa */}
         {isMenuOpen && (
           <button

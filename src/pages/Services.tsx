@@ -3,31 +3,18 @@ import SlideComponent from "../components/SlideComponent";
 import Slider from "react-slick"; // Importa Slider
 import "slick-carousel/slick/slick.css"; // Importa estilos del carrusel
 import "slick-carousel/slick/slick-theme.css"; // Importa tema del carrusel
-import novia from "/src/img/boda.webp";
-import novia1 from "/src/img/boda1.webp";
-import social from "/src/img/social6.webp";
-import social2 from "/src/img/social10.webp";
-import m_peinado from "/src/img/social8copeinado.webp";
-import m_peinado2 from "/src/img/social2conpeinado.webp";
-import pmadura from "/src/img/social14pielmadura.webp";
-import pmadura2 from "/src/img/social5pielmadura.webp";
-import glam from "/src/img/social12.webp";
-import glam2 from "/src/img/social13.webp";
-import express from "/src/img/social1.webp";
-import express2 from "/src/img/social7.webp";
 import StatsSection from "../components/StatsSection";
 import PageBanner from "../components/PageBanner";
-import servicesBanner from "/src/img/services-banner.webp";
-import servicesDownBanner from "/src/img/services-banner-bottom.webp";
 import { useSwipeable } from "react-swipeable";
-
-// Define un array de imágenes para cada servicio (ejemplo, puedes usar más imágenes)
-const noviaImages = [novia, novia1];
-const socialImages = [social, social2];
-const peinadoImages = [m_peinado, m_peinado2];
-const maduraImages = [pmadura, pmadura2];
-const glamImages = [glam, glam2];
-const expressImages = [express, express2];
+import { Link, useLocation } from 'react-router-dom';
+import images, { // Importa el objeto 'images' (exportación por defecto)
+  noviaImages,     // ... y las exportaciones nombradas de los arrays de imágenes
+  socialImages,
+  peinadoImages,
+  maduraImages,
+  glamImages,
+  expressImages,
+} from '../assets/img/images';
 
 function Services() {
   // Estados para la galería
@@ -227,7 +214,7 @@ function Services() {
 
         // Datos para el cuadro de información de Piel madura
   const pielmaduraMakeupServices = {
-    category: "Maquillaje Piel Madura - Servicios Adicionales",
+    category: "Maquillaje para Piel Madura - Servicios Adicionales",
     items: [
       {
         name: "Servicio 1 Profesional",
@@ -299,7 +286,7 @@ function Services() {
 
       <PageBanner
         title="NUESTROS SERVICIOS"
-        imageSrc={servicesBanner}
+        imageSrcs={[images.servicesBannerUp]}
         objectPosition="left-bottom"
       />
 
@@ -308,7 +295,7 @@ function Services() {
       <main className="flex-grow">
         <div className="max-w-7xl mx-auto px-2 py-16 md:py-32">
           <h1 className="text-4xl md:text-5xl font-montserrat text-center mb-12 tracking-wider text-gray-800">
-                        CONOCE LO QUE PODEMOS HACER POR TI        
+                        Conoce lo que podemos hacer por ti        
           </h1>
 
           {/* Sección servicios de maquillaje */}       
@@ -328,13 +315,13 @@ function Services() {
                     />
                   ))}
                 </Slider>                                   
-                <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
                      Reserva tu cita                    
                 </button>
                 
                 <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-7 text-pink-300">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-7 text-pink-300">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
                     </svg>
                 </div>                                 
               </div>     
@@ -349,7 +336,7 @@ function Services() {
               </p>
               
               <div className="mb-16">
-                  <div className="bg-white rounded-lg shadow-sm p-8">
+                  <div className="bg-white rounded-lg shadow-sm p-2 md:p-8">
                     <h2 className="text-lg sm:text-xl md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
                       {noviaMakeupServices.category}  
                     </h2>
@@ -391,13 +378,13 @@ function Services() {
                     />
                   ))}
                 </Slider>                                   
-                <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
                     Reserva tu cita                    
                 </button>        
 
                 <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-7 text-pink-300">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-7 text-pink-300">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
                     </svg>
                 </div>                         
               </div>     
@@ -412,7 +399,7 @@ function Services() {
               </p>        
               
               <div className="mb-16">
-                  <div className="bg-white rounded-lg shadow-sm p-8">
+                  <div className="bg-white rounded-lg shadow-sm p-2 md:p-8">
                   <h2 className="text-lg sm:text-xl md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
                       {socialMakeupServices.category}  
                     </h2>
@@ -455,13 +442,13 @@ function Services() {
                     />
                   ))}
                 </Slider>                                   
-                <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
                     Reserva tu cita                    
                 </button>
                 
                 <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-7 text-pink-300">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-7 text-pink-300">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
                     </svg>
                 </div>                                 
               </div>  
@@ -476,7 +463,7 @@ function Services() {
               </p>
               
               <div className="mb-16">
-                  <div className="bg-white rounded-lg shadow-sm p-8">
+                  <div className="bg-white rounded-lg shadow-sm p-2 md:p-8">
                     <h2 className="text-lg sm:text-xl md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
                       {maquilajeypeinadoMakeupServices.category}  
                     </h2>
@@ -519,13 +506,13 @@ function Services() {
                     />
                   ))}
                 </Slider>                    
-                <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
                   Reserva tu cita                    
                 </button> 
                 
                 <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-7 text-pink-300">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-7 text-pink-300">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
                     </svg>
                 </div>                        
               </div>
@@ -539,8 +526,8 @@ function Services() {
                 into a breathtaking floral paradise.                  
               </p>
                  
-              <div className="mb-16">
-                  <div className="bg-white rounded-lg shadow-sm p-8">
+              <div className="mb-16"> 
+                  <div className="bg-white rounded-lg shadow-sm p-2 md:p-8">
                     <h2 className="text-lg sm:text-xl md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
                       {pielmaduraMakeupServices.category}  
                     </h2>
@@ -582,13 +569,13 @@ function Services() {
                     />
                   ))}
                 </Slider>                                   
-                <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
                     Reserva tu cita                    
                 </button>  
                 
                 <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-7 text-pink-300">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-7 text-pink-300">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
                     </svg>
                 </div>                               
               </div> 
@@ -603,7 +590,7 @@ function Services() {
               </p>
               
               <div className="mb-16">
-                  <div className="bg-white rounded-lg shadow-sm p-8">
+                  <div className="bg-white rounded-lg shadow-sm p-2 md:p-8">
                     <h2 className="text-lg sm:text-xl md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
                       {glamMekupServices.category}  
                     </h2>
@@ -652,13 +639,13 @@ function Services() {
                     </div>
                   ))}
                 </Slider>                                   
-                <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
                    Reserva tu cita                    
                 </button>        
                 
                 <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-7 text-pink-300">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-7 text-pink-300">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
                     </svg>
                 </div>                         
               </div>    
@@ -673,7 +660,7 @@ function Services() {
               </p>
               
               <div className="mb-16">
-                  <div className="bg-white rounded-lg shadow-sm p-8">
+                  <div className="bg-white rounded-lg shadow-sm p-2 md:p-8">
                     <h2 className="text-lg sm:text-xl md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
                       {expressMakeupServices.category}  
                     </h2>
@@ -758,7 +745,7 @@ function Services() {
                     className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
                     loading="lazy"
                   />                                    
-                  <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                  <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
                        Reserva tu cita                    
                   </button>                               
                 </div>
@@ -812,7 +799,7 @@ function Services() {
                       className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
                       loading="lazy"
                     />                                      
-                    <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                    <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
                          Reserva tu cita                    
                     </button>                                     
                   </div>
@@ -866,7 +853,7 @@ function Services() {
                         className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
                         loading="lazy"
                       />                                 
-                      <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                      <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
                           Reserva tu cita                    
                       </button>               
                     </div>
@@ -920,7 +907,7 @@ function Services() {
                           className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
                           loading="lazy"
                         />                
-                        <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-gray px-6 py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                        <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
                              Reserva tu cita                    
                         </button>                  
                       </div>
@@ -1060,13 +1047,22 @@ function Services() {
                   </div>
                 )}              
         </div>       
+
                 <PageBanner
-                title="Te debes este momento"
-                imageSrc={servicesDownBanner}
-                objectPosition="bottom"
-                className="h-full"
-                
-                />    
+                  title="'Te debes este momento'"
+                  imageSrcs={[images.servicesBannerDown]}
+                  objectPosition="bottom"
+                >
+                  {/* Aquí está el código de tu botón como 'children' */}
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <Link
+                      to="/contact"
+                      className="px-8 py-5 bg-pink-400 text-white font-semibold rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
+                    >
+                      Agenda tu cita
+                    </Link>
+                  </div>
+                </PageBanner>              
       </main>         
     </div>
   );
