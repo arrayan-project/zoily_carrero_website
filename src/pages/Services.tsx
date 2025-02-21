@@ -290,11 +290,11 @@ function Services() {
         objectPosition="left-bottom"
       />
 
-      {/* Contenido principal: flex-grow hace que se expanda para ocupar el espacio disponible */}
+      {/* Contenido principal: flex-grow hace que se expanda para ocupar el espacio disponible */} 
 
       <main className="flex-grow">
         <div className="max-w-7xl mx-auto px-2 py-16 md:py-32">
-          <h1 className="text-4xl md:text-5xl font-montserrat text-center mb-12 tracking-wider text-gray-800">
+          <h1 className="text-2xl md:text-5xl font-montserrat font-light text-center mb-12 tracking-wider text-gray-800">
                         Conoce lo que podemos hacer por ti        
           </h1>
 
@@ -326,10 +326,10 @@ function Services() {
                 </div>                                 
               </div>     
                                         
-              <h2 className="text-2xl font-montserrat tracking-wide text-gray-700 ">
+              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide text-gray-700 ">
                 Maquillaje Novia
               </h2>                               
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 leading-relaxed text-sm font-light md:text-base md:font-normal">
                 From elegant centerpieces to dramatic
                 installations, we transform your reception space                
                 into a breathtaking floral paradise.                 
@@ -337,7 +337,7 @@ function Services() {
               
               <div className="mb-16">
                   <div className="bg-white rounded-lg shadow-sm p-2 md:p-8">
-                    <h2 className="text-lg sm:text-xl md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
+                    <h2 className="text-lg text-base md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
                       {noviaMakeupServices.category}  
                     </h2>
                     <div className="space-y-6">
@@ -389,10 +389,10 @@ function Services() {
                 </div>                         
               </div>     
                                        
-              <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">
+              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide text-gray-700">
                 Maquillaje Social
               </h2>                               
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 leading-relaxed text-sm font-light md:text-base md:font-normal">
                 From elegant centerpieces to dramatic
                 installations, we transform your reception space                
                 into a breathtaking floral paradise.                  
@@ -400,7 +400,7 @@ function Services() {
               
               <div className="mb-16">
                   <div className="bg-white rounded-lg shadow-sm p-2 md:p-8">
-                  <h2 className="text-lg sm:text-xl md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
+                  <h2 className="text-lg text-base md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
                       {socialMakeupServices.category}  
                     </h2>
                     <div className="space-y-6">
@@ -453,10 +453,10 @@ function Services() {
                 </div>                                 
               </div>  
                                           
-              <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">
+              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide text-gray-700">
                 Maquillaje & Peinado
               </h2>                               
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 leading-relaxed text-sm font-light md:text-base md:font-normal">
                 From elegant centerpieces to dramatic
                 installations, we transform your reception space                
                 into a breathtaking floral paradise.                  
@@ -464,7 +464,7 @@ function Services() {
               
               <div className="mb-16">
                   <div className="bg-white rounded-lg shadow-sm p-2 md:p-8">
-                    <h2 className="text-lg sm:text-xl md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
+                    <h2 className="text-lg text-base md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
                       {maquilajeypeinadoMakeupServices.category}  
                     </h2>
                     <div className="space-y-6">
@@ -517,10 +517,10 @@ function Services() {
                 </div>                        
               </div>
                                
-              <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">
+              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide text-gray-700">
                 Maquillaje Piel Madura
               </h2>                    
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 leading-relaxed text-sm font-light md:text-base md:font-normal">
                 From elegant centerpieces to dramatic
                 installations, we transform your reception space                
                 into a breathtaking floral paradise.                  
@@ -528,7 +528,7 @@ function Services() {
                  
               <div className="mb-16"> 
                   <div className="bg-white rounded-lg shadow-sm p-2 md:p-8">
-                    <h2 className="text-lg sm:text-xl md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
+                    <h2 className="text-lg text-base md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
                       {pielmaduraMakeupServices.category}  
                     </h2>
                     <div className="space-y-6">
@@ -580,10 +580,10 @@ function Services() {
                 </div>                               
               </div> 
                                            
-              <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">
+              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide text-gray-700">
                 Maquillaje Glam
               </h2>                              
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 leading-relaxed text-sm font-light md:text-base md:font-normal">
                 From elegant centerpieces to dramatic
                 installations, we transform your reception space                
                 into a breathtaking floral paradise.                  
@@ -591,7 +591,7 @@ function Services() {
               
               <div className="mb-16">
                   <div className="bg-white rounded-lg shadow-sm p-2 md:p-8">
-                    <h2 className="text-lg sm:text-xl md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
+                    <h2 className="text-lg text-base md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
                       {glamMekupServices.category}  
                     </h2>
                     <div className="space-y-6">
@@ -650,10 +650,10 @@ function Services() {
                 </div>                         
               </div>    
                                         
-              <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">
+              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide text-gray-700">
                 Maquillaje Express
               </h2>                               
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 leading-relaxed text-sm font-light md:text-base md:font-normal">
                 From elegant centerpieces to dramatic
                 installations, we transform your reception space                
                 into a breathtaking floral paradise.                  
@@ -661,7 +661,7 @@ function Services() {
               
               <div className="mb-16">
                   <div className="bg-white rounded-lg shadow-sm p-2 md:p-8">
-                    <h2 className="text-lg sm:text-xl md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
+                    <h2 className="text-lg text-base md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
                       {expressMakeupServices.category}  
                     </h2>
                     <div className="space-y-6">
@@ -690,17 +690,10 @@ function Services() {
           </div>
           {/* Fin sección servicios de maquillaje */}    
           
-                 
-          {/* Sección estadistica de servicios */}           
-          <div className="absolute left-0 w-full">
-           <StatsSection />           
-          </div>
-          {/* Fin sección estadistica de servicios */}   
-          
                   
           {/* Sección "Nuestros servicios incluyen" */}           
-          <div className="text-center space-y-8 mb-24">                         
-            <h3 className="text-3xl font-montserrat tracking-wide text-gray-700">
+          <div className="text-center space-y-8 mb-6">                         
+            <h3 className="text-2xl md:text-5xl font-montserrat font-light tracking-wide text-gray-700">
               Nuestros Servicios Incluyen
             </h3>
                                     
@@ -727,11 +720,19 @@ function Services() {
                        
           </div>         
           {/* Fin sección "Nuestros servicios incluyen" */}   
-          
-                  
+          </div> 
+
+          {/* Sección estadistica de servicios */}           
+          <div className="w-full mb-0 md:mb-6">
+           <StatsSection />           
+          </div>
+          {/* Fin sección estadistica de servicios */}  
+                
+        <div className="max-w-7xl mx-auto px-2">
+
           {/* Sección Cursos */}           
-          <div className="text-center space-y-8 pt-16">                        
-            <h1 className="text-4xl md:text-5xl font-montserrat text-center mb-12 tracking-wider text-gray-800">
+          <div className="text-center space-y-8 pt-16 mb-24 md:mb-48">                        
+            <h1 className="text-2xl md:text-5xl font-montserrat font-light text-center mb-12 tracking-wider text-gray-800">
                  NUESTROS CURSOS              
             </h1>
                                     
@@ -956,13 +957,10 @@ function Services() {
                   </div>
                 {/* Fin sección Cursos */}
                          
-                </div>
-
-               
+              </div>
 
 
-
-                {/* Galería de imágenes modal */}
+          {/* Galería de imágenes modal */}
                 {isGalleryOpen && (
                   <div
                     className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 z-50 flex justify-center items-center"

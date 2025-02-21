@@ -127,7 +127,7 @@ export default function Gallery() {
                         Mira nuestros trabajos con amor
                     </h1>
 
-                    <div className="flex md:justify-center justify-start space-x-4 mb-8 overflow-x-auto whitespace-nowrap px-12" style={{ maxWidth: '100%' }}>
+                    <div className="flex md:justify-center justify-start space-x-4 mb-8 overflow-x-auto whitespace-nowrap px-12 text-xs font-light md:text-base md:font-normal" style={{ maxWidth: '100%' }}>
 
                         {categories.map((category) => (
                             <button

@@ -77,7 +77,7 @@ const StatsSection = () => {
       </div>
 
       {/* Contenedor para las Estadísticas - Contenido en primer plano */}
-      <div className="relative max-w-full mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 text-center text-white"> {/* Estadísticas en posición relativa */}
+      <div className="relative max-w-full grid grid-cols-1 md:grid-cols-3 gap-4 text-center text-white"> {/* Estadísticas en posición relativa */}
         {stats.map((stat, index) => (
           <motion.div
             key={index}
