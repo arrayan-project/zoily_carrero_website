@@ -15,6 +15,7 @@ import images, { // Importa el objeto 'images' (exportación por defecto)
   glamImages,
   expressImages,
 } from '../assets/img/images';
+import { useTheme } from '../components/context/useTheme';
 
 function Services() {
   // Estados para la galería
@@ -44,6 +45,139 @@ function Services() {
   const closeGallery = () => {
     setIsGalleryOpen(false);
   };
+
+  // Datos para el cuadro de información de Novia
+  const noviaMakeupServices = {
+    category: "Maquillaje Novia - Servicios Adicionales",
+    items: [
+      {
+        name: "Servicio 1 Profesional",
+        price: "$GG",
+        description: "Descripción del servicio 1 profesional.",
+      },
+      {
+        name: "Servicio 2 Profesional",
+        price: "$HH",
+        description: "Descripción del servicio 2 profesional.",
+      },
+      {
+        name: "Servicio 3 Profesional",
+        price: "$II",
+        description: "Descripción del servicio 3 profesional.",
+      },
+    ],
+  };
+
+  // Datos para el cuadro de información de Social
+  const socialMakeupServices = {
+  category: "Maquillaje Social - Servicios Adicionales",
+  items: [
+    {
+      name: "Servicio 1 Profesional",
+      price: "$GG",
+      description: "Descripción del servicio 1 profesional.",
+    },
+    {
+      name: "Servicio 2 Profesional",
+      price: "$HH",
+      description: "Descripción del servicio 2 profesional.",
+    },
+    {
+      name: "Servicio 3 Profesional",
+      price: "$II",
+      description: "Descripción del servicio 3 profesional.",
+    },
+  ],
+  };
+
+  // Datos para el cuadro de información de Maquillaje y peinado
+  const maquilajeypeinadoMakeupServices = {
+      category: "Maquillaje & Peinado - Servicios Adicionales",
+      items: [
+        {
+          name: "Servicio 1 Profesional",
+          price: "$GG",
+          description: "Descripción del servicio 1 profesional.",
+        },
+        {
+          name: "Servicio 2 Profesional",
+          price: "$HH",
+          description: "Descripción del servicio 2 profesional.",
+        },
+        {
+          name: "Servicio 3 Profesional",
+          price: "$II",
+          description: "Descripción del servicio 3 profesional.",
+        },
+      ],
+    };
+
+  // Datos para el cuadro de información de Piel madura
+  const pielmaduraMakeupServices = {
+  category: "Maquillaje para Piel Madura - Servicios Adicionales",
+  items: [
+    {
+      name: "Servicio 1 Profesional",
+      price: "$GG",
+      description: "Descripción del servicio 1 profesional.",
+    },
+    {
+      name: "Servicio 2 Profesional",
+      price: "$HH",
+      description: "Descripción del servicio 2 profesional.",
+    },
+    {
+      name: "Servicio 3 Profesional",
+      price: "$II",
+      description: "Descripción del servicio 3 profesional.",
+    },
+  ],
+  };
+
+  // Datos para el cuadro de información de Glam
+  const glamMekupServices = {
+      category: "Maquillaje Glam - Servicios Adicionales",
+      items: [
+        {
+          name: "Servicio 1 Profesional",
+          price: "$GG",
+          description: "Descripción del servicio 1 profesional.",
+        },
+        {
+          name: "Servicio 2 Profesional",
+          price: "$HH",
+          description: "Descripción del servicio 2 profesional.",
+        },
+        {
+          name: "Servicio 3 Profesional",
+          price: "$II",
+          description: "Descripción del servicio 3 profesional.",
+        },
+      ],
+    };
+
+  // Datos para el cuadro de información de Express
+  const expressMakeupServices = {
+  category: "Maquillaje Express - Servicios Adicionales",
+  items: [
+    {
+      name: "Servicio 1 Profesional",
+      price: "$GG",
+      description: "Descripción del servicio 1 profesional.",
+    },
+    {
+      name: "Servicio 2 Profesional",
+      price: "$HH",
+      description: "Descripción del servicio 2 profesional.",
+    },
+    {
+      name: "Servicio 3 Profesional",
+      price: "$II",
+      description: "Descripción del servicio 3 profesional.",
+    },
+  ],
+  };
+
 
   // Settings para el carrusel de React Slick
   const sliderSettings = {
@@ -145,157 +279,35 @@ function Services() {
     ],
   };
 
-
-    // Datos para el cuadro de información de Novia
-    const noviaMakeupServices = {
-        category: "Maquillaje Novia - Servicios Adicionales",
-        items: [
-          {
-            name: "Servicio 1 Profesional",
-            price: "$GG",
-            description: "Descripción del servicio 1 profesional.",
-          },
-          {
-            name: "Servicio 2 Profesional",
-            price: "$HH",
-            description: "Descripción del servicio 2 profesional.",
-          },
-          {
-            name: "Servicio 3 Profesional",
-            price: "$II",
-            description: "Descripción del servicio 3 profesional.",
-          },
-        ],
-      };
-
-        // Datos para el cuadro de información de Social
-  const socialMakeupServices = {
-    category: "Maquillaje Social - Servicios Adicionales",
-    items: [
-      {
-        name: "Servicio 1 Profesional",
-        price: "$GG",
-        description: "Descripción del servicio 1 profesional.",
-      },
-      {
-        name: "Servicio 2 Profesional",
-        price: "$HH",
-        description: "Descripción del servicio 2 profesional.",
-      },
-      {
-        name: "Servicio 3 Profesional",
-        price: "$II",
-        description: "Descripción del servicio 3 profesional.",
-      },
-    ],
-  };
-
-    // Datos para el cuadro de información de Maquillaje y peinado
-    const maquilajeypeinadoMakeupServices = {
-        category: "Maquillaje & Peinado - Servicios Adicionales",
-        items: [
-          {
-            name: "Servicio 1 Profesional",
-            price: "$GG",
-            description: "Descripción del servicio 1 profesional.",
-          },
-          {
-            name: "Servicio 2 Profesional",
-            price: "$HH",
-            description: "Descripción del servicio 2 profesional.",
-          },
-          {
-            name: "Servicio 3 Profesional",
-            price: "$II",
-            description: "Descripción del servicio 3 profesional.",
-          },
-        ],
-      };
-
-        // Datos para el cuadro de información de Piel madura
-  const pielmaduraMakeupServices = {
-    category: "Maquillaje para Piel Madura - Servicios Adicionales",
-    items: [
-      {
-        name: "Servicio 1 Profesional",
-        price: "$GG",
-        description: "Descripción del servicio 1 profesional.",
-      },
-      {
-        name: "Servicio 2 Profesional",
-        price: "$HH",
-        description: "Descripción del servicio 2 profesional.",
-      },
-      {
-        name: "Servicio 3 Profesional",
-        price: "$II",
-        description: "Descripción del servicio 3 profesional.",
-      },
-    ],
-  };
-
-    // Datos para el cuadro de información de Glam
-    const glamMekupServices = {
-        category: "Maquillaje Glam - Servicios Adicionales",
-        items: [
-          {
-            name: "Servicio 1 Profesional",
-            price: "$GG",
-            description: "Descripción del servicio 1 profesional.",
-          },
-          {
-            name: "Servicio 2 Profesional",
-            price: "$HH",
-            description: "Descripción del servicio 2 profesional.",
-          },
-          {
-            name: "Servicio 3 Profesional",
-            price: "$II",
-            description: "Descripción del servicio 3 profesional.",
-          },
-        ],
-      };
-
-        // Datos para el cuadro de información de Express
-  const expressMakeupServices = {
-    category: "Maquillaje Express - Servicios Adicionales",
-    items: [
-      {
-        name: "Servicio 1 Profesional",
-        price: "$GG",
-        description: "Descripción del servicio 1 profesional.",
-      },
-      {
-        name: "Servicio 2 Profesional",
-        price: "$HH",
-        description: "Descripción del servicio 2 profesional.",
-      },
-      {
-        name: "Servicio 3 Profesional",
-        price: "$II",
-        description: "Descripción del servicio 3 profesional.",
-      },
-    ],
-  };
-
+  const { theme } = useTheme();
 
   return (
     // Contenedor principal: flex-col para que el footer se posicione al final
-    <div className="min-h-screen flex flex-col bg-pink-50">
+    <div className="min-h-screen flex flex-col">
             {/* Banner personalizado para la sección de Servicios */}
 
       <PageBanner
         title="NUESTROS SERVICIOS"
         imageSrcs={[images.servicesBannerUp]}
         objectPosition="left-bottom"
-      />
+      >
+      {/* Aquí está el código de tu botón como 'children' */}
+        <div className="flex flex-col sm:flex-row gap-4">
+            <Link
+              to="/contact"
+              className="px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
+            >
+              Agenda tu cita
+            </Link>
+          </div>
+        </PageBanner> 
 
       {/* Contenido principal: flex-grow hace que se expanda para ocupar el espacio disponible */} 
 
       <main className="flex-grow">
         <div className="max-w-7xl mx-auto px-2 py-16 md:py-32">
-          <h1 className="text-2xl md:text-5xl font-montserrat font-light text-center mb-12 tracking-wider text-gray-800">
-                        Conoce lo que podemos hacer por ti        
+          <h1 className="text-2xl md:text-5xl font-montserrat font-light text-center mb-12 tracking-wider ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+              Conoce lo que podemos hacer por ti        
           </h1>
 
           {/* Sección servicios de maquillaje */}       
@@ -303,7 +315,7 @@ function Services() {
             
             {/* Item 1 */}              
             <div className="space-y-6">                               
-              <div className="w-full aspect-square rounded-lg shadow-lg overflow-hidden relative group">
+              <div className="w-full aspect-square shadow-lg overflow-hidden relative group">
                 <Slider {...sliderSettings}>
                   {noviaImages.map((img, index) => (
                     <SlideComponent
@@ -326,35 +338,35 @@ function Services() {
                 </div>                                 
               </div>     
                                         
-              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide text-gray-700 ">
+              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                 Maquillaje Novia
               </h2>                               
-              <p className="text-gray-600 leading-relaxed text-sm font-light md:text-base md:font-normal">
+              <p className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                 From elegant centerpieces to dramatic
                 installations, we transform your reception space                
                 into a breathtaking floral paradise.                 
               </p>
               
               <div className="mb-16">
-                  <div className="bg-white rounded-lg shadow-sm p-2 md:p-8">
-                    <h2 className="text-lg text-base md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
+               <div className={`shadow-sm p-2 md:p-8 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+                  <h2 className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-700'}`}>
                       {noviaMakeupServices.category}  
                     </h2>
                     <div className="space-y-6">
                       {noviaMakeupServices.items.map((item, itemIndex) => (
                         <div
                           key={itemIndex}
-                          className="border-b border-gray-100 pb-4 last:border-0"
+                          className={`border-b pb-4 last:border-0 ${theme === 'dark' ? 'border-gray-600' : 'border-gray-100'}`}
                         >
                           <div className="flex justify-between items-center mb-2">
-                            <h3 className="font-montserrat text-sm sm:text-lg text-gray-800">
+                          <h3 className={`font-montserrat text-sm sm:text-lg ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                               {item.name}
                             </h3>
                             <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
                               {item.price}
                             </span>
                           </div>
-                          <p className="text-xs sm:text-sm md:text-base text-gray-600">
+                          <p className={`text-xs sm:text-sm md:text-base ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                             {item.description}
                           </p>
                         </div>
@@ -366,7 +378,7 @@ function Services() {
 
             {/* Item 2 */}               
             <div className="space-y-6">                               
-              <div className="w-full aspect-square rounded-lg shadow-lg overflow-hidden relative group">
+              <div className="w-full aspect-square shadow-lg overflow-hidden relative group">
                 <Slider {...sliderSettings}>
                   {socialImages.map((img, index) => (
                     <SlideComponent
@@ -389,35 +401,35 @@ function Services() {
                 </div>                         
               </div>     
                                        
-              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide text-gray-700">
+              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                 Maquillaje Social
               </h2>                               
-              <p className="text-gray-600 leading-relaxed text-sm font-light md:text-base md:font-normal">
+              <p className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                 From elegant centerpieces to dramatic
                 installations, we transform your reception space                
                 into a breathtaking floral paradise.                  
               </p>        
               
               <div className="mb-16">
-                  <div className="bg-white rounded-lg shadow-sm p-2 md:p-8">
-                  <h2 className="text-lg text-base md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
+                <div className={`shadow-sm p-2 md:p-8 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+                  <h2 className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-700'}`}>
                       {socialMakeupServices.category}  
                     </h2>
                     <div className="space-y-6">
                       {socialMakeupServices.items.map((item, itemIndex) => (
                         <div
                           key={itemIndex}
-                          className="border-b border-gray-100 pb-4 last:border-0"
+                          className={`border-b pb-4 last:border-0 ${theme === 'dark' ? 'border-gray-600' : 'border-gray-100'}`}
                         >
                           <div className="flex justify-between items-center mb-2">
-                            <h3 className="font-montserrat text-sm sm:text-lg text-gray-800">
+                            <h3 className={`font-montserrat text-sm sm:text-lg ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                               {item.name}
                             </h3>
                             <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
                               {item.price}
                             </span>
                           </div>
-                          <p className="text-xs sm:text-sm md:text-base text-gray-600">
+                          <p className={`text-xs sm:text-sm md:text-base ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                             {item.description}
                           </p>
                         </div>
@@ -430,7 +442,7 @@ function Services() {
             {/* Item 3 */}               
             <div className="space-y-6">
                                
-              <div className="w-full aspect-square rounded-lg shadow-lg overflow-hidden relative group">
+              <div className="w-full aspect-square shadow-lg overflow-hidden relative group">
                 <Slider {...sliderSettings}>
                   {peinadoImages.map((img, index) => (
                     <SlideComponent
@@ -453,35 +465,35 @@ function Services() {
                 </div>                                 
               </div>  
                                           
-              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide text-gray-700">
+              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                 Maquillaje & Peinado
               </h2>                               
-              <p className="text-gray-600 leading-relaxed text-sm font-light md:text-base md:font-normal">
+              <p className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                 From elegant centerpieces to dramatic
                 installations, we transform your reception space                
                 into a breathtaking floral paradise.                  
               </p>
               
               <div className="mb-16">
-                  <div className="bg-white rounded-lg shadow-sm p-2 md:p-8">
-                    <h2 className="text-lg text-base md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
+                <div className={`shadow-sm p-2 md:p-8 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+                  <h2 className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-700'}`}>
                       {maquilajeypeinadoMakeupServices.category}  
                     </h2>
                     <div className="space-y-6">
                       {maquilajeypeinadoMakeupServices.items.map((item, itemIndex) => (
                         <div
                           key={itemIndex}
-                          className="border-b border-gray-100 pb-4 last:border-0"
+                          className={`border-b pb-4 last:border-0 ${theme === 'dark' ? 'border-gray-600' : 'border-gray-100'}`}
                         >
                           <div className="flex justify-between items-center mb-2">
-                            <h3 className="font-montserrat text-sm sm:text-lg text-gray-800">
+                            <h3 className={`font-montserrat text-sm sm:text-lg ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                               {item.name}
                             </h3>
                             <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
                               {item.price}
                             </span>
                           </div>
-                          <p className="text-xs sm:text-sm md:text-base text-gray-600">
+                          <p className={`text-xs sm:text-sm md:text-base ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                             {item.description}
                           </p>
                         </div>
@@ -494,7 +506,7 @@ function Services() {
             {/* Item 4 */}               
             <div className="space-y-6">
                                
-              <div className="w-full aspect-square rounded-lg shadow-lg overflow-hidden relative group">
+              <div className="w-full aspect-square shadow-lg overflow-hidden relative group">
                 <Slider {...sliderSettings}>
                   {maduraImages.map((img, index) => (
                     <SlideComponent
@@ -517,35 +529,35 @@ function Services() {
                 </div>                        
               </div>
                                
-              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide text-gray-700">
+              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                 Maquillaje Piel Madura
               </h2>                    
-              <p className="text-gray-600 leading-relaxed text-sm font-light md:text-base md:font-normal">
+              <p className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                 From elegant centerpieces to dramatic
                 installations, we transform your reception space                
                 into a breathtaking floral paradise.                  
               </p>
                  
               <div className="mb-16"> 
-                  <div className="bg-white rounded-lg shadow-sm p-2 md:p-8">
-                    <h2 className="text-lg text-base md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
+                <div className={`shadow-sm p-2 md:p-8 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+                  <h2 className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-700'}`}>
                       {pielmaduraMakeupServices.category}  
                     </h2>
                     <div className="space-y-6">
                       {pielmaduraMakeupServices.items.map((item, itemIndex) => (
                         <div
                           key={itemIndex}
-                          className="border-b border-gray-100 pb-4 last:border-0"
+                          className={`border-b pb-4 last:border-0 ${theme === 'dark' ? 'border-gray-600' : 'border-gray-100'}`}
                         >
                           <div className="flex justify-between items-center mb-2">
-                            <h3 className="font-montserrat text-sm sm:text-lg text-gray-800">
+                            <h3 className={`font-montserrat text-sm sm:text-lg ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                               {item.name}
                             </h3>
                             <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
                               {item.price}
                             </span>
                           </div>
-                          <p className="text-xs sm:text-sm md:text-base text-gray-600">
+                          <p className={`text-xs sm:text-sm md:text-base ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                             {item.description}
                           </p>
                         </div>
@@ -557,7 +569,7 @@ function Services() {
 
             {/* Item 5 */}               
             <div className="space-y-6">                               
-              <div className="w-full aspect-square rounded-lg shadow-lg overflow-hidden relative group">
+              <div className="w-full aspect-square shadow-lg overflow-hidden relative group">
                 <Slider {...sliderSettings}>
                   {glamImages.map((img, index) => (
                     <SlideComponent
@@ -580,35 +592,35 @@ function Services() {
                 </div>                               
               </div> 
                                            
-              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide text-gray-700">
+              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                 Maquillaje Glam
               </h2>                              
-              <p className="text-gray-600 leading-relaxed text-sm font-light md:text-base md:font-normal">
+              <p className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                 From elegant centerpieces to dramatic
                 installations, we transform your reception space                
                 into a breathtaking floral paradise.                  
               </p>
               
               <div className="mb-16">
-                  <div className="bg-white rounded-lg shadow-sm p-2 md:p-8">
-                    <h2 className="text-lg text-base md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
+                <div className={`shadow-sm p-2 md:p-8 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+                  <h2 className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-700'}`}>
                       {glamMekupServices.category}  
                     </h2>
                     <div className="space-y-6">
                       {glamMekupServices.items.map((item, itemIndex) => (
                         <div
                           key={itemIndex}
-                          className="border-b border-gray-100 pb-4 last:border-0"
+                          className={`border-b pb-4 last:border-0 ${theme === 'dark' ? 'border-gray-600' : 'border-gray-100'}`}
                         >
                           <div className="flex justify-between items-center mb-2">
-                            <h3 className="font-montserrat text-sm sm:text-lg text-gray-800">
+                            <h3 className={`font-montserrat text-sm sm:text-lg ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                               {item.name}
                             </h3>
                             <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
                               {item.price}
                             </span>
                           </div>
-                          <p className="text-xs sm:text-sm md:text-base text-gray-600">
+                          <p className={`text-xs sm:text-sm md:text-base ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                             {item.description}
                           </p>
                         </div>
@@ -621,7 +633,7 @@ function Services() {
             {/* Item 6 */}               
             <div className="space-y-6">
                                
-              <div className="w-full aspect-square rounded-lg shadow-lg overflow-hidden relative group">
+              <div className="w-full aspect-square shadow-lg overflow-hidden relative group">
                 <Slider {...sliderSettings}>
                   {expressImages.map((img, index) => (
                     <div
@@ -650,35 +662,35 @@ function Services() {
                 </div>                         
               </div>    
                                         
-              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide text-gray-700">
+              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                 Maquillaje Express
               </h2>                               
-              <p className="text-gray-600 leading-relaxed text-sm font-light md:text-base md:font-normal">
+              <p className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                 From elegant centerpieces to dramatic
                 installations, we transform your reception space                
                 into a breathtaking floral paradise.                  
               </p>
               
               <div className="mb-16">
-                  <div className="bg-white rounded-lg shadow-sm p-2 md:p-8">
-                    <h2 className="text-lg text-base md:text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
+                <div className={`shadow-sm p-2 md:p-8 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+                  <h2 className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-700'}`}>
                       {expressMakeupServices.category}  
                     </h2>
                     <div className="space-y-6">
                       {expressMakeupServices.items.map((item, itemIndex) => (
                         <div
                           key={itemIndex}
-                          className="border-b border-gray-100 pb-4 last:border-0"
+                          className={`border-b pb-4 last:border-0 ${theme === 'dark' ? 'border-gray-600' : 'border-gray-100'}`}
                         >
                           <div className="flex justify-between items-center mb-2">
-                            <h3 className="font-montserrat text-sm sm:text-lg text-gray-800">
+                            <h3 className={`font-montserrat text-sm sm:text-lg ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                               {item.name}
                             </h3>
                             <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
                               {item.price}
                             </span>
                           </div>
-                          <p className="text-xs sm:text-sm md:text-base text-gray-600">
+                          <p className={`text-xs sm:text-sm md:text-base ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                             {item.description}
                           </p>
                         </div>
@@ -693,27 +705,31 @@ function Services() {
                   
           {/* Sección "Nuestros servicios incluyen" */}           
           <div className="text-center space-y-8 mb-6">                         
-            <h3 className="text-2xl md:text-5xl font-montserrat font-light tracking-wide text-gray-700">
+            <h3 className="text-2xl md:text-5xl font-montserrat font-light tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
               Nuestros Servicios Incluyen
             </h3>
                                     
             <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-600"> 
                                            
-              <li className="p-6 bg-white rounded-lg shadow-sm">                                
-                <h4 className="font-montserrat mb-3">
+
+              <li className={`p-6 shadow-sm p-2 md:p-8 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>                                
+                <h4 className={`font-montserrat tracking-wide mb-3 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-700'}`}>
                   Asesoría para cuidado de la piel
                 </h4>
-                   <p>Hidratación, limpieza y productos</p>                             
+                   <p className={`text-xs sm:text-sm md:text-base ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Hidratación, limpieza y productos</p>                             
               </li>
                                            
-              <li className="p-6 bg-white rounded-lg shadow-sm">                                
-                <h4 className="font-montserrat mb-3">Ceremony Décor</h4>       
-                   <p>Arches, aisle designs, and altar arrangements</p>                             
+              <li className={`p-6 shadow-sm p-2 md:p-8 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>                                
+                <h4 className={`font-montserrat tracking-wide mb-3 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-700'}`}>
+                  Ceremony Décor</h4>
+                  <p className={`text-xs sm:text-sm md:text-base ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Arches, aisle designs, and altar arrangements</p>
+                          
               </li>
                                           
-              <li className="p-6 bg-white rounded-lg shadow-sm">                                
-                <h4 className="font-montserrat mb-3">Reception Flowers</h4>     
-                   <p>Centerpieces, cake flowers, and installations</p>                              
+              <li className={`p-6 shadow-sm p-2 md:p-8 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>                                 
+                <h4 className={`font-montserrat tracking-wide mb-3 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-700'}`}>
+                  Reception Flowers</h4>     
+                     <p className={`text-xs sm:text-sm md:text-base ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Centerpieces, cake flowers, and installations</p>                              
               </li>
                            
             </ul>
@@ -721,6 +737,7 @@ function Services() {
           </div>         
           {/* Fin sección "Nuestros servicios incluyen" */}   
           </div> 
+
 
           {/* Sección estadistica de servicios */}           
           <div className="w-full mb-0 md:mb-6">
@@ -732,14 +749,14 @@ function Services() {
 
           {/* Sección Cursos */}           
           <div className="text-center space-y-8 pt-16 mb-24 md:mb-48">                        
-            <h1 className="text-2xl md:text-5xl font-montserrat font-light text-center mb-12 tracking-wider text-gray-800">
+            <h1 className="text-2xl md:text-5xl font-montserrat font-light text-center mb-12 tracking-wider ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                  NUESTROS CURSOS              
             </h1>
                                     
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12 mb-16">
               {/* CURSO BASICO */}               
               <div className="space-y-6">                                
-                <div className="w-full h-96 rounded-lg shadow-lg overflow-hidden relative group">                                    
+                <div className="w-full h-96 shadow-lg overflow-hidden relative group">                                    
                   <img
                     src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800"
                     alt="Curso Básico"
@@ -751,10 +768,10 @@ function Services() {
                   </button>                               
                 </div>
                                  
-                <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">
+                <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                   Curso Básico
                 </h2>                                
-                <p className="text-gray-600 leading-relaxed">
+                <p className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                   Each bouquet is thoughtfully designed to
                   complement your wedding style and color palette,              
                   creating an unforgettable statement piece for your special
@@ -762,8 +779,8 @@ function Services() {
                 </p>
 
                 <div className="mb-16">
-                  <div className="bg-white rounded-lg shadow-sm p-8">
-                    <h2 className="text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
+                  <div className={`shadow-sm p-2 md:p-8 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+                  <h2 className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-700'}`}>
                       {basicCourseServices.category}  
                       {/* Usamos los datos de basicCourseServices */}
                     </h2>
@@ -771,17 +788,17 @@ function Services() {
                       {basicCourseServices.items.map((item, itemIndex) => (
                         <div
                           key={itemIndex}
-                          className="border-b border-gray-100 pb-4 last:border-0"
+                          className={`border-b pb-4 last:border-0 ${theme === 'dark' ? 'border-gray-600' : 'border-gray-100'}`}
                         >
                           <div className="flex justify-between items-center mb-2">
-                            <h3 className="font-montserrat text-lg text-gray-800">
+                            <h3 className={`font-montserrat text-sm sm:text-lg ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                               {item.name}
                             </h3>
-                            <span className="font-montserrat text-pink-600">
+                            <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
                               {item.price}
                             </span>
                           </div>
-                          <p className="text-gray-600 text-sm">
+                          <p className={`text-xs sm:text-sm md:text-base ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                             {item.description}
                           </p>
                         </div>
@@ -793,7 +810,7 @@ function Services() {
 
                 {/* CURSO INTERMEDIO */}               
                 <div className="space-y-6">                                  
-                  <div className="w-full h-96 rounded-lg shadow-lg overflow-hidden relative group">                                      
+                  <div className="w-full h-96 shadow-lg overflow-hidden relative group">                                      
                     <img
                       src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800"
                       alt="Curso Básico"
@@ -805,10 +822,10 @@ function Services() {
                     </button>                                     
                   </div>
                                    
-                  <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">
+                  <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                     Curso Intermedio
                   </h2>                                  
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                     Each bouquet is thoughtfully designed to
                     complement your wedding style and color palette,            
                     creating an unforgettable statement piece for your
@@ -816,8 +833,8 @@ function Services() {
                   </p>
 
                   <div className="mb-16">
-                    <div className="bg-white rounded-lg shadow-sm p-8">
-                      <h2 className="text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
+                    <div className={`shadow-sm p-2 md:p-8 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+                    <h2 className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-700'}`}>
                         {intermediateCourseServices.category}  
                         {/* Usamos los datos de basicCourseServices */}
                       </h2>
@@ -825,17 +842,17 @@ function Services() {
                         {intermediateCourseServices.items.map((item, itemIndex) => (
                           <div
                             key={itemIndex}
-                            className="border-b border-gray-100 pb-4 last:border-0"
+                            className={`border-b pb-4 last:border-0 ${theme === 'dark' ? 'border-gray-600' : 'border-gray-100'}`}
                           >
                             <div className="flex justify-between items-center mb-2">
-                              <h3 className="font-montserrat text-lg text-gray-800">
+                              <h3 className={`font-montserrat text-sm sm:text-lg ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                                 {item.name}
                               </h3>
-                              <span className="font-montserrat text-pink-600">
+                              <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
                                 {item.price}
                               </span>
                             </div>
-                            <p className="text-gray-600 text-sm">
+                            <p className={`text-xs sm:text-sm md:text-base ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                               {item.description}
                             </p>
                           </div>
@@ -847,7 +864,7 @@ function Services() {
 
                   {/* CURSO AVANZADO */}               
                   <div className="space-y-6">                                  
-                    <div className="w-full h-96 rounded-lg shadow-lg overflow-hidden relative group">                                 
+                    <div className="w-full h-96 shadow-lg overflow-hidden relative group">                                 
                       <img
                         src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800"
                         alt="Curso Básico"
@@ -859,10 +876,10 @@ function Services() {
                       </button>               
                     </div>
                                                   
-                    <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">
+                    <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                       Curso Avanzado
                     </h2>                                
-                    <p className="text-gray-600 leading-relaxed">
+                    <p className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                                         Each bouquet is thoughtfully designed to
                       complement your wedding style and color palette,          
                               creating an unforgettable statement piece for your
@@ -870,8 +887,8 @@ function Services() {
                     </p>
 
                     <div className="mb-16">
-                      <div className="bg-white rounded-lg shadow-sm p-8">
-                        <h2 className="text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
+                      <div className={`shadow-sm p-2 md:p-8 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+                      <h2 className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-700'}`}>
                           {advancedCourseServices.category}  
                           {/* Usamos los datos de basicCourseServices */}
                         </h2>
@@ -879,17 +896,17 @@ function Services() {
                           {advancedCourseServices.items.map((item, itemIndex) => (
                             <div
                               key={itemIndex}
-                              className="border-b border-gray-100 pb-4 last:border-0"
+                              className={`border-b pb-4 last:border-0 ${theme === 'dark' ? 'border-gray-600' : 'border-gray-100'}`}
                             >
                               <div className="flex justify-between items-center mb-2">
-                                <h3 className="font-montserrat text-lg text-gray-800">
+                                <h3 className={`font-montserrat text-sm sm:text-lg ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                                   {item.name}
                                 </h3>
-                                <span className="font-montserrat text-pink-600">
+                                <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
                                   {item.price}
                                 </span>
                               </div>
-                              <p className="text-gray-600 text-sm">
+                              <p className={`text-xs sm:text-sm md:text-base ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                                 {item.description}
                               </p>
                             </div>
@@ -901,7 +918,7 @@ function Services() {
 
                     {/* CURSO PROFESIONAL */}
                     <div className="space-y-6">                 
-                      <div className="w-full h-96 rounded-lg shadow-lg overflow-hidden relative group">                
+                      <div className="w-full h-96 shadow-lg overflow-hidden relative group">                
                         <img
                           src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800"
                           alt="Curso Básico"
@@ -913,10 +930,10 @@ function Services() {
                         </button>                  
                       </div>
                                        
-                      <h2 className="text-2xl font-montserrat tracking-wide text-gray-700">
+                      <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                         Curso Profesional
                       </h2>              
-                      <p className="text-gray-600 leading-relaxed">
+                      <p className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                         Each bouquet is thoughtfully designed
                         to complement your wedding style and color palette,    
                         creating an unforgettable statement piece
@@ -924,8 +941,8 @@ function Services() {
                       </p>
 
                       <div className="mb-16">
-                        <div className="bg-white rounded-lg shadow-sm p-8">
-                          <h2 className="text-2xl font-montserrat tracking-wide text-gray-700 mb-6 text-center">
+                        <div className={`shadow-sm p-2 md:p-8 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+                        <h2 className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-700'}`}>
                             {professionalCourseServices.category}  
                             {/* Usamos los datos de basicCourseServices */}
                           </h2>
@@ -934,17 +951,17 @@ function Services() {
                               (item, itemIndex) => (
                                 <div
                                   key={itemIndex}
-                                  className="border-b border-gray-100 pb-4 last:border-0"
+                                  className={`border-b pb-4 last:border-0 ${theme === 'dark' ? 'border-gray-600' : 'border-gray-100'}`}
                                 >
                                   <div className="flex justify-between items-center mb-2">
-                                    <h3 className="font-montserrat text-lg text-gray-800">
+                                    <h3 className={`font-montserrat text-sm sm:text-lg ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                                       {item.name}
                                     </h3>
-                                    <span className="font-montserrat text-pink-600">
+                                    <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
                                       {item.price}
                                     </span>
                                   </div>
-                                  <p className="text-gray-600 text-sm">
+                                  <p className={`text-xs sm:text-sm md:text-base ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                                     {item.description}
                                   </p>
                                 </div>
@@ -1048,14 +1065,14 @@ function Services() {
 
                 <PageBanner
                   title="'Te debes este momento'"
-                  imageSrcs={[images.servicesBannerDown]}
+                  imageSrcs={[images.servicesBannerBottom]}
                   objectPosition="bottom"
                 >
                   {/* Aquí está el código de tu botón como 'children' */}
                   <div className="flex flex-col sm:flex-row gap-4">
                     <Link
                       to="/contact"
-                      className="px-8 py-5 bg-pink-400 text-white font-semibold rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
+                      className="px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
                     >
                       Agenda tu cita
                     </Link>

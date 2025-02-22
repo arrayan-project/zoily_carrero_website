@@ -1,7 +1,12 @@
 //import para los banner de cada componente
-import servicesBannerUp from '../img/services-banner.webp';
-import servicesBannerDown from '../img/services-banner-bottom.webp';
-import galleryBannerUp from '../img/gallery-banner.webp';
+import servicesBannerUp from '../img/banner/services-banner-top.webp';
+import servicesBannerBottom from '../img/banner/services-banner-bottom.webp';
+import galleryBannerUp from '../img/banner/gallery-banner-top.webp';
+import galleryBannerBottom from '../img/banner/gallery-banner-bottom.webp';
+import aboutBannerUp from '../img/banner/about-banner-top.webp';
+import aboutBannerBottom from '../img/banner/about-banner-bottom.webp';
+import contactBannerUp from '../img/banner/contact-banner-top.webp';
+import contactBannerBottom from '../img/banner/contact-banner-bottom.webp';
 
 //import para services section
 import novia from "../img/boda.webp";
@@ -76,8 +81,13 @@ import express_gallery3 from "../img/gallery/xpressG3.webp";
 
 const images = {
     servicesBannerUp,
-    servicesBannerDown,
+    servicesBannerBottom,
     galleryBannerUp,
+    galleryBannerBottom,
+    aboutBannerUp,
+    aboutBannerBottom,
+    contactBannerUp,
+    contactBannerBottom,
     novia,
     novia1,
     social,

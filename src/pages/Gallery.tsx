@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import PageBanner from "../components/PageBanner";
+import { Link, useLocation } from 'react-router-dom';
 import images, { // Importa el objeto 'images' para el banner
     noviaGalleryImages,     // Importa los arrays de imágenes categorizadas
     socialGalleryImages,
@@ -9,10 +10,10 @@ import images, { // Importa el objeto 'images' para el banner
     glamGalleryImages,
     expressGalleryImages,
 } from '../assets/img/images';
+import { useTheme } from '../components/context/useTheme';
 
 // Define las categorías del menú
 const categories = [
-    { name: 'Todas', value: 'all' },
     { name: 'Novia', value: 'novia' },
     { name: 'Social', value: 'social' },
     { name: 'Peinado', value: 'peinado' },
@@ -36,11 +37,10 @@ export default function Gallery() {
             case 'pielMadura': return pielMaduraGalleryImages;
             case 'glam': return glamGalleryImages;
             case 'express': return expressGalleryImages;
-            case 'all':
             default:
                 // Si seleccionas 'Todas' o por defecto, puedes mostrar todas las imágenes de todas las categorías.
                 // En este ejemplo, para simplificar, usaremos solo las de 'novia' si es 'all', ajusta según necesites.
-                return noviaGalleryImages.concat(socialGalleryImages, peinadoGalleryImages, pielMaduraGalleryImages, glamGalleryImages, expressGalleryImages);
+                return noviaGalleryImages;
         }
     };
 
@@ -113,17 +113,29 @@ export default function Gallery() {
         }
      };
 
+    const { theme } = useTheme();
+
     return (
-        <div className="min-h-screen flex flex-col bg-pink-50">
+        <div className="min-h-screen flex flex-col ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
             <PageBanner
                 title="PORTAFOLIO"
                 imageSrcs={[images.galleryBannerUp]}
                 objectPosition="left-bottom"
-            />
+                >
+                    {/* Aquí está el código de tu botón como 'children' */}
+                <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                to="/contact"
+                className="px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
+                >
+                Agenda tu cita
+                </Link>
+            </div>
+            </PageBanner> 
 
             <main className="flex-grow">
               <div className="mx-auto py-16 md:py-32">
-                    <h1 className="text-4xl md:text-5xl font-montserrat text-center mb-8 tracking-wider text-gray-800">
+                    <h1 className="text-2xl md:text-5xl font-montserrat font-light text-center mb-16 tracking-wider ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                         Mira nuestros trabajos con amor
                     </h1>
 
@@ -132,7 +144,14 @@ export default function Gallery() {
                         {categories.map((category) => (
                             <button
                                 key={category.value}
-                                className={`px-4 py-2 rounded-full text-gray-700 font-semibold hover:bg-pink-200 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50 ${selectedCategory === category.value ? 'bg-pink-200' : 'bg-gray-100'} whitespace-nowrap`}
+                                className={`px-4 py-2 rounded-full font-base whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50
+                                    ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}  // Color de texto dinámico
+                                    ${theme === 'dark' ? 'hover:bg-pink-400' : 'hover:bg-pink-200'} // Hover dinámico (rosa más oscuro en modo oscuro)
+                                    ${selectedCategory === category.value
+                                        ? (theme === 'dark' ? 'bg-pink-400' : 'bg-pink-200') // Fondo seleccionado dinámico (rosa más oscuro en modo oscuro)
+                                        : (theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100') // Fondo NO seleccionado dinámico (gris oscuro en modo oscuro)
+                                    }
+                                `}
                                 onClick={() => handleCategoryClick(category.value)}
                             >
                                 {category.name}
@@ -140,7 +159,7 @@ export default function Gallery() {
                         ))}
                     </div>
                   
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-0 p-4">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-1 p-4">
                         {currentGalleryImages.map((img, index) => ( // Usa 'currentGalleryImages' para mapear las imágenes FILTRADAS
                             <div key={index} className="w-full aspect-[4/3] overflow-hidden">
                                 <img
@@ -171,6 +190,21 @@ export default function Gallery() {
                         )}
                     </div>
                 </div>
+                <PageBanner
+                  title="'Te debes este momento'"
+                  imageSrcs={[images.galleryBannerBottom]}
+                  objectPosition="bottom"
+                >
+                  {/* Aquí está el código de tu botón como 'children' */}
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <Link
+                      to="/contact"
+                      className="px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
+                    >
+                      Agenda tu cita
+                    </Link>
+                  </div>
+                </PageBanner> 
             </main>
         </div>
     );

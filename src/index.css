@@ -11,7 +11,7 @@
 }
 
 .nav-link {
-  @apply px-4 py-2 text-gray-800 hover:text-pink-500 transition-colors duration-300;
+  @apply px-4 py-2 hover:text-pink-500 transition-colors duration-300;
   letter-spacing: 2px;
 }
 
