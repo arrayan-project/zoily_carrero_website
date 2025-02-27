@@ -357,7 +357,7 @@ function Services() {
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-8 mb-20 gap-y-20">
 
             {/* Item Novia)*/}
-            <div className="tw-space-y-6 ">
+            <div className="space-y-6 ">
               <div className="w-full aspect-square shadow-lg overflow-hidden relative group ">
                 <button
                   className="servicio-boton-clickable" // Clase para estilos CSS (añadirás en el Paso 2)
@@ -433,7 +433,7 @@ function Services() {
 
 
             {/* Item Social*/}             
-            <div className="tw-space-y-6 ">
+            <div className="space-y-6 ">
               <div className="w-full aspect-square shadow-lg overflow-hidden relative group ">
                 {/*  Imagen del servicio (Ahora con onClick para abrir el modal) */}
                 <div onClick={openSocialFullscreen} className="cursor-pointer">
@@ -734,7 +734,7 @@ function Services() {
               )}
             </div>
             {/* Item Peinado*/}             
-            <div className="tw-space-y-6 ">
+            <div className="space-y-6 ">
               <div className="w-full aspect-square shadow-lg overflow-hidden relative group ">
                 {/*  Imagen del servicio (Ahora con onClick para abrir el modal) */}
                 <div onClick={openPeinadoFullscreen} className="cursor-pointer">
@@ -1035,7 +1035,7 @@ function Services() {
               )}
             </div>
             {/* Item Madura*/}             
-            <div className="tw-space-y-6 ">
+            <div className="space-y-6 ">
               <div className="w-full aspect-square shadow-lg overflow-hidden relative group ">
                 {/*  Imagen del servicio (Ahora con onClick para abrir el modal) */}
                 <div onClick={openMaduraFullscreen} className="cursor-pointer">
@@ -1337,7 +1337,7 @@ function Services() {
               )}
             </div>
             {/* Item Glam*/}             
-            <div className="tw-space-y-6 ">
+            <div className="space-y-6 ">
               <div className="w-full aspect-square shadow-lg overflow-hidden relative group ">
                 {/*  Imagen del servicio (Ahora con onClick para abrir el modal) */}
                 <div onClick={openGlamFullscreen} className="cursor-pointer">
@@ -1638,7 +1638,7 @@ function Services() {
               )}
             </div>
             {/* Item Express*/}             
-            <div className="tw-space-y-6 ">
+            <div className="space-y-6 ">
               <div className="w-full aspect-square shadow-lg overflow-hidden relative group ">
                 {/*  Imagen del servicio (Ahora con onClick para abrir el modal) */}
                 <div onClick={openExpressFullscreen} className="cursor-pointer">
@@ -1942,7 +1942,7 @@ function Services() {
           </div>
           {/* Fin sección servicios de maquillaje */}         
           {/* Sección "Nuestros servicios incluyen" */}         
-          <div className="text-center tw-space-y-8 mb-0 md:mb-6">
+          <div className="text-center space-y-8 mb-0 md:mb-6">
             {" "}
                        
             <h3 className="text-2xl md:text-5xl font-montserrat font-light tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
@@ -2037,7 +2037,7 @@ function Services() {
         {/* Fin sección estadistica de servicios */}       
         <div className="max-w-7xl mx-auto px-2">
           {/* Sección Cursos */}         
-          <div className="text-center tw-space-y-8 pt-16 mb-24 md:mb-48">
+          <div className="text-center space-y-8 pt-16 mb-24 md:mb-48">
             {" "}
                        
             <h1 className="text-2xl md:text-5xl font-montserrat font-light text-center mb-12 tracking-wider ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
@@ -2046,7 +2046,7 @@ function Services() {
                        
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12 mb-16">
               {/* CURSO BASICO */}             
-              <div className="tw-space-y-6">
+              <div className="space-y-6">
                 {" "}
                                
                 <div className="w-full h-96 shadow-lg overflow-hidden relative group">
@@ -2093,7 +2093,7 @@ function Services() {
                       {basicCourseServices.category}
                       {/* Usamos los datos de basicCourseServices */}
                     </h2>
-                    <div className="tw-space-y-6">
+                    <div className="space-y-6">
                       {basicCourseServices.items.map((item, itemIndex) => (
                         <div
                           key={itemIndex}
@@ -2134,7 +2134,7 @@ function Services() {
                 </div>
               </div>
                {/* CURSO INTERMEDIO */}             
-              <div className="tw-space-y-6">
+              <div className="space-y-6">
                 {" "}
                                
                 <div className="w-full h-96 shadow-lg overflow-hidden relative group">
@@ -2181,7 +2181,7 @@ function Services() {
                       {intermediateCourseServices.category}
                       {/* Usamos los datos de basicCourseServices */}
                     </h2>
-                    <div className="tw-space-y-6">
+                    <div className="space-y-6">
                       {intermediateCourseServices.items.map(
                         (item, itemIndex) => (
                           <div
@@ -2224,7 +2224,7 @@ function Services() {
                 </div>
               </div>
               {/* CURSO AVANZADO */}             
-              <div className="tw-space-y-6">
+              <div className="space-y-6">
                 {" "}
                                
                 <div className="w-full h-96 shadow-lg overflow-hidden relative group">
@@ -2271,7 +2271,7 @@ function Services() {
                       {advancedCourseServices.category}
                       {/* Usamos los datos de basicCourseServices */}
                     </h2>
-                    <div className="tw-space-y-6">
+                    <div className="space-y-6">
                       {advancedCourseServices.items.map((item, itemIndex) => (
                         <div
                           key={itemIndex}
@@ -2312,7 +2312,7 @@ function Services() {
                 </div>
               </div>
               {/* CURSO PROFESIONAL */}
-              <div className="tw-space-y-6">
+              <div className="space-y-6">
                                
                 <div className="w-full h-96 shadow-lg overflow-hidden relative group">
                   {" "}
@@ -2357,7 +2357,7 @@ function Services() {
                       {professionalCourseServices.category}
                       {/* Usamos los datos de basicCourseServices */}
                     </h2>
-                    <div className="tw-space-y-6">
+                    <div className="space-y-6">
                       {professionalCourseServices.items.map(
                         (item, itemIndex) => (
                           <div

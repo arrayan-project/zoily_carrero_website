@@ -22,7 +22,7 @@ const Navigation: React.FC<NavigationProps> = ({ className }) => {
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         className={`md:hidden absolute top-4 right-4 p-2 hover:text-pink-500 transition-colors duration-300 z-50 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}
       >
-        <div className="space-y-2">
+        <div className="tw-space-y-2">
           <span className={`block w-8 h-0.5 bg-current transform transition-transform duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2.5' : ''}`}></span>
           <span className={`block w-8 h-0.5 bg-current transition-opacity duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></span>
           <span className={`block w-8 h-0.5 bg-current transform transition-transform duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2.5' : ''}`}></span>
@@ -41,7 +41,7 @@ const Navigation: React.FC<NavigationProps> = ({ className }) => {
             onClick={() => setIsMenuOpen(false)}
             className={`md:hidden absolute top-4 right-4 p-2 hover:text-pink-500 transition-colors duration-300 z-50 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}
           >
-            <div className="space-y-2">
+            <div className="tw-space-y-2">
               <span className={`block w-8 h-0.5 bg-current transform transition-transform duration-300 rotate-45 translate-y-2.5`}></span>
               <span className={`block w-8 h-0.5 bg-current transition-opacity duration-300 opacity-0`}></span>
               <span className={`block w-8 h-0.5 bg-current transform transition-transform duration-300 -rotate-45 -translate-y-2.5`}></span>

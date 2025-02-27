@@ -29,13 +29,13 @@ function Navigation2() {
   }, [isMenuOpen]);
 
   return (
-    <nav className="absolute top-0 left-0 right-0 z-50">
+    <nav className="tw-absolute top-0 left-0 right-0 z-50">
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
-        className="md:hidden absolute top-4 right-4 text-gray-800 p-2 hover:text-pink-500 transition-colors duration-300 z-50"
+        className="tw-md:hidden absolute top-4 right-4 text-gray-800 p-2 hover:text-pink-500 transition-colors duration-300 z-50"
       >
-        <div className="space-y-2">
+        <div className="tw-space-y-2">
           <span className={`block w-8 h-0.5 bg-current transform transition-transform duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2.5' : ''}`}></span>
           <span className={`block w-8 h-0.5 bg-current transition-opacity duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></span>
           <span className={`block w-8 h-0.5 bg-current transform transition-transform duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2.5' : ''}`}></span>

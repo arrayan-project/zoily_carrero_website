@@ -74,7 +74,7 @@ const ModalServices: React.FC<NoviaModalProps> = ({
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full h-full z-50 flex justify-center items-center mt-0 mb-0 ${
+      className={`fixed top-0 left-0 w-full h-full z-50 flex justify-center items-center !mt-0 !mb-0 ${
         theme === "dark"
           ? "bg-black bg-opacity-80 backdrop-blur-md"
           : "bg-gray-100 bg-opacity-50 backdrop-blur-sm"
@@ -101,7 +101,7 @@ const ModalServices: React.FC<NoviaModalProps> = ({
             viewBox="0 0 24 24"
             strokeWidth="2"
             stroke="currentColor"
-            className="w-6 h-6"
+            className="tw-w-6 h-6"
           >
             <path
               strokeLinecap="round"
@@ -169,7 +169,7 @@ const ModalServices: React.FC<NoviaModalProps> = ({
               servicio, los productos que utilizas, la duración aproximada, y
               cualquier otra información relevante para tus clientas.
             </p>
-            <div className="mb-16">
+            <div className="tw-mb-16">
               <div
                 className={`shadow-sm mt-8 p-2 md:p-8 ${
                   theme === "dark" ? "bg-gray-800" : "bg-white"
@@ -182,7 +182,7 @@ const ModalServices: React.FC<NoviaModalProps> = ({
                 >
                   {noviaMakeupServices.category}
                 </h2>
-                <div className="space-y-6">
+                <div className="tw-space-y-6">
                   {noviaMakeupServices.items.map(
                     (item: NoviaMakeupServiceItem, itemIndex: number) => (
                       <div
@@ -193,7 +193,7 @@ const ModalServices: React.FC<NoviaModalProps> = ({
                             : "border-gray-100"
                         }`}
                       >
-                        <div className="flex justify-between items-center mb-2">
+                        <div className="tw-flex justify-between items-center mb-2">
                           <h3
                             className={`font-montserrat text-sm sm:text-lg ${
                               theme === "dark" ? "text-white" : "text-gray-800"
@@ -201,7 +201,7 @@ const ModalServices: React.FC<NoviaModalProps> = ({
                           >
                             {item.name}
                           </h3>
-                          <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
+                          <span className="tw-font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
                             {item.price}
                           </span>
                         </div>
