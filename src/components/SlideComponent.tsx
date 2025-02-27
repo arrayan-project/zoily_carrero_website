@@ -2,14 +2,13 @@ import React, { memo } from 'react';
 
 interface SlideComponentProps {
     img: string;
-    openGallery: (images: string[], index: number) => void;
     index: number;
     images: string[];
 }
 
-const SlideComponent: React.FC<SlideComponentProps> = memo(({ img, openGallery, index, images }) => {
+const SlideComponent: React.FC<SlideComponentProps> = memo(({ img, index, images }) => {
     return (
-        <div key={index} onClick={() => openGallery(images, index)} style={{ cursor: 'pointer', overflow: 'hidden' }}>
+        <div key={index} style={{ cursor: 'pointer', overflow: 'hidden' }}>
             <img
                 src={img}
                 alt={`Imagen en galería ${index + 1}`}
