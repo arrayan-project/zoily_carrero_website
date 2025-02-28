@@ -1,0 +1,17 @@
+/* SmoothImage.css */
+
+.smooth-image {
+    opacity: 0; /* Inicialmente invisible */
+    transition: opacity 0.5s ease-in-out; /* Transición de opacidad */
+}
+
+.smooth-image.loaded {
+    opacity: 1; /* Visible cuando se carga */
+}
+
+/* Opcional: Si quieres añadir estilos específicos para el estado de "cargando" (ej: placeholder)
+.smooth-image.loading {
+    // Estilos para cuando la imagen está cargando, ej:
+    // background-color: #f0f0f0;
+}
+*/

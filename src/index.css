@@ -51,3 +51,25 @@
   margin-top: 0;
   margin-bottom: 0;
 }
+
+
+/* Estilos para las transiciones de fade-in */
+.fade-in-image {
+  opacity: 0; /* Inicialmente invisible */
+  transition: opacity 1s ease-in-out; /* Transición suave de opacidad en 1 segundo */
+}
+
+.fade-in-image.visible {
+  opacity: 1; /* Visible cuando se añade la clase 'visible' */
+}
+
+.fade-in-text {
+    opacity: 0;
+    transform: translateY(20px); /* Opcional: Desplazar el texto un poco desde abajo */
+    transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out; /* Transición para opacidad y posición */
+}
+
+.fade-in-text.visible {
+    opacity: 1;
+    transform: translateY(0); /* Vuelve a la posición original */
+}

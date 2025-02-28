@@ -26,7 +26,7 @@ function Layout() {
     <div className={`relative min-h-screen ${themeClasses}`}>
       {!hideHeaderAndFooter && <Navigation className="md:mb-12" />}
       {/* Contenedor para el botón en la esquina superior izquierda */}
-      <div className="absolute top-4 left-4 md:top-6 md:left-6 lg:top-8 lg:left-8 z-50">
+      <div className="fixed top-4 left-4 md:top-6 md:left-6 lg:top-8 lg:left-8 z-50">
   {!hideHeaderAndFooter && <ThemeToggleButton />}
 </div>
 

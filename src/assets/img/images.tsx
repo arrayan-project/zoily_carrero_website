@@ -78,6 +78,24 @@ import express_gallery1 from "../img/gallery/xpressG1.webp";
 import express_gallery2 from "../img/gallery/xpressG2.webp";
 import express_gallery3 from "../img/gallery/xpressG3.webp";
 
+//import para background en home
+import background1 from "../img/background-home/background1.webp";
+import background2 from "../img/background-home/background2.webp";
+import background3 from "../img/background-home/background3.webp";
+import background4 from "../img/background-home/background4.webp";
+import background5 from "../img/background-home/background5.webp";
+import background6 from "../img/background-home/background6.webp";
+import background7 from "../img/background-home/background7.webp";
+
+export const backgrounds = [
+    background1,
+    background2,
+    background3,
+    background4,
+    background5,
+    background6,
+    background7,
+  ];
 
 const images = {
     servicesBannerUp,

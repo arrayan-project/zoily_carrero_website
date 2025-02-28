@@ -5,9 +5,14 @@ import "slick-carousel/slick/slick.css"; // Importa estilos del carrusel
 import "slick-carousel/slick/slick-theme.css"; // Importa tema del carrusel
 import StatsSection from "../components/StatsSection";
 import PageBanner from "../components/PageBanner";
-import NoviaModal from "../components/NoviaModal";
+import NoviaModal from "../components/modals/NoviaModal";
+import SocialModal from "../components/modals/SocialModal";
+import PeinadoModal from "../components/modals/PeinadoModal";
+import MaduraModal from "../components/modals/MaduraModal";
+import GlamModal from "../components/modals/GlamModal";
+import ExpressModal from "../components/modals/ExpressModal";
 import { useSwipeable } from "react-swipeable";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import images, { // Importa el objeto 'images' (exportación por defecto)
   noviaImages, // ... y las exportaciones nombradas de los arrays de imágenes
   socialImages,
@@ -17,19 +22,15 @@ import images, { // Importa el objeto 'images' (exportación por defecto)
   expressImages,
 } from "../assets/img/images";
 import { useTheme } from "../components/context/useTheme";
+import ScrollReveal from "../components/ScrollReveal"; // Importa el componente ScrollReveal
+import "../index.css"; // Asegúrate de importar About.css para los estilos de transición
+import SmoothImage from "../components/SmoothImage"; // Importa el componente SmoothImage
 
 function Services() {
   // Estados para la galería
-  const [galleryImages, setGalleryImages] = useState<string[]>([]); // Especifica <string[]> aquí
+  const [galleryImages] = useState<string[]>([]); // Especifica <string[]> aquí
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  // Función para abrir la galería
-  const openGallery = (images: string[], index: number) => {
-    setGalleryImages(images);
-    setCurrentImageIndex(index);
-    setIsGalleryOpen(true);
-  };
 
   const swipeHandlers = useSwipeable({
     // Llama al hook useSwipeable aquí
@@ -49,7 +50,7 @@ function Services() {
 
   // Datos para el cuadro de información de Novia
   const noviaMakeupServices = {
-    category: "",
+    category: "Maquillaje Novia - Servicios Adicionales",
     items: [
       {
         name: "Servicio 1 Profesional",
@@ -282,54 +283,35 @@ function Services() {
   const { theme } = useTheme();
 
   const [isNoviaFullscreenOpen, setIsNoviaFullscreenOpen] = useState(false);
-
   const openNoviaFullscreen = () => setIsNoviaFullscreenOpen(true);
   const closeNoviaFullscreen = () => setIsNoviaFullscreenOpen(false);
 
   const [isSocialFullscreenOpen, setIsSocialFullscreenOpen] = useState(false);
-  const [activeTabModalSocial, setActiveTabModalSocial] = useState(
-    "InformacionModalSocial"
-  );
-
   const openSocialFullscreen = () => setIsSocialFullscreenOpen(true);
   const closeSocialFullscreen = () => setIsSocialFullscreenOpen(false);
 
   const [isPeinadoFullscreenOpen, setIsPeinadoFullscreenOpen] = useState(false);
-  const [activeTabModalPeinado, setActiveTabModalPeinado] = useState(
-    "InformacionModalPeinado"
-  );
-
   const openPeinadoFullscreen = () => setIsPeinadoFullscreenOpen(true);
   const closePeinadoFullscreen = () => setIsPeinadoFullscreenOpen(false);
 
   const [isMaduraFullscreenOpen, setIsMaduraFullscreenOpen] = useState(false);
-  const [activeTabModalMadura, setActiveTabModalMadura] = useState(
-    "InformacionModalMadura"
-  );
-
   const openMaduraFullscreen = () => setIsMaduraFullscreenOpen(true);
   const closeMaduraFullscreen = () => setIsMaduraFullscreenOpen(false);
 
   const [isGlamFullscreenOpen, setIsGlamFullscreenOpen] = useState(false);
-  const [activeTabModalGlam, setActiveTabModalGlam] = useState(
-    "InformacionModalGlam"
-  );
-
   const openGlamFullscreen = () => setIsGlamFullscreenOpen(true);
   const closeGlamFullscreen = () => setIsGlamFullscreenOpen(false);
 
   const [isExpressFullscreenOpen, setIsExpressFullscreenOpen] = useState(false);
-  const [activeTabModalExpress, setActiveTabModalExpress] = useState(
-    "InformacionModalExpress"
-  );
-
   const openExpressFullscreen = () => setIsExpressFullscreenOpen(true);
   const closeExpressFullscreen = () => setIsExpressFullscreenOpen(false);
+
+  const [setIsButtonModalVisible] = useState(false);
 
   return (
     // Contenedor principal: flex-col para que el footer se posicione al final
     <div className="min-h-screen flex flex-col">
-            {/* Banner personalizado para la sección de Servicios */}
+      {/* Banner personalizado para la sección de Servicios */}
       <PageBanner
         title="NUESTROS SERVICIOS"
         imageSrcs={[images.servicesBannerUp]}
@@ -337,58 +319,62 @@ function Services() {
       >
         {/* Aquí está el código de tu botón como 'children' */}
         <div className="flex flex-col sm:flex-row gap-4">
-          <Link
-            to="/contact"
-            className="px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
-          >
-            Agenda tu cita
-          </Link>
+          <ScrollReveal animationClassName="fade-in-image">
+            <Link
+              to="/contact"
+              className="px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
+            >
+              Agenda tu cita
+            </Link>
+          </ScrollReveal>
         </div>
       </PageBanner>
-
       {/* Contenido principal: flex-grow hace que se expanda para ocupar el espacio disponible */}
       <main className="flex-grow">
         <div className="max-w-7xl mx-auto px-2 py-16 md:py-32">
-          <h1 className="text-2xl md:text-5xl font-montserrat font-light text-center mb-12 tracking-wider ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
-              Conoce lo que podemos hacer por ti       
-          </h1>
+          <ScrollReveal animationClassName="fade-in-text">
+            <h1 className="text-2xl md:text-5xl font-montserrat font-light text-center mb-12 tracking-wider ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+              Conoce lo que podemos hacer por ti
+            </h1>
+          </ScrollReveal>
 
-          {/* Sección servicios de maquillaje */}       
+          {/* Sección servicios de maquillaje */}
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-8 mb-20 gap-y-20">
-
-            {/* Item Novia)*/}
+            {/* Item Novia)*/} 
             <div className="space-y-6 ">
               <div className="w-full aspect-square shadow-lg overflow-hidden relative group ">
+                {/*Contenedor para hover y botones */} 
                 <button
-                  className="servicio-boton-clickable" // Clase para estilos CSS (añadirás en el Paso 2)
-                  onClick={openNoviaFullscreen} // Mueve el onClick aquí al botón
-                  style={{ display: "block", width: "100%", height: "100%" }} // Asegura que el botón ocupe todo el contenedor
+                  className="servicio-boton-clickable"
+                  onClick={openNoviaFullscreen}
+                  style={{ display: "block", width: "100%", height: "100%" }}
                 >
-                  {/*  Imagen del servicio (AHORA SIN onClick aquí) */}
-                  <div>
-                    {" "}
-                    {/* Este div ya NO necesita onClick */}
-                    <Slider {...sliderSettings}>
-                      {noviaImages.map((img, index) => (
-                        <SlideComponent
-                          key={index}
-                          img={img}
-                          index={index}
-                          images={noviaImages}
-                        />
-                      ))}
-                    </Slider>
-                  </div>
-
-                  <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
-                    Maquillaje Novia
-                  </h2>
+                  {/* Imagen del servicio*/}
+                  <ScrollReveal animationClassName="fade-in-image">
+                    <div>
+                      <Slider {...sliderSettings}>
+                        {noviaImages.map((img, index) => (
+                          <SlideComponent
+                            key={index}
+                            img={img}
+                            index={index}
+                            images={noviaImages}
+                          />
+                        ))}
+                      </Slider>
+                    </div>
+                  </ScrollReveal>
                 </button>
-
-                <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
-                  Reserva tu cita
+                     
+                <button className="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button group-hover:opacity-100">
+                       Reserva tu cita
                 </button>
-
+                <button
+                  onClick={openNoviaFullscreen}
+                  className="absolute top-[60%] left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 group-hover:opacity-100"
+                >
+                  Ver Detalles
+                </button>
                 <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -406,22 +392,23 @@ function Services() {
                   </svg>
                 </div>
               </div>
-
-              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
-                Maquillaje Novia
-              </h2>
-
-              <p
-                className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
-                  theme === "dark" ? "text-gray-400" : "text-gray-600"
-                }`}
-              >
-                From elegant centerpieces to dramatic installations, we
-                transform your reception space into a breathtaking floral
-                paradise.
-              </p>
-
-              {/* MODAL FULLSCREEN PARA SERVICIO NOVIA - AHORA ES UN COMPONENTE SEPARADO */}
+              <ScrollReveal animationClassName="fade-in-text">
+                <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                     Maquillaje Novia
+                </h2>
+              </ScrollReveal>
+                 
+              <ScrollReveal animationClassName="fade-in-text">
+                <p
+                  className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
+                    theme === "dark" ? "text-gray-400" : "text-gray-600"
+                  }`}
+                >
+                  From elegant centerpieces to dramatic installations, we
+                  transform your reception space into a breathtaking floral
+                  paradise.
+                </p>
+              </ScrollReveal>
               <NoviaModal
                 isOpen={isNoviaFullscreenOpen}
                 onClose={closeNoviaFullscreen}
@@ -430,29 +417,40 @@ function Services() {
                 noviaImages={noviaImages}
               />
             </div>
-
-
-            {/* Item Social*/}             
+            {/* Item Social*/}
             <div className="space-y-6 ">
               <div className="w-full aspect-square shadow-lg overflow-hidden relative group ">
-                {/*  Imagen del servicio (Ahora con onClick para abrir el modal) */}
-                <div onClick={openSocialFullscreen} className="cursor-pointer">
-                  <Slider {...sliderSettings}>
-                    {socialImages.map((img, index) => (
-                      <SlideComponent
-                        key={index}
-                        img={img}
-                        index={index}
-                        images={socialImages}
-                      />
-                    ))}
-                  </Slider>
-                </div>
-
-                <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
-                  Reserva tu cita
+                {/*Contenedor para hover y botones */} 
+                <button
+                  className="servicio-boton-clickable" // Clase para estilos CSS (añadirás en el Paso 2)
+                  onClick={openSocialFullscreen} // Mueve el onClick aquí al botón
+                  style={{ display: "block", width: "100%", height: "100%" }} // Asegura que el botón ocupe todo el contenedor
+                >
+                  {/* Imagen del servicio*/}
+                  <ScrollReveal animationClassName="fade-in-image">
+                    <div>
+                      <Slider {...sliderSettings}>
+                        {socialImages.map((img, index) => (
+                          <SlideComponent
+                            key={index}
+                            img={img}
+                            index={index}
+                            images={socialImages}
+                          />
+                        ))}
+                      </Slider>
+                    </div>
+                  </ScrollReveal>
                 </button>
-
+                <button className="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button group-hover:opacity-100">
+                       Reserva tu cita
+                </button>
+                <button
+                  onClick={openSocialFullscreen}
+                  className="absolute top-[60%] left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 group-hover:opacity-100"
+                >
+                  Ver Detalles
+                </button>
                 <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -470,1629 +468,490 @@ function Services() {
                   </svg>
                 </div>
               </div>
-                             
-              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
-                Maquillaje Social
-              </h2>{" "}
-                             
-              <p
-                className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
-                  theme === "dark" ? "text-gray-400" : "text-gray-600"
-                }`}
-              >
-                From elegant centerpieces to dramatic installations, we
-                transform your reception space into a breathtaking floral
-                paradise.                
-              </p>
-              {/* MODAL FULLSCREEN PARA SERVICIO NOVIA */}
-              {isSocialFullscreenOpen && (
-                <div
-                  className={`fixed top-0 left-0 w-full h-full z-50 flex justify-center items-center mt-0 mb-0 ${
-                    theme === "dark"
-                      ? "bg-black bg-opacity-80 backdrop-blur-md"
-                      : "bg-gray-100 bg-opacity-50 backdrop-blur-sm"
-                  }`}
-                >
-                  <div
-                    className={`p-8 rounded-lg shadow-xl max-w-2xl w-full mx-4 md:mx-0 relative ${
-                      theme === "dark"
-                        ? "bg-gray-900 text-white"
-                        : "bg-white text-gray-800"
-                    } max-h-[90vh] overflow-y-auto`}
-                  >
-                    {/* Botón de cerrar modal */}
-                    <button
-                      onClick={closeSocialFullscreen}
-                      className={`absolute top-2 right-2 text-gray-500 hover:text-gray-700 ${
-                        theme === "dark"
-                          ? "dark:text-gray-300 dark:hover:text-gray-100"
-                          : ""
-                      }`}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="2"
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </button>
-
-                    {/* Navegación de Pestañas DENTRO del Modal -  PESTAÑAS A ANCHO COMPLETO */}
-                    <div
-                      className={`flex mb-4 w-full ${
-                        theme === "dark" ? "bg-black-400" : "bg-gray-100"
-                      }`}
-                    >
-                      {" "}
-                      {/* Barra de pestañas a ancho completo */}
-                      <button
-                        className={`flex-1 px-4 py-2 text-sm font-semibold ${
-                          activeTabModalSocial === "InformacionModalSocial"
-                            ? "bg-white dark:bg-gray-800 text-pink-600"
-                            : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400"
-                        }`}
-                        onClick={() =>
-                          setActiveTabModalSocial("InformacionModalSocial")
-                        }
-                      >
-                        Informacion
-                      </button>
-                      <button
-                        className={`flex-1 px-4 py-2 text-sm font-semibold ${
-                          activeTabModalSocial === "TerminosModalSocial"
-                            ? "bg-white dark:bg-gray-800 text-pink-600"
-                            : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400"
-                        }`}
-                        onClick={() =>
-                          setActiveTabModalSocial("TerminosModalSocial")
-                        }
-                      >
-                        Términos
-                      </button>
-                      <button
-                        className={`flex-1 px-4 py-2 text-sm font-semibold ${
-                          activeTabModalSocial === "ImagenesModalSocial"
-                            ? "bg-white dark:bg-gray-800 text-pink-600"
-                            : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400"
-                        }`}
-                        onClick={() =>
-                          setActiveTabModalSocial("ImagenesModalSocial")
-                        }
-                      >
-                        Imagenes
-                      </button>
-                    </div>
-
-                    {/* Contenido de la Pestaña: Informacion (Modal) */}
-                    {activeTabModalSocial === "InformacionModalSocial" && (
-                      <div>
-                        <h3
-                          className={`text-xl font-semibold mb-2 ${
-                            theme === "dark" ? "text-white" : "text-gray-800"
-                          }`}
-                        >
-                          Información Maquillaje Social
-                        </h3>
-                        <p
-                          className={`leading-relaxed ${
-                            theme === "dark" ? "text-gray-300" : "text-gray-700"
-                          }`}
-                        >
-                          Aquí va la información detallada del servicio de
-                          Maquillaje Social (EN MODAL). Puedes describir en
-                          detalle qué incluye este servicio, los productos que
-                          utilizas, la duración aproximada, y cualquier otra
-                          información relevante para tus clientas.
-                        </p>
-                        <div className="mb-16">
-                          <div
-                            className={`shadow-sm mt-8 p-2 md:p-8 ${
-                              theme === "dark" ? "bg-gray-800" : "bg-white"
-                            }`}
-                          >
-                            <h2
-                              className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 ${
-                                theme === "dark"
-                                  ? "text-white"
-                                  : "text-gray-700"
-                              }`}
-                            >
-                              {socialMakeupServices.category}
-                            </h2>
-                            <div className="space-y-6">
-                              {socialMakeupServices.items.map(
-                                (item, itemIndex) => (
-                                  <div
-                                    key={itemIndex}
-                                    className={`border-b pb-4 last:border-0 ${
-                                      theme === "dark"
-                                        ? "border-gray-600"
-                                        : "border-gray-100"
-                                    }`}
-                                  >
-                                    <div className="flex justify-between items-center mb-2">
-                                      <h3
-                                        className={`font-montserrat text-sm sm:text-lg ${
-                                          theme === "dark"
-                                            ? "text-white"
-                                            : "text-gray-800"
-                                        }`}
-                                      >
-                                        {item.name}
-                                      </h3>
-                                      <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
-                                        {item.price}
-                                      </span>
-                                    </div>
-                                    <p
-                                      className={`text-xs sm:text-sm md:text-base ${
-                                        theme === "dark"
-                                          ? "text-gray-400"
-                                          : "text-gray-600"
-                                      }`}
-                                    >
-                                      {item.description}
-                                    </p>
-                                  </div>
-                                )
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Contenido de la Pestaña: Terminos&Condiciones (Modal) */}
-                    {activeTabModalSocial === "TerminosModalSocial" && (
-                      <div>
-                        <h3
-                          className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 ${
-                            theme === "dark" ? "text-white" : "text-gray-700"
-                          }`}
-                        >
-                          Términos y Condiciones - Maquillaje Social (MODAL)
-                        </h3>
-                        <ul
-                          className={`list-disc list-inside leading-relaxed ${
-                            theme === "dark" ? "text-gray-300" : "text-gray-700"
-                          }`}
-                        >
-                          <li>
-                            Los Peinados no incluyen secado, por motivo de
-                            tiempo y durabilidad del mismo, el cabello debe
-                            estar previamente secado o si es liso, TOTALMENTE
-                            limpio y seco al natural.
-                          </li>
-                          <li>
-                            La prueba debe ser pagada en su totalidad para ser
-                            agendada.
-                          </li>
-                          <li>
-                            Si abona el 30% para separar fecha, deberá cancelar
-                            el 70% restante al menos 24 horas antes del evento.
-                          </li>
-                          <li>
-                            Si realizó solo el pago de la Prueba y no reservó el
-                            servicio para el día de la celebración, no se
-                            asegura la disponibilidad de la fecha.
-                          </li>
-                          <li>
-                            Verificar disponibilidad de fechas antes de realizar
-                            los abonos.
-                          </li>
-                          <li>
-                            El traslado para el servicio a domicilio es
-                            adicional ida y vuelta.
-                          </li>
-                          <li>
-                            El Servicio a domicilio tendrá un recargo adicional
-                            al traslado, de $20.000.
-                          </li>
-                          <li>
-                            Favor no tener lifting de pestañas ya que interfiere
-                            con las pestañas de cortina.
-                          </li>
-                          <li>Informar si hay algún retraso.</li>
-                          <li>No se atenderá después de 15 min de retraso.</li>
-                          <li>
-                            Una vez realizada la reserva del servicio, no se
-                            reembolsa por ningún motivo.
-                          </li>
-                          <li>El Servicio es intransferible.</li>
-                        </ul>
-                        {/* Añade aquí más contenido específico para la pestaña "Terminos&Condiciones" dentro del Modal de Novia */}
-                      </div>
-                    )}
-
-                    {/* Pestaña Imagenes - Slider (Modal -  sin cambios importantes, solo ajusta activeTabModalNovia) */}
-                    {activeTabModalSocial === "ImagenesModalSocial" && (
-                      <div>
-                        {" "}
-                        {/* No necesitas 'group-hover' ni 'opacity' aquí, el modal ya está visible */}
-                        <Slider {...sliderSettings}>
-                          {socialImages.map((img, index) => (
-                            <SlideComponent
-                              key={index}
-                              img={img}
-                              index={index}
-                              images={socialImages}
-                            />
-                          ))}
-                        </Slider>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-            {/* Item Peinado*/}             
-            <div className="space-y-6 ">
-              <div className="w-full aspect-square shadow-lg overflow-hidden relative group ">
-                {/*  Imagen del servicio (Ahora con onClick para abrir el modal) */}
-                <div onClick={openPeinadoFullscreen} className="cursor-pointer">
-                  <Slider {...sliderSettings}>
-                    {peinadoImages.map((img, index) => (
-                      <SlideComponent
-                        key={index}
-                        img={img}
-                        index={index}
-                        images={peinadoImages}
-                      />
-                    ))}
-                  </Slider>
-                </div>
-
-                <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
-                  Reserva tu cita
-                </button>
-
-                <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="size-7 text-pink-300"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"
-                    />
-                  </svg>
-                </div>
-              </div>
-                             
-              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
-                Maquillaje Peinado
-              </h2>{" "}
-                             
-              <p
-                className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
-                  theme === "dark" ? "text-gray-400" : "text-gray-600"
-                }`}
-              >
-                From elegant centerpieces to dramatic installations, we
-                transform your reception space into a breathtaking floral
-                paradise.                
-              </p>
-              {/* MODAL FULLSCREEN PARA SERVICIO NOVIA */}
-              {isPeinadoFullscreenOpen && (
-                <div
-                  className={`fixed top-0 left-0 w-full h-full z-50 flex justify-center items-center mt-0 mb-0 ${
-                    theme === "dark"
-                      ? "bg-black bg-opacity-80 backdrop-blur-md"
-                      : "bg-gray-100 bg-opacity-50 backdrop-blur-sm"
-                  }`}
-                >
-                  <div
-                    className={`p-8 rounded-lg shadow-xl max-w-2xl w-full mx-4 md:mx-0 relative ${
-                      theme === "dark"
-                        ? "bg-gray-900 text-white"
-                        : "bg-white text-gray-800"
-                    } max-h-[90vh] overflow-y-auto`}
-                  >
-                    {/* Botón de cerrar modal */}
-                    <button
-                      onClick={closePeinadoFullscreen}
-                      className={`absolute top-2 right-2 text-gray-500 hover:text-gray-700 ${
-                        theme === "dark"
-                          ? "dark:text-gray-300 dark:hover:text-gray-100"
-                          : ""
-                      }`}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="2"
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </button>
-
-                    {/* Navegación de Pestañas DENTRO del Modal -  PESTAÑAS A ANCHO COMPLETO */}
-                    <div
-                      className={`flex mb-4 w-full ${
-                        theme === "dark" ? "bg-black-400" : "bg-gray-100"
-                      }`}
-                    >
-                      {" "}
-                      {/* Barra de pestañas a ancho completo */}
-                      <button
-                        className={`flex-1 px-4 py-2 text-sm font-semibold ${
-                          activeTabModalPeinado === "InformacionModalPeinado"
-                            ? "bg-white dark:bg-gray-800 text-pink-600"
-                            : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400"
-                        }`}
-                        onClick={() =>
-                          setActiveTabModalPeinado("InformacionModalPeinado")
-                        }
-                      >
-                        Informacion
-                      </button>
-                      <button
-                        className={`flex-1 px-4 py-2 text-sm font-semibold ${
-                          activeTabModalPeinado === "TerminosModalPeinado"
-                            ? "bg-white dark:bg-gray-800 text-pink-600"
-                            : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400"
-                        }`}
-                        onClick={() =>
-                          setActiveTabModalPeinado("TerminosModalPeinado")
-                        }
-                      >
-                        Términos
-                      </button>
-                      <button
-                        className={`flex-1 px-4 py-2 text-sm font-semibold ${
-                          activeTabModalPeinado === "ImagenesModalPeinado"
-                            ? "bg-white dark:bg-gray-800 text-pink-600"
-                            : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400"
-                        }`}
-                        onClick={() =>
-                          setActiveTabModalPeinado("ImagenesModalPeinado")
-                        }
-                      >
-                        Imagenes
-                      </button>
-                    </div>
-
-                    {/* Contenido de la Pestaña: Informacion (Modal) */}
-                    {activeTabModalPeinado === "InformacionModalPeinado" && (
-                      <div>
-                        <h3
-                          className={`text-xl font-semibold mb-2 ${
-                            theme === "dark" ? "text-white" : "text-gray-800"
-                          }`}
-                        >
-                          Información Maquillaje Peinado
-                        </h3>
-                        <p
-                          className={`leading-relaxed ${
-                            theme === "dark" ? "text-gray-300" : "text-gray-700"
-                          }`}
-                        >
-                          Aquí va la información detallada del servicio de
-                          Maquillaje Peinado (EN MODAL). Puedes describir en
-                          detalle qué incluye este servicio, los productos que
-                          utilizas, la duración aproximada, y cualquier otra
-                          información relevante para tus clientas.
-                        </p>
-                        <div className="mb-16">
-                          <div
-                            className={`shadow-sm mt-8 p-2 md:p-8 ${
-                              theme === "dark" ? "bg-gray-800" : "bg-white"
-                            }`}
-                          >
-                            <h2
-                              className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 ${
-                                theme === "dark"
-                                  ? "text-white"
-                                  : "text-gray-700"
-                              }`}
-                            >
-                              {peinadoMakeupServices.category}
-                            </h2>
-                            <div className="space-y-6">
-                              {peinadoMakeupServices.items.map(
-                                (item, itemIndex) => (
-                                  <div
-                                    key={itemIndex}
-                                    className={`border-b pb-4 last:border-0 ${
-                                      theme === "dark"
-                                        ? "border-gray-600"
-                                        : "border-gray-100"
-                                    }`}
-                                  >
-                                    <div className="flex justify-between items-center mb-2">
-                                      <h3
-                                        className={`font-montserrat text-sm sm:text-lg ${
-                                          theme === "dark"
-                                            ? "text-white"
-                                            : "text-gray-800"
-                                        }`}
-                                      >
-                                        {item.name}
-                                      </h3>
-                                      <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
-                                        {item.price}
-                                      </span>
-                                    </div>
-                                    <p
-                                      className={`text-xs sm:text-sm md:text-base ${
-                                        theme === "dark"
-                                          ? "text-gray-400"
-                                          : "text-gray-600"
-                                      }`}
-                                    >
-                                      {item.description}
-                                    </p>
-                                  </div>
-                                )
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Contenido de la Pestaña: Terminos&Condiciones (Modal) */}
-                    {activeTabModalPeinado === "TerminosModalPeinado" && (
-                      <div>
-                        <h3
-                          className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 ${
-                            theme === "dark" ? "text-white" : "text-gray-700"
-                          }`}
-                        >
-                          Términos y Condiciones - Maquillaje Peinado (MODAL)
-                        </h3>
-                        <ul
-                          className={`list-disc list-inside leading-relaxed ${
-                            theme === "dark" ? "text-gray-300" : "text-gray-700"
-                          }`}
-                        >
-                          <li>
-                            Los Peinados no incluyen secado, por motivo de
-                            tiempo y durabilidad del mismo, el cabello debe
-                            estar previamente secado o si es liso, TOTALMENTE
-                            limpio y seco al natural.
-                          </li>
-                          <li>
-                            La prueba debe ser pagada en su totalidad para ser
-                            agendada.
-                          </li>
-                          <li>
-                            Si abona el 30% para separar fecha, deberá cancelar
-                            el 70% restante al menos 24 horas antes del evento.
-                          </li>
-                          <li>
-                            Si realizó solo el pago de la Prueba y no reservó el
-                            servicio para el día de la celebración, no se
-                            asegura la disponibilidad de la fecha.
-                          </li>
-                          <li>
-                            Verificar disponibilidad de fechas antes de realizar
-                            los abonos.
-                          </li>
-                          <li>
-                            El traslado para el servicio a domicilio es
-                            adicional ida y vuelta.
-                          </li>
-                          <li>
-                            El Servicio a domicilio tendrá un recargo adicional
-                            al traslado, de $20.000.
-                          </li>
-                          <li>
-                            Favor no tener lifting de pestañas ya que interfiere
-                            con las pestañas de cortina.
-                          </li>
-                          <li>Informar si hay algún retraso.</li>
-                          <li>No se atenderá después de 15 min de retraso.</li>
-                          <li>
-                            Una vez realizada la reserva del servicio, no se
-                            reembolsa por ningún motivo.
-                          </li>
-                          <li>El Servicio es intransferible.</li>
-                        </ul>
-                        {/* Añade aquí más contenido específico para la pestaña "Terminos&Condiciones" dentro del Modal de Novia */}
-                      </div>
-                    )}
-
-                    {/* Pestaña Imagenes - Slider (Modal -  sin cambios importantes, solo ajusta activeTabModalNovia) */}
-                    {activeTabModalPeinado === "ImagenesModalPeinado" && (
-                      <div>
-                        {" "}
-                        {/* No necesitas 'group-hover' ni 'opacity' aquí, el modal ya está visible */}
-                        <Slider {...sliderSettings}>
-                          {peinadoImages.map((img, index) => (
-                            <SlideComponent
-                              key={index}
-                              img={img}
-                              index={index}
-                              images={peinadoImages}
-                            />
-                          ))}
-                        </Slider>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-            {/* Item Madura*/}             
-            <div className="space-y-6 ">
-              <div className="w-full aspect-square shadow-lg overflow-hidden relative group ">
-                {/*  Imagen del servicio (Ahora con onClick para abrir el modal) */}
-                <div onClick={openMaduraFullscreen} className="cursor-pointer">
-                  <Slider {...sliderSettings}>
-                    {maduraImages.map((img, index) => (
-                      <SlideComponent
-                        key={index}
-                        img={img}
-                        index={index}
-                        images={maduraImages}
-                      />
-                    ))}
-                  </Slider>
-                </div>
-
-                <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
-                  Reserva tu cita
-                </button>
-
-                <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="size-7 text-pink-300"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"
-                    />
-                  </svg>
-                </div>
-              </div>
-                             
-              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
-                Maquillaje en Piel Madura
-              </h2>{" "}
-                             
-              <p
-                className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
-                  theme === "dark" ? "text-gray-400" : "text-gray-600"
-                }`}
-              >
-                From elegant centerpieces to dramatic installations, we
-                transform your reception space into a breathtaking floral
-                paradise.                
-              </p>
-              {/* MODAL FULLSCREEN PARA SERVICIO MADURA */}
-              {isMaduraFullscreenOpen && (
-                <div
-                  className={`fixed top-0 left-0 w-full h-full z-50 flex justify-center items-center mt-0 mb-0 ${
-                    theme === "dark"
-                      ? "bg-black bg-opacity-80 backdrop-blur-md"
-                      : "bg-gray-100 bg-opacity-50 backdrop-blur-sm"
-                  }`}
-                >
-                  <div
-                    className={`p-8 rounded-lg shadow-xl max-w-2xl w-full mx-4 md:mx-0 relative ${
-                      theme === "dark"
-                        ? "bg-gray-900 text-white"
-                        : "bg-white text-gray-800"
-                    } max-h-[90vh] overflow-y-auto`}
-                  >
-                    {/* Botón de cerrar modal */}
-                    <button
-                      onClick={closeMaduraFullscreen}
-                      className={`absolute top-2 right-2 text-gray-500 hover:text-gray-700 ${
-                        theme === "dark"
-                          ? "dark:text-gray-300 dark:hover:text-gray-100"
-                          : ""
-                      }`}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="2"
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </button>
-
-                    {/* Navegación de Pestañas DENTRO del Modal -  PESTAÑAS A ANCHO COMPLETO */}
-                    <div
-                      className={`flex mb-4 w-full ${
-                        theme === "dark" ? "bg-black-400" : "bg-gray-100"
-                      }`}
-                    >
-                      {" "}
-                      {/* Barra de pestañas a ancho completo */}
-                      <button
-                        className={`flex-1 px-4 py-2 text-sm font-semibold ${
-                          activeTabModalMadura === "InformacionModalMadura"
-                            ? "bg-white dark:bg-gray-800 text-pink-600"
-                            : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400"
-                        }`}
-                        onClick={() =>
-                          setActiveTabModalMadura("InformacionModalMadura")
-                        }
-                      >
-                        Informacion
-                      </button>
-                      <button
-                        className={`flex-1 px-4 py-2 text-sm font-semibold ${
-                          activeTabModalMadura === "TerminosModalMadura"
-                            ? "bg-white dark:bg-gray-800 text-pink-600"
-                            : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400"
-                        }`}
-                        onClick={() =>
-                          setActiveTabModalMadura("TerminosModalMadura")
-                        }
-                      >
-                        Términos
-                      </button>
-                      <button
-                        className={`flex-1 px-4 py-2 text-sm font-semibold ${
-                          activeTabModalMadura === "ImagenesModalMadura"
-                            ? "bg-white dark:bg-gray-800 text-pink-600"
-                            : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400"
-                        }`}
-                        onClick={() =>
-                          setActiveTabModalMadura("ImagenesModalMadura")
-                        }
-                      >
-                        Imagenes
-                      </button>
-                    </div>
-
-                    {/* Contenido de la Pestaña: Informacion (Modal) */}
-                    {activeTabModalMadura === "InformacionModalMadura" && (
-                      <div>
-                        <h3
-                          className={`text-xl font-semibold mb-2 ${
-                            theme === "dark" ? "text-white" : "text-gray-800"
-                          }`}
-                        >
-                          Información Maquillaje en Piel Madura
-                        </h3>
-                        <p
-                          className={`leading-relaxed ${
-                            theme === "dark" ? "text-gray-300" : "text-gray-700"
-                          }`}
-                        >
-                          Aquí va la información detallada del servicio de
-                          Maquillaje Peinado (EN MODAL). Puedes describir en
-                          detalle qué incluye este servicio, los productos que
-                          utilizas, la duración aproximada, y cualquier otra
-                          información relevante para tus clientas.
-                        </p>
-                        <div className="mb-16">
-                          <div
-                            className={`shadow-sm mt-8 p-2 md:p-8 ${
-                              theme === "dark" ? "bg-gray-800" : "bg-white"
-                            }`}
-                          >
-                            <h2
-                              className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 ${
-                                theme === "dark"
-                                  ? "text-white"
-                                  : "text-gray-700"
-                              }`}
-                            >
-                              {maduraMakeupServices.category}
-                            </h2>
-                            <div className="space-y-6">
-                              {maduraMakeupServices.items.map(
-                                (item, itemIndex) => (
-                                  <div
-                                    key={itemIndex}
-                                    className={`border-b pb-4 last:border-0 ${
-                                      theme === "dark"
-                                        ? "border-gray-600"
-                                        : "border-gray-100"
-                                    }`}
-                                  >
-                                    <div className="flex justify-between items-center mb-2">
-                                      <h3
-                                        className={`font-montserrat text-sm sm:text-lg ${
-                                          theme === "dark"
-                                            ? "text-white"
-                                            : "text-gray-800"
-                                        }`}
-                                      >
-                                        {item.name}
-                                      </h3>
-                                      <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
-                                        {item.price}
-                                      </span>
-                                    </div>
-                                    <p
-                                      className={`text-xs sm:text-sm md:text-base ${
-                                        theme === "dark"
-                                          ? "text-gray-400"
-                                          : "text-gray-600"
-                                      }`}
-                                    >
-                                      {item.description}
-                                    </p>
-                                  </div>
-                                )
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Contenido de la Pestaña: Terminos&Condiciones (Modal) */}
-                    {activeTabModalMadura === "TerminosModalMadura" && (
-                      <div>
-                        <h3
-                          className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 ${
-                            theme === "dark" ? "text-white" : "text-gray-700"
-                          }`}
-                        >
-                          Términos y Condiciones - Maquillaje en Piel Madura
-                          (MODAL)
-                        </h3>
-                        <ul
-                          className={`list-disc list-inside leading-relaxed ${
-                            theme === "dark" ? "text-gray-300" : "text-gray-700"
-                          }`}
-                        >
-                          <li>
-                            Los Peinados no incluyen secado, por motivo de
-                            tiempo y durabilidad del mismo, el cabello debe
-                            estar previamente secado o si es liso, TOTALMENTE
-                            limpio y seco al natural.
-                          </li>
-                          <li>
-                            La prueba debe ser pagada en su totalidad para ser
-                            agendada.
-                          </li>
-                          <li>
-                            Si abona el 30% para separar fecha, deberá cancelar
-                            el 70% restante al menos 24 horas antes del evento.
-                          </li>
-                          <li>
-                            Si realizó solo el pago de la Prueba y no reservó el
-                            servicio para el día de la celebración, no se
-                            asegura la disponibilidad de la fecha.
-                          </li>
-                          <li>
-                            Verificar disponibilidad de fechas antes de realizar
-                            los abonos.
-                          </li>
-                          <li>
-                            El traslado para el servicio a domicilio es
-                            adicional ida y vuelta.
-                          </li>
-                          <li>
-                            El Servicio a domicilio tendrá un recargo adicional
-                            al traslado, de $20.000.
-                          </li>
-                          <li>
-                            Favor no tener lifting de pestañas ya que interfiere
-                            con las pestañas de cortina.
-                          </li>
-                          <li>Informar si hay algún retraso.</li>
-                          <li>No se atenderá después de 15 min de retraso.</li>
-                          <li>
-                            Una vez realizada la reserva del servicio, no se
-                            reembolsa por ningún motivo.
-                          </li>
-                          <li>El Servicio es intransferible.</li>
-                        </ul>
-                        {/* Añade aquí más contenido específico para la pestaña "Terminos&Condiciones" dentro del Modal de Novia */}
-                      </div>
-                    )}
-
-                    {/* Pestaña Imagenes - Slider (Modal -  sin cambios importantes, solo ajusta activeTabModalNovia) */}
-                    {activeTabModalMadura === "ImagenesModalMadura" && (
-                      <div>
-                        {" "}
-                        {/* No necesitas 'group-hover' ni 'opacity' aquí, el modal ya está visible */}
-                        <Slider {...sliderSettings}>
-                          {maduraImages.map((img, index) => (
-                            <SlideComponent
-                              key={index}
-                              img={img}
-                              index={index}
-                              images={maduraImages}
-                            />
-                          ))}
-                        </Slider>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-            {/* Item Glam*/}             
-            <div className="space-y-6 ">
-              <div className="w-full aspect-square shadow-lg overflow-hidden relative group ">
-                {/*  Imagen del servicio (Ahora con onClick para abrir el modal) */}
-                <div onClick={openGlamFullscreen} className="cursor-pointer">
-                  <Slider {...sliderSettings}>
-                    {glamImages.map((img, index) => (
-                      <SlideComponent
-                        key={index}
-                        img={img}
-                        index={index}
-                        images={glamImages}
-                      />
-                    ))}
-                  </Slider>
-                </div>
-
-                <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
-                  Reserva tu cita
-                </button>
-
-                <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="size-7 text-pink-300"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"
-                    />
-                  </svg>
-                </div>
-              </div>
-                             
-              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
-                Maquillaje Glam
-              </h2>{" "}
-                             
-              <p
-                className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
-                  theme === "dark" ? "text-gray-400" : "text-gray-600"
-                }`}
-              >
-                From elegant centerpieces to dramatic installations, we
-                transform your reception space into a breathtaking floral
-                paradise.                
-              </p>
-              {/* MODAL FULLSCREEN PARA SERVICIO MADURA */}
-              {isGlamFullscreenOpen && (
-                <div
-                  className={`fixed top-0 left-0 w-full h-full z-50 flex justify-center items-center mt-0 mb-0 ${
-                    theme === "dark"
-                      ? "bg-black bg-opacity-80 backdrop-blur-md"
-                      : "bg-gray-100 bg-opacity-50 backdrop-blur-sm"
-                  }`}
-                >
-                  <div
-                    className={`p-8 rounded-lg shadow-xl max-w-2xl w-full mx-4 md:mx-0 relative ${
-                      theme === "dark"
-                        ? "bg-gray-900 text-white"
-                        : "bg-white text-gray-800"
-                    } max-h-[90vh] overflow-y-auto`}
-                  >
-                    {/* Botón de cerrar modal */}
-                    <button
-                      onClick={closeGlamFullscreen}
-                      className={`absolute top-2 right-2 text-gray-500 hover:text-gray-700 ${
-                        theme === "dark"
-                          ? "dark:text-gray-300 dark:hover:text-gray-100"
-                          : ""
-                      }`}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="2"
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </button>
-
-                    {/* Navegación de Pestañas DENTRO del Modal -  PESTAÑAS A ANCHO COMPLETO */}
-                    <div
-                      className={`flex mb-4 w-full ${
-                        theme === "dark" ? "bg-black-400" : "bg-gray-100"
-                      }`}
-                    >
-                      {" "}
-                      {/* Barra de pestañas a ancho completo */}
-                      <button
-                        className={`flex-1 px-4 py-2 text-sm font-semibold ${
-                          activeTabModalGlam === "InformacionModalGlam"
-                            ? "bg-white dark:bg-gray-800 text-pink-600"
-                            : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400"
-                        }`}
-                        onClick={() =>
-                          setActiveTabModalGlam("InformacionModalGlam")
-                        }
-                      >
-                        Informacion
-                      </button>
-                      <button
-                        className={`flex-1 px-4 py-2 text-sm font-semibold ${
-                          activeTabModalGlam === "TerminosModalGlam"
-                            ? "bg-white dark:bg-gray-800 text-pink-600"
-                            : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400"
-                        }`}
-                        onClick={() =>
-                          setActiveTabModalGlam("TerminosModalGlam")
-                        }
-                      >
-                        Términos
-                      </button>
-                      <button
-                        className={`flex-1 px-4 py-2 text-sm font-semibold ${
-                          activeTabModalGlam === "ImagenesModalGlam"
-                            ? "bg-white dark:bg-gray-800 text-pink-600"
-                            : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400"
-                        }`}
-                        onClick={() =>
-                          setActiveTabModalGlam("ImagenesModalGlam")
-                        }
-                      >
-                        Imagenes
-                      </button>
-                    </div>
-
-                    {/* Contenido de la Pestaña: Informacion (Modal) */}
-                    {activeTabModalGlam === "InformacionModalGlam" && (
-                      <div>
-                        <h3
-                          className={`text-xl font-semibold mb-2 ${
-                            theme === "dark" ? "text-white" : "text-gray-800"
-                          }`}
-                        >
-                          Información Maquillaje Glam
-                        </h3>
-                        <p
-                          className={`leading-relaxed ${
-                            theme === "dark" ? "text-gray-300" : "text-gray-700"
-                          }`}
-                        >
-                          Aquí va la información detallada del servicio de
-                          Maquillaje Glam (EN MODAL). Puedes describir en
-                          detalle qué incluye este servicio, los productos que
-                          utilizas, la duración aproximada, y cualquier otra
-                          información relevante para tus clientas.
-                        </p>
-                        <div className="mb-16">
-                          <div
-                            className={`shadow-sm mt-8 p-2 md:p-8 ${
-                              theme === "dark" ? "bg-gray-800" : "bg-white"
-                            }`}
-                          >
-                            <h2
-                              className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 ${
-                                theme === "dark"
-                                  ? "text-white"
-                                  : "text-gray-700"
-                              }`}
-                            >
-                              {glamMakeupServices.category}
-                            </h2>
-                            <div className="space-y-6">
-                              {glamMakeupServices.items.map(
-                                (item, itemIndex) => (
-                                  <div
-                                    key={itemIndex}
-                                    className={`border-b pb-4 last:border-0 ${
-                                      theme === "dark"
-                                        ? "border-gray-600"
-                                        : "border-gray-100"
-                                    }`}
-                                  >
-                                    <div className="flex justify-between items-center mb-2">
-                                      <h3
-                                        className={`font-montserrat text-sm sm:text-lg ${
-                                          theme === "dark"
-                                            ? "text-white"
-                                            : "text-gray-800"
-                                        }`}
-                                      >
-                                        {item.name}
-                                      </h3>
-                                      <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
-                                        {item.price}
-                                      </span>
-                                    </div>
-                                    <p
-                                      className={`text-xs sm:text-sm md:text-base ${
-                                        theme === "dark"
-                                          ? "text-gray-400"
-                                          : "text-gray-600"
-                                      }`}
-                                    >
-                                      {item.description}
-                                    </p>
-                                  </div>
-                                )
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Contenido de la Pestaña: Terminos&Condiciones (Modal) */}
-                    {activeTabModalGlam === "TerminosModalGlam" && (
-                      <div>
-                        <h3
-                          className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 ${
-                            theme === "dark" ? "text-white" : "text-gray-700"
-                          }`}
-                        >
-                          Términos y Condiciones - Maquillaje Glam (MODAL)
-                        </h3>
-                        <ul
-                          className={`list-disc list-inside leading-relaxed ${
-                            theme === "dark" ? "text-gray-300" : "text-gray-700"
-                          }`}
-                        >
-                          <li>
-                            Los Peinados no incluyen secado, por motivo de
-                            tiempo y durabilidad del mismo, el cabello debe
-                            estar previamente secado o si es liso, TOTALMENTE
-                            limpio y seco al natural.
-                          </li>
-                          <li>
-                            La prueba debe ser pagada en su totalidad para ser
-                            agendada.
-                          </li>
-                          <li>
-                            Si abona el 30% para separar fecha, deberá cancelar
-                            el 70% restante al menos 24 horas antes del evento.
-                          </li>
-                          <li>
-                            Si realizó solo el pago de la Prueba y no reservó el
-                            servicio para el día de la celebración, no se
-                            asegura la disponibilidad de la fecha.
-                          </li>
-                          <li>
-                            Verificar disponibilidad de fechas antes de realizar
-                            los abonos.
-                          </li>
-                          <li>
-                            El traslado para el servicio a domicilio es
-                            adicional ida y vuelta.
-                          </li>
-                          <li>
-                            El Servicio a domicilio tendrá un recargo adicional
-                            al traslado, de $20.000.
-                          </li>
-                          <li>
-                            Favor no tener lifting de pestañas ya que interfiere
-                            con las pestañas de cortina.
-                          </li>
-                          <li>Informar si hay algún retraso.</li>
-                          <li>No se atenderá después de 15 min de retraso.</li>
-                          <li>
-                            Una vez realizada la reserva del servicio, no se
-                            reembolsa por ningún motivo.
-                          </li>
-                          <li>El Servicio es intransferible.</li>
-                        </ul>
-                        {/* Añade aquí más contenido específico para la pestaña "Terminos&Condiciones" dentro del Modal de Novia */}
-                      </div>
-                    )}
-
-                    {/* Pestaña Imagenes - Slider (Modal -  sin cambios importantes, solo ajusta activeTabModalNovia) */}
-                    {activeTabModalGlam === "ImagenesModalGlam" && (
-                      <div>
-                        {" "}
-                        {/* No necesitas 'group-hover' ni 'opacity' aquí, el modal ya está visible */}
-                        <Slider {...sliderSettings}>
-                          {glamImages.map((img, index) => (
-                            <SlideComponent
-                              key={index}
-                              img={img}
-                              index={index}
-                              images={glamImages}
-                            />
-                          ))}
-                        </Slider>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-            {/* Item Express*/}             
-            <div className="space-y-6 ">
-              <div className="w-full aspect-square shadow-lg overflow-hidden relative group ">
-                {/*  Imagen del servicio (Ahora con onClick para abrir el modal) */}
-                <div onClick={openExpressFullscreen} className="cursor-pointer">
-                  <Slider {...sliderSettings}>
-                    {expressImages.map((img, index) => (
-                      <SlideComponent
-                        key={index}
-                        img={img}
-                        index={index}
-                        images={expressImages}
-                      />
-                    ))}
-                  </Slider>
-                </div>
-
-                <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
-                  Reserva tu cita
-                </button>
-
-                <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="size-7 text-pink-300"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"
-                    />
-                  </svg>
-                </div>
-              </div>
-                             
-              <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
-                Maquillaje Express
-              </h2>{" "}
-                             
-              <p
-                className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
-                  theme === "dark" ? "text-gray-400" : "text-gray-600"
-                }`}
-              >
-                From elegant centerpieces to dramatic installations, we
-                transform your reception space into a breathtaking floral
-                paradise.                
-              </p>
-              {/* MODAL FULLSCREEN PARA SERVICIO MADURA */}
-              {isExpressFullscreenOpen && (
-                <div
-                  className={`fixed top-0 left-0 w-full h-full z-50 flex justify-center items-center mt-0 mb-0 ${
-                    theme === "dark"
-                      ? "bg-black bg-opacity-80 backdrop-blur-md"
-                      : "bg-gray-100 bg-opacity-50 backdrop-blur-sm"
-                  }`}
-                >
-                  <div
-                    className={`p-8 rounded-lg shadow-xl max-w-2xl w-full mx-4 md:mx-0 relative ${
-                      theme === "dark"
-                        ? "bg-gray-900 text-white"
-                        : "bg-white text-gray-800"
-                    } max-h-[90vh] overflow-y-auto`}
-                  >
-                    {/* Botón de cerrar modal */}
-                    <button
-                      onClick={closeExpressFullscreen}
-                      className={`absolute top-2 right-2 text-gray-500 hover:text-gray-700 ${
-                        theme === "dark"
-                          ? "dark:text-gray-300 dark:hover:text-gray-100"
-                          : ""
-                      }`}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="2"
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </button>
-
-                    {/* Navegación de Pestañas DENTRO del Modal -  PESTAÑAS A ANCHO COMPLETO */}
-                    <div
-                      className={`flex mb-4 w-full ${
-                        theme === "dark" ? "bg-black-400" : "bg-gray-100"
-                      }`}
-                    >
-                      {" "}
-                      {/* Barra de pestañas a ancho completo */}
-                      <button
-                        className={`flex-1 px-4 py-2 text-sm font-semibold ${
-                          activeTabModalExpress === "InformacionModalExpress"
-                            ? "bg-white dark:bg-gray-800 text-pink-600"
-                            : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400"
-                        }`}
-                        onClick={() =>
-                          setActiveTabModalExpress("InformacionModalExpress")
-                        }
-                      >
-                        Informacion
-                      </button>
-                      <button
-                        className={`flex-1 px-4 py-2 text-sm font-semibold ${
-                          activeTabModalExpress === "TerminosModalExpress"
-                            ? "bg-white dark:bg-gray-800 text-pink-600"
-                            : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400"
-                        }`}
-                        onClick={() =>
-                          setActiveTabModalExpress("TerminosModalExpress")
-                        }
-                      >
-                        Términos
-                      </button>
-                      <button
-                        className={`flex-1 px-4 py-2 text-sm font-semibold ${
-                          activeTabModalExpress === "ImagenesModalExpress"
-                            ? "bg-white dark:bg-gray-800 text-pink-600"
-                            : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400"
-                        }`}
-                        onClick={() =>
-                          setActiveTabModalExpress("ImagenesModalExpress")
-                        }
-                      >
-                        Imagenes
-                      </button>
-                    </div>
-
-                    {/* Contenido de la Pestaña: Informacion (Modal) */}
-                    {activeTabModalExpress === "InformacionModalExpress" && (
-                      <div>
-                        <h3
-                          className={`text-xl font-semibold mb-2 ${
-                            theme === "dark" ? "text-white" : "text-gray-800"
-                          }`}
-                        >
-                          Información Maquillaje Express
-                        </h3>
-                        <p
-                          className={`leading-relaxed ${
-                            theme === "dark" ? "text-gray-300" : "text-gray-700"
-                          }`}
-                        >
-                          Aquí va la información detallada del servicio de
-                          Maquillaje Express (EN MODAL). Puedes describir en
-                          detalle qué incluye este servicio, los productos que
-                          utilizas, la duración aproximada, y cualquier otra
-                          información relevante para tus clientas.
-                        </p>
-                        <div className="mb-16">
-                          <div
-                            className={`shadow-sm mt-8 p-2 md:p-8 ${
-                              theme === "dark" ? "bg-gray-800" : "bg-white"
-                            }`}
-                          >
-                            <h2
-                              className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 ${
-                                theme === "dark"
-                                  ? "text-white"
-                                  : "text-gray-700"
-                              }`}
-                            >
-                              {expressMakeupServices.category}
-                            </h2>
-                            <div className="space-y-6">
-                              {expressMakeupServices.items.map(
-                                (item, itemIndex) => (
-                                  <div
-                                    key={itemIndex}
-                                    className={`border-b pb-4 last:border-0 ${
-                                      theme === "dark"
-                                        ? "border-gray-600"
-                                        : "border-gray-100"
-                                    }`}
-                                  >
-                                    <div className="flex justify-between items-center mb-2">
-                                      <h3
-                                        className={`font-montserrat text-sm sm:text-lg ${
-                                          theme === "dark"
-                                            ? "text-white"
-                                            : "text-gray-800"
-                                        }`}
-                                      >
-                                        {item.name}
-                                      </h3>
-                                      <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
-                                        {item.price}
-                                      </span>
-                                    </div>
-                                    <p
-                                      className={`text-xs sm:text-sm md:text-base ${
-                                        theme === "dark"
-                                          ? "text-gray-400"
-                                          : "text-gray-600"
-                                      }`}
-                                    >
-                                      {item.description}
-                                    </p>
-                                  </div>
-                                )
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Contenido de la Pestaña: Terminos&Condiciones (Modal) */}
-                    {activeTabModalExpress === "TerminosModalExpress" && (
-                      <div>
-                        <h3
-                          className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 ${
-                            theme === "dark" ? "text-white" : "text-gray-700"
-                          }`}
-                        >
-                          Términos y Condiciones - Maquillaje Express (MODAL)
-                        </h3>
-                        <ul
-                          className={`list-disc list-inside leading-relaxed ${
-                            theme === "dark" ? "text-gray-300" : "text-gray-700"
-                          }`}
-                        >
-                          <li>
-                            Los Peinados no incluyen secado, por motivo de
-                            tiempo y durabilidad del mismo, el cabello debe
-                            estar previamente secado o si es liso, TOTALMENTE
-                            limpio y seco al natural.
-                          </li>
-                          <li>
-                            La prueba debe ser pagada en su totalidad para ser
-                            agendada.
-                          </li>
-                          <li>
-                            Si abona el 30% para separar fecha, deberá cancelar
-                            el 70% restante al menos 24 horas antes del evento.
-                          </li>
-                          <li>
-                            Si realizó solo el pago de la Prueba y no reservó el
-                            servicio para el día de la celebración, no se
-                            asegura la disponibilidad de la fecha.
-                          </li>
-                          <li>
-                            Verificar disponibilidad de fechas antes de realizar
-                            los abonos.
-                          </li>
-                          <li>
-                            El traslado para el servicio a domicilio es
-                            adicional ida y vuelta.
-                          </li>
-                          <li>
-                            El Servicio a domicilio tendrá un recargo adicional
-                            al traslado, de $20.000.
-                          </li>
-                          <li>
-                            Favor no tener lifting de pestañas ya que interfiere
-                            con las pestañas de cortina.
-                          </li>
-                          <li>Informar si hay algún retraso.</li>
-                          <li>No se atenderá después de 15 min de retraso.</li>
-                          <li>
-                            Una vez realizada la reserva del servicio, no se
-                            reembolsa por ningún motivo.
-                          </li>
-                          <li>El Servicio es intransferible.</li>
-                        </ul>
-                        {/* Añade aquí más contenido específico para la pestaña "Terminos&Condiciones" dentro del Modal de Novia */}
-                      </div>
-                    )}
-
-                    {/* Pestaña Imagenes - Slider (Modal -  sin cambios importantes, solo ajusta activeTabModalNovia) */}
-                    {activeTabModalExpress === "ImagenesModalExpress" && (
-                      <div>
-                        {" "}
-                        {/* No necesitas 'group-hover' ni 'opacity' aquí, el modal ya está visible */}
-                        <Slider {...sliderSettings}>
-                          {expressImages.map((img, index) => (
-                            <SlideComponent
-                              key={index}
-                              img={img}
-                              index={index}
-                              images={expressImages}
-                            />
-                          ))}
-                        </Slider>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-                       
-          </div>
-          {/* Fin sección servicios de maquillaje */}         
-          {/* Sección "Nuestros servicios incluyen" */}         
-          <div className="text-center space-y-8 mb-0 md:mb-6">
-            {" "}
-                       
-            <h3 className="text-2xl md:text-5xl font-montserrat font-light tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
-              Nuestros Servicios Incluyen
-            </h3>
-                       
-            <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-600">
-                           
-              <li
-                className={`p-6 shadow-sm p-2 md:p-8 ${
-                  theme === "dark" ? "bg-gray-800" : "bg-white"
-                }`}
-              >
-                {" "}
-                               
-                <h4
-                  className={`font-montserrat tracking-wide mb-3 text-center ${
-                    theme === "dark" ? "text-white" : "text-gray-700"
-                  }`}
-                >
-                  Asesoría para cuidado de la piel
-                </h4>
-                   
-                <p
-                  className={`text-xs sm:text-sm md:text-base ${
-                    theme === "dark" ? "text-gray-400" : "text-gray-600"
-                  }`}
-                >
-                  Hidratación, limpieza y productos
-                </p>
-                             
-              </li>
-                           
-              <li
-                className={`p-6 shadow-sm p-2 md:p-8 ${
-                  theme === "dark" ? "bg-gray-800" : "bg-white"
-                }`}
-              >
-                {" "}
-                               
-                <h4
-                  className={`font-montserrat tracking-wide mb-3 text-center ${
-                    theme === "dark" ? "text-white" : "text-gray-700"
-                  }`}
-                >
-                  Ceremony Décor
-                </h4>
-                <p
-                  className={`text-xs sm:text-sm md:text-base ${
-                    theme === "dark" ? "text-gray-400" : "text-gray-600"
-                  }`}
-                >
-                  Arches, aisle designs, and altar arrangements
-                </p>
-                         
-              </li>
-                           
-              <li
-                className={`p-6 shadow-sm p-2 md:p-8 ${
-                  theme === "dark" ? "bg-gray-800" : "bg-white"
-                }`}
-              >
-                {" "}
-                               
-                <h4
-                  className={`font-montserrat tracking-wide mb-3 text-center ${
-                    theme === "dark" ? "text-white" : "text-gray-700"
-                  }`}
-                >
-                  Reception Flowers
-                </h4>
-                         
-                <p
-                  className={`text-xs sm:text-sm md:text-base ${
-                    theme === "dark" ? "text-gray-400" : "text-gray-600"
-                  }`}
-                >
-                  Centerpieces, cake flowers, and installations
-                </p>
-                             
-              </li>
-                         
-            </ul>
-                     
-          </div>
-          {/* Fin sección "Nuestros servicios incluyen" */}   
-        </div>
-        {/* Sección estadistica de servicios */}         
-        <div className="w-full mb-0 md:mb-6">
-          <StatsSection />         
-        </div>
-        {/* Fin sección estadistica de servicios */}       
-        <div className="max-w-7xl mx-auto px-2">
-          {/* Sección Cursos */}         
-          <div className="text-center space-y-8 pt-16 mb-24 md:mb-48">
-            {" "}
-                       
-            <h1 className="text-2xl md:text-5xl font-montserrat font-light text-center mb-12 tracking-wider ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
-                 NUESTROS CURSOS            
-            </h1>
-                       
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12 mb-16">
-              {/* CURSO BASICO */}             
-              <div className="space-y-6">
-                {" "}
-                               
-                <div className="w-full h-96 shadow-lg overflow-hidden relative group">
-                  {" "}
-                                   
-                  <img
-                    src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800"
-                    alt="Curso Básico"
-                    className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
-                    loading="lazy"
-                  />{" "}
-                                   
-                  <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
-                       Reserva tu cita                  
-                  </button>{" "}
-                                 
-                </div>
-                               
+              <ScrollReveal animationClassName="fade-in-text">
                 <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
-                  Curso Básico
-                </h2>{" "}
-                               
+                  Maquillaje Social
+                </h2>
+              </ScrollReveal>
+
+              <ScrollReveal animationClassName="fade-in-text">
                 <p
                   className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
                     theme === "dark" ? "text-gray-400" : "text-gray-600"
                   }`}
                 >
-                  Each bouquet is thoughtfully designed to complement your
-                  wedding style and color palette,               creating an
-                  unforgettable statement piece for your special day.          
-                       
+                  From elegant centerpieces to dramatic installations, we
+                  transform your reception space into a breathtaking floral
+                  paradise.
                 </p>
+              </ScrollReveal>
+              <SocialModal
+                isOpen={isSocialFullscreenOpen}
+                onClose={closeSocialFullscreen}
+                theme={theme}
+                socialMakeupServices={socialMakeupServices}
+                socialImages={socialImages}
+              />
+            </div>
+            {/* Item Peinado*/}
+            <div className="space-y-6 ">
+              <div className="w-full aspect-square shadow-lg overflow-hidden relative group">
+                {/*Contenedor para hover y botones */} 
+                <button
+                  className="servicio-boton-clickable" // Clase para estilos CSS (añadirás en el Paso 2)
+                  onClick={openPeinadoFullscreen} // Mueve el onClick aquí al botón
+                  style={{ display: "block", width: "100%", height: "100%" }} // Asegura que el botón ocupe todo el contenedor
+                >
+                  {/* Imagen del servicio*/}
+                  <ScrollReveal animationClassName="fade-in-image">
+                    <div>
+                      <Slider {...sliderSettings}>
+                        {peinadoImages.map((img, index) => (
+                          <SlideComponent
+                            key={index}
+                            img={img}
+                            index={index}
+                            images={peinadoImages}
+                          />
+                        ))}
+                      </Slider>
+                    </div>
+                  </ScrollReveal>
+                </button>
+                <button className="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button group-hover:opacity-100">
+                   Reserva tu cita
+                </button>
+                <button
+                  onClick={openPeinadoFullscreen}
+                  className="absolute top-[60%] left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 group-hover:opacity-100"
+                >
+                  Ver Detalles
+                </button>
+                <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="size-7 text-pink-300"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <ScrollReveal animationClassName="fade-in-text">
+                <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                  Maquillaje Peinado
+                </h2>
+              </ScrollReveal>
+
+              <ScrollReveal animationClassName="fade-in-text">
+                <p
+                  className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
+                    theme === "dark" ? "text-gray-400" : "text-gray-600"
+                  }`}
+                >
+                  From elegant centerpieces to dramatic installations, we
+                  transform your reception space into a breathtaking floral
+                  paradise.
+                </p>
+              </ScrollReveal>
+              <PeinadoModal
+                isOpen={isPeinadoFullscreenOpen}
+                onClose={closePeinadoFullscreen}
+                theme={theme}
+                peinadoMakeupServices={peinadoMakeupServices}
+                peinadoImages={peinadoImages}
+              />
+            </div>
+            {/* Item Madura*/}
+            <div className="space-y-6 ">
+              <div className="w-full aspect-square shadow-lg overflow-hidden relative group ">
+                {/*  Imagen del servicio (Ahora con onClick para abrir el modal) */}
+                <button
+                  className="servicio-boton-clickable" // Clase para estilos CSS (añadirás en el Paso 2)
+                  onClick={openMaduraFullscreen} // Mueve el onClick aquí al botón
+                  style={{ display: "block", width: "100%", height: "100%" }} // Asegura que el botón ocupe todo el contenedor
+                >
+                  <ScrollReveal animationClassName="fade-in-image">
+                    <div>
+                      <Slider {...sliderSettings}>
+                        {maduraImages.map((img, index) => (
+                          <SlideComponent
+                            key={index}
+                            img={img}
+                            index={index}
+                            images={maduraImages}
+                          />
+                        ))}
+                      </Slider>
+                    </div>
+                  </ScrollReveal>
+                </button>
+
+                <button className="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button group-hover:opacity-100">
+                   Reserva tu cita
+                </button>
+                <button
+                  onClick={openMaduraFullscreen}
+                  className="absolute top-[60%] left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 group-hover:opacity-100"
+                >
+                  Ver Detalles
+                </button>
+
+                <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="size-7 text-pink-300"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <ScrollReveal animationClassName="fade-in-text">
+                <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                  Maquillaje en Piel Madura
+                </h2>
+              </ScrollReveal>
+
+              <ScrollReveal animationClassName="fade-in-text">
+                <p
+                  className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
+                    theme === "dark" ? "text-gray-400" : "text-gray-600"
+                  }`}
+                >
+                  From elegant centerpieces to dramatic installations, we
+                  transform your reception space into a breathtaking floral
+                  paradise.
+                </p>
+              </ScrollReveal>
+              <MaduraModal
+                isOpen={isMaduraFullscreenOpen}
+                onClose={closeMaduraFullscreen}
+                theme={theme}
+                maduraMakeupServices={maduraMakeupServices}
+                maduraImages={maduraImages}
+              />
+            </div>
+            {/* Item Glam*/}
+            <div className="space-y-6 ">
+              <div className="w-full aspect-square shadow-lg overflow-hidden relative group">
+                {/*  Imagen del servicio (Ahora con onClick para abrir el modal) */}
+                <button
+                  className="servicio-boton-clickable" // Clase para estilos CSS (añadirás en el Paso 2)
+                  onClick={openGlamFullscreen} // Mueve el onClick aquí al botón
+                  style={{ display: "block", width: "100%", height: "100%" }} // Asegura que el botón ocupe todo el contenedor
+                >
+                  <ScrollReveal animationClassName="fade-in-image">
+                    <div
+                      onClick={openGlamFullscreen}
+                      className="cursor-pointer"
+                    >
+                      <Slider {...sliderSettings}>
+                        {glamImages.map((img, index) => (
+                          <SlideComponent
+                            key={index}
+                            img={img}
+                            index={index}
+                            images={glamImages}
+                          />
+                        ))}
+                      </Slider>
+                    </div>
+                  </ScrollReveal>
+                </button>
+
+                <button className="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button group-hover:opacity-100">
+                   Reserva tu cita
+                </button>
+                <button
+                  onClick={openGlamFullscreen}
+                  className="absolute top-[60%] left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 group-hover:opacity-100"
+                >
+                  Ver Detalles
+                </button>
+
+                <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="size-7 text-pink-300"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <ScrollReveal animationClassName="fade-in-text">
+                <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                  Maquillaje Glam
+                </h2>
+              </ScrollReveal>
+
+              <ScrollReveal animationClassName="fade-in-text">
+                <p
+                  className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
+                    theme === "dark" ? "text-gray-400" : "text-gray-600"
+                  }`}
+                >
+                  From elegant centerpieces to dramatic installations, we
+                  transform your reception space into a breathtaking floral
+                  paradise.
+                </p>
+              </ScrollReveal>
+              <GlamModal
+                isOpen={isGlamFullscreenOpen}
+                onClose={closeGlamFullscreen}
+                theme={theme}
+                glamMakeupServices={glamMakeupServices}
+                glamImages={glamImages}
+              />
+            </div>
+            {/* Item Express*/}
+            <div className="space-y-6 ">
+              <div className="w-full aspect-square shadow-lg overflow-hidden relative group ">
+                {/*  Imagen del servicio (Ahora con onClick para abrir el modal) */}
+                <button
+                  className="servicio-boton-clickable" // Clase para estilos CSS (añadirás en el Paso 2)
+                  onClick={openExpressFullscreen} // Mueve el onClick aquí al botón
+                  style={{ display: "block", width: "100%", height: "100%" }} // Asegura que el botón ocupe todo el contenedor
+                >
+                  <ScrollReveal animationClassName="fade-in-image">
+                    <div
+                      onClick={openExpressFullscreen}
+                      className="cursor-pointer"
+                    >
+                      <Slider {...sliderSettings}>
+                        {expressImages.map((img, index) => (
+                          <SlideComponent
+                            key={index}
+                            img={img}
+                            index={index}
+                            images={expressImages}
+                          />
+                        ))}
+                      </Slider>
+                    </div>
+                  </ScrollReveal>
+                </button>
+
+                <button className="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button group-hover:opacity-100">
+                   Reserva tu cita
+                </button>
+                <button
+                  onClick={openExpressFullscreen}
+                  className="absolute top-[60%] left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 group-hover:opacity-100"
+                >
+                  Ver Detalles
+                </button>
+
+                <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="size-7 text-pink-300"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <ScrollReveal animationClassName="fade-in-text">
+                <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                  Maquillaje Express
+                </h2>
+              </ScrollReveal>
+              <ScrollReveal animationClassName="fade-in-text">
+                <p
+                  className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
+                    theme === "dark" ? "text-gray-400" : "text-gray-600"
+                  }`}
+                >
+                  From elegant centerpieces to dramatic installations, we
+                  transform your reception space into a breathtaking floral
+                  paradise.
+                </p>
+              </ScrollReveal>
+              <ExpressModal
+                isOpen={isExpressFullscreenOpen}
+                onClose={closeExpressFullscreen}
+                theme={theme}
+                expressMakeupServices={expressMakeupServices}
+                expressImages={expressImages}
+              />{" "}
+            </div>
+          </div>
+          {/* Fin sección servicios de maquillaje */}
+
+          {/* Sección "Nuestros servicios incluyen" */}
+          <div className="text-center space-y-8 mb-0 md:mb-6">
+            <ScrollReveal animationClassName="fade-in-text">
+              <h3 className="text-2xl md:text-5xl font-montserrat font-light tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                Nuestros Servicios Incluyen
+              </h3>
+            </ScrollReveal>
+
+            <ScrollReveal animationClassName="fade-in-text">
+              <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-600">
+                <li
+                  className={`p-6 shadow-sm p-2 md:p-8 ${
+                    theme === "dark" ? "bg-gray-800" : "bg-white"
+                  }`}
+                >
+                  {" "}
+                  <h4
+                    className={`font-montserrat tracking-wide mb-3 text-center ${
+                      theme === "dark" ? "text-white" : "text-gray-700"
+                    }`}
+                  >
+                    Asesoría para cuidado de la piel
+                  </h4>
+                  <p
+                    className={`text-xs sm:text-sm md:text-base ${
+                      theme === "dark" ? "text-gray-400" : "text-gray-600"
+                    }`}
+                  >
+                    Hidratación, limpieza y productos
+                  </p>
+                </li>
+
+                <li
+                  className={`p-6 shadow-sm p-2 md:p-8 ${
+                    theme === "dark" ? "bg-gray-800" : "bg-white"
+                  }`}
+                >
+                  {" "}
+                  <h4
+                    className={`font-montserrat tracking-wide mb-3 text-center ${
+                      theme === "dark" ? "text-white" : "text-gray-700"
+                    }`}
+                  >
+                    Ceremony Décor
+                  </h4>
+                  <p
+                    className={`text-xs sm:text-sm md:text-base ${
+                      theme === "dark" ? "text-gray-400" : "text-gray-600"
+                    }`}
+                  >
+                    Arches, aisle designs, and altar arrangements
+                  </p>
+                </li>
+
+                <li
+                  className={`p-6 shadow-sm p-2 md:p-8 ${
+                    theme === "dark" ? "bg-gray-800" : "bg-white"
+                  }`}
+                >
+                  {" "}
+                  <h4
+                    className={`font-montserrat tracking-wide mb-3 text-center ${
+                      theme === "dark" ? "text-white" : "text-gray-700"
+                    }`}
+                  >
+                    Reception Flowers
+                  </h4>
+                  <p
+                    className={`text-xs sm:text-sm md:text-base ${
+                      theme === "dark" ? "text-gray-400" : "text-gray-600"
+                    }`}
+                  >
+                    Centerpieces, cake flowers, and installations
+                  </p>
+                </li>
+              </ul>
+            </ScrollReveal>
+          </div>
+          {/* Fin sección "Nuestros servicios incluyen" */}
+        </div>
+
+        {/* Sección estadistica de servicios */}
+        <div className="w-full mb-0 md:mb-6">
+          <StatsSection />
+        </div>
+        {/* Fin sección estadistica de servicios */}
+
+        <div className="max-w-7xl mx-auto px-2">
+          {/* Sección Cursos */}
+          <div className="text-center space-y-8 pt-16 mb-24 md:mb-48">
+            <ScrollReveal animationClassName="fade-in-text">
+              <h1 className="text-2xl md:text-5xl font-montserrat font-light text-center mb-12 tracking-wider ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                NUESTROS CURSOS
+              </h1>
+            </ScrollReveal>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12 mb-16">
+              {/* CURSO BASICO */}
+              <div className="space-y-6">
+                <div className="w-full h-96 shadow-lg overflow-hidden relative group">
+                  <ScrollReveal animationClassName="fade-in-image">
+                    <img
+                      src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800"
+                      alt="Curso Básico"
+                      className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </ScrollReveal>
+                  <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
+                    Reserva tu cita
+                  </button>
+                </div>
+                <ScrollReveal animationClassName="fade-in-text">
+                  <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                    Curso Básico
+                  </h2>
+                </ScrollReveal>
+                <ScrollReveal animationClassName="fade-in-text">
+                  <p
+                    className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
+                      theme === "dark" ? "text-gray-400" : "text-gray-600"
+                    }`}
+                  >
+                    Each bouquet is thoughtfully designed to complement your
+                    wedding style and color palette,               creating an
+                    unforgettable statement piece for your special day.
+                  </p>
+                </ScrollReveal>
                 <div className="mb-16">
                   <div
                     className={`shadow-sm p-2 md:p-8 ${
                       theme === "dark" ? "bg-gray-800" : "bg-white"
                     }`}
                   >
-                    <h2
-                      className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 text-center ${
-                        theme === "dark" ? "text-white" : "text-gray-700"
-                      }`}
-                    >
-                      {basicCourseServices.category}
-                      {/* Usamos los datos de basicCourseServices */}
-                    </h2>
+                    <ScrollReveal animationClassName="fade-in-text">
+                      <h2
+                        className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 text-center ${
+                          theme === "dark" ? "text-white" : "text-gray-700"
+                        }`}
+                      >
+                        {basicCourseServices.category}
+                        {/* Usamos los datos de basicCourseServices */}
+                      </h2>
+                    </ScrollReveal>
                     <div className="space-y-6">
                       {basicCourseServices.items.map((item, itemIndex) => (
                         <div
@@ -2104,83 +963,88 @@ function Services() {
                           }`}
                         >
                           <div className="flex justify-between items-center mb-2">
-                            <h3
-                              className={`font-montserrat text-sm sm:text-lg ${
+                            <ScrollReveal animationClassName="fade-in-text">
+                              <h3
+                                className={`font-montserrat text-sm sm:text-lg ${
+                                  theme === "dark"
+                                    ? "text-white"
+                                    : "text-gray-800"
+                                }`}
+                              >
+                                {item.name}
+                              </h3>
+                            </ScrollReveal>
+                            <ScrollReveal animationClassName="fade-in-text">
+                              <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
+                                {item.price}
+                              </span>
+                            </ScrollReveal>
+                          </div>
+                          <ScrollReveal animationClassName="fade-in-text">
+                            <p
+                              className={`text-xs sm:text-sm md:text-base ${
                                 theme === "dark"
-                                  ? "text-white"
-                                  : "text-gray-800"
+                                  ? "text-gray-400"
+                                  : "text-gray-600"
                               }`}
                             >
-                              {item.name}
-                            </h3>
-                            <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
-                              {item.price}
-                            </span>
-                          </div>
-                          <p
-                            className={`text-xs sm:text-sm md:text-base ${
-                              theme === "dark"
-                                ? "text-gray-400"
-                                : "text-gray-600"
-                            }`}
-                          >
-                            {item.description}
-                          </p>
+                              {item.description}
+                            </p>
+                          </ScrollReveal>
                         </div>
                       ))}
                     </div>
                   </div>{" "}
-                               
                 </div>
               </div>
-               {/* CURSO INTERMEDIO */}             
+              {/* CURSO INTERMEDIO */}
               <div className="space-y-6">
                 {" "}
-                               
                 <div className="w-full h-96 shadow-lg overflow-hidden relative group">
-                  {" "}
-                                   
-                  <img
-                    src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800"
-                    alt="Curso Básico"
-                    className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
-                    loading="lazy"
-                  />{" "}
-                                   
+                  <ScrollReveal animationClassName="fade-in-image">
+                    <img
+                      src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800"
+                      alt="Curso Básico"
+                      className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </ScrollReveal>
                   <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
-                       Reserva tu cita                  
+                    Reserva tu cita
                   </button>{" "}
-                                 
                 </div>
-                               
-                <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
-                  Curso Intermedio
-                </h2>{" "}
-                               
-                <p
-                  className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
-                    theme === "dark" ? "text-gray-400" : "text-gray-600"
-                  }`}
-                >
-                  Each bouquet is thoughtfully designed to complement your
-                  wedding style and color palette,             creating an
-                  unforgettable statement piece for your special day.          
-                       
-                </p>
+                <ScrollReveal animationClassName="fade-in-text">
+                  <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                    Curso Intermedio
+                  </h2>
+                </ScrollReveal>
+                <ScrollReveal animationClassName="fade-in-text">
+                  <p
+                    className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
+                      theme === "dark" ? "text-gray-400" : "text-gray-600"
+                    }`}
+                  >
+                    Each bouquet is thoughtfully designed to complement your
+                    wedding style and color palette,             creating an
+                    unforgettable statement piece for your special day.
+                  </p>
+                </ScrollReveal>
                 <div className="mb-16">
                   <div
                     className={`shadow-sm p-2 md:p-8 ${
                       theme === "dark" ? "bg-gray-800" : "bg-white"
                     }`}
                   >
-                    <h2
-                      className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 text-center ${
-                        theme === "dark" ? "text-white" : "text-gray-700"
-                      }`}
-                    >
-                      {intermediateCourseServices.category}
-                      {/* Usamos los datos de basicCourseServices */}
-                    </h2>
+                    <ScrollReveal animationClassName="fade-in-text">
+                      <h2
+                        className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 text-center ${
+                          theme === "dark" ? "text-white" : "text-gray-700"
+                        }`}
+                      >
+                        {intermediateCourseServices.category}
+                        {/* Usamos los datos de basicCourseServices */}
+                      </h2>
+                    </ScrollReveal>
                     <div className="space-y-6">
                       {intermediateCourseServices.items.map(
                         (item, itemIndex) => (
@@ -2193,84 +1057,89 @@ function Services() {
                             }`}
                           >
                             <div className="flex justify-between items-center mb-2">
-                              <h3
-                                className={`font-montserrat text-sm sm:text-lg ${
+                              <ScrollReveal animationClassName="fade-in-text">
+                                <h3
+                                  className={`font-montserrat text-sm sm:text-lg ${
+                                    theme === "dark"
+                                      ? "text-white"
+                                      : "text-gray-800"
+                                  }`}
+                                >
+                                  {item.name}
+                                </h3>
+                              </ScrollReveal>
+                              <ScrollReveal animationClassName="fade-in-text">
+                                <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
+                                  {item.price}
+                                </span>
+                              </ScrollReveal>
+                            </div>
+                            <ScrollReveal animationClassName="fade-in-text">
+                              <p
+                                className={`text-xs sm:text-sm md:text-base ${
                                   theme === "dark"
-                                    ? "text-white"
-                                    : "text-gray-800"
+                                    ? "text-gray-400"
+                                    : "text-gray-600"
                                 }`}
                               >
-                                {item.name}
-                              </h3>
-                              <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
-                                {item.price}
-                              </span>
-                            </div>
-                            <p
-                              className={`text-xs sm:text-sm md:text-base ${
-                                theme === "dark"
-                                  ? "text-gray-400"
-                                  : "text-gray-600"
-                              }`}
-                            >
-                              {item.description}
-                            </p>
+                                {item.description}
+                              </p>
+                            </ScrollReveal>
                           </div>
                         )
                       )}
                     </div>
                   </div>{" "}
-                               
                 </div>
               </div>
-              {/* CURSO AVANZADO */}             
+              {/* CURSO AVANZADO */}
               <div className="space-y-6">
                 {" "}
-                               
                 <div className="w-full h-96 shadow-lg overflow-hidden relative group">
-                  {" "}
-                                   
-                  <img
-                    src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800"
-                    alt="Curso Básico"
-                    className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
-                    loading="lazy"
-                  />{" "}
-                                   
+                  <ScrollReveal animationClassName="fade-in-image">
+                    <img
+                      src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800"
+                      alt="Curso Básico"
+                      className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </ScrollReveal>
                   <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
-                      Reserva tu cita                  
+                    Reserva tu cita
                   </button>
-                               
                 </div>
-                               
-                <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
-                  Curso Avanzado
-                </h2>{" "}
-                               
-                <p
-                  className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
-                    theme === "dark" ? "text-gray-400" : "text-gray-600"
-                  }`}
-                >
-                                    Each bouquet is thoughtfully designed to
-                  complement your wedding style and color palette,              
-                      creating an unforgettable statement piece for your special
-                  day.                
-                </p>
+                <ScrollReveal animationClassName="fade-in-text">
+                  <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                    Curso Avanzado
+                  </h2>
+                </ScrollReveal>
+                <ScrollReveal animationClassName="fade-in-text">
+                  <p
+                    className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
+                      theme === "dark" ? "text-gray-400" : "text-gray-600"
+                    }`}
+                  >
+                    Each bouquet is thoughtfully designed to complement your
+                    wedding style and color palette, creating an unforgettable
+                    statement piece for your special day.
+                  </p>
+                </ScrollReveal>
                 <div className="mb-16">
                   <div
                     className={`shadow-sm p-2 md:p-8 ${
                       theme === "dark" ? "bg-gray-800" : "bg-white"
                     }`}
                   >
-                    <h2
-                      className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 text-center ${
-                        theme === "dark" ? "text-white" : "text-gray-700"
-                      }`}
-                    >
-                      {advancedCourseServices.category}
-                      {/* Usamos los datos de basicCourseServices */}
-                    </h2>
+                    <ScrollReveal animationClassName="fade-in-text">
+                      <h2
+                        className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 text-center ${
+                          theme === "dark" ? "text-white" : "text-gray-700"
+                        }`}
+                      >
+                        {advancedCourseServices.category}
+                        {/* Usamos los datos de basicCourseServices */}
+                      </h2>
+                    </ScrollReveal>
                     <div className="space-y-6">
                       {advancedCourseServices.items.map((item, itemIndex) => (
                         <div
@@ -2282,81 +1151,87 @@ function Services() {
                           }`}
                         >
                           <div className="flex justify-between items-center mb-2">
-                            <h3
-                              className={`font-montserrat text-sm sm:text-lg ${
+                            <ScrollReveal animationClassName="fade-in-text">
+                              <h3
+                                className={`font-montserrat text-sm sm:text-lg ${
+                                  theme === "dark"
+                                    ? "text-white"
+                                    : "text-gray-800"
+                                }`}
+                              >
+                                {item.name}
+                              </h3>
+                            </ScrollReveal>
+                            <ScrollReveal animationClassName="fade-in-text">
+                              <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
+                                {item.price}
+                              </span>
+                            </ScrollReveal>
+                          </div>
+                          <ScrollReveal animationClassName="fade-in-text">
+                            <p
+                              className={`text-xs sm:text-sm md:text-base ${
                                 theme === "dark"
-                                  ? "text-white"
-                                  : "text-gray-800"
+                                  ? "text-gray-400"
+                                  : "text-gray-600"
                               }`}
                             >
-                              {item.name}
-                            </h3>
-                            <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
-                              {item.price}
-                            </span>
-                          </div>
-                          <p
-                            className={`text-xs sm:text-sm md:text-base ${
-                              theme === "dark"
-                                ? "text-gray-400"
-                                : "text-gray-600"
-                            }`}
-                          >
-                            {item.description}
-                          </p>
+                              {item.description}
+                            </p>
+                          </ScrollReveal>
                         </div>
                       ))}
                     </div>
                   </div>{" "}
-                               
                 </div>
               </div>
               {/* CURSO PROFESIONAL */}
               <div className="space-y-6">
-                               
                 <div className="w-full h-96 shadow-lg overflow-hidden relative group">
-                  {" "}
-                               
-                  <img
-                    src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800"
-                    alt="Curso Básico"
-                    className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
-                    loading="lazy"
-                  />{" "}
-                               
+                  <ScrollReveal animationClassName="fade-in-image">
+                    <img
+                      src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800"
+                      alt="Curso Básico"
+                      className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </ScrollReveal>
                   <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
-                       Reserva tu cita                  
+                    Reserva tu cita
                   </button>{" "}
-                                 
                 </div>
-                               
-                <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
-                  Curso Profesional
-                </h2>{" "}
-                           
-                <p
-                  className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
-                    theme === "dark" ? "text-gray-400" : "text-gray-600"
-                  }`}
-                >
-                  Each bouquet is thoughtfully designed to complement your
-                  wedding style and color palette,     creating an unforgettable
-                  statement piece for your special day.                
-                </p>
+                <ScrollReveal animationClassName="fade-in-text">
+                  <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                    Curso Profesional
+                  </h2>
+                </ScrollReveal>
+                <ScrollReveal animationClassName="fade-in-text">
+                  <p
+                    className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
+                      theme === "dark" ? "text-gray-400" : "text-gray-600"
+                    }`}
+                  >
+                    Each bouquet is thoughtfully designed to complement your
+                    wedding style and color palette,     creating an
+                    unforgettable statement piece for your special day.
+                  </p>
+                </ScrollReveal>
                 <div className="mb-16">
                   <div
                     className={`shadow-sm p-2 md:p-8 ${
                       theme === "dark" ? "bg-gray-800" : "bg-white"
                     }`}
                   >
-                    <h2
-                      className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 text-center ${
-                        theme === "dark" ? "text-white" : "text-gray-700"
-                      }`}
-                    >
-                      {professionalCourseServices.category}
-                      {/* Usamos los datos de basicCourseServices */}
-                    </h2>
+                    <ScrollReveal animationClassName="fade-in-text">
+                      <h2
+                        className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 text-center ${
+                          theme === "dark" ? "text-white" : "text-gray-700"
+                        }`}
+                      >
+                        {professionalCourseServices.category}
+                        {/* Usamos los datos de basicCourseServices */}
+                      </h2>
+                    </ScrollReveal>
                     <div className="space-y-6">
                       {professionalCourseServices.items.map(
                         (item, itemIndex) => (
@@ -2369,41 +1244,45 @@ function Services() {
                             }`}
                           >
                             <div className="flex justify-between items-center mb-2">
-                              <h3
-                                className={`font-montserrat text-sm sm:text-lg ${
+                              <ScrollReveal animationClassName="fade-in-text">
+                                <h3
+                                  className={`font-montserrat text-sm sm:text-lg ${
+                                    theme === "dark"
+                                      ? "text-white"
+                                      : "text-gray-800"
+                                  }`}
+                                >
+                                  {item.name}
+                                </h3>
+                              </ScrollReveal>
+                              <ScrollReveal animationClassName="fade-in-text">
+                                <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
+                                  {item.price}
+                                </span>
+                              </ScrollReveal>
+                            </div>
+                            <ScrollReveal animationClassName="fade-in-text">
+                              <p
+                                className={`text-xs sm:text-sm md:text-base ${
                                   theme === "dark"
-                                    ? "text-white"
-                                    : "text-gray-800"
+                                    ? "text-gray-400"
+                                    : "text-gray-600"
                                 }`}
                               >
-                                {item.name}
-                              </h3>
-                              <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
-                                {item.price}
-                              </span>
-                            </div>
-                            <p
-                              className={`text-xs sm:text-sm md:text-base ${
-                                theme === "dark"
-                                  ? "text-gray-400"
-                                  : "text-gray-600"
-                              }`}
-                            >
-                              {item.description}
-                            </p>
+                                {item.description}
+                              </p>
+                            </ScrollReveal>
                           </div>
                         )
                       )}
                     </div>
                   </div>
-                               
                 </div>{" "}
-                       
               </div>{" "}
-                   
             </div>
-            {/* Fin sección Cursos */}       
+            {/* Fin sección Cursos */}
           </div>
+
           {/* Galería de imágenes modal */}
           {isGalleryOpen && (
             <div
@@ -2487,8 +1366,7 @@ function Services() {
               </div>
             </div>
           )}
-        </div>{" "}
-         
+        </div>
         <PageBanner
           title="'Te debes este momento'"
           imageSrcs={[images.servicesBannerBottom]}
@@ -2496,16 +1374,17 @@ function Services() {
         >
           {/* Aquí está el código de tu botón como 'children' */}
           <div className="flex flex-col sm:flex-row gap-4">
+          <ScrollReveal animationClassName="fade-in-image">
             <Link
               to="/contact"
               className="px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
             >
               Agenda tu cita
             </Link>
+            </ScrollReveal>
           </div>
         </PageBanner>
-      </main>{" "}
-         
+      </main>
     </div>
   );
 }

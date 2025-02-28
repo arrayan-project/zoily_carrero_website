@@ -1,40 +1,39 @@
 import React, { useState, useRef, useEffect } from "react";
-import SlideComponent from "./SlideComponent";
+import SlideComponent from "../SlideComponent";
 import Slider from "react-slick"; // Importa Slider
 import "slick-carousel/slick/slick.css"; // Importa estilos del carrusel
 import "slick-carousel/slick/slick-theme.css"; // Importa tema del carrusel
 
-interface NoviaMakeupServiceItem {
+interface SocialMakeupServiceItem {
   // Define la interfaz para los items de servicio
   name: string;
   price: string;
   description: string;
 }
 
-interface NoviaModalProps {
+interface SocialModalProps {
   isOpen: boolean;
   onClose: () => void;
-  noviaImages: any[];
+  socialImages: any[];
   theme: string;
-  noviaMakeupServices: {
+  socialMakeupServices: {
     // Define el tipo de noviaMakeupServices como un objeto con una propiedad 'items' que es un array de NoviaMakeupServiceItem
     category: string;
-    items: NoviaMakeupServiceItem[]; // 'items' ahora es un array de NoviaMakeupServiceItem
+    items: SocialMakeupServiceItem[]; // 'items' ahora es un array de NoviaMakeupServiceItem
   };
 }
 
-const ModalServices: React.FC<NoviaModalProps> = ({
+const ModalServices: React.FC<SocialModalProps> = ({
   isOpen,
   onClose,
   theme,
-  noviaImages,
-  noviaMakeupServices,
+  socialImages,
+  socialMakeupServices,
 }) => {
-
-  const [activeTabModalNovia, setActiveTabModalNovia] = useState(
-    "InformacionModalNovia"
+  const [activeTabModalSocial, setActiveTabModalSocial] = useState(
+    "InformacionModalSocial"
   );
-  
+
   const modalContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -101,7 +100,7 @@ const ModalServices: React.FC<NoviaModalProps> = ({
             viewBox="0 0 24 24"
             strokeWidth="2"
             stroke="currentColor"
-            className="tw-w-6 h-6"
+            className="w-6 h-6"
           >
             <path
               strokeLinecap="round"
@@ -111,65 +110,67 @@ const ModalServices: React.FC<NoviaModalProps> = ({
           </svg>
         </button>
 
-        {/* Navegación de Pestañas DENTRO del Modal */}
+        {/* Navegación de Pestañas DENTRO del Modal -  PESTAÑAS A ANCHO COMPLETO */}
         <div
           className={`flex mb-4 w-full ${
             theme === "dark" ? "bg-black-400" : "bg-gray-100"
           }`}
         >
+          {" "}
+          {/* Barra de pestañas a ancho completo */}
           <button
             className={`flex-1 px-4 py-2 text-sm font-semibold ${
-              activeTabModalNovia === "InformacionModalNovia"
+              activeTabModalSocial === "InformacionModalSocial"
                 ? "bg-white dark:bg-gray-800 text-pink-600"
                 : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400"
             }`}
-            onClick={() => setActiveTabModalNovia("InformacionModalNovia")}
+            onClick={() => setActiveTabModalSocial("InformacionModalSocial")}
           >
             Informacion
           </button>
           <button
             className={`flex-1 px-4 py-2 text-sm font-semibold ${
-              activeTabModalNovia === "TerminosModalNovia"
+              activeTabModalSocial === "TerminosModalSocial"
                 ? "bg-white dark:bg-gray-800 text-pink-600"
                 : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400"
             }`}
-            onClick={() => setActiveTabModalNovia("TerminosModalNovia")}
+            onClick={() => setActiveTabModalSocial("TerminosModalSocial")}
           >
             Términos
           </button>
           <button
             className={`flex-1 px-4 py-2 text-sm font-semibold ${
-              activeTabModalNovia === "ImagenesModalNovia"
+              activeTabModalSocial === "ImagenesModalSocial"
                 ? "bg-white dark:bg-gray-800 text-pink-600"
                 : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400"
             }`}
-            onClick={() => setActiveTabModalNovia("ImagenesModalNovia")}
+            onClick={() => setActiveTabModalSocial("ImagenesModalSocial")}
           >
             Imagenes
           </button>
         </div>
 
         {/* Contenido de la Pestaña: Informacion (Modal) */}
-        {activeTabModalNovia === "InformacionModalNovia" && (
+        {activeTabModalSocial === "InformacionModalSocial" && (
           <div>
             <h3
               className={`text-xl font-semibold mb-2 ${
                 theme === "dark" ? "text-white" : "text-gray-800"
               }`}
             >
-              Información Maquillaje Novia
+              Información Maquillaje Social
             </h3>
             <p
               className={`leading-relaxed ${
                 theme === "dark" ? "text-gray-300" : "text-gray-700"
               }`}
             >
-              Aquí va la información detallada del servicio de Maquillaje de
-              Novia (EN MODAL). Puedes describir en detalle qué incluye este
-              servicio, los productos que utilizas, la duración aproximada, y
-              cualquier otra información relevante para tus clientas.
+              Aquí va la información detallada del servicio de Maquillaje Social
+              (EN MODAL). Puedes describir en detalle qué incluye este servicio,
+              los productos que utilizas, la duración aproximada, y cualquier
+              otra información relevante para tus clientas.
             </p>
-            <div className="tw-mb-16">
+            <div className="mb-16">
               <div
                 className={`shadow-sm mt-8 p-2 md:p-8 ${
                   theme === "dark" ? "bg-gray-800" : "bg-white"
@@ -180,11 +181,11 @@ const ModalServices: React.FC<NoviaModalProps> = ({
                     theme === "dark" ? "text-white" : "text-gray-700"
                   }`}
                 >
-                  {noviaMakeupServices.category}
+                  {socialMakeupServices.category}
                 </h2>
-                <div className="tw-space-y-6">
-                  {noviaMakeupServices.items.map(
-                    (item: NoviaMakeupServiceItem, itemIndex: number) => (
+                <div className="space-y-6">
+                  {socialMakeupServices.items.map(
+                    (item: SocialMakeupServiceItem, itemIndex: number) => (
                       <div
                         key={itemIndex}
                         className={`border-b pb-4 last:border-0 ${
@@ -193,7 +194,7 @@ const ModalServices: React.FC<NoviaModalProps> = ({
                             : "border-gray-100"
                         }`}
                       >
-                        <div className="tw-flex justify-between items-center mb-2">
+                        <div className="flex justify-between items-center mb-2">
                           <h3
                             className={`font-montserrat text-sm sm:text-lg ${
                               theme === "dark" ? "text-white" : "text-gray-800"
@@ -201,7 +202,7 @@ const ModalServices: React.FC<NoviaModalProps> = ({
                           >
                             {item.name}
                           </h3>
-                          <span className="tw-font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
+                          <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
                             {item.price}
                           </span>
                         </div>
@@ -222,14 +223,14 @@ const ModalServices: React.FC<NoviaModalProps> = ({
         )}
 
         {/* Contenido de la Pestaña: Terminos&Condiciones (Modal) */}
-        {activeTabModalNovia === "TerminosModalNovia" && (
+        {activeTabModalSocial === "TerminosModalSocial" && (
           <div>
             <h3
               className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 ${
                 theme === "dark" ? "text-white" : "text-gray-700"
               }`}
             >
-              Términos y Condiciones - Maquillaje Novia (MODAL)
+              Términos y Condiciones - Maquillaje Social (MODAL)
             </h3>
             <ul
               className={`list-disc list-inside leading-relaxed ${
@@ -280,17 +281,18 @@ const ModalServices: React.FC<NoviaModalProps> = ({
           </div>
         )}
 
-        {/* Pestaña Imagenes - Slider (Modal) */}
-        {activeTabModalNovia === "ImagenesModalNovia" && (
+        {/* Pestaña Imagenes - Slider (Modal -  sin cambios importantes, solo ajusta activeTabModalNovia) */}
+        {activeTabModalSocial === "ImagenesModalSocial" && (
           <div>
+            {" "}
             {/* No necesitas 'group-hover' ni 'opacity' aquí, el modal ya está visible */}
             <Slider {...sliderSettings}>
-              {noviaImages.map((img, index) => (
+              {socialImages.map((img, index) => (
                 <SlideComponent
                   key={index}
                   img={img}
                   index={index}
-                  images={noviaImages}
+                  images={socialImages}
                 />
               ))}
             </Slider>

@@ -1,16 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Instagram, Facebook, Pointer as Pinterest } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import { backgrounds } from '../assets/img/images';
 
-const backgrounds = [
-  'https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=2000',
-  'https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=2000',
-  'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=2000',
-  'https://images.squarespace-cdn.com/content/v1/583f664cbebafbe20765df66/1578095645512-BQ9UROH8F9Y8BLYE2XF9/honeygold-180.jpg?format=1500w',
-  'https://images.squarespace-cdn.com/content/v1/583f664cbebafbe20765df66/c6cccc22-90ae-4e11-b0d4-9dbd66916575/maritwilliamsphoto2021-katieelijanwedding-1212.jpg?format=1500w',
-  'https://images.squarespace-cdn.com/content/v1/583f664cbebafbe20765df66/77e16fd2-efb0-4a6a-bc04-f19f79fbdba7/maritwilliamsphoto2021-katieelijanwedding-339.jpg?format=1500w',
-  'https://images.squarespace-cdn.com/content/v1/583f664cbebafbe20765df66/1526340291692-3QY555B30SEGQOH0A1AE/0011.jpg?format=1500w'
-];
 
 function Home() {
   const [currentBg, setCurrentBg] = useState(0);
@@ -23,7 +15,7 @@ function Home() {
         setCurrentBg((prev) => (prev + 1) % backgrounds.length);
         setFadeOut(false);
       }, 1000);
-    }, 5000);
+    }, 8000);
 
     return () => clearInterval(interval);
   }, []);
@@ -53,9 +45,9 @@ function Home() {
           <h2 className="font-montserrat text-xl md:text-2xl text-white font-light tracking-[0.3em] mb-12">
             SERVICIOS PROFESIONALES DE MAQUILLAJE Y PEINADOS
           </h2>
-        
-        {/* Contenedor de botones */}
-        <div className="flex flex-col sm:flex-row gap-4">
+
+          {/* Contenedor de botones */}
+          <div className="flex flex-col sm:flex-row gap-4">
             <Link
               to="/services"
               className="px-6 py-3 bg-white text-black font-normal rounded shadow hover:bg-gray-200 transition duration-200 text-center"
@@ -69,7 +61,7 @@ function Home() {
               Agenda tu cita
             </Link>
           </div>
-        </main>    
+        </main>
       </div>
     </div>
   );
