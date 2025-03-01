@@ -333,7 +333,12 @@ function Services() {
       <main className="flex-grow">
         <div className="max-w-7xl mx-auto px-2 py-16 md:py-32">
           <ScrollReveal animationClassName="fade-in-text">
-            <h1 className="text-2xl md:text-5xl font-montserrat font-light text-center mb-12 tracking-wider ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+            
+            <h1
+                        className={`text-4xl md:text-5xl font-montserrat font-extralight text-center mb-12 tracking-wider ${
+                        theme === "dark" ? "text-white" : "text-gray-800"
+                        }`}
+                    >
               Conoce lo que podemos hacer por ti
             </h1>
           </ScrollReveal>

@@ -143,8 +143,12 @@ export default function Gallery() {
             <main className="flex-grow">
                 <div className="mx-auto py-16 md:py-32">
                     <ScrollReveal animationClassName="fade-in-text"> {/* ScrollReveal para el título principal */}
-                        <h1 className="text-2xl md:text-5xl font-montserrat font-light text-center mb-16 tracking-wider ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
-                            Mira nuestros trabajos con amor
+                    <h1
+                        className={`text-4xl md:text-5xl font-montserrat font-extralight text-center mb-12 tracking-wider ${
+                        theme === "dark" ? "text-white" : "text-gray-800"
+                        }`}
+                    >
+                            MIRA NUESTROS TRABAJOS
                         </h1>
                     </ScrollReveal>
 

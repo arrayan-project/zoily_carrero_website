@@ -50,7 +50,7 @@ const Navigation: React.FC<NavigationProps> = ({ className }) => {
         )}
         <div className={`
           flex flex-col md:flex-row md:justify-center md:items-end
-          space-y-4 md:space-y-12 md:space-x-12
+          space-y-4 md:space-y-12 md:space-x-4
           font-montserrat text-sm tracking-wider
           md:text-xs md:md:text-sm
           md:px-32 md:md:px-0 
@@ -66,6 +66,12 @@ const Navigation: React.FC<NavigationProps> = ({ className }) => {
             className={`nav-link ${isActive('/services') ? 'text-pink-500' : ''} ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}
           >
             SERVICIOS & CURSOS
+          </Link>
+          <Link
+            to="/ugc"
+            className={`nav-link ${isActive('/ugc') ? 'text-pink-500' : ''} ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}
+          >
+            UGC
           </Link>
           <Link
             to="/store"

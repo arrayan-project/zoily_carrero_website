@@ -40,7 +40,7 @@ function Contact() {
           {" "}
           {/* ScrollReveal para el título principal */}
           <h1
-            className={`text-4xl md:text-5xl font-montserrat text-center mb-12 tracking-wider ${
+            className={`text-4xl md:text-5xl font-montserrat font-extralight text-center mb-12 tracking-wider ${
               theme === "dark" ? "text-white" : "text-gray-800"
             }`}
           >

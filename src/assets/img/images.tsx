@@ -9,18 +9,18 @@ import contactBannerUp from '../img/banner/contact-banner-top.webp';
 import contactBannerBottom from '../img/banner/contact-banner-bottom.webp';
 
 //import para services section
-import novia from "../img/boda.webp";
-import novia1 from "../img/boda1.webp";
-import social from "../img/social6.webp";
-import social2 from "../img/social10.webp";
-import m_peinado from "../img/social8copeinado.webp";
-import m_peinado2 from "../img/social2conpeinado.webp";
-import pmadura from "../img/social14pielmadura.webp";
-import pmadura2 from "../img/social5pielmadura.webp";
-import glam from "../img/social12.webp";
-import glam2 from "../img/social13.webp";
-import express from "../img/social1.webp";
-import express2 from "../img/social7.webp";
+import novia from "../img/services/boda.webp";
+import novia1 from "../img/services/boda1.webp";
+import social from "../img/services/social6.webp";
+import social2 from "../img/services/social10.webp";
+import m_peinado from "../img/services/social8copeinado.webp";
+import m_peinado2 from "../img/services/social2conpeinado.webp";
+import pmadura from "../img/services/social14pielmadura.webp";
+import pmadura2 from "../img/services/social5pielmadura.webp";
+import glam from "../img/services/social12.webp";
+import glam2 from "../img/services/social13.webp";
+import express from "../img/services/social1.webp";
+import express2 from "../img/services/social7.webp";
 import zoilyblack from "../img/zoilynegro.webp";
 
 //import para novia gallery section
@@ -87,6 +87,14 @@ import background5 from "../img/background-home/background5.webp";
 import background6 from "../img/background-home/background6.webp";
 import background7 from "../img/background-home/background7.webp";
 
+//import para seccion ugc
+import ugc1 from "../img/ugc/ugc1.webp";
+import ugc2 from "../img/ugc/ugc2.webp";
+import ugc3 from "../img/ugc/ugc3.webp";
+import ugc4 from "../img/ugc/ugc4.webp";
+import phone from "../img/ugc/phoneugc.png";
+
+
 export const backgrounds = [
     background1,
     background2,
@@ -119,6 +127,11 @@ const images = {
     express,
     express2,
     zoilyblack,
+    ugc1, 
+    ugc2, 
+    ugc3, 
+    ugc4,
+    phone, 
 };
 
 

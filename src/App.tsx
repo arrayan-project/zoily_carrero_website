@@ -10,10 +10,12 @@ import ScrollToTopButton from './components/ScrollTopButton';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Services from './pages/Services';
+import UGC from './pages/UGC';
 import Store from './pages/Store';
 import Gallery from './pages/Gallery';
 import About from './pages/About';
 import Contact from './pages/Contact';
+
 
 
 function Layout() {
@@ -33,6 +35,7 @@ function Layout() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/ugc" element={<UGC />} />
         <Route path="/store" element={<Store />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/about" element={<About />} />

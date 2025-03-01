@@ -4,6 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
+        cinzel: ['Cinzel', 'serif'],
         montserrat: ['Montserrat', 'sans-serif'],
         'mr-de-haviland': ['"Mr De Haviland"', 'cursive'], // Nombre de la familia de la fuente
         'bebas-neue': ['"Bebas Neue"', 'sans-serif'], // Nombre de la familia de la fuente
