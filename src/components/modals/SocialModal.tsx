@@ -81,7 +81,9 @@ const ModalServices: React.FC<SocialModalProps> = ({
     >
       <div
         className={`p-8 rounded-lg shadow-xl max-w-2xl w-full mx-4 md:mx-0 relative ${
-          theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-gray-800"
+          theme === "dark" 
+          ? "bg-gray-900 text-white bg-opacity-30" 
+          : "bg-white text-gray-800 bg-opacity-50"
         } max-h-[90vh] overflow-y-auto`}
         ref={modalContentRef} // Asocia la referencia al div del contenido del modal
       >
@@ -113,7 +115,9 @@ const ModalServices: React.FC<SocialModalProps> = ({
         {/* Navegación de Pestañas DENTRO del Modal -  PESTAÑAS A ANCHO COMPLETO */}
         <div
           className={`flex mb-4 w-full ${
-            theme === "dark" ? "bg-black-400" : "bg-gray-100"
+            theme === "dark"
+             ? "bg-black-400 bg-opacity-30" 
+             : "bg-gray-100 bg-opacity-50"
           }`}
         >
           {" "}
@@ -121,8 +125,8 @@ const ModalServices: React.FC<SocialModalProps> = ({
           <button
             className={`flex-1 px-4 py-2 text-sm font-semibold ${
               activeTabModalSocial === "InformacionModalSocial"
-                ? "bg-white dark:bg-gray-800 text-pink-600"
-                : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400"
+                ? "bg-white dark:bg-gray-800 text-pink-600 bg-opacity-20"
+                : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400 bg-opacity-50"
             }`}
             onClick={() => setActiveTabModalSocial("InformacionModalSocial")}
           >
@@ -131,8 +135,8 @@ const ModalServices: React.FC<SocialModalProps> = ({
           <button
             className={`flex-1 px-4 py-2 text-sm font-semibold ${
               activeTabModalSocial === "TerminosModalSocial"
-                ? "bg-white dark:bg-gray-800 text-pink-600"
-                : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400"
+                ? "bg-white dark:bg-gray-800 text-pink-600 bg-opacity-20"
+                : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400 bg-opacity-50"
             }`}
             onClick={() => setActiveTabModalSocial("TerminosModalSocial")}
           >
@@ -141,8 +145,8 @@ const ModalServices: React.FC<SocialModalProps> = ({
           <button
             className={`flex-1 px-4 py-2 text-sm font-semibold ${
               activeTabModalSocial === "ImagenesModalSocial"
-                ? "bg-white dark:bg-gray-800 text-pink-600"
-                : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400"
+                ? "bg-white dark:bg-gray-800 text-pink-600 bg-opacity-20"
+                : "text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400 bg-opacity-50"
             }`}
             onClick={() => setActiveTabModalSocial("ImagenesModalSocial")}
           >
@@ -173,7 +177,9 @@ const ModalServices: React.FC<SocialModalProps> = ({
             <div className="mb-16">
               <div
                 className={`shadow-sm mt-8 p-2 md:p-8 ${
-                  theme === "dark" ? "bg-gray-800" : "bg-white"
+                  theme === "dark" 
+                  ? "bg-gray-800 bg-opacity-5" 
+                  : "bg-white bg-opacity-5"
                 }`}
               >
                 <h2
@@ -227,14 +233,18 @@ const ModalServices: React.FC<SocialModalProps> = ({
           <div>
             <h3
               className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 ${
-                theme === "dark" ? "text-white" : "text-gray-700"
+                theme === "dark" 
+                ? "text-white" 
+                : "text-gray-700"
               }`}
             >
               Términos y Condiciones - Maquillaje Social (MODAL)
             </h3>
             <ul
               className={`list-disc list-inside leading-relaxed ${
-                theme === "dark" ? "text-gray-300" : "text-gray-700"
+                theme === "dark" 
+                ? "text-gray-300" 
+                : "text-gray-700"
               }`}
             >
               <li>

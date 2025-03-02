@@ -96,11 +96,11 @@ function UGC() {
 
 
       {/*NUEVO TITULO DE SECCIÓN - INICIO - MODIFICADO CON TAILWIND CSS*/}
-      <div className="ugc-section-title-container mt-20 mb-14 text-center md:mt-16 md:mb-10">
+      <div className="ugc-section-title-container mt-20 text-center md:mt-36 md:mb-36 mb-14">
         {" "}
         {/* Contenedor para el título - Clases de Tailwind */}
         <h1
-          className={`text-4xl md:text-5xl font-montserrat font-extralight text-center mb-12 tracking-wider ${
+          className={`text-4xl md:text-5xl font-cinzel font-extralight text-center mb-12 tracking-wider ${
             theme === "dark" ? "text-white" : "text-gray-800"
           }`}
         >

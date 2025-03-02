@@ -66,7 +66,7 @@ function About() {
                       theme === "dark" ? "text-white" : "text-gray-800"
                     }`}
                   >
-                    Acerca de Mi
+                    ACERCA DE MI
                   </h2>
                 </ScrollReveal>
                 <div className="prose prose-lg">

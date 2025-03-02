@@ -13,18 +13,12 @@ import GlamModal from "../components/modals/GlamModal";
 import ExpressModal from "../components/modals/ExpressModal";
 import { useSwipeable } from "react-swipeable";
 import { Link } from "react-router-dom";
-import images, { // Importa el objeto 'images' (exportación por defecto)
-  noviaImages, // ... y las exportaciones nombradas de los arrays de imágenes
-  socialImages,
-  peinadoImages,
-  maduraImages,
-  glamImages,
-  expressImages,
+import images, { noviaImages,socialImages,peinadoImages,maduraImages,glamImages,expressImages,backgrounds,
 } from "../assets/img/images";
 import { useTheme } from "../components/context/useTheme";
-import ScrollReveal from "../components/ScrollReveal"; // Importa el componente ScrollReveal
-import "../index.css"; // Asegúrate de importar About.css para los estilos de transición
-import SmoothImage from "../components/SmoothImage"; // Importa el componente SmoothImage
+import ScrollReveal from "../components/ScrollReveal";
+import "../index.css"; 
+import ServicesBackgroundSVG from "../components/svgBackground/ServicesBackground";
 
 function Services() {
   // Estados para la galería
@@ -309,15 +303,15 @@ function Services() {
   const [setIsButtonModalVisible] = useState(false);
 
   return (
-    // Contenedor principal: flex-col para que el footer se posicione al final
-    <div className="min-h-screen flex flex-col">
-      {/* Banner personalizado para la sección de Servicios */}
+    <div className="min-h-screen flex flex-col"> {/* Abre div principal */}
+      <main className="flex-grow"> {/* Abre main */}
+
+        {/* Banner personalizado para la sección de Servicios */}
       <PageBanner
         title="NUESTROS SERVICIOS"
         imageSrcs={[images.servicesBannerUp]}
         objectPosition="left-bottom"
       >
-        {/* Aquí está el código de tu botón como 'children' */}
         <div className="flex flex-col sm:flex-row gap-4">
           <ScrollReveal animationClassName="fade-in-image">
             <Link
@@ -329,24 +323,25 @@ function Services() {
           </ScrollReveal>
         </div>
       </PageBanner>
-      {/* Contenido principal: flex-grow hace que se expanda para ocupar el espacio disponible */}
-      <main className="flex-grow">
-        <div className="max-w-7xl mx-auto px-2 py-16 md:py-32">
+      
+
+      <div className="relative">
+          <ServicesBackgroundSVG className="absolute inset-0 w-full h-full" />
+        <div className=" mx-auto px-2 py-16 md:py-32 md:px-6 lg:px-48 z-10">
           <ScrollReveal animationClassName="fade-in-text">
-            
             <h1
-                        className={`text-4xl md:text-5xl font-montserrat font-extralight text-center mb-12 tracking-wider ${
-                        theme === "dark" ? "text-white" : "text-gray-800"
-                        }`}
-                    >
-              Conoce lo que podemos hacer por ti
+              className={`text-4xl md:text-5xl font-cinzel font-extralight text-center mb-24 md:py-10 tracking-wider ${
+              theme === "dark" ? "text-white" : "text-gray-800"
+              }`}
+              >
+              CONOCE LO QUE PODEMOS HACER POR TI
             </h1>
           </ScrollReveal>
 
           {/* Sección servicios de maquillaje */}
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-8 mb-20 gap-y-20">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 mb-24 md:mb-40 gap-y-20">
             {/* Item Novia)*/} 
-            <div className="space-y-6 ">
+            <div className="space-y-6">
               <div className="w-full aspect-square shadow-lg overflow-hidden relative group ">
                 {/*Contenedor para hover y botones */} 
                 <button
@@ -398,7 +393,7 @@ function Services() {
                 </div>
               </div>
               <ScrollReveal animationClassName="fade-in-text">
-                <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                <h2 className="text-xl md:text-2xl font-cinzel tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                      Maquillaje Novia
                 </h2>
               </ScrollReveal>
@@ -474,7 +469,7 @@ function Services() {
                 </div>
               </div>
               <ScrollReveal animationClassName="fade-in-text">
-                <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                <h2 className="text-xl md:text-2xl font-cinzel tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                   Maquillaje Social
                 </h2>
               </ScrollReveal>
@@ -550,7 +545,7 @@ function Services() {
                 </div>
               </div>
               <ScrollReveal animationClassName="fade-in-text">
-                <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                <h2 className="text-xl md:text-2xl font-cinzel tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                   Maquillaje Peinado
                 </h2>
               </ScrollReveal>
@@ -627,7 +622,7 @@ function Services() {
                 </div>
               </div>
               <ScrollReveal animationClassName="fade-in-text">
-                <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                <h2 className="text-xl md:text-2xl font-cinzel tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                   Maquillaje en Piel Madura
                 </h2>
               </ScrollReveal>
@@ -707,7 +702,7 @@ function Services() {
                 </div>
               </div>
               <ScrollReveal animationClassName="fade-in-text">
-                <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                <h2 className="text-xl md:text-2xl font-cinzel tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                   Maquillaje Glam
                 </h2>
               </ScrollReveal>
@@ -787,7 +782,7 @@ function Services() {
                 </div>
               </div>
               <ScrollReveal animationClassName="fade-in-text">
-                <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                <h2 className="text-xl md:text-2xl font-cinzel tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                   Maquillaje Express
                 </h2>
               </ScrollReveal>
@@ -810,13 +805,14 @@ function Services() {
                 expressImages={expressImages}
               />{" "}
             </div>
-          </div>
+           </div>
+           </div>
           {/* Fin sección servicios de maquillaje */}
 
           {/* Sección "Nuestros servicios incluyen" */}
-          <div className="text-center space-y-8 mb-0 md:mb-6">
+          <div className="text-center space-y-8 md:mb-6">
             <ScrollReveal animationClassName="fade-in-text">
-              <h3 className="text-2xl md:text-5xl font-montserrat font-light tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+              <h3 className="text-2xl md:text-5xl font-cinzel font-extralight tracking-wide md:mb-24 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                 Nuestros Servicios Incluyen
               </h3>
             </ScrollReveal>
@@ -900,11 +896,11 @@ function Services() {
         </div>
         {/* Fin sección estadistica de servicios */}
 
-        <div className="max-w-7xl mx-auto px-2">
+        <div className=" mx-auto md:px-48 px-2">
           {/* Sección Cursos */}
           <div className="text-center space-y-8 pt-16 mb-24 md:mb-48">
             <ScrollReveal animationClassName="fade-in-text">
-              <h1 className="text-2xl md:text-5xl font-montserrat font-light text-center mb-12 tracking-wider ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+              <h1 className="text-2xl md:text-5xl font-cinzel font-light text-center md:mb-24 md-12 tracking-wider ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                 NUESTROS CURSOS
               </h1>
             </ScrollReveal>
@@ -926,7 +922,7 @@ function Services() {
                   </button>
                 </div>
                 <ScrollReveal animationClassName="fade-in-text">
-                  <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                  <h2 className="text-xl md:text-2xl font-cinzel tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                     Curso Básico
                   </h2>
                 </ScrollReveal>
@@ -1019,7 +1015,7 @@ function Services() {
                   </button>{" "}
                 </div>
                 <ScrollReveal animationClassName="fade-in-text">
-                  <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                  <h2 className="text-xl md:text-2xl font-cinzel tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                     Curso Intermedio
                   </h2>
                 </ScrollReveal>
@@ -1114,7 +1110,7 @@ function Services() {
                   </button>
                 </div>
                 <ScrollReveal animationClassName="fade-in-text">
-                  <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                  <h2 className="text-xl md:text-2xl font-cinzel tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                     Curso Avanzado
                   </h2>
                 </ScrollReveal>
@@ -1206,7 +1202,7 @@ function Services() {
                   </button>{" "}
                 </div>
                 <ScrollReveal animationClassName="fade-in-text">
-                  <h2 className="text-xl md:text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                  <h2 className="text-xl md:text-2xl font-cinzel tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                     Curso Profesional
                   </h2>
                 </ScrollReveal>
@@ -1282,8 +1278,8 @@ function Services() {
                       )}
                     </div>
                   </div>
-                </div>{" "}
-              </div>{" "}
+                </div>
+              </div>
             </div>
             {/* Fin sección Cursos */}
           </div>
@@ -1391,6 +1387,7 @@ function Services() {
         </PageBanner>
       </main>
     </div>
+    
   );
 }
 
