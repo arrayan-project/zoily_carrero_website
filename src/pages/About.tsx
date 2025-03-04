@@ -7,6 +7,7 @@ import { useTheme } from "../components/context/useTheme";
 import "../index.css"; // Importa el archivo CSS para los estilos de transición
 import ScrollReveal from "../components/ScrollReveal";
 
+
 function About() {
   const whyUsPoints = [
     "Experiencia comprobada en el sector",
@@ -175,7 +176,6 @@ function About() {
       <PageBanner
         title="'Te debes este momento'"
         imageSrcs={[images.aboutBannerBottom]}
-        objectPosition="bottom"
       >
         {/* Aquí está el código de tu botón como 'children' */}
         <div className="flex flex-col sm:flex-row gap-4">

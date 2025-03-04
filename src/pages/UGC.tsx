@@ -21,6 +21,7 @@ import SmoothImage from "../components/SmoothImage"; // Importa el componente Sm
 import images from "../assets/img/images"; // Importa las imágenes de assets
 import ugc from "../assets/img/images"; // Importa las imágenes de UGC
 
+
 function UGC() {
   const { theme, colors } = useTheme();
 
@@ -213,7 +214,6 @@ function UGC() {
       <PageBanner
         title="'Te debes este momento'"
         imageSrcs={[images.contactBannerBottom]}
-        objectPosition="bottom"
       >
         {/* Botón "Agenda tu cita" como 'children' de PageBanner inferior */}
         <div className="flex flex-col sm:flex-row gap-4">

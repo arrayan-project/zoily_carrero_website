@@ -75,4 +75,9 @@
 }
 
 
-
+@media (max-width: 767px) {
+  /* Ajusta el ancho de las secciones en móviles */
+  [class*="page-section"] {
+    width: 100%;
+  }
+}

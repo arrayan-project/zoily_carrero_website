@@ -15,6 +15,7 @@ import ScrollReveal from '../components/ScrollReveal'; // Importa el componente 
 import '../index.css'; // Asegúrate de importar About.css para los estilos de transición
 import SmoothImage from '../components/SmoothImage'; // Importa el componente SmoothImage
 
+
 // Define las categorías del menú
 const categories = [
     { name: 'Novia', value: 'novia' },
@@ -207,7 +208,6 @@ export default function Gallery() {
                 <PageBanner
                     title="'Te debes este momento'"
                     imageSrcs={[images.galleryBannerBottom]}
-                    objectPosition="bottom"
                 >
                     {/* Aquí está el código de tu botón como 'children' */}
                     <div className="flex flex-col sm:flex-row gap-4">

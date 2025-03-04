@@ -20,6 +20,7 @@ import ScrollReveal from "../components/ScrollReveal";
 import "../index.css"; 
 import ServicesBackgroundSVG from "../components/svgBackground/ServicesBackground";
 
+
 function Services() {
   // Estados para la galería
   const [galleryImages] = useState<string[]>([]); // Especifica <string[]> aquí
@@ -302,6 +303,7 @@ function Services() {
 
   const [setIsButtonModalVisible] = useState(false);
 
+
   return (
     <div className="min-h-screen flex flex-col"> {/* Abre div principal */}
       <main className="flex-grow"> {/* Abre main */}
@@ -311,6 +313,7 @@ function Services() {
         title="NUESTROS SERVICIOS"
         imageSrcs={[images.servicesBannerUp]}
         objectPosition="left-bottom"
+        
       >
         <div className="flex flex-col sm:flex-row gap-4">
           <ScrollReveal animationClassName="fade-in-image">
@@ -1371,7 +1374,7 @@ function Services() {
         <PageBanner
           title="'Te debes este momento'"
           imageSrcs={[images.servicesBannerBottom]}
-          objectPosition="bottom"
+         
         >
           {/* Aquí está el código de tu botón como 'children' */}
           <div className="flex flex-col sm:flex-row gap-4">

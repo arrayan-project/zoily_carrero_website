@@ -7,6 +7,7 @@ import { Link, useLocation } from "react-router-dom";
 import ScrollReveal from "../components/ScrollReveal"; // Importa el componente ScrollReveal
 import "../index.css"; // Asegúrate de importar About.css para los estilos de transición
 
+
 function Contact() {
   const { theme } = useTheme();
 
@@ -337,7 +338,7 @@ function Contact() {
       <PageBanner
         title="'Te debes este momento'"
         imageSrcs={[images.contactBannerBottom]}
-        objectPosition="bottom"
+        objectPosition="left-bottom"
       >
         {/* Botón "Agenda tu cita" como 'children' de PageBanner */}
         <div className="flex flex-col sm:flex-row gap-4">
