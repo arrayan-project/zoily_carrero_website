@@ -1,5 +1,4 @@
 import React from 'react';
-import images from '../assets/img/images';
 import { useTheme } from './context/useTheme'; // Asegúrate de que la ruta a useTheme sea correcta
 
 

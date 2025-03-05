@@ -19,7 +19,7 @@
   @apply w-8 h-8 text-white hover:text-pink-200 transition-colors duration-300 flex items-center justify-center;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 932px) {
   .nav-link {
     @apply block w-full text-center py-3;
   }
@@ -65,19 +65,46 @@
 
 .fade-in-text {
     opacity: 0;
-    transform: translateY(20px); /* Opcional: Desplazar el texto un poco desde abajo */
-    transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out; /* Transición para opacidad y posición */
+    transition: opacity 1.5s ease-in-out; /* Transición para opacidad y posición */
 }
 
 .fade-in-text.visible {
     opacity: 1;
-    transform: translateY(0); /* Vuelve a la posición original */
+}
+/* Clases para aplicar las animaciones */
+.slide-in-left {
+  animation: slide-in-left 0.5s ease-out forwards;
 }
 
+.slide-in-right {
+  animation: slide-in-right 0.5s ease-out forwards;
+}
 
-@media (max-width: 767px) {
-  /* Ajusta el ancho de las secciones en móviles */
-  [class*="page-section"] {
-    width: 100%;
-  }
+.fade-in-up {
+  animation: fade-in-up 0.5s ease-out forwards;
+}
+.slide-in-left-animation{
+    transform: translateX(-100%);
+    opacity: 0;
+}
+.slide-in-left-animation.visible{
+    transform: translateX(0);
+    opacity: 1;
+}
+.slide-in-right-animation{
+    transform: translateX(100%);
+    opacity: 0;
+}
+.slide-in-right-animation.visible{
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.fade-in-up-animation {
+    transform: translateY(20px);
+    opacity: 0;
+}
+.fade-in-up-animation.visible {
+    transform: translateY(0);
+    opacity: 1;
 }

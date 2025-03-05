@@ -28,7 +28,7 @@ function Contact() {
         <ScrollReveal animationClassName="fade-in-image">
           <Link
             to="/contact"
-            className="px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
+            className="font-cinzel px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
           >
             Agenda tu cita
           </Link>
@@ -41,9 +41,7 @@ function Contact() {
           {" "}
           {/* ScrollReveal para el título principal */}
           <h1
-            className={`text-4xl md:text-5xl font-montserrat font-extralight text-center mb-12 tracking-wider ${
-              theme === "dark" ? "text-white" : "text-gray-800"
-            }`}
+            className= "text-2xl md:text-5xl font-cinzel font-extralight text-center mb-24 md:py-10 tracking-wider ${theme === 'dark' ? 'text-white' : 'text-gray-800'}"
           >
             CONTACTANOS
           </h1>
@@ -60,7 +58,7 @@ function Contact() {
               {" "}
               {/* ScrollReveal para el título del formulario */}
               <h2
-                className={`text-2xl text-base md:text-2xl font-montserrat tracking-wide mb-6 ${
+                className={`text-2xl text-base md:text-2xl font-cinzel tracking-wide mb-6 ${
                   theme === "dark" ? "text-white" : "text-gray-700"
                 }`}
               >
@@ -74,7 +72,7 @@ function Contact() {
                   {/* ScrollReveal para el label "Nombre" */}
                   <label
                     htmlFor="name"
-                    className="block text-sm font-montserrat ${theme === 'dark' ? 'text-white' : 'text-gray-700'} mb-2"
+                    className="block text-sm font-cinzel ${theme === 'dark' ? 'text-white' : 'text-gray-700'} mb-2"
                   >
                     Nombre
                   </label>
@@ -101,7 +99,7 @@ function Contact() {
                   {/* ScrollReveal para el label "Email" */}
                   <label
                     htmlFor="email"
-                    className="block text-sm font-montserrat ${theme === 'dark' ? 'text-white' : 'text-gray-700'} mb-2"
+                    className="block text-sm font-cinzel ${theme === 'dark' ? 'text-white' : 'text-gray-700'} mb-2"
                   >
                     Email
                   </label>
@@ -128,7 +126,7 @@ function Contact() {
                   {/* ScrollReveal para el label "Tema" */}
                   <label
                     htmlFor="subject"
-                    className="block text-sm font-montserrat ${theme === 'dark' ? 'text-white' : 'text-gray-700'} mb-2"
+                    className="block text-sm font-cinzel ${theme === 'dark' ? 'text-white' : 'text-gray-700'} mb-2"
                   >
                     Tema
                   </label>
@@ -155,7 +153,7 @@ function Contact() {
                   {/* ScrollReveal para el label "Mensaje" */}
                   <label
                     htmlFor="message"
-                    className="block text-sm font-montserrat ${theme === 'dark' ? 'text-white' : 'text-gray-700'} mb-2"
+                    className="block text-sm font-cinzel ${theme === 'dark' ? 'text-white' : 'text-gray-700'} mb-2"
                   >
                     Mensaje
                   </label>
@@ -181,7 +179,7 @@ function Contact() {
                 {/* ScrollReveal para el botón "ENVIAR MENSAJE" */}
                 <button
                   type="submit"
-                  className="w-full px-6 py-3 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors font-montserrat tracking-wider"
+                  className="w-full px-6 py-3 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors font-cinzel tracking-wider"
                 >
                   ENVIAR MENSAJE
                 </button>
@@ -195,7 +193,7 @@ function Contact() {
               <ScrollReveal animationClassName="fade-in-text">
                 {" "}
                 {/* ScrollReveal para el título de la info de contacto */}
-                <h2 className="text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-700'} mb-2 mb-6">
+                <h2 className="text-2xl font-cinzel tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-700'} mb-2 mb-6">
                   Información de Contacto
                 </h2>
               </ScrollReveal>
@@ -206,13 +204,11 @@ function Contact() {
                   <div className="flex items-start space-x-4">
                     <Phone className="w-6 h-6 text-pink-600 flex-shrink-0" />
                     <div>
-                      <h3 className="font-montserrat ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                      <h3 className="font-cinzel ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                         Telefono
                       </h3>
                       <p
-                        className={` ${
-                          theme === "dark" ? "text-gray-200" : "text-gray-600"
-                        }`}
+                        className={`font-cinzel ${ theme === "dark" ? "text-gray-200" : "text-gray-600"}`}
                       >
                         (555) 123-4567
                       </p>
@@ -225,13 +221,11 @@ function Contact() {
                   <div className="flex items-start space-x-4">
                     <Mail className="w-6 h-6 text-pink-600 flex-shrink-0" />
                     <div>
-                      <h3 className="font-montserrat ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                      <h3 className="font-cinzel ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                         Email
                       </h3>
                       <p
-                        className={` ${
-                          theme === "dark" ? "text-gray-200" : "text-gray-600"
-                        }`}
+                        className={` font-cinzel ${theme === "dark" ? "text-gray-200" : "text-gray-600"}`}
                       >
                         info@sadiesfloral.com
                       </p>
@@ -244,13 +238,11 @@ function Contact() {
                   <div className="flex items-start space-x-4">
                     <MapPin className="w-6 h-6 text-pink-600 flex-shrink-0" />
                     <div>
-                      <h3 className="font-montserrat ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                      <h3 className="font-cinzel ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                         Ubicación
                       </h3>
                       <p
-                        className={` ${
-                          theme === "dark" ? "text-gray-200" : "text-gray-600"
-                        }`}
+                        className={` font-cinzel ${theme === "dark" ? "text-gray-200" : "text-gray-600"}`}
                       >
                         123 Floral Street
                         <br />
@@ -265,13 +257,11 @@ function Contact() {
                   <div className="flex items-start space-x-4">
                     <Clock className="w-6 h-6 text-pink-600 flex-shrink-0" />
                     <div>
-                      <h3 className="font-montserrat ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                      <h3 className="font-cinzel ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
                         Horario
                       </h3>
                       <p
-                        className={` ${
-                          theme === "dark" ? "text-gray-200" : "text-gray-600"
-                        }`}
+                        className={` font-cinzel ${theme === "dark" ? "text-gray-200" : "text-gray-600"}`}
                       >
                         Lunes - Viernes: 9:00 AM - 6:00 PM
                         <br />
@@ -289,7 +279,7 @@ function Contact() {
               <ScrollReveal animationClassName="fade-in-text">
                 {" "}
                 {/* ScrollReveal para el título "Síguenos" */}
-                <h2 className="text-2xl font-montserrat tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'} mb-6">
+                <h2 className="text-2xl font-cinzel tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'} mb-6">
                   Síguenos
                 </h2>
               </ScrollReveal>
@@ -299,7 +289,7 @@ function Contact() {
                   {/* ScrollReveal para el link de Instagram */}
                   <a
                     href="#"
-                    className={` ${
+                    className={`font-cinzel ${
                       theme === "dark" ? "text-gray-200" : "text-gray-600"
                     } hover:text-pink-600 transition-colors`}
                   >
@@ -311,7 +301,7 @@ function Contact() {
                   {/* ScrollReveal para el link de Pinterest */}
                   <a
                     href="#"
-                    className={` ${
+                    className={`font-cinzel ${
                       theme === "dark" ? "text-gray-200" : "text-gray-600"
                     } hover:text-pink-600 transition-colors`}
                   >
@@ -323,7 +313,7 @@ function Contact() {
                   {/* ScrollReveal para el link de Facebook */}
                   <a
                     href="#"
-                    className={` ${
+                    className={`font-cinzel ${
                       theme === "dark" ? "text-gray-200" : "text-gray-600"
                     } hover:text-pink-600 transition-colors`}
                   >
@@ -345,7 +335,7 @@ function Contact() {
         <ScrollReveal animationClassName="fade-in-image">
           <Link
             to="/contact"
-            className="px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
+            className="font-cinzel px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
           >
             Agenda tu cita
           </Link>

@@ -3,9 +3,10 @@ import React, { useState, useRef, useEffect, ReactNode } from 'react';
 interface ScrollRevealProps {
     children: ReactNode; // Permite pasar cualquier contenido JSX como hijo
     animationClassName?: string; // Prop opcional para la clase CSS de animación (por defecto 'fade-in-text')
+    className?: string;
 }
 
-const ScrollReveal: React.FC<ScrollRevealProps> = ({ children, animationClassName = 'fade-in-text' }) => {
+const ScrollReveal: React.FC<ScrollRevealProps> = ({ children, animationClassName = 'fade-in-text', className }) => {
     const [isVisible, setIsVisible] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null); // Referencia al div contenedor
 
@@ -34,7 +35,7 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({ children, animationClassNam
     }, []); // El array vacío asegura que se ejecute solo al montar
 
     return (
-        <div ref={containerRef} className={`${animationClassName} ${isVisible ? 'visible' : ''}`}>
+        <div ref={containerRef} className={`${animationClassName} ${isVisible ? 'visible' : ''} ${className || ''}`}>
             {children}
         </div>
     );

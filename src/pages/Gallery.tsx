@@ -133,7 +133,7 @@ export default function Gallery() {
                 <ScrollReveal animationClassName="fade-in-image">
                     <Link
                         to="/contact"
-                        className="px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
+                        className="font-cinzel px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
                     >
                         Agenda tu cita
                     </Link>
@@ -145,10 +145,8 @@ export default function Gallery() {
                 <div className="mx-auto py-16 md:py-32">
                     <ScrollReveal animationClassName="fade-in-text"> {/* ScrollReveal para el título principal */}
                     <h1
-                        className={`text-4xl md:text-5xl font-montserrat font-extralight text-center mb-12 tracking-wider ${
-                        theme === "dark" ? "text-white" : "text-gray-800"
-                        }`}
-                    >
+                        className= "text-2xl md:text-5xl font-cinzel font-extralight text-center mb-24 md:py-10 tracking-wider ${theme === 'dark' ? 'text-white' : 'text-gray-800'}"
+                      >
                             MIRA NUESTROS TRABAJOS
                         </h1>
                     </ScrollReveal>
@@ -159,7 +157,7 @@ export default function Gallery() {
                             <ScrollReveal animationClassName="fade-in-image">
                             <button
                                 key={category.value}
-                                className={`px-4 py-2 rounded-full font-base whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50
+                                className={`px-4 py-2 rounded-full font-cinzel font-base whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50
                                     ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}  // Color de texto dinámico
                                     ${theme === 'dark' ? 'hover:bg-pink-400' : 'hover:bg-pink-200'} // Hover dinámico (rosa más oscuro en modo oscuro)
                                     ${selectedCategory === category.value
@@ -214,7 +212,7 @@ export default function Gallery() {
                        <ScrollReveal animationClassName="fade-in-image">
                         <Link
                             to="/contact"
-                            className="px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
+                            className="font-cinzel px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
                         >
                             Agenda tu cita
                         </Link>

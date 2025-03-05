@@ -7,7 +7,7 @@ import React from 'react';
     
     const LayoutMobile: React.FC<LayoutMobileProps> = ({ children }) => {
       const { theme } = useTheme();
-      const themeClasses = theme === 'light' ? 'text-amber-700' : 'text-rose-400'; // Elimina los estilos de fondo
+      const themeClasses = theme === 'light' ? 'bg-white text-amber-700' : 'bg-gray-800 text-rose-400'; // Elimina los estilos de fondo
     
       return (
         <div className={`relative min-h-screen z-0 ${themeClasses}`}>

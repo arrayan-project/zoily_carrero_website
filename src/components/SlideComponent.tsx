@@ -6,7 +6,7 @@ interface SlideComponentProps {
     images: string[];
 }
 
-const SlideComponent: React.FC<SlideComponentProps> = memo(({ img, index, images }) => {
+const SlideComponent: React.FC<SlideComponentProps> = memo(({ img, index}) => {
     return (
         <div key={index} style={{ cursor: 'pointer', overflow: 'hidden' }}>
             <img

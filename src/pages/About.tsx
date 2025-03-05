@@ -35,7 +35,7 @@ function About() {
         <ScrollReveal animationClassName="fade-in-image">
           <Link
             to="/contact"
-            className="px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
+            className="font-cinzel px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
           >
             Agenda tu cita
           </Link>
@@ -63,7 +63,7 @@ function About() {
               <div className="max-w-lg">
                 <ScrollReveal animationClassName="fade-in-text">
                   <h2
-                    className={`text-2xl md:text-5xl font-montserrat font-light text-center mb-12 tracking-wider ${
+                    className={`text-2xl md:text-5xl font-cinzel font-light text-center mb-12 tracking-wider ${
                       theme === "dark" ? "text-white" : "text-gray-800"
                     }`}
                   >
@@ -73,7 +73,7 @@ function About() {
                 <div className="prose prose-lg">
                   <ScrollReveal animationClassName="fade-in-text">
                     <p
-                      className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
+                      className={`leading-relaxed text-sm font-cinzel font-light md:text-base md:font-normal ${
                         theme === "dark" ? "text-gray-400" : "text-gray-600"
                       }`}
                     >
@@ -84,7 +84,7 @@ function About() {
                       por el cuidado personal y la belleza.
                     </p>
                     <p
-                      className={`mt-4 leading-relaxed text-sm font-light md:text-base md:font-normal ${
+                      className={`mt-4 leading-relaxed text-sm font-cinzel font-light md:text-base md:font-normal ${
                         theme === "dark" ? "text-gray-400" : "text-gray-600"
                       }`}
                     >
@@ -104,7 +104,7 @@ function About() {
                 <div className="space-y-4 space-x-6">
                   <ScrollReveal animationClassName="fade-in-text">
                     <h3
-                      className={`ml-20 text-2xl font-base mb-12 ${
+                      className={`ml-20 text-2xl font-cinzel font-base mb-12 ${
                         theme === "dark" ? "text-white" : "text-gray-800"
                       }`}
                     >
@@ -118,7 +118,7 @@ function About() {
                         <li key={index} className="flex items-center space-x-6">
                           <CheckCircle className="h-6 w-6 text-green-500 flex-shrink-0 " />
                           <span
-                            className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
+                            className={`leading-relaxed font-cinzel text-sm font-light md:text-base md:font-normal ${
                               theme === "dark"
                                 ? "text-gray-400"
                                 : "text-gray-600"
@@ -182,7 +182,7 @@ function About() {
         <ScrollReveal animationClassName="fade-in-image">
           <Link
             to="/contact"
-            className="px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
+            className="font-cinzel px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
           >
             Agenda tu cita
           </Link>
