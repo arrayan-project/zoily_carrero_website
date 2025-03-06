@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './ScrollTopButton.css'; // Importa el archivo CSS para estilos
 
 const ScrollToTopButton = () => {

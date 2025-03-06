@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Instagram, Facebook, Pointer as Pinterest } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import { backgrounds } from '../assets/img/images';
 
 

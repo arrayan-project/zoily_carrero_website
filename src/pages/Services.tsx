@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import StatsSection from "../components/StatsSection";
 import PageBanner from "../components/PageBanner";
 import Modal from "../components/Modal";
-import { useSwipeable } from "react-swipeable";
+import CourseModal from "../components/CourseModal";
 import { Link } from "react-router-dom";
 import images, {
-  noviaGalleryImages as noviaImages,
-  socialGalleryImages as socialImages,
-  peinadoGalleryImages as peinadoImages,
-  pielMaduraGalleryImages as maduraImages,
-  glamGalleryImages as glamImages,
-  expressGalleryImages as expressImages,
+  noviaImages,
+  socialImages,
+  peinadoImages,
+  maduraImages,
+  glamImages,
+  expressImages,
 } from "../assets/img/images";
 import { useTheme } from "../components/context/useTheme";
 import ScrollReveal from "../components/ScrollReveal";
@@ -31,51 +31,52 @@ import {
   advancedCourseServices,
   professionalCourseServices,
 } from "../data/servicesData";
+import { MOBILE_BREAKPOINT } from "../constants";
+import cbasico from "../assets/img/cursos/basico.webp";
+import cintermedio from "../assets/img/cursos/intermedio.webp";
+import cavanzado from "../assets/img/cursos/avanzado.webp";
+import cprofesional from "../assets/img/cursos/profesional.webp";
 
-// Type for Makeup Service Items (e.g., name, price, description)
-interface MakeupServiceItemProps {
-  name: string;
-  price: string;
-  description: string;
+interface CourseData {
+  title: string;
+  image: string;
+  infoContent: React.ReactNode;
+  termsContent: React.ReactNode;
+}
+
+interface ModalContent {
+  images: string[];
+  title: string;
+  infoContent: React.ReactNode;
+  termsContent: React.ReactNode;
+  description?: string;
 }
 
 function Services() {
-  // State for the image gallery (not currently used, but can be used in future)
-  const [galleryImages] = useState<string[]>([]);
-  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isCourseModalOpen, setIsCourseModalOpen] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
 
-  //Swipe logic for the carousel
-  const swipeHandlers = useSwipeable({
-    onSwipedLeft: () =>
-      setCurrentImageIndex((currentImageIndex + 1) % galleryImages.length),
-    onSwipedRight: () =>
-      setCurrentImageIndex(
-        (currentImageIndex - 1 + galleryImages.length) % galleryImages.length
-      ),
-    trackMouse: true,
-  });
-
-  // Function to close the gallery (not currently used, but can be used in future)
-  const closeGallery = () => {
-    setIsGalleryOpen(false);
+  // New functions to open and close the course modal
+  const openCourseModal = (courseKey: string) => {
+    const course = courseData[courseKey];
+    if (course) {
+      setSelectedCourse(courseKey);
+      setIsCourseModalOpen(true);
+    }
   };
 
-  //Modal state
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState<{
-    images: string[];
-    title: string;
-    infoContent: React.ReactNode;
-    termsContent: React.ReactNode;
-  } | null>(null);
+  const closeCourseModal = () => {
+    setIsCourseModalOpen(false);
+    setSelectedCourse(null);
+  };
 
-  const openModal = (content: {
-    images: string[];
-    title: string;
-    infoContent: React.ReactNode;
-    termsContent: React.ReactNode;
-  }) => {
+  //Modal state for services
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState<ModalContent | null>(null); // Use the new interface
+
+  // Functions to open and close the service modal
+  const openModal = (content: ModalContent) => {
+    // Use the new interface
     setModalContent(content);
     setIsModalOpen(true);
   };
@@ -84,149 +85,311 @@ function Services() {
     setIsModalOpen(false);
   };
 
-  // Helper components to render each service item
-  const NoviaMakeupServiceItem: React.FC<MakeupServiceItemProps> = ({
-    name,
-    price,
-    description,
-  }) => (
-    <div className="mb-4">
-      <h4 className="font-bold">{name}</h4>
-      <p className="text-gray-600">Precio: {price}</p>
-      <p className="text-sm">{description}</p>
-    </div>
-  );
-  const SocialMakeupServiceItem: React.FC<MakeupServiceItemProps> = ({
-    name,
-    price,
-    description,
-  }) => (
-    <div className="mb-4">
-      <h4 className="font-bold">{name}</h4>
-      <p className="text-gray-600">Precio: {price}</p>
-      <p className="text-sm">{description}</p>
-    </div>
-  );
-  const GlamMakeupServiceItem: React.FC<MakeupServiceItemProps> = ({
-    name,
-    price,
-    description,
-  }) => (
-    <div className="mb-4">
-      <h4 className="font-bold">{name}</h4>
-      <p className="text-gray-600">Precio: {price}</p>
-      <p className="text-sm">{description}</p>
-    </div>
-  );
-  const MaduraMakeupServiceItem: React.FC<MakeupServiceItemProps> = ({
-    name,
-    price,
-    description,
-  }) => (
-    <div className="mb-4">
-      <h4 className="font-bold">{name}</h4>
-      <p className="text-gray-600">Precio: {price}</p>
-      <p className="text-sm">{description}</p>
-    </div>
-  );
-  const PeinadoMakeupServiceItem: React.FC<MakeupServiceItemProps> = ({
-    name,
-    price,
-    description,
-  }) => (
-    <div className="mb-4">
-      <h4 className="font-bold">{name}</h4>
-      <p className="text-gray-600">Precio: {price}</p>
-      <p className="text-sm">{description}</p>
-    </div>
-  );
-  const ExpressMakeupServiceItem: React.FC<MakeupServiceItemProps> = ({
-    name,
-    price,
-    description,
-  }) => (
-    <div className="mb-4">
-      <h4 className="font-bold">{name}</h4>
-      <p className="text-gray-600">Precio: {price}</p>
-      <p className="text-sm">{description}</p>
-    </div>
-  );
-
-  const { theme } = useTheme();
-
   // Content for the "Informacion" tab of each modal
   const infoContentNovia = (
-    <div>
+    <div className="font-cinzel">
       {noviaMakeupServices.items.map((item, index) => (
-        <NoviaMakeupServiceItem key={index} {...item} />
+        <div key={index} className="mb-6">
+          <h4 className="font-bold mb-4">{item.name}</h4>
+          <p className="mb-2">Precio: {item.price}</p>
+          <ul className="text-sm list-disc list-inside">
+            {item.description.map((desc, descIndex) => (
+              <li key={descIndex}>{desc}</li>
+            ))}
+          </ul>
+        </div>
       ))}
     </div>
   );
-  const termsContentNovia = (
-    <div>
-      <p className="text-sm">Terminos para el servicio de novia</p>
-    </div>
-  );
+
   const infoContentExpress = (
-    <div>
+    <div className="font-cinzel">
       {expressMakeupServices.items.map((item, index) => (
-        <ExpressMakeupServiceItem key={index} {...item} />
+        <div key={index} className="mb-6">
+          <h4 className="font-bold mb-4">{item.name}</h4>
+          <p className="mb-2">Precio: {item.price}</p>
+          <ul className="text-sm list-disc list-inside">
+            {item.description.map((desc, descIndex) => (
+              <li key={descIndex}>{desc}</li>
+            ))}
+          </ul>
+        </div>
       ))}
     </div>
   );
-  const termsContentExpress = (
-    <div>
-      <p className="text-sm">Terminos para el servicio express</p>
-    </div>
-  );
+
   const infoContentGlam = (
-    <div>
+    <div className="font-cinzel">
       {glamMakeupServices.items.map((item, index) => (
-        <GlamMakeupServiceItem key={index} {...item} />
+        <div key={index} className="mb-6">
+          <h4 className="font-bold mb-4">{item.name}</h4>
+          <p className="mb-2">Precio: {item.price}</p>
+          <ul className="text-sm list-disc list-inside">
+            {item.description.map((desc, descIndex) => (
+              <li key={descIndex}>{desc}</li>
+            ))}
+          </ul>
+        </div>
       ))}
     </div>
   );
-  const termsContentGlam = (
-    <div>
-      <p className="text-sm">Terminos para el servicio glam</p>
-    </div>
-  );
+
   const infoContentMadura = (
-    <div>
+    <div className="font-cinzel">
       {maduraMakeupServices.items.map((item, index) => (
-        <MaduraMakeupServiceItem key={index} {...item} />
+        <div key={index} className="mb-6">
+          <h4 className="font-bold mb-4">{item.name}</h4>
+          <p className="mb-2">Precio: {item.price}</p>
+          <ul className="text-sm list-disc list-inside">
+            {item.description.map((desc, descIndex) => (
+              <li key={descIndex}>{desc}</li>
+            ))}
+          </ul>
+        </div>
       ))}
     </div>
   );
-  const termsContentMadura = (
-    <div>
-      <p className="text-sm">Terminos para el servicio de piel madura</p>
-    </div>
-  );
+
   const infoContentPeinado = (
-    <div>
+    <div className="font-cinzel">
       {peinadoMakeupServices.items.map((item, index) => (
-        <PeinadoMakeupServiceItem key={index} {...item} />
+        <div key={index} className="mb-6">
+          <h4 className="font-bold mb-4">{item.name}</h4>
+          <p className="mb-2">Precio: {item.price}</p>
+          <ul className="text-sm list-disc list-inside">
+            {item.description.map((desc, descIndex) => (
+              <li key={descIndex}>{desc}</li>
+            ))}
+          </ul>
+        </div>
       ))}
     </div>
   );
-  const termsContentPeinado = (
-    <div>
-      <p className="text-sm">Terminos para el servicio de peinado</p>
-    </div>
-  );
+
   const infoContentSocial = (
-    <div>
+    <div className="font-cinzel">
       {socialMakeupServices.items.map((item, index) => (
-        <SocialMakeupServiceItem key={index} {...item} />
+        <div key={index} className="mb-6">
+          <h4 className="font-bold mb-4">{item.name}</h4>
+          <p className="mb-2">Precio: {item.price}</p>
+          <ul className="text-sm list-disc list-inside">
+            {item.description.map((desc, descIndex) => (
+              <li key={descIndex}>{desc}</li>
+            ))}
+          </ul>
+        </div>
       ))}
     </div>
   );
-  const termsContentSocial = (
+
+  // Centralized Terms and Conditions
+  const termsContent = (
     <div>
-      <p className="text-sm">Terminos para el servicio social</p>
+      <h1 className="font-cinzel mb-8">Términos y Condiciones del Servicio</h1>
+
+      <h2 className="font-cinzel mb-2">Reservas y Pagos</h2>
+      <ul className="list-disc pl-6 font-cinzel">
+        <li>Para agendar, se debe realizar un abono previo.</li>
+        <li>
+          Si se abona el <strong>30%</strong>, el <strong>70% restante</strong>{" "}
+          debe pagarse al menos <strong>24 horas antes del evento</strong>.
+        </li>
+        <li>
+          Si solo se paga la <strong>prueba</strong> sin reservar la fecha, no
+          se garantiza disponibilidad.
+        </li>
+        <li>La prueba debe pagarse en su totalidad para ser agendada.</li>
+        <li>
+          <strong>No hay reembolsos</strong> una vez reservado el servicio.
+        </li>
+      </ul>
+
+      <h2 className="font-cinzel mb-2 mt-6">Condiciones del Servicio</h2>
+      <ul className="list-disc pl-6 font-cinzel">
+        <li>
+          <strong>Los peinados no incluyen secado</strong>. El cabello debe
+          estar seco y limpio al natural.
+        </li>
+        <li>
+          El servicio es <strong>intransferible</strong>.
+        </li>
+        <li>
+          Se pueden atender hasta <strong>5 personas adicionales</strong> a la
+          novia. Para grupos, solicitar propuesta.
+        </li>
+      </ul>
+
+      <h2 className="font-cinzel mb-2 mt-6">Pruebas y Atención en Estudio</h2>
+      <ul className="list-disc pl-6 font-cinzel">
+        <li>
+          Las pruebas se realizan <strong>solo en días de semana</strong> en mi
+          estudio.
+        </li>
+        <li>
+          Se requiere <strong>puntualidad</strong>. No se atenderá después de{" "}
+          <strong>15 minutos de retraso</strong>.
+        </li>
+        <li>
+          <strong>Evitar el uso del celular</strong> durante el servicio.
+        </li>
+        <li>
+          Informar con anticipación si el evento se cancela. Se puede reagendar
+          dentro de <strong>30 días</strong>; pasado ese plazo, no habrá nueva
+          fecha.
+        </li>
+      </ul>
+
+      <h2 className="font-cinzel mb-2 mt-6">Servicio a Domicilio</h2>
+      <ul className="list-disc pl-6 font-cinzel">
+        <li>Verificar disponibilidad antes de realizar abonos.</li>
+        <li>
+          El traslado tiene un costo adicional <strong>(ida y vuelta)</strong>.
+        </li>
+        <li>
+          Se cobra un <strong>recargo de $20.000</strong> por servicio a
+          domicilio.
+        </li>
+      </ul>
+
+      <h2 className="font-cinzel mb-2 mt-6">Recomendaciones</h2>
+      <ul className="list-disc pl-6 font-cinzel">
+        <li>
+          <strong>No tener lifting de pestañas</strong>, ya que interfiere con
+          las pestañas de cortina.
+        </li>
+      </ul>
+
+      <p className="font-cinzel mt-6">
+        Estoy disponible para cualquier consulta. ¡Gracias por tu confianza! 😊
+      </p>
     </div>
   );
+
+  //Data for the courses
+  const courseData: Record<string, CourseData> = {
+    basico: {
+      title: "Curso Básico",
+      image: cbasico,
+      infoContent: (
+        <div className="font-cinzel">
+          {basicCourseServices.items.map((item, index) => (
+            <div key={index} className="mb-4">
+              <h4 className="font-bold mb-2">{item.name}</h4>
+              <ul className="list-disc list-inside">
+                {item.description.map((desc, descIndex) => (
+                  <li key={descIndex}>{desc}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      ),
+      termsContent: (
+        <div>
+          <h2>Materiales:</h2>
+          <p>Se proveerán los materiales durante el curso</p>
+          <h2>Requisitos:</h2>
+          <p>No se requieren conocimientos previos</p>
+        </div>
+      ),
+    },
+    intermedio: {
+      title: "Curso Intermedio",
+      image: cintermedio,
+      infoContent: (
+        <div className="font-cinzel">
+          {intermediateCourseServices.items.map((item, index) => (
+            <div key={index} className="mb-4">
+              <h4 className="font-bold mb-2">{item.name}</h4>
+              <ul className="list-disc list-inside">
+                {item.description.map((desc, descIndex) => (
+                  <li key={descIndex}>{desc}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      ),
+      termsContent: (
+        <div>
+          <h2>Materiales:</h2>
+          <p>Se proveerán los materiales durante el curso</p>
+          <h2>Requisitos:</h2>
+          <p>Haber realizado el curso basico</p>
+        </div>
+      ),
+    },
+    avanzado: {
+      title: "Curso Avanzado",
+      image: cavanzado,
+      infoContent: (
+        <div className="font-cinzel">
+          {advancedCourseServices.items.map((item, index) => (
+            <div key={index} className="mb-4">
+              <h4 className="font-bold mb-2">{item.name}</h4>
+              <ul className="list-disc list-inside">
+                {item.description.map((desc, descIndex) => (
+                  <li key={descIndex}>{desc}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      ),
+      termsContent: (
+        <div>
+          <h2>Materiales:</h2>
+          <p>Se proveerán los materiales durante el curso</p>
+          <h2>Requisitos:</h2>
+          <p>Haber realizado el curso intermedio</p>
+        </div>
+      ),
+    },
+    profesional: {
+      title: "Curso Profesional",
+      image: cprofesional,
+      infoContent: (
+        <div className="font-cinzel">
+          {professionalCourseServices.items.map((item, index) => (
+            <div key={index} className="mb-4">
+              <h4 className="font-bold mb-2">{item.name}</h4>
+              <ul className="list-disc list-inside">
+                {item.description.map((desc, descIndex) => (
+                  <li key={descIndex}>{desc}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      ),
+      termsContent: (
+        <div>
+          <h2>Materiales:</h2>
+          <p>Se proveerán los materiales durante el curso</p>
+          <h2>Requisitos:</h2>
+          <p>Haber realizado el curso avanzado</p>
+        </div>
+      ),
+    },
+  };
+
+  //Manejo del estado del tamaño de ventana
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const isMobileView = windowWidth < MOBILE_BREAKPOINT;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const { theme } = useTheme();
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -253,71 +416,71 @@ function Services() {
         <div className="relative mb-24 md:mb-36">
           <ServicesBackgroundSVG className="absolute inset-0 w-full h-full" />
           <div className=" mx-auto px-2 py-16 md:py-32 md:px-6 lg:px-48 z-10 ">
-          <ScrollReveal className="fade-in-up-animation">
-            <h1
-              className={`text-4xl md:text-5xl font-cinzel font-extralight text-center mb-24 md:py-10 tracking-wider ${
-                theme === "dark" ? "text-white" : "text-gray-800"
-              }`}
-            >
-              CONOCE LO QUE PODEMOS HACER POR TI
-            </h1>
-          </ScrollReveal>
+            <ScrollReveal animationClassName="fade-in-up-animation">
+              <h1
+                className={`text-4xl md:text-5xl font-cinzel font-extralight text-center mb-24 md:py-10 tracking-wider ${
+                  theme === "dark" ? "text-white" : "text-gray-800"
+                }`}
+              >
+                CONOCE LO QUE PODEMOS HACER POR TI
+              </h1>
+            </ScrollReveal>
 
             {/* Sección servicios de maquillaje */}
-            <div className="font-cinzel grid grid-cols-2 lg:grid-cols-3 gap-2 mb-20 md:mb-18 gap-y-20">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-16">
               {/* Item Novia)*/}
               <ServiceCarousel
                 images={noviaImages}
                 title="Maquillaje Novia"
-                description="From elegant centerpieces to dramatic installations, we transform your reception space into a breathtaking floral paradise."
                 openModal={openModal}
                 infoContent={infoContentNovia}
-                termsContent={termsContentNovia}
+                termsContent={termsContent}
+                description={noviaMakeupServices.description}
               />
               {/* Item Social*/}
               <ServiceCarousel
                 images={socialImages}
                 title="Maquillaje Social"
-                description="From elegant centerpieces to dramatic installations, we transform your reception space into a breathtaking floral paradise."
                 openModal={openModal}
                 infoContent={infoContentSocial}
-                termsContent={termsContentSocial}
+                termsContent={termsContent}
+                description={socialMakeupServices.description}
               />
               {/* Item Peinado*/}
               <ServiceCarousel
                 images={peinadoImages}
                 title="Maquillaje y Peinado"
-                description="From elegant centerpieces to dramatic installations, we transform your reception space into a breathtaking floral paradise."
                 openModal={openModal}
                 infoContent={infoContentPeinado}
-                termsContent={termsContentPeinado}
+                termsContent={termsContent}
+                description={peinadoMakeupServices.description}
               />
               {/* Item Madura*/}
               <ServiceCarousel
                 images={maduraImages}
                 title="Maquillaje en Piel Madura"
-                description="From elegant centerpieces to dramatic installations, we transform your reception space into a breathtaking floral paradise."
                 openModal={openModal}
                 infoContent={infoContentMadura}
-                termsContent={termsContentMadura}
+                termsContent={termsContent}
+                description={maduraMakeupServices.description}
               />
               {/* Item Glam*/}
               <ServiceCarousel
                 images={glamImages}
                 title="Maquillaje Glam"
-                description="From elegant centerpieces to dramatic installations, we transform your reception space into a breathtaking floral paradise."
                 openModal={openModal}
                 infoContent={infoContentGlam}
-                termsContent={termsContentGlam}
+                termsContent={termsContent}
+                description={glamMakeupServices.description}
               />
-              {/* Item Express*/}
+              {/* Item Quinceañera*/}
               <ServiceCarousel
                 images={expressImages}
-                title="Maquillaje Express"
-                description="From elegant centerpieces to dramatic installations, we transform your reception space into a breathtaking floral paradise."
+                title="Maquillaje Quinceañera"
                 openModal={openModal}
                 infoContent={infoContentExpress}
-                termsContent={termsContentExpress}
+                termsContent={termsContent}
+                description={expressMakeupServices.description}
               />
             </div>
           </div>
@@ -334,39 +497,66 @@ function Services() {
 
             <ScrollReveal animationClassName="fade-in-text">
               <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-600">
-                <li className={`p-6 shadow-sm p-2 md:p-8 ${theme === "dark" ? "bg-gray-800" : "bg-white"}`}
+                <li
+                  className={`p-6 shadow-sm p-2 md:p-8 ${
+                    theme === "dark" ? "bg-gray-800" : "bg-white"
+                  }`}
                 >
-                  <h4 className={`font-montserrat tracking-wide mb-3 text-center ${theme === "dark" ? "text-white" : "text-gray-700"}`}
+                  <h4
+                    className={`font-cinzel tracking-wide mb-3 text-center ${
+                      theme === "dark" ? "text-white" : "text-gray-700"
+                    }`}
                   >
                     Asesoría para cuidado de la piel
                   </h4>
-                  <p className={`text-xs sm:text-sm md:text-base ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}
+                  <p
+                    className={`text-xs sm:text-sm md:text-base font-cinzel ${
+                      theme === "dark" ? "text-gray-400" : "text-gray-600"
+                    }`}
                   >
                     Hidratación, limpieza y productos
                   </p>
                 </li>
 
-                <li className={`p-6 shadow-sm p-2 md:p-8 ${theme === "dark" ? "bg-gray-800" : "bg-white"}`}
+                <li
+                  className={`p-6 shadow-sm p-2 md:p-8 font-cinzel${
+                    theme === "dark" ? "bg-gray-800" : "bg-white"
+                  }`}
                 >
-                  <h4 className={`font-montserrat tracking-wide mb-3 text-center ${theme === "dark" ? "text-white" : "text-gray-700"}`}
+                  <h4
+                    className={`tracking-wide mb-3 text-center font-cinzel ${
+                      theme === "dark" ? "text-white" : "text-gray-700"
+                    }`}
                   >
-                    Ceremony Décor
+                    Asesoría de imagen
                   </h4>
-                  <p className={`text-xs sm:text-sm md:text-base ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}
+                  <p
+                    className={`text-xs sm:text-sm md:text-base font-cinzel ${
+                      theme === "dark" ? "text-gray-400" : "text-gray-600"
+                    }`}
                   >
-                    Arches, aisle designs, and altar arrangements
+                    Accesorios y prendas según la ocasión
                   </p>
                 </li>
 
-                <li className={`p-6 shadow-sm p-2 md:p-8 ${theme === "dark" ? "bg-gray-800" : "bg-white"}`}
+                <li
+                  className={`p-6 shadow-sm p-2 md:p-8 font-cinzel ${
+                    theme === "dark" ? "bg-gray-800" : "bg-white"
+                  }`}
                 >
-                  <h4 className={`font-montserrat tracking-wide mb-3 text-center ${theme === "dark" ? "text-white" : "text-gray-700"}`}
+                  <h4
+                    className={`tracking-wide mb-3 text-center font-cinzel ${
+                      theme === "dark" ? "text-white" : "text-gray-700"
+                    }`}
                   >
-                    Reception Flowers
+                    Regalo sorpresa
                   </h4>
-                  <p className={`text-xs sm:text-sm md:text-base ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}
+                  <p
+                    className={`text-xs sm:text-sm md:text-base font-cinzel ${
+                      theme === "dark" ? "text-gray-400" : "text-gray-600"
+                    }`}
                   >
-                    Centerpieces, cake flowers, and installations
+                    Algo que te ayudará a recordar tu día
                   </p>
                 </li>
               </ul>
@@ -376,512 +566,210 @@ function Services() {
         </div>
 
         {/* Sección estadistica de servicios */}
-        <div className="w-full mb-0 md:mb-6">
+        <div className="w-full md:mb-6">
           <StatsSection />
         </div>
         {/* Fin sección estadistica de servicios */}
         <div className=" mx-auto md:px-48 px-2">
-
-
           {/* Sección Cursos */}
-            <div className="text-center space-y-8 pt-16 mb-24 md:mb-48">
-              <ScrollReveal animationClassName="fade-in-text">
-                <h1 className="text-2xl md:text-5xl font-cinzel font-light text-center md:mb-24 md-12 tracking-wider ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
-                  NUESTROS CURSOS
-                </h1>
-              </ScrollReveal>
+          <div className="text-center space-y-20 pt-16 mb-24 md:mb-48">
+            <ScrollReveal animationClassName="fade-in-text">
+              <h1 className="text-2xl md:text-5xl font-cinzel font-light text-center md:mb-24 md-18 tracking-wider ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                NUESTROS CURSOS
+              </h1>
+            </ScrollReveal>
 
+            <ScrollReveal animationClassName="fade-in-up-animation">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12 mb-16">
                 {/* CURSO BASICO */}
                 <div className="space-y-6">
-                  <div className="w-full h-96 shadow-lg overflow-hidden relative group">
-                    <ScrollReveal animationClassName="fade-in-image">
-                      <img
-                        src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800"
-                        alt="Curso Básico"
-                        className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
-                        loading="lazy"
-                      />
-                    </ScrollReveal>
-                    <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
+                  {/* Image with onClick */}
+                  <div
+                    className="w-full h-96 shadow-lg overflow-hidden relative group cursor-pointer "
+                    onClick={() => openCourseModal("basico")}
+                  >
+                    <img
+                      src={courseData.basico.image}
+                      alt="Curso Básico"
+                      className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <button className="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
                       Reserva tu cita
                     </button>
-                  </div>
-                  <ScrollReveal animationClassName="fade-in-text">
-                    <h2 className="text-xl md:text-2xl font-cinzel tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
-                      Curso Básico
-                    </h2>
-                  </ScrollReveal>
-                  <ScrollReveal animationClassName="fade-in-text">
-                    <p
-                      className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
-                        theme === "dark" ? "text-gray-400" : "text-gray-600"
-                      }`}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent triggering the image's onClick
+                        openCourseModal("basico");
+                      }}
+                      className="absolute top-[60%] left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 group-hover:opacity-100"
                     >
-                      Each bouquet is thoughtfully designed to complement your
-                      wedding style and color palette,               creating
-                      an unforgettable statement piece for your special day.
-                    </p>
-                  </ScrollReveal>
-                  <div className="mb-16">
-                    <div
-                      className={`shadow-sm p-2 md:p-8 ${
-                        theme === "dark" ? "bg-gray-800" : "bg-white"
-                      }`}
+                      Ver detalles
+                    </button>
+                  </div>
+                  <h2
+                    onClick={() => openCourseModal("basico")}
+                    className={`text-xl md:text-2xl font-cinzel tracking-wide ${
+                      theme === "dark" ? "text-white" : "text-gray-800"
+                    } cursor-pointer`}
+                  >
+                    {courseData.basico.title}
+                  </h2>
+                </div>
+                {/* CURSO INTERMEDIO */}
+                <div className="space-y-6">
+                  {/* Image with onClick */}
+                  <div
+                    className="w-full h-96 shadow-lg overflow-hidden relative group cursor-pointer"
+                    onClick={() => openCourseModal("intermedio")}
+                  >
+                    <img
+                      src={courseData.intermedio.image}
+                      alt="Curso Intermedio"
+                      className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <button className="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
+                      Reserva tu cita
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent triggering the image's onClick
+                        openCourseModal("intermedio");
+                      }}
+                      className="absolute top-[60%] left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 group-hover:opacity-100"
                     >
-                      <ScrollReveal animationClassName="fade-in-text">
-                        <h2
-                          className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 text-center ${
-                            theme === "dark" ? "text-white" : "text-gray-700"
-                          }`}
-                        >
-                          {basicCourseServices.category}
-                          {/* Usamos los datos de basicCourseServices */}
-                        </h2>
-                      </ScrollReveal>
-                      <div className="space-y-6">
-                        {basicCourseServices.items.map((item, itemIndex) => (
-                          <div
-                            key={itemIndex}
-                            className={`border-b pb-4 last:border-0 ${
-                              theme === "dark"
-                                ? "border-gray-600"
-                                : "border-gray-100"
-                            }`}
-                          >
-                            <div className="flex justify-between items-center mb-2">
-                              <ScrollReveal animationClassName="fade-in-text">
-                                <h3
-                                  className={`font-montserrat text-sm sm:text-lg ${
-                                    theme === "dark"
-                                      ? "text-white"
-                                      : "text-gray-800"
-                                  }`}
-                                >
-                                  {item.name}
-                                </h3>
-                              </ScrollReveal>
-                              <ScrollReveal animationClassName="fade-in-text">
-                                <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
-                                  {item.price}
-                                </span>
-                              </ScrollReveal>
-                            </div>
-                            <ScrollReveal animationClassName="fade-in-text">
-                              <p
-                                className={`text-xs sm:text-sm md:text-base ${
-                                  theme === "dark"
-                                    ? "text-gray-400"
-                                    : "text-gray-600"
-                                }`}
-                              >
-                                {item.description}
-                              </p>
-                            </ScrollReveal>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                      Ver detalles
+                    </button>
                   </div>
+                  <h2
+                    onClick={() => openCourseModal("intermedio")}
+                    className={`text-xl md:text-2xl font-cinzel tracking-wide ${
+                      theme === "dark" ? "text-white" : "text-gray-800"
+                    } cursor-pointer`}
+                  >
+                    {courseData.intermedio.title}
+                  </h2>
                 </div>
-              {/* CURSO INTERMEDIO */}
-              <div className="space-y-6">
-                {" "}
-                <div className="w-full h-96 shadow-lg overflow-hidden relative group">
-                  <ScrollReveal animationClassName="fade-in-image">
+                {/* CURSO AVANZADO */}
+                <div className="space-y-6">
+                  {/* Image with onClick */}
+                  <div
+                    className="w-full h-96 shadow-lg overflow-hidden relative group cursor-pointer"
+                    onClick={() => openCourseModal("avanzado")}
+                  >
                     <img
-                      src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800"
-                      alt="Curso Básico"
+                      src={courseData.avanzado.image}
+                      alt="Curso Avanzado"
                       className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
                       loading="lazy"
                     />
-                  </ScrollReveal>
-                  <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
-                    Reserva tu cita
-                  </button>{" "}
-                </div>
-                <ScrollReveal animationClassName="fade-in-text">
-                  <h2 className="text-xl md:text-2xl font-cinzel tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
-                    Curso Intermedio
-                  </h2>
-                </ScrollReveal>
-                <ScrollReveal animationClassName="fade-in-text">
-                  <p
-                    className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
-                      theme === "dark" ? "text-gray-400" : "text-gray-600"
-                    }`}
-                  >
-                    Each bouquet is thoughtfully designed to complement your
-                    wedding style and color palette,             creating an
-                    unforgettable statement piece for your special day.
-                  </p>
-                </ScrollReveal>
-                <div className="mb-16">
-                  <div
-                    className={`shadow-sm p-2 md:p-8 ${
-                      theme === "dark" ? "bg-gray-800" : "bg-white"
-                    }`}
-                  >
-                    <ScrollReveal animationClassName="fade-in-text">
-                      <h2
-                        className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 text-center ${
-                          theme === "dark" ? "text-white" : "text-gray-700"
-                        }`}
-                      >
-                        {intermediateCourseServices.category}
-                        {/* Usamos los datos de basicCourseServices */}
-                      </h2>
-                    </ScrollReveal>
-                    <div className="space-y-6">
-                      {intermediateCourseServices.items.map(
-                        (item, itemIndex) => (
-                          <div
-                            key={itemIndex}
-                            className={`border-b pb-4 last:border-0 ${
-                              theme === "dark"
-                                ? "border-gray-600"
-                                : "border-gray-100"
-                            }`}
-                          >
-                            <div className="flex justify-between items-center mb-2">
-                              <ScrollReveal animationClassName="fade-in-text">
-                                <h3
-                                  className={`font-montserrat text-sm sm:text-lg ${
-                                    theme === "dark"
-                                      ? "text-white"
-                                      : "text-gray-800"
-                                  }`}
-                                >
-                                  {item.name}
-                                </h3>
-                              </ScrollReveal>
-                              <ScrollReveal animationClassName="fade-in-text">
-                                <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
-                                  {item.price}
-                                </span>
-                              </ScrollReveal>
-                            </div>
-                            <ScrollReveal animationClassName="fade-in-text">
-                              <p
-                                className={`text-xs sm:text-sm md:text-base ${
-                                  theme === "dark"
-                                    ? "text-gray-400"
-                                    : "text-gray-600"
-                                }`}
-                              >
-                                {item.description}
-                              </p>
-                            </ScrollReveal>
-                          </div>
-                        )
-                      )}
-                    </div>
-                  </div>{" "}
-                </div>
-              </div>
-              {/* CURSO AVANZADO */}
-              <div className="space-y-6">
-                {" "}
-                <div className="w-full h-96 shadow-lg overflow-hidden relative group">
-                  <ScrollReveal animationClassName="fade-in-image">
-                    <img
-                      src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800"
-                      alt="Curso Básico"
-                      className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
-                      loading="lazy"
-                    />
-                  </ScrollReveal>
-                  <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
-                    Reserva tu cita
-                  </button>
-                </div>
-                <ScrollReveal animationClassName="fade-in-text">
-                  <h2 className="text-xl md:text-2xl font-cinzel tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
-                    Curso Avanzado
-                  </h2>
-                </ScrollReveal>
-                <ScrollReveal animationClassName="fade-in-text">
-                  <p
-                    className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
-                      theme === "dark" ? "text-gray-400" : "text-gray-600"
-                    }`}
-                  >
-                    Each bouquet is thoughtfully designed to complement your
-                    wedding style and color palette, creating an unforgettable
-                    statement piece for your special day.
-                  </p>
-                </ScrollReveal>
-                <div className="mb-16">
-                  <div
-                    className={`shadow-sm p-2 md:p-8 ${
-                      theme === "dark" ? "bg-gray-800" : "bg-white"
-                    }`}
-                  >
-                    <ScrollReveal animationClassName="fade-in-text">
-                      <h2
-                        className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 text-center ${
-                          theme === "dark" ? "text-white" : "text-gray-700"
-                        }`}
-                      >
-                        {advancedCourseServices.category}
-                        {/* Usamos los datos de basicCourseServices */}
-                      </h2>
-                    </ScrollReveal>
-                    <div className="space-y-6">
-                      {advancedCourseServices.items.map((item, itemIndex) => (
-                        <div
-                          key={itemIndex}
-                          className={`border-b pb-4 last:border-0 ${
-                            theme === "dark"
-                              ? "border-gray-600"
-                              : "border-gray-100"
-                          }`}
-                        >
-                          <div className="flex justify-between items-center mb-2">
-                            <ScrollReveal animationClassName="fade-in-text">
-                              <h3
-                                className={`font-montserrat text-sm sm:text-lg ${
-                                  theme === "dark"
-                                    ? "text-white"
-                                    : "text-gray-800"
-                                }`}
-                              >
-                                {item.name}
-                              </h3>
-                            </ScrollReveal>
-                            <ScrollReveal animationClassName="fade-in-text">
-                              <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
-                                {item.price}
-                              </span>
-                            </ScrollReveal>
-                          </div>
-                          <ScrollReveal animationClassName="fade-in-text">
-                            <p
-                              className={`text-xs sm:text-sm md:text-base ${
-                                theme === "dark"
-                                  ? "text-gray-400"
-                                  : "text-gray-600"
-                              }`}
-                            >
-                              {item.description}
-                            </p>
-                          </ScrollReveal>
-                        </div>
-                      ))}
-                    </div>
-                  </div>{" "}
-                </div>
-              </div>
-              {/* CURSO PROFESIONAL */}
-              <div className="space-y-6">
-                <div className="w-full h-96 shadow-lg overflow-hidden relative group">
-                  <ScrollReveal animationClassName="fade-in-image">
-                    <img
-                      src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800"
-                      alt="Curso Básico"
-                      className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
-                      loading="lazy"
-                    />
-                  </ScrollReveal>
-                  <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white px-6 py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
-                    Reserva tu cita
-                  </button>{" "}
-                </div>
-                <ScrollReveal animationClassName="fade-in-text">
-                  <h2 className="text-xl md:text-2xl font-cinzel tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
-                    Curso Profesional
-                  </h2>
-                </ScrollReveal>
-                <ScrollReveal animationClassName="fade-in-text">
-                  <p
-                    className={`leading-relaxed text-sm font-light md:text-base md:font-normal ${
-                      theme === "dark" ? "text-gray-400" : "text-gray-600"
-                    }`}
-                  >
-                    Each bouquet is thoughtfully designed to complement your
-                    wedding style and color palette,     creating an
-                    unforgettable statement piece for your special day.
-                  </p>
-                </ScrollReveal>
-                <div className="mb-16">
-                  <div
-                    className={`shadow-sm p-2 md:p-8 ${
-                      theme === "dark" ? "bg-gray-800" : "bg-white"
-                    }`}
-                  >
-                    <ScrollReveal animationClassName="fade-in-text">
-                      <h2
-                        className={`text-lg text-base md:text-2xl font-montserrat tracking-wide mb-6 text-center ${
-                          theme === "dark" ? "text-white" : "text-gray-700"
-                        }`}
-                      >
-                        {professionalCourseServices.category}
-                        {/* Usamos los datos de basicCourseServices */}
-                      </h2>
-                    </ScrollReveal>
-                    <div className="space-y-6">
-                      {professionalCourseServices.items.map(
-                        (item, itemIndex) => (
-                          <div
-                            key={itemIndex}
-                            className={`border-b pb-4 last:border-0 ${
-                              theme === "dark"
-                                ? "border-gray-600"
-                                : "border-gray-100"
-                            }`}
-                          >
-                            <div className="flex justify-between items-center mb-2">
-                              <ScrollReveal animationClassName="fade-in-text">
-                                <h3
-                                  className={`font-montserrat text-sm sm:text-lg ${
-                                    theme === "dark"
-                                      ? "text-white"
-                                      : "text-gray-800"
-                                  }`}
-                                >
-                                  {item.name}
-                                </h3>
-                              </ScrollReveal>
-                              <ScrollReveal animationClassName="fade-in-text">
-                                <span className="font-montserrat text-xs sm:text-sm md:text-base text-pink-600">
-                                  {item.price}
-                                </span>
-                              </ScrollReveal>
-                            </div>
-                            <ScrollReveal animationClassName="fade-in-text">
-                              <p
-                                className={`text-xs sm:text-sm md:text-base ${
-                                  theme === "dark"
-                                    ? "text-gray-400"
-                                    : "text-gray-600"
-                                }`}
-                              >
-                                {item.description}
-                              </p>
-                            </ScrollReveal>
-                          </div>
-                        )
-                      )}
-                    </div>
+                    <button className="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
+                      Reserva tu cita
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent triggering the image's onClick
+                        openCourseModal("avanzado");
+                      }}
+                      className="absolute top-[60%] left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 group-hover:opacity-100"
+                    >
+                      Ver detalles
+                    </button>
                   </div>
+                  <h2
+                    onClick={() => openCourseModal("avanzado")}
+                    className={`text-xl md:text-2xl font-cinzel tracking-wide ${
+                      theme === "dark" ? "text-white" : "text-gray-800"
+                    } cursor-pointer`}
+                  >
+                    {courseData.avanzado.title}
+                  </h2>
+                </div>
+                {/* CURSO PROFESIONAL */}
+                <div className="space-y-6">
+                  {/* Image with onClick */}
+                  <div
+                    className="w-full h-96 shadow-lg overflow-hidden relative group cursor-pointer"
+                    onClick={() => openCourseModal("profesional")}
+                  >
+                    <img
+                      src={courseData.profesional.image}
+                      alt="Curso Profesional"
+                      className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <button className="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
+                      Reserva tu cita
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent triggering the image's onClick
+                        openCourseModal("profesional");
+                      }}
+                      className="absolute top-[60%] left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 group-hover:opacity-100"
+                    >
+                      Ver detalles
+                    </button>
+                  </div>
+                  <h2
+                    onClick={() => openCourseModal("profesional")}
+                    className={`text-xl md:text-2xl font-cinzel tracking-wide ${
+                      theme === "dark" ? "text-white" : "text-gray-800"
+                    } cursor-pointer`}
+                  >
+                    {courseData.profesional.title}
+                  </h2>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
             {/* Fin sección Cursos */}
           </div>
-
-          {/* Galería de imágenes modal */}
-          {isGalleryOpen && (
-            <div
-              className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 z-50 flex justify-center items-center"
-              onClick={closeGallery}
-            >
-              <div
-                className="relative  p-4 rounded-lg"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {/* Detiene la propagación del evento para que no se cierre al hacer clic en la imagen/controles */}
-                <button
-                  onClick={closeGallery}
-                  className="absolute top-2 right-2 text-gray-700 hover:text-gray-900"
-                >
-                  <svg
-                    className="h-6 w-6 fill-current"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                    <path d="M0 0h24v24H0z" fill="none" />
-                  </svg>
-                </button>
-                <img
-                  src={galleryImages[currentImageIndex]}
-                  alt={`Imagen en galería ${currentImageIndex + 1}`}
-                  className="max-h-[80vh] max-w-[90vw] object-cover"
-                  loading="lazy"
-                  {...swipeHandlers}
-                />
-                <button
-                  onClick={() =>
-                    setCurrentImageIndex(
-                      (currentImageIndex - 1 + galleryImages.length) %
-                        galleryImages.length
-                    )
-                  }
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-pink-200 text-gray rounded-full p-2 hover:bg-pink-300"
-                  aria-label="Imagen anterior" // Accesibilidad
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    className="h-6 w-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M15 19l-7-7 7-7"
-                    />
-                  </svg>
-                </button>
-                <button
-                  onClick={() =>
-                    setCurrentImageIndex(
-                      (currentImageIndex + 1) % galleryImages.length
-                    )
-                  }
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-pink-200 text-gray rounded-full p-2 hover:bg-pink-300"
-                  aria-label="Imagen siguiente" // Accesibilidad
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    className="h-6 w-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          )}
         </div>
-        <PageBanner
-          title="'Te debes este momento'"
-          imageSrcs={[images.servicesBannerBottom]}
-        >
-          {/* Aquí está el código de tu botón como 'children' */}
-          <div className="flex flex-col sm:flex-row gap-4">
-            <ScrollReveal animationClassName="fade-in-image">
-              <Link
-                to="/contact"
-                className="px-8 py-5 bg-pink-400 text-white font-base font-cinzel rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
-              >
-                Agenda tu cita
-              </Link>
-            </ScrollReveal>
-          </div>
-        </PageBanner>
+
+        {/* Render the modal if modalContent is not null */}
+        {selectedCourse && courseData[selectedCourse] && (
+          <CourseModal
+            isOpen={isCourseModalOpen}
+            onClose={closeCourseModal}
+            images={[courseData[selectedCourse].image]}
+            title={courseData[selectedCourse].title}
+            infoContent={courseData[selectedCourse].infoContent}
+            termsContent={courseData[selectedCourse].termsContent}
+          />
+        )}
+
+        {modalContent && (
+          <Modal
+            isOpen={isModalOpen}
+            onClose={closeModal}
+            images={modalContent.images}
+            title={modalContent.title}
+            infoContent={modalContent.infoContent}
+            termsContent={modalContent.termsContent}
+            description={modalContent.description} // Add this line
+          />
+        )}
+
+        {!isMobileView && (
+          <PageBanner
+            title="'Te debes este momento'"
+            imageSrcs={[images.servicesBannerBottom]}
+          >
+            {/* Aquí está el código de tu botón como 'children' */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <ScrollReveal animationClassName="fade-in-image">
+                <Link
+                  to="/contact"
+                  className="px-8 py-5 bg-pink-400 text-white font-base font-cinzel rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
+                >
+                  Agenda tu cita
+                </Link>
+              </ScrollReveal>
+            </div>
+          </PageBanner>
+        )}
       </main>
-      {/* Render the modal if modalContent is not null */}
-      {modalContent && (
-        <Modal
-          isOpen={isModalOpen}
-          onClose={closeModal}
-          images={modalContent.images}
-          title={modalContent.title}
-          infoContent={modalContent.infoContent}
-          termsContent={modalContent.termsContent}
-        />
-      )}
     </div>
   );
 }

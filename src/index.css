@@ -63,25 +63,18 @@
   opacity: 1; /* Visible cuando se añade la clase 'visible' */
 }
 
-.fade-in-text {
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out; /* Transición para opacidad y posición */
-}
 
-.fade-in-text.visible {
-    opacity: 1;
-}
 /* Clases para aplicar las animaciones */
 .slide-in-left {
-  animation: slide-in-left 0.5s ease-out forwards;
+  animation: slide-in-left 1.5s ease-out forwards;
 }
 
 .slide-in-right {
-  animation: slide-in-right 0.5s ease-out forwards;
+  animation: slide-in-right 1.5s ease-out forwards;
 }
 
 .fade-in-up {
-  animation: fade-in-up 0.5s ease-out forwards;
+  animation: fade-in-up 1.5s ease-out forwards;
 }
 .slide-in-left-animation{
     transform: translateX(-100%);
@@ -103,8 +96,30 @@
 .fade-in-up-animation {
     transform: translateY(20px);
     opacity: 0;
+    transition: opacity 1s ease-in-out;
 }
 .fade-in-up-animation.visible {
     transform: translateY(0);
+    opacity: 1;
+}
+
+.fade-in-text{ /*Add this to the CSS*/
+  opacity: 0;
+}
+
+.fade-in-image{/*Add this to the CSS*/
+  opacity: 0;
+}
+
+.visible {
+  opacity: 1 !important;
+}
+
+.fade-in-text {
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out; /* Transición para opacidad y posición */
+}
+
+.fade-in-text.visible {
     opacity: 1;
 }

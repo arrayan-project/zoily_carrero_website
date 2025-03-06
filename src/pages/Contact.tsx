@@ -1,15 +1,31 @@
-import React from "react";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { useTheme } from "../components/context/useTheme";
 import PageBanner from "../components/PageBanner";
 import images from "../assets/img/images";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ScrollReveal from "../components/ScrollReveal"; // Importa el componente ScrollReveal
 import "../index.css"; // Asegúrate de importar About.css para los estilos de transición
-
+import { MOBILE_BREAKPOINT } from "../constants";
+import React, { useState, useEffect } from "react";
 
 function Contact() {
   const { theme } = useTheme();
+
+  //estado del tamaño de ventana
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const isMobileView = windowWidth < MOBILE_BREAKPOINT;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <div
@@ -23,15 +39,15 @@ function Contact() {
         objectPosition="left-bottom"
       >
         {/* Botón "Agenda tu cita" como 'children' de PageBanner */}
-        
+
         <div className="flex flex-col sm:flex-row gap-4">
-        <ScrollReveal animationClassName="fade-in-image">
-          <Link
-            to="/contact"
-            className="font-cinzel px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
-          >
-            Agenda tu cita
-          </Link>
+          <ScrollReveal animationClassName="fade-in-image">
+            <Link
+              to="/contact"
+              className="font-cinzel px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
+            >
+              Agenda tu cita
+            </Link>
           </ScrollReveal>
         </div>
       </PageBanner>
@@ -40,9 +56,7 @@ function Contact() {
         <ScrollReveal animationClassName="fade-in-text">
           {" "}
           {/* ScrollReveal para el título principal */}
-          <h1
-            className= "text-2xl md:text-5xl font-cinzel font-extralight text-center mb-24 md:py-10 tracking-wider ${theme === 'dark' ? 'text-white' : 'text-gray-800'}"
-          >
+          <h1 className="text-2xl md:text-5xl font-cinzel font-extralight text-center mb-24 md:py-10 tracking-wider ${theme === 'dark' ? 'text-white' : 'text-gray-800'}">
             CONTACTANOS
           </h1>
         </ScrollReveal>
@@ -208,7 +222,9 @@ function Contact() {
                         Telefono
                       </h3>
                       <p
-                        className={`font-cinzel ${ theme === "dark" ? "text-gray-200" : "text-gray-600"}`}
+                        className={`font-cinzel ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-600"
+                        }`}
                       >
                         (555) 123-4567
                       </p>
@@ -225,7 +241,9 @@ function Contact() {
                         Email
                       </h3>
                       <p
-                        className={` font-cinzel ${theme === "dark" ? "text-gray-200" : "text-gray-600"}`}
+                        className={` font-cinzel ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-600"
+                        }`}
                       >
                         info@sadiesfloral.com
                       </p>
@@ -242,7 +260,9 @@ function Contact() {
                         Ubicación
                       </h3>
                       <p
-                        className={` font-cinzel ${theme === "dark" ? "text-gray-200" : "text-gray-600"}`}
+                        className={` font-cinzel ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-600"
+                        }`}
                       >
                         123 Floral Street
                         <br />
@@ -261,7 +281,9 @@ function Contact() {
                         Horario
                       </h3>
                       <p
-                        className={` font-cinzel ${theme === "dark" ? "text-gray-200" : "text-gray-600"}`}
+                        className={` font-cinzel ${
+                          theme === "dark" ? "text-gray-200" : "text-gray-600"
+                        }`}
                       >
                         Lunes - Viernes: 9:00 AM - 6:00 PM
                         <br />
@@ -325,23 +347,25 @@ function Contact() {
           </div>
         </div>
       </div>
-      <PageBanner
-        title="'Te debes este momento'"
-        imageSrcs={[images.contactBannerBottom]}
-        objectPosition="left-bottom"
-      >
-        {/* Botón "Agenda tu cita" como 'children' de PageBanner */}
-        <div className="flex flex-col sm:flex-row gap-4">
-        <ScrollReveal animationClassName="fade-in-image">
-          <Link
-            to="/contact"
-            className="font-cinzel px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
-          >
-            Agenda tu cita
-          </Link>
-          </ScrollReveal>
-        </div>
-      </PageBanner>
+      {!isMobileView && (
+        <PageBanner
+          title="'Te debes este momento'"
+          imageSrcs={[images.contactBannerBottom]}
+          objectPosition="left-bottom"
+        >
+          {/* Botón "Agenda tu cita" como 'children' de PageBanner */}
+          <div className="flex flex-col sm:flex-row gap-4">
+            <ScrollReveal animationClassName="fade-in-image">
+              <Link
+                to="/contact"
+                className="font-cinzel px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
+              >
+                Agenda tu cita
+              </Link>
+            </ScrollReveal>
+          </div>
+        </PageBanner>
+      )}
     </div>
   );
 }

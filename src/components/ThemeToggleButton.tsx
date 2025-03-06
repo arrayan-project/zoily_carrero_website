@@ -1,5 +1,5 @@
 // src/components/ThemeToggleButton.tsx
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useTheme } from '../components/context/useTheme';
 import { WiMoonAltWaningCrescent4, WiDaySunny } from 'react-icons/wi';
 

@@ -1,4 +1,3 @@
-import React, { useState, useRef, useEffect } from "react";
 import { CheckCircle } from "lucide-react";
 import images from "../assets/img/images";
 import PageBanner from "../components/PageBanner";
@@ -6,7 +5,8 @@ import { Link } from "react-router-dom";
 import { useTheme } from "../components/context/useTheme";
 import "../index.css"; // Importa el archivo CSS para los estilos de transición
 import ScrollReveal from "../components/ScrollReveal";
-
+import { useEffect, useState } from "react";
+import { MOBILE_BREAKPOINT } from "../constants";
 
 function About() {
   const whyUsPoints = [
@@ -18,6 +18,21 @@ function About() {
   ];
 
   const { theme } = useTheme();
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const isMobileView = windowWidth < MOBILE_BREAKPOINT;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <div
@@ -32,13 +47,13 @@ function About() {
       >
         {/* Aquí está el código de tu botón como 'children' */}
         <div className="flex flex-col sm:flex-row gap-4">
-        <ScrollReveal animationClassName="fade-in-image">
-          <Link
-            to="/contact"
-            className="font-cinzel px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
-          >
-            Agenda tu cita
-          </Link>
+          <ScrollReveal animationClassName="fade-in-image">
+            <Link
+              to="/contact"
+              className="font-cinzel px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
+            >
+              Agenda tu cita
+            </Link>
           </ScrollReveal>
         </div>
       </PageBanner>
@@ -173,22 +188,24 @@ function About() {
         </div>
       </section>
 
-      <PageBanner
-        title="'Te debes este momento'"
-        imageSrcs={[images.aboutBannerBottom]}
-      >
-        {/* Aquí está el código de tu botón como 'children' */}
-        <div className="flex flex-col sm:flex-row gap-4">
-        <ScrollReveal animationClassName="fade-in-image">
-          <Link
-            to="/contact"
-            className="font-cinzel px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
-          >
-            Agenda tu cita
-          </Link>
-          </ScrollReveal>
-        </div>
-      </PageBanner>
+      {!isMobileView && (
+        <PageBanner
+          title="'Te debes este momento'"
+          imageSrcs={[images.aboutBannerBottom]}
+        >
+          {/* Aquí está el código de tu botón como 'children' */}
+          <div className="flex flex-col sm:flex-row gap-4">
+            <ScrollReveal animationClassName="fade-in-image">
+              <Link
+                to="/contact"
+                className="font-cinzel px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
+              >
+                Agenda tu cita
+              </Link>
+            </ScrollReveal>
+          </div>
+        </PageBanner>
+      )}
     </div>
   );
 }

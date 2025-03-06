@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { ThemeProvider } from './components/context/ThemeContext';
+import { ThemeProvider } from './components/context/themeContext';
 import { useTheme } from './components/context/useTheme';
 import ThemeToggleButton from './components/ThemeToggleButton';
 import Navigation from './components/Navigation';
 import ScrollToTopButton from './components/ScrollTopButton';
 import Footer from './components/Footer';
 import LandingPageMobile from './LandingPageMobile';
-import Content from './components/Content';
 import Home from './pages/Home';
 import Services from './pages/Services';
 import UGC from './pages/UGC';

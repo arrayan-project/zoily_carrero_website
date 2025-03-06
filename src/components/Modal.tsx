@@ -10,9 +10,10 @@ interface ModalProps {
   title: string;
   infoContent: React.ReactNode;
   termsContent: React.ReactNode;
+  description?:string; // Make it optional
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoContent, termsContent }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoContent, termsContent, description  }) => {
     const { theme } = useTheme();
     const [activeTab, setActiveTab] = useState('Informacion'); // Default to "Informacion"
 
@@ -59,7 +60,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoConte
       }`}
     >
       <div
-        className={`p-8 rounded-lg shadow-xl max-w-2xl w-full mx-4 md:mx-0 relative ${
+        className={`relative rounded-lg p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto ${
           theme === 'dark'
             ? 'bg-gray-900 text-white bg-opacity-30'
             : 'bg-white text-gray-800 bg-opacity-50'
@@ -91,14 +92,23 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoConte
           </svg>
         </button>
 
+        {/* Content of the modal */}
+        <div className="font-cinzel">
+            <h2 className="text-2xl font-bold mb-8">{title}</h2>
+            {/* Render the description if it exists */}
+            {description && (
+                <p className="mb-4">{description}</p>
+            )}
+        </div>
+
         {/* Tab Navigation */}
         <div
-          className={`flex mb-4 w-full ${
-            theme === 'dark' 
-            ? 'bg-gray-400 bg-opacity-50' 
-            : 'bg-gray-100 bg-opacity-50'
-          }`}
-        >
+            className={`flex mb-4 mt-12 w-full ${
+              theme === 'dark' 
+              ? 'bg-gray-400 bg-opacity-50' 
+              : 'bg-gray-100 bg-opacity-50'
+            }`}
+          >
           <button
             className={`flex-1 px-4 py-2 text-sm font-cinzel font-semibold ${
               activeTab === 'Informacion'
@@ -146,7 +156,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoConte
           <div>
             <Slider {...sliderSettings}>
               {images.map((img, index) => (
-                <SlideComponent key={index} img={img} index={index} images={images} />
+                <SlideComponent key={index} img={img}/>
               ))}
             </Slider>
           </div>
