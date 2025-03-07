@@ -8,7 +8,11 @@ import ScrollReveal from "../components/ScrollReveal";
 import { useEffect, useState } from "react";
 import { MOBILE_BREAKPOINT } from "../constants";
 
-function About() {
+interface ServicesProps {
+
+}
+
+function About({}: ServicesProps) {
   const whyUsPoints = [
     "Experiencia comprobada en el sector",
     "Atención personalizada y dedicada",
@@ -45,17 +49,6 @@ function About() {
         imageSrcs={[images.aboutBannerUp]}
         objectPosition="left-bottom"
       >
-        {/* Aquí está el código de tu botón como 'children' */}
-        <div className="flex flex-col sm:flex-row gap-4">
-          <ScrollReveal animationClassName="fade-in-image">
-            <Link
-              to="/contact"
-              className="font-cinzel px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
-            >
-              Agenda tu cita
-            </Link>
-          </ScrollReveal>
-        </div>
       </PageBanner>
       <section className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
         <div className="lg:flex lg:items-start lg:justify-between lg:gap-8">
@@ -193,17 +186,6 @@ function About() {
           title="'Te debes este momento'"
           imageSrcs={[images.aboutBannerBottom]}
         >
-          {/* Aquí está el código de tu botón como 'children' */}
-          <div className="flex flex-col sm:flex-row gap-4">
-            <ScrollReveal animationClassName="fade-in-image">
-              <Link
-                to="/contact"
-                className="font-cinzel px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
-              >
-                Agenda tu cita
-              </Link>
-            </ScrollReveal>
-          </div>
         </PageBanner>
       )}
     </div>

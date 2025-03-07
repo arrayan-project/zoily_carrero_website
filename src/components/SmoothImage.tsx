@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, memo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './SmoothImage.css';
 
 interface SmoothImageProps {
@@ -6,9 +6,10 @@ interface SmoothImageProps {
     alt?: string;
     className?: string;
     onClick?: () => void;
+    isTransitioning?: boolean;
 }
 
-const SmoothImageComponent: React.FC<SmoothImageProps> = ({ src, alt = "", className = "", onClick }) => {
+const SmoothImageComponent: React.FC<SmoothImageProps> = ({ src, alt = "", className = "", onClick, isTransitioning = false }) => {
     const [loading, setLoading] = useState(true);
     const [imageSrc, setImageSrc] = useState('');
     const imageRef = useRef<HTMLImageElement>(null);
@@ -33,19 +34,17 @@ const SmoothImageComponent: React.FC<SmoothImageProps> = ({ src, alt = "", class
         };
     }, [src]);
 
-
     return (
+        <div className={`smooth-image-container ${isTransitioning ? 'image-transition': ''}`}>
         <img
             ref={imageRef}
             src={imageSrc || ""} // Mostrar una cadena vacía inicialmente o un placeholder si prefieres
             alt={alt}
             className={`${className} smooth-image ${loading ? 'loading' : 'loaded'}`}
-            style={{ opacity: loading ? 0 : 1, transition: 'opacity 0.5s ease-in-out' }} // Transición de opacidad
             onClick={onClick}
         />
+        </div>
     );
 };
 
-const SmoothImage = memo(SmoothImageComponent); // Envuelve SmoothImageComponent con memo
-
-export default SmoothImage;
+export default SmoothImageComponent;

@@ -1,0 +1,39 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro con opacidad */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 101; /* Mayor que el botón flotante */
+  overflow: auto; /* Hace scroll si el contenido es muy grande */
+}
+
+.modal-content {
+  position: relative; /* Para posicionar el botón de cierre */
+  margin: 20px; /* Añade margen para dispositivos pequeños */
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.close-icon {
+    height: 20px;
+    width: 20px;
+}
+
+@media (max-width: 600px) {
+  .modal-content {
+    max-width: 95%;
+  }
+}

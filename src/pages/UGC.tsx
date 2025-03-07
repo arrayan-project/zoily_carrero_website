@@ -15,7 +15,10 @@ import ugc from "../assets/img/images"; // Importa las imágenes de UGC
 import { useEffect, useState } from "react";
 import { MOBILE_BREAKPOINT } from "../constants";
 
-function UGC() {
+interface ServicesProps {
+}
+
+function UGC({}: ServicesProps) {
   const { theme } = useTheme();
 
   //estado del tamaño de ventana
@@ -41,16 +44,6 @@ function UGC() {
         imageSrcs={[images.contactBannerUp]}
         objectPosition="left-bottom"
       >
-        <div className="flex flex-col sm:flex-row gap-4">
-          <ScrollReveal animationClassName="fade-in-image">
-            <Link
-              to="/contact"
-              className="px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
-            >
-              Agenda tu cita
-            </Link>
-          </ScrollReveal>
-        </div>
       </PageBanner>
 
       <div className="ugc-section-completa flex md:flex-row flex-col m-0 bg-gray-100  overflow-hidden shadow-md">
@@ -229,17 +222,6 @@ function UGC() {
           title="'Te debes este momento'"
           imageSrcs={[images.contactBannerBottom]}
         >
-          {/* Botón "Agenda tu cita" como 'children' de PageBanner inferior */}
-          <div className="flex flex-col sm:flex-row gap-4">
-            <ScrollReveal animationClassName="fade-in-image">
-              <Link
-                to="/contact"
-                className="px-8 py-5 bg-pink-400 text-white font-base rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
-              >
-                Agenda tu cita
-              </Link>
-            </ScrollReveal>
-          </div>
         </PageBanner>
       )}
     </div>

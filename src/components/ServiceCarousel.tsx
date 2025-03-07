@@ -3,7 +3,7 @@ import SlideComponent from "./SlideComponent";
 import Slider from "react-slick";
 import ScrollReveal from "./ScrollReveal";
 import { useTheme } from "./context/useTheme";
-
+import { Link } from "react-router-dom";
 
 interface ServiceCarouselProps {
   images: string[];
@@ -13,11 +13,11 @@ interface ServiceCarouselProps {
     title: string;
     infoContent: React.ReactNode;
     termsContent: React.ReactNode;
-    description?:string;
+    description?: string;
   }) => void;
   infoContent: React.ReactNode;
   termsContent: React.ReactNode;
-  description?:string;
+  description?: string;
 }
 
 const ServiceCarousel: React.FC<ServiceCarouselProps> = ({
@@ -49,7 +49,7 @@ const ServiceCarousel: React.FC<ServiceCarouselProps> = ({
     <div className="space-y-6 justify-center items-center text-center">
       {/* Image Container */}
       <div
-        className="w-full aspect-square shadow-lg overflow-hidden relative group cursor-pointer"
+        className="w-full aspect-square shadow-lg overflow-hidden relative group cursor-pointer rounded-lg"
         onClick={handleOpenModal}
       >
         <ScrollReveal animationClassName="fade-in-image">
@@ -61,12 +61,9 @@ const ServiceCarousel: React.FC<ServiceCarouselProps> = ({
             </Slider>
           </div>
         </ScrollReveal>
-        <button className="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
-          Reserva tu cita
-        </button>
         <button
           onClick={handleOpenModal}
-          className="absolute top-[60%] left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 group-hover:opacity-100"
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-lg md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 group-hover:opacity-100"
         >
           Ver Detalles
         </button>
@@ -89,11 +86,14 @@ const ServiceCarousel: React.FC<ServiceCarouselProps> = ({
       </div>
 
       {/* Title Container */}
-      <div className="cursor-pointer" onClick={handleOpenModal}>
-        <h2 className={`text-xl md:text-2xl font-cinzel tracking-wide ${theme === "dark" ? "text-white" : "text-gray-800"}`}>
-          {title}
-        </h2>
-      </div>
+      <h2
+      onClick={handleOpenModal} // Add the onClick event handler
+        className={`text-xl md:text-2xl font-cinzel tracking-wide cursor-pointer ${
+          theme === "dark" ? "text-white" : "text-gray-800"
+        }`}
+      >
+        {title}
+      </h2>
     </div>
   );
 };

@@ -11,7 +11,7 @@ const SlideComponent: React.FC<SlideComponentProps> = memo(({ img}) => {
             <img
                 src={img}
                 alt={`Imagen en galería`}
-                className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:blur-sm"
+                className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
                 loading="lazy"
             />
         </div>

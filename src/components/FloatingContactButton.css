@@ -1,0 +1,78 @@
+.floating-button-container {
+  position: fixed;
+  bottom: 110px; /* Se modifico para que este por encima del boton scroll */
+  right: 20px;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floating-button {
+  background-color: gold; /* Color dorado */
+  border: none;
+  border-radius: 50%; /* Hace el botón redondo */
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Sombra suave */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s ease-in-out;
+  animation: pulse 2s infinite; /* Aplica la animación de pulsación */
+  clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%); /* Hace el botón con forma de corazón */
+  z-index: 1000;
+}
+
+.button-icon {
+    color: white;
+    width: 30px;
+    height: 30px;
+}
+
+/* Animación de pulsación */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Media query para reducir el tamaño en pantallas pequeñas */
+@media (max-width: 768px) {
+  .floating-button {
+    width: 50px;
+    height: 50px;
+    right: 15px;
+    bottom: 90px;
+  }
+  
+  .button-icon{
+    width: 20px;
+    height: 20px;
+    right: 10px;
+    bottom: 90px;
+  }
+
+  .floating-button-container {
+    right: 12px;
+    bottom: 90px;
+  }
+
+}
+
+@media (max-width: 480px) {
+  .floating-button {
+    width: 40px;
+    height: 40px;
+    right: 10px;
+    bottom: 10px;
+    border-radius: 6px; /* Aún menos redondeados en pantallas muy pequeñas */
+  }
+}

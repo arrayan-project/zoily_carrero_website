@@ -52,7 +52,12 @@ interface ModalContent {
   description?: string;
 }
 
-function Services() {
+// Define ServicesProps interface here
+interface ServicesProps {
+
+}
+
+function Services({ }: ServicesProps) {
   const [isCourseModalOpen, setIsCourseModalOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
 
@@ -402,16 +407,6 @@ function Services() {
           imageSrcs={[images.servicesBannerUp]}
           objectPosition="left-bottom"
         >
-          <div className="flex flex-col sm:flex-row gap-4">
-            <ScrollReveal animationClassName="fade-in-image">
-              <Link
-                to="/contact"
-                className="px-8 py-5 bg-pink-400 text-white font-base font-cinzel rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
-              >
-                Agenda tu cita
-              </Link>
-            </ScrollReveal>
-          </div>
         </PageBanner>
         <div className="relative mb-24 md:mb-36">
           <ServicesBackgroundSVG className="absolute inset-0 w-full h-full" />
@@ -585,7 +580,7 @@ function Services() {
                 <div className="space-y-6">
                   {/* Image with onClick */}
                   <div
-                    className="w-full h-96 shadow-lg overflow-hidden relative group cursor-pointer "
+                    className="w-full h-96 shadow-lg overflow-hidden relative group cursor-pointer rounded-lg"
                     onClick={() => openCourseModal("basico")}
                   >
                     <img
@@ -594,15 +589,12 @@ function Services() {
                       className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
                       loading="lazy"
                     />
-                    <button className="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
-                      Reserva tu cita
-                    </button>
                     <button
                       onClick={(e) => {
                         e.stopPropagation(); // Prevent triggering the image's onClick
                         openCourseModal("basico");
                       }}
-                      className="absolute top-[60%] left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 group-hover:opacity-100"
+                      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-lg md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 group-hover:opacity-100"
                     >
                       Ver detalles
                     </button>
@@ -620,7 +612,7 @@ function Services() {
                 <div className="space-y-6">
                   {/* Image with onClick */}
                   <div
-                    className="w-full h-96 shadow-lg overflow-hidden relative group cursor-pointer"
+                    className="w-full h-96 shadow-lg overflow-hidden relative group cursor-pointer rounded-md"
                     onClick={() => openCourseModal("intermedio")}
                   >
                     <img
@@ -629,15 +621,12 @@ function Services() {
                       className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
                       loading="lazy"
                     />
-                    <button className="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
-                      Reserva tu cita
-                    </button>
                     <button
                       onClick={(e) => {
                         e.stopPropagation(); // Prevent triggering the image's onClick
                         openCourseModal("intermedio");
                       }}
-                      className="absolute top-[60%] left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 group-hover:opacity-100"
+                      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-lg md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 group-hover:opacity-100"
                     >
                       Ver detalles
                     </button>
@@ -655,7 +644,7 @@ function Services() {
                 <div className="space-y-6">
                   {/* Image with onClick */}
                   <div
-                    className="w-full h-96 shadow-lg overflow-hidden relative group cursor-pointer"
+                    className="w-full h-96 shadow-lg overflow-hidden relative group cursor-pointer rounded-md"
                     onClick={() => openCourseModal("avanzado")}
                   >
                     <img
@@ -664,15 +653,12 @@ function Services() {
                       className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
                       loading="lazy"
                     />
-                    <button className="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
-                      Reserva tu cita
-                    </button>
                     <button
                       onClick={(e) => {
                         e.stopPropagation(); // Prevent triggering the image's onClick
                         openCourseModal("avanzado");
                       }}
-                      className="absolute top-[60%] left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 group-hover:opacity-100"
+                      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-lg md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 group-hover:opacity-100"
                     >
                       Ver detalles
                     </button>
@@ -690,7 +676,7 @@ function Services() {
                 <div className="space-y-6">
                   {/* Image with onClick */}
                   <div
-                    className="w-full h-96 shadow-lg overflow-hidden relative group cursor-pointer"
+                    className="w-full h-96 shadow-lg overflow-hidden relative group cursor-pointer rounded-md"
                     onClick={() => openCourseModal("profesional")}
                   >
                     <img
@@ -699,15 +685,12 @@ function Services() {
                       className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
                       loading="lazy"
                     />
-                    <button className="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-pink-200 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 animate-color-button">
-                      Reserva tu cita
-                    </button>
                     <button
                       onClick={(e) => {
                         e.stopPropagation(); // Prevent triggering the image's onClick
                         openCourseModal("profesional");
                       }}
-                      className="absolute top-[60%] left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-xs md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 group-hover:opacity-100"
+                      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-lg md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 group-hover:opacity-100"
                     >
                       Ver detalles
                     </button>
@@ -749,6 +732,7 @@ function Services() {
             termsContent={modalContent.termsContent}
             description={modalContent.description} // Add this line
           />
+          
         )}
 
         {!isMobileView && (
@@ -756,17 +740,6 @@ function Services() {
             title="'Te debes este momento'"
             imageSrcs={[images.servicesBannerBottom]}
           >
-            {/* Aquí está el código de tu botón como 'children' */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <ScrollReveal animationClassName="fade-in-image">
-                <Link
-                  to="/contact"
-                  className="px-8 py-5 bg-pink-400 text-white font-base font-cinzel rounded shadow hover:bg-pink-600 transition duration-200 text-center animate-color-button"
-                >
-                  Agenda tu cita
-                </Link>
-              </ScrollReveal>
-            </div>
           </PageBanner>
         )}
       </main>

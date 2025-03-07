@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Home from '../pages/Home';
 import Services from '../pages/Services';
 import UGC from '../pages/UGC';
@@ -9,16 +9,16 @@ import Contact from '../pages/Contact';
 
 interface ContentProps {
   isMobileView: boolean;
-  children?: React.ReactNode;
+  onSmoothScroll: (sectionId: string) => void;
 }
 
-function Content({ isMobileView}: ContentProps) {
+function Content({ isMobileView, onSmoothScroll  }: ContentProps) {
   return (
     <>
       {isMobileView && (
-        <>
+        <div className="z-0">
           <section id="home" className="page-section">
-            <Home />
+            <Home onSmoothScroll={onSmoothScroll} />
           </section>
           <section id="services" className="page-section">
             <Services />
@@ -27,18 +27,18 @@ function Content({ isMobileView}: ContentProps) {
             <UGC />
           </section>
           <section id="store" className="page-section">
-            <Store />
+            <Store/>
           </section>
           <section id="gallery" className="page-section">
-            <Gallery />
+            <Gallery/>
           </section>
           <section id="about" className="page-section">
-            <About />
+            <About/>
           </section>
           <section id="contact" className="page-section">
-            <Contact />
+            <Contact/>
           </section>
-        </>
+        </div>
       )}
     </>
   );

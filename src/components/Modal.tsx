@@ -11,9 +11,10 @@ interface ModalProps {
   infoContent: React.ReactNode;
   termsContent: React.ReactNode;
   description?:string; // Make it optional
+  children?: React.ReactNode
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoContent, termsContent, description  }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoContent, termsContent, description,children  }) => {
     const { theme } = useTheme();
     const [activeTab, setActiveTab] = useState('Informacion'); // Default to "Informacion"
 
@@ -66,6 +67,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoConte
             : 'bg-white text-gray-800 bg-opacity-50'
         } max-h-[90vh] overflow-y-auto`}
         ref={modalContentRef}
+        
       >
         {/* Close Button */}
         <button

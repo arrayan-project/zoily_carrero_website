@@ -1,12 +1,20 @@
 import { useState, useEffect } from 'react';
 import { Instagram, Facebook, Pointer as Pinterest } from 'lucide-react';
-import { Link} from 'react-router-dom';
 import { backgrounds } from '../assets/img/images';
+import { Link } from 'react-router-dom'; // Importa Link
+import { useTheme } from '../components/context/useTheme';
+import { MOBILE_BREAKPOINT } from '../constants';
 
+interface HomeProps {
+  onSmoothScroll: (sectionId: string) => void;
+}
 
-function Home() {
+function Home({onSmoothScroll}: HomeProps) {
   const [currentBg, setCurrentBg] = useState(0);
   const [fadeOut, setFadeOut] = useState(false);
+  const { theme } = useTheme();
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const isMobileView = windowWidth < MOBILE_BREAKPOINT;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -18,6 +26,18 @@ function Home() {
     }, 8000);
 
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   return (
@@ -32,7 +52,7 @@ function Home() {
             backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${bg})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            zIndex: -1,
+            zIndex: 0,
           }}
         />
       ))}
@@ -48,18 +68,33 @@ function Home() {
 
           {/* Contenedor de botones */}
           <div className="flex flex-col sm:flex-row gap-4">
-            <Link
-              to="/services"
-              className="px-6 py-3 bg-white text-black font-normal font-cinzel rounded shadow hover:bg-gray-200 transition duration-200 text-center"
-            >
-              Ver Servicios
-            </Link>
-            <Link
-              to="/contact"
-              className="px-6 py-3 bg-pink-500 text-white font-normal font-cinzel rounded shadow hover:bg-pink-800 transition duration-200 text-center"
-            >
-              Agenda tu cita
-            </Link>
+            {/* Botón "Ver Servicios" */}
+            {isMobileView ? (
+              <button
+                onClick={() => onSmoothScroll('services')}
+                className="px-6 py-3 bg-white text-black font-normal font-cinzel rounded shadow hover:bg-gray-200 transition duration-200 text-center"
+              >
+                Ver Servicios
+              </button>
+            ) : (
+              <Link to="/services" className="px-6 py-3 bg-white text-black font-normal font-cinzel rounded shadow hover:bg-gray-200 transition duration-200 text-center">
+                Ver Servicios
+              </Link>
+            )}
+
+            {/* Botón "Agenda tu cita" */}
+            {isMobileView ? (
+              <button
+                onClick={() => onSmoothScroll('contact')}
+                className="px-6 py-3 bg-pink-500 text-white font-normal font-cinzel rounded shadow hover:bg-pink-800 transition duration-200 text-center"
+              >
+                Agenda tu cita
+              </button>
+            ) : (
+              <Link to="/contact" className="px-6 py-3 bg-pink-500 text-white font-normal font-cinzel rounded shadow hover:bg-pink-800 transition duration-200 text-center">
+                Agenda tu cita
+              </Link>
+            )}
           </div>
         </main>
       </div>
