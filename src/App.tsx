@@ -6,19 +6,13 @@ import ThemeToggleButton from './components/ThemeToggleButton';
 import Navigation from './components/Navigation';
 import ScrollToTopButton from './components/ScrollTopButton';
 import Footer from './components/Footer';
-import LandingPageMobile from './LandingPageMobile';
-import Home from './pages/Home';
-import Services from './pages/Services';
-import UGC from './pages/UGC';
-import Store from './pages/Store';
-import Gallery from './pages/Gallery';
-import About from './pages/About';
-import Contact from './pages/Contact';
 import { MOBILE_BREAKPOINT } from './constants';
 import FloatingContactButton from './components/FloatingContactButton'; // Importar FloatingContactButton
 import ContactModal from './components/ContactModal'; // Importar ContactModal
 import './index.css';
 import './App.css'; //Importar App.css
+import Content from './components/Content'; //Importar Content
+import ContentDesktop from './components/ContentDesktop'; //Importar ContentDesktop
 
 interface AppProps {
   onSmoothScroll: (sectionId: string) => void;
@@ -37,16 +31,10 @@ function Layout({onSmoothScroll}:AppProps) {
         <div className="fixed top-4 left-4 md:top-6 md:left-6 lg:top-8 lg:left-8 z-50">
           {!hideHeaderAndFooter && <ThemeToggleButton />}
         </div>
-        <Routes>
-          <Route path="/" element={<Home onSmoothScroll={onSmoothScroll}/>} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/ugc" element={<UGC />} />
-          <Route path="/store" element={<Store />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
+        {/* se renderizara el contenido desktop */}
+        <ContentDesktop onSmoothScroll={onSmoothScroll}/> 
         {!hideHeaderAndFooter && <Footer />}
+
         <ScrollToTopButton />
     </div>
   );
@@ -93,7 +81,9 @@ function App() {
                 <FloatingContactButton onClick={openModal} />
                 <ContactModal isOpen={isModalOpen} onClose={closeModal} />
                 <Router basename="/zoily_carrero_website/">
-                {isMobileView ? <LandingPageMobile openModal={openModal} isMobileView={isMobileView} onSmoothScroll={handleSmoothScroll} /> : <Layout onSmoothScroll={handleSmoothScroll} />} {/* Se pasa la prop isMobileView y onSmoothScroll */}
+                <ThemeToggleButton />
+                <ScrollToTopButton />
+                {isMobileView ? <Content onSmoothScroll={handleSmoothScroll} /> : <Layout onSmoothScroll={handleSmoothScroll}/>}
                 </Router>
         </div>
     </ThemeProvider>

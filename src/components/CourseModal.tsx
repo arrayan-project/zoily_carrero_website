@@ -44,21 +44,20 @@ const CourseModal: React.FC<CourseModalProps> = ({
 
   return (
     <div
-    className={`fixed top-0 left-0 w-full h-full z-50 flex justify-center items-center !mt-0 !mb-0 ${
-        theme === 'dark'
-          ? 'bg-black bg-opacity-50 backdrop-blur-md'
-          : 'bg-gray-100 bg-opacity-50 backdrop-blur-sm'
+      className={`fixed top-0 left-0 w-full h-full z-50 flex justify-center items-center !mt-0 !mb-0 ${
+        theme === "dark"
+          ? "bg-black bg-opacity-50 backdrop-blur-md"
+          : "bg-gray-100 bg-opacity-50 backdrop-blur-sm"
       }`}
-      onClick={onClose}
+      onClick={onClose} //se agrega aqui para que cierre el modal al hacer click afuera
     >
       <div
-        className={`relative rounded-lg p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto ${
-          theme === "dark" 
-          ? 'bg-gray-900 text-white bg-opacity-30'
-          : 'bg-white text-gray-800 bg-opacity-50'
+        className={`modal-animation relative rounded-lg p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto ${ //agregamos la clase aqui
+          theme === "dark"
+            ? "bg-gray-900 text-white bg-opacity-30"
+            : "bg-white text-gray-800 bg-opacity-50"
         }`}
         ref={modalContentRef}
-        onClick={(e) => e.stopPropagation()}
       >
         {/* Botón de cerrar */}
         <button
@@ -92,6 +91,7 @@ const CourseModal: React.FC<CourseModalProps> = ({
 
         {/* Pestañas de Información y Términos */}
         <div className="flex flex-col space-y-4 font-cinzel">
+        <div className="tab-content-animation"> {/*Agregamos la animacion aqui */}
           {/* Información */}
           <div>
             <h3 className="font-bold mb-2">Información</h3>
@@ -103,6 +103,7 @@ const CourseModal: React.FC<CourseModalProps> = ({
             <h3 className="font-bold mb-2">Términos y Condiciones</h3>
             <div>{termsContent}</div>
           </div>
+        </div>
         </div>
       </div>
     </div>

@@ -7,19 +7,22 @@ import {
 import { Link } from "react-router-dom";
 import PageBanner from "../components/PageBanner";
 import { useTheme } from "../components/context/useTheme";
-import ScrollReveal from "../components/ScrollReveal"; // Importa el componente ScrollReveal
+import AnimationWrapper from "../components/AnimationWrapper";
 import "../index.css"; // Asegúrate de importar About.css para los estilos de transición
 import SmoothImage from "../components/SmoothImage"; // Importa el componente SmoothImage
 import images from "../assets/img/images"; // Importa las imágenes de assets
 import ugc from "../assets/img/images"; // Importa las imágenes de UGC
 import { useEffect, useState } from "react";
 import { MOBILE_BREAKPOINT } from "../constants";
+import { getTextColorClass} from "../util";//Importamos las funciones globales
+
 
 interface ServicesProps {
 }
 
 function UGC({}: ServicesProps) {
   const { theme } = useTheme();
+
 
   //estado del tamaño de ventana
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -107,9 +110,7 @@ function UGC({}: ServicesProps) {
         {" "}
         {/* Contenedor para el título - Clases de Tailwind */}
         <h1
-          className={`text-4xl md:text-5xl font-cinzel font-extralight text-center mb-12 tracking-wider ${
-            theme === "dark" ? "text-white" : "text-gray-800"
-          }`}
+          className={`text-4xl md:text-5xl font-cinzel font-extralight text-center mb-12 tracking-wider ${getTextColorClass(theme)}`}
         >
           FOTOGRAFIAS DE CONTENIDO UGC
         </h1>{" "}

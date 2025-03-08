@@ -1,9 +1,9 @@
 import React from "react";
 import SlideComponent from "./SlideComponent";
 import Slider from "react-slick";
-import ScrollReveal from "./ScrollReveal";
 import { useTheme } from "./context/useTheme";
 import { Link } from "react-router-dom";
+import AnimationWrapper from "../components/AnimationWrapper";
 
 interface ServiceCarouselProps {
   images: string[];
@@ -52,15 +52,15 @@ const ServiceCarousel: React.FC<ServiceCarouselProps> = ({
         className="w-full aspect-square shadow-lg overflow-hidden relative group cursor-pointer rounded-lg"
         onClick={handleOpenModal}
       >
-        <ScrollReveal animationClassName="fade-in-image">
-          <div>
+          <AnimationWrapper animationClassName="fade-in-up-animation">
+              <div>
             <Slider {...sliderSettings}>
               {images.map((img, index) => (
                 <SlideComponent key={index} img={img} />
               ))}
             </Slider>
           </div>
-        </ScrollReveal>
+          </AnimationWrapper>
         <button
           onClick={handleOpenModal}
           className="absolute top-1/2 left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-lg md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 group-hover:opacity-100"

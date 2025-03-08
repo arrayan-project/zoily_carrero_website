@@ -2,8 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 import ContactForm from './ContactForm'; // Importa ContactForm
 import { useTheme } from './context/useTheme';
-import ScrollReveal from './ScrollReveal';
 import './ContactModal.css';
+import { getTextColorClass} from "../util";//Importamos las funciones globales
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -13,6 +13,7 @@ interface ContactModalProps {
 const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
   const modalContentRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme(); // Use the useTheme hook to get the current theme
+
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -45,13 +46,13 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
       onClick={onClose}
     >
       <div
-        className={`relative rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto mx-4 mb-4 ${
+        className={`modal-animation relative rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto mx-4 mb-4 ${
           theme === "dark" 
           ? 'bg-gray-900 text-white bg-opacity-30'
           : 'bg-white text-gray-800 bg-opacity-50'
         }`}
-        onClick={(e) => e.stopPropagation()}
         ref={modalContentRef}
+        onClick={(e) => e.stopPropagation()}
       >
       <button className={`absolute top-4 right-4 hover:text-gray-800 ${
             theme === "dark" ? "text-white" : "text-gray-600"
@@ -59,9 +60,9 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
         <X className="h-6 w-6 fill-current" />
         </button>
         <div className="mb-8">
-        <ScrollReveal animationClassName="fade-in-text">
-        <h2 className={`text-2xl font-cinzel tracking-wide ${theme === 'dark' ? 'text-white' : 'text-gray-800'} mb-6`}>Contáctame</h2>
-        </ScrollReveal>
+
+        <h2 className={`text-2xl font-cinzel tracking-wide ${getTextColorClass(theme)} mb-6`}>Contáctame</h2>
+
         </div>
         <ContactForm /> {/* Renderiza el componente ContactForm */}
       </div>

@@ -4,9 +4,11 @@ import PageBanner from "../components/PageBanner";
 import { Link } from "react-router-dom";
 import { useTheme } from "../components/context/useTheme";
 import "../index.css"; // Importa el archivo CSS para los estilos de transición
-import ScrollReveal from "../components/ScrollReveal";
+import AnimationWrapper from "../components/AnimationWrapper";
 import { useEffect, useState } from "react";
 import { MOBILE_BREAKPOINT } from "../constants";
+import { getTextColorClass, getTextColorClassParagraph } from "../util";//Importamos las funciones globales
+
 
 interface ServicesProps {
 
@@ -22,6 +24,7 @@ function About({}: ServicesProps) {
   ];
 
   const { theme } = useTheme();
+
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const isMobileView = windowWidth < MOBILE_BREAKPOINT;
@@ -54,7 +57,7 @@ function About({}: ServicesProps) {
         <div className="lg:flex lg:items-start lg:justify-between lg:gap-8">
           {/* Imagen a la derecha */}
           <div className="lg:w-2/5 mb-8 lg:mb-0">
-            <ScrollReveal animationClassName="fade-in-image">
+          <AnimationWrapper animationClassName="fade-in-up-animation">
               {" "}
               {/* Envolvemos la imagen con ScrollReveal */}
               <img
@@ -62,28 +65,24 @@ function About({}: ServicesProps) {
                 alt="Equipo trabajando"
                 className={`rounded-lg shadow-xl object-cover aspect-[3/4] w-full`}
               />
-            </ScrollReveal>
+          </AnimationWrapper>
           </div>
 
           {/* Contenido principal */}
           <div className="lg:w-3/5 lg:ml-32">
             <div className="pt-12">
               <div className="max-w-lg">
-                <ScrollReveal animationClassName="fade-in-text">
-                  <h2
-                    className={`text-2xl md:text-5xl font-cinzel font-light text-center mb-12 tracking-wider ${
-                      theme === "dark" ? "text-white" : "text-gray-800"
-                    }`}
+              <AnimationWrapper animationClassName="fade-in-text">
+              <h2
+                    className={`text-2xl md:text-5xl font-cinzel font-light text-center mb-12 tracking-wider ${getTextColorClass(theme)}`}
                   >
                     ACERCA DE MI
                   </h2>
-                </ScrollReveal>
-                <div className="prose prose-lg">
-                  <ScrollReveal animationClassName="fade-in-text">
-                    <p
-                      className={`leading-relaxed text-sm font-cinzel font-light md:text-base md:font-normal ${
-                        theme === "dark" ? "text-gray-400" : "text-gray-600"
-                      }`}
+                  </AnimationWrapper>
+                  <div className="prose prose-lg">
+                  <AnimationWrapper animationClassName="fade-in-text">
+                  <p
+                      className={`leading-relaxed text-sm font-cinzel font-light md:text-base md:font-normal ${getTextColorClassParagraph(theme)}`}
                     >
                       Hola, soy Zoily! licenciada en ciencias fiscales, y
                       creadora de contenido especializada en maquillaje,
@@ -92,9 +91,7 @@ function About({}: ServicesProps) {
                       por el cuidado personal y la belleza.
                     </p>
                     <p
-                      className={`mt-4 leading-relaxed text-sm font-cinzel font-light md:text-base md:font-normal ${
-                        theme === "dark" ? "text-gray-400" : "text-gray-600"
-                      }`}
+                      className={`mt-4 leading-relaxed text-sm font-cinzel font-light md:text-base md:font-normal ${getTextColorClassParagraph(theme)}`}
                     >
                       Desde 2020, me dedico a enseñar a otras mujeres sobre el
                       cuidado de la piel, maquillaje y el cabello, compartiendo
@@ -103,42 +100,36 @@ function About({}: ServicesProps) {
                       estoy comprometida en aportar valor genuino a cada
                       proyecto.
                     </p>
-                  </ScrollReveal>
-                </div>
+                    </AnimationWrapper>
+                    </div>
               </div>
 
               {/* Por qué nosotros - Reposicionado */}
               <div className="mt-24 lg:mt-32">
                 <div className="space-y-4 space-x-6">
-                  <ScrollReveal animationClassName="fade-in-text">
-                    <h3
-                      className={`ml-20 text-2xl font-cinzel font-base mb-12 ${
-                        theme === "dark" ? "text-white" : "text-gray-800"
-                      }`}
+                <AnimationWrapper animationClassName="fade-in-text">
+                <h3
+                      className={`ml-20 text-2xl font-cinzel font-base mb-12 ${getTextColorClass(theme)}`}
                     >
                       ¿Por qué Mis Servicios?
                     </h3>
-                  </ScrollReveal>
+              </AnimationWrapper>
 
-                  <ScrollReveal animationClassName="fade-in-text">
+            <AnimationWrapper animationClassName="fade-in-text">
                     <ul className={`space-y-4`}>
                       {whyUsPoints.map((point, index) => (
                         <li key={index} className="flex items-center space-x-6">
                           <CheckCircle className="h-6 w-6 text-green-500 flex-shrink-0 " />
                           <span
-                            className={`leading-relaxed font-cinzel text-sm font-light md:text-base md:font-normal ${
-                              theme === "dark"
-                                ? "text-gray-400"
-                                : "text-gray-600"
-                            }`}
+                            className={`leading-relaxed font-cinzel text-sm font-light md:text-base md:font-normal ${getTextColorClass(theme)}`}
                           >
                             {point}
                           </span>
                         </li>
                       ))}
                     </ul>
-                  </ScrollReveal>
-                </div>
+                    </AnimationWrapper>
+                    </div>
               </div>
             </div>
           </div>
@@ -147,35 +138,36 @@ function About({}: ServicesProps) {
         {/* Tres imágenes inferiores */}
         <div className="mt-24 lg:mt-32">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
             {/* Imagen 1 */}
             <div className="aspect-[4/3] overflow-hidden rounded-lg shadow-xl">
-              <ScrollReveal animationClassName="fade-in-image">
+              
                 <img
                   src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800"
                   alt="Equipo colaborando"
                   className={`w-full h-full object-cover hover:scale-105 transition-transform duration-300`}
                 />
-              </ScrollReveal>
+             
             </div>
             {/* Imagen 2 */}
             <div className="aspect-[4/3] overflow-hidden rounded-lg shadow-xl">
-              <ScrollReveal animationClassName="fade-in-image">
+              
                 <img
                   src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800"
                   alt="Reunión de equipo"
                   className={`w-full h-full object-cover hover:scale-105 transition-transform duration-300`}
                 />
-              </ScrollReveal>
+              
             </div>
             {/* Imagen 3 */}
             <div className="aspect-[4/3] overflow-hidden rounded-lg shadow-xl">
-              <ScrollReveal animationClassName="fade-in-image">
+              
                 <img
                   src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&q=80&w=800"
                   alt="Espacio de trabajo"
                   className={`w-full h-full object-cover hover:scale-105 transition-transform duration-300`}
                 />
-              </ScrollReveal>
+              
             </div>
           </div>
         </div>

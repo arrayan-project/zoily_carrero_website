@@ -8,14 +8,11 @@ import About from '../pages/About';
 import Contact from '../pages/Contact';
 
 interface ContentProps {
-  isMobileView: boolean;
   onSmoothScroll: (sectionId: string) => void;
 }
 
-function Content({ isMobileView, onSmoothScroll  }: ContentProps) {
+function Content({ onSmoothScroll  }: ContentProps) {
   return (
-    <>
-      {isMobileView && (
         <div className="z-0">
           <section id="home" className="page-section">
             <Home onSmoothScroll={onSmoothScroll} />
@@ -39,8 +36,6 @@ function Content({ isMobileView, onSmoothScroll  }: ContentProps) {
             <Contact/>
           </section>
         </div>
-      )}
-    </>
   );
 }
 

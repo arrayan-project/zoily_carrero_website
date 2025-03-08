@@ -59,15 +59,15 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoConte
           ? 'bg-black bg-opacity-50 backdrop-blur-md'
           : 'bg-gray-100 bg-opacity-50 backdrop-blur-sm'
       }`}
+      onClick={onClose} //se agrega aqui para que cierre el modal al hacer click afuera
     >
       <div
-        className={`relative rounded-lg p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto ${
+        className={`modal-animation relative rounded-lg p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto ${ //agregamos la clase aqui
           theme === 'dark'
             ? 'bg-gray-900 text-white bg-opacity-30'
             : 'bg-white text-gray-800 bg-opacity-50'
-        } max-h-[90vh] overflow-y-auto`}
+        }`}
         ref={modalContentRef}
-        
       >
         {/* Close Button */}
         <button
@@ -144,18 +144,19 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoConte
         </div>
 
         {/* Tab Content */}
+       <div className="relative h-96"> {/*agregamos relative aqui */}
         {activeTab === 'Informacion' && (
-          <div>
+          <div className="absolute top-0 left-0 w-full h-full tab-content-animation"> {/* Agregamos la animacion para las pestañas y las clases*/}
             {infoContent}
           </div>
         )}
         {activeTab === 'Terminos' && (
-          <div>
+          <div className="absolute top-0 left-0 w-full h-full tab-content-animation">{/* Agregamos la animacion para las pestañas y las clases*/}
             {termsContent}
           </div>
         )}
         {activeTab === 'Imagenes' && (
-          <div>
+          <div className="absolute top-0 left-0 w-full h-full tab-content-animation">{/* Agregamos la animacion para las pestañas y las clases*/}
             <Slider {...sliderSettings}>
               {images.map((img, index) => (
                 <SlideComponent key={index} img={img}/>
@@ -163,6 +164,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoConte
             </Slider>
           </div>
         )}
+        </div>
       </div>
     </div>
   );
