@@ -1,3 +1,16 @@
+/*
+##### Función #####
+- Este componente representa la barra de navegación de la aplicación. 
+- Contiene los enlaces a las diferentes secciones y el menú hamburguesa para la vista móvil.
+
+##### Componentes que utiliza #####
+- react-router-dom: Link y useLocation para los enlaces y la ruta actual.
+- useTheme: Para obtener el tema actual.
+
+##### Componentes que lo usan #####
+- AppWrapper.tsx: Importa y renderiza Navigation.
+*/
+
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from '../components/context/useTheme';

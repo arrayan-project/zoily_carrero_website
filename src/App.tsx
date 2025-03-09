@@ -1,48 +1,41 @@
+/*
+##### Responsabilidad #####
+- Es el componente principal. Gestiona el tamaño de la pantalla, el tema, la modal de contacto, 
+y decide qué renderizar (vista móvil o escritorio). 
+- Contiene los botones ThemeToggleButton y ScrollToTopButton.
+
+##### Componentes que renderiza ##### 
+- LandingPageMobile, ContentDesktop, Navigation y Footer.
+
+##### Lógica Clave #####
+- isMobileView: Determina si se muestra la vista móvil o la de escritorio.
+- MainContent: Renderiza condicionalmente LandingPageMobile o ContentDesktop según isMobileView.
+*/
+
+
+
 import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './components/context/themeContext';
 import { useTheme } from './components/context/useTheme';
-import ThemeToggleButton from './components/ThemeToggleButton';
 import Navigation from './components/Navigation';
-import ScrollToTopButton from './components/ScrollTopButton';
 import Footer from './components/Footer';
 import { MOBILE_BREAKPOINT } from './constants';
-import FloatingContactButton from './components/FloatingContactButton'; // Importar FloatingContactButton
-import ContactModal from './components/ContactModal'; // Importar ContactModal
+import FloatingContactButton from './components/FloatingContactButton';
+import ContactModal from './components/ContactModal';
 import './index.css';
-import './App.css'; //Importar App.css
-import Content from './components/Content'; //Importar Content
-import ContentDesktop from './components/ContentDesktop'; //Importar ContentDesktop
+import './App.css';
+import ContentDesktop from './components/DesktopView';
+import LandingPageMobile from './MobileView';
+import ThemeToggleButton from './components/ThemeToggleButton';
+import ScrollToTopButton from './components/ScrollTopButton';
 
-interface AppProps {
-  onSmoothScroll: (sectionId: string) => void;
-  
-}
 
-function Layout({onSmoothScroll}:AppProps) {
-  const location = useLocation();
-  const hideHeaderAndFooter = location.pathname === "/";
-  const { theme } = useTheme();
-  const themeClasses = !hideHeaderAndFooter ? (theme === 'light' ? 'bg-white text-amber-700' : 'bg-gray-800 text-rose-400') : '';
-
-  return (
-    <div className={`min-h-screen ${themeClasses}`}> 
-        {!hideHeaderAndFooter && <Navigation className="md:mb-12" />}
-        <div className="fixed top-4 left-4 md:top-6 md:left-6 lg:top-8 lg:left-8 z-50">
-          {!hideHeaderAndFooter && <ThemeToggleButton />}
-        </div>
-        {/* se renderizara el contenido desktop */}
-        <ContentDesktop onSmoothScroll={onSmoothScroll}/> 
-        {!hideHeaderAndFooter && <Footer />}
-
-        <ScrollToTopButton />
-    </div>
-  );
-}
 
 function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Estado para el modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const isMobileView = windowWidth < MOBILE_BREAKPOINT;
 
   useEffect(() => {
     const handleResize = () => {
@@ -56,37 +49,67 @@ function App() {
     };
   }, []);
 
-  // Función para abrir el modal
   const openModal = () => {
     setIsModalOpen(true);
   };
 
-  // Función para cerrar el modal
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
-  const isMobileView = windowWidth < MOBILE_BREAKPOINT;
   const handleSmoothScroll = (sectionId: string) => {
-    console.log("Scrolling to:", sectionId);
     const element = document.getElementById(sectionId);
-    if(element){
-      element.scrollIntoView({ behavior: "smooth" })
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
     }
- }; //definimos la funcion que luego se pasa por props
+  };
+
 
   return (
-    <ThemeProvider> {/* Se envuelve todo dentro de ThemeProvider */}
-        <div className='relative'> {/* Se agrega este elemento padre */}
-                <FloatingContactButton onClick={openModal} />
-                <ContactModal isOpen={isModalOpen} onClose={closeModal} />
-                <Router basename="/zoily_carrero_website/">
-                <ThemeToggleButton />
-                <ScrollToTopButton />
-                {isMobileView ? <Content onSmoothScroll={handleSmoothScroll} /> : <Layout onSmoothScroll={handleSmoothScroll}/>}
-                </Router>
-        </div>
+    <ThemeProvider>
+      <div className='relative'>
+        <Router basename="/zoily_carrero_website/">
+          {/* Renderizado condicional */}
+          <MainContent isMobileView={isMobileView} handleSmoothScroll={handleSmoothScroll} openModal={openModal} closeModal={closeModal} isModalOpen={isModalOpen}/>
+        </Router>
+      </div>
     </ThemeProvider>
+  );
+}
+interface MainContentProps {
+  isMobileView: boolean;
+  handleSmoothScroll: (sectionId: string) => void;
+  openModal: () => void;
+  closeModal: () => void;
+  isModalOpen: boolean;
+}
+
+function MainContent({ isMobileView, handleSmoothScroll, openModal, closeModal, isModalOpen }: MainContentProps) {
+  const { theme } = useTheme();
+  const location = useLocation();
+  const hideHeaderAndFooter = location.pathname === "/";
+  const themeClasses = !hideHeaderAndFooter ? (theme === 'light' ? 'bg-white text-amber-700' : 'bg-gray-800 text-rose-400') : '';
+
+  return (
+    <>
+      <FloatingContactButton onClick={openModal} />
+      <ContactModal isOpen={isModalOpen} onClose={closeModal} />
+      <ScrollToTopButton />
+      {isMobileView ? (
+        <>
+          <LandingPageMobile onSmoothScroll={handleSmoothScroll} />
+        </>
+      ) : (
+        <div className={` ${themeClasses}`}>
+            <div className="fixed top-4 left-4 z-50">
+              <ThemeToggleButton />
+            </div>
+          {!hideHeaderAndFooter && <Navigation className="md:mb-12" />}
+          <ContentDesktop onSmoothScroll={handleSmoothScroll} />
+          {!hideHeaderAndFooter && <Footer />}
+        </div>
+      )}
+    </>
   );
 }
 

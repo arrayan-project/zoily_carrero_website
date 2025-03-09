@@ -1,3 +1,14 @@
+/*
+##### Función #####
+- Este componente representa el pie de página (footer) de la aplicación. 
+- Muestra el nombre de la empresa, el copyright y los enlaces a las redes sociales.
+##### Componentes que utiliza #####
+- lucide-react: Utiliza Instagram, Facebook y Twitter de esta librería para los iconos de redes sociales.
+
+##### Componentes que lo usan #####
+- AppWrapper.tsx: Este es el único componente que importa y renderiza Footer.
+*/
+
 import React from 'react';
 import {Twitter, Instagram, Facebook} from 'lucide-react';
 

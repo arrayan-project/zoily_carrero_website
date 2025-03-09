@@ -3,7 +3,6 @@ import cbasico from "../assets/img/cursos/basico.webp";
 import cintermedio from "../assets/img/cursos/intermedio.webp";
 import cavanzado from "../assets/img/cursos/avanzado.webp";
 import cprofesional from "../assets/img/cursos/profesional.webp";
-import { basicCourseServices, intermediateCourseServices, advancedCourseServices, professionalCourseServices } from "./servicesData";
 
 interface CourseData {
   title: string;
@@ -11,6 +10,79 @@ interface CourseData {
   infoContent: () => JSX.Element;
   termsContent: () => JSX.Element;
 }
+
+export const basicCourseServices = {
+  items: [
+    {
+      name: "Contenido del Curso",
+      description: [
+        "Preparación de la piel",
+        "Aplicación de bases",
+        "Uso de correctores",
+        "Sellado del maquillaje",
+        "Uso de iluminador",
+        "Aplicación de rubor",
+        "Aplicación de sombras",
+        "Delineado",
+        "Aplicación de labial",
+      ],
+    },
+  ],
+};
+
+export const intermediateCourseServices = {
+  items: [
+    {
+      name: "Contenido del Curso",
+      description: [
+        "Corrección de cejas",
+        "Maquillaje de ojos ahumado",
+        "Corte de cuenca",
+        "Aplicación de pigmentos",
+        "Aplicación de glitter",
+        "Técnica de delineado",
+        "Piel madura",
+      ],
+    },
+  ],
+};
+
+export const advancedCourseServices = {
+  items: [
+    {
+      name: "Contenido del Curso",
+      description: [
+        "Maquillaje de novias",
+        "Maquillaje para cámaras",
+        "Maquillaje editorial",
+        "Maquillaje de quinceañeras",
+        "Sociales de noche",
+        "Corte de cuenca profundo",
+        "Delineado gráfico",
+        "Aplicación de pestañas postizas",
+        "Uso de fijadores y sellantes",
+        "Aplicación de pedrería y strass",
+        "Técnicas de contorno",
+      ],
+    },
+  ],
+};
+
+export const professionalCourseServices = {
+  items: [
+    {
+      name: "Contenido del Curso",
+      description: [
+        "Práctica en modelos reales",
+        "Maquillaje para diferentes tonos de piel",
+        "Maquillaje para distintas estructuras faciales",
+        "Manejo de diferentes tipos de productos",
+        "Conocimiento de marcas de maquillaje",
+        "Asesoría en marca personal",
+      ],
+    },
+  ],
+};
 
 export const courseData: Record<string, CourseData> = {
   basico: {

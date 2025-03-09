@@ -38,15 +38,23 @@ export const socialMakeupServices = {
     "El servicio de maquillaje social es ideal para cualquier evento especial, donde desees lucir radiante y destacar tu belleza natural.",
   items: [
     {
-      name: "Maquillaje Social",
-      price: "$35.000",
+      name: "Maquillaje Social Glam",
+      price: "$60.000.-",
       description: [
-        "Limpieza facial",
-        "Hidratación",
-        "Maquillaje a elección del cliente",
-        "Pestañas",
-        "Sellado del maquillaje",
-        "Aplicación de brillo para labios",
+        "Incluye Tu eliges entre Glam o Look de Día.",
+        "Maquillaje de rostro, técnicas de ojos Soft o Glam que involucran brillo, cortes de cuenca, ahumados entre otros, además hidratación facial, bronzer y contornos, iluminador.",
+        "Pestañas de cortina.",
+        "Verificar disponibilidad de fechas antes de realizar los abonos.",
+      ],
+    },
+    {
+      name: "Maquillaje Social Soft Basic",
+      price: "$38.000.-",
+      description: [
+        "Incluye Maquillaje Soft.",
+        "Hidratación facial previa, Look suave, tonos tierra, trabajo de piel natural.",
+        "Pestañas de cortina.",
+        "Verificar disponibilidad de fechas antes de realizar los abonos.",
       ],
     },
   ],
@@ -115,88 +123,28 @@ export const expressMakeupServices = {
     "El maquillaje express es perfecto para quinceañeras que desean lucir jóvenes y frescas en su gran día.",
   items: [
     {
-      name: "Maquillaje Express Quinceañera",
-      price: "$35.000",
+      name: "Maquillaje Quinceañera Basic",
+      price: "$75.000.-",
       description: [
-        "Limpieza facial",
-        "Hidratación",
-        "Maquillaje natural y fresco",
-        "Pestañas",
-        "Sellado del maquillaje",
-        "Aplicación de brillo para labios",
+        "Incluye Tratamiento de hidratación facial previo al maquillaje del día de la celebración.",
+        "Maquillaje Soft Mate adaptado al estilo de la cliente.",
+        "Pestañas de cortina.",
+        "No incluye prueba de Maquillaje",
+        "Verificar disponibilidad de fechas antes de realizar los abonos.",
       ],
     },
-  ],
-};
-
-export const basicCourseServices = {
-  items: [
     {
-      name: "Contenido del Curso",
+      name: "Maquillaje y Peinado Quinceañera Full",
+      price: "$110.000.-",
       description: [
-        "Preparación de la piel",
-        "Aplicación de bases",
-        "Uso de correctores",
-        "Sellado del maquillaje",
-        "Uso de iluminador",
-        "Aplicación de rubor",
-        "Aplicación de sombras",
-        "Delineado",
-        "Aplicación de labial",
-      ],
-    },
-  ],
-};
-
-export const intermediateCourseServices = {
-  items: [
-    {
-      name: "Contenido del Curso",
-      description: [
-        "Corrección de cejas",
-        "Maquillaje de ojos ahumado",
-        "Corte de cuenca",
-        "Aplicación de pigmentos",
-        "Aplicación de glitter",
-        "Técnica de delineado",
-        "Piel madura",
-      ],
-    },
-  ],
-};
-
-export const advancedCourseServices = {
-  items: [
-    {
-      name: "Contenido del Curso",
-      description: [
-        "Maquillaje de novias",
-        "Maquillaje para cámaras",
-        "Maquillaje editorial",
-        "Maquillaje de quinceañeras",
-        "Sociales de noche",
-        "Corte de cuenca profundo",
-        "Delineado gráfico",
-        "Aplicación de pestañas postizas",
-        "Uso de fijadores y sellantes",
-        "Aplicación de pedrería y strass",
-        "Técnicas de contorno",
-      ],
-    },
-  ],
-};
-
-export const professionalCourseServices = {
-  items: [
-    {
-      name: "Contenido del Curso",
-      description: [
-        "Práctica en modelos reales",
-        "Maquillaje para diferentes tonos de piel",
-        "Maquillaje para distintas estructuras faciales",
-        "Manejo de diferentes tipos de productos",
-        "Conocimiento de marcas de maquillaje",
-        "Asesoría en marca personal",
+        "Incluye Tratamiento de hidratación facial previo al maquillaje del día de la celebración con mascarilla hidratante.",
+        "Maquillaje a elección (Soft o Glam) con productos alta gama.",
+        "Maquillaje de cuello y escote.",
+        "Pestañas de cortina.",
+        "Peinado a elección.",
+        "Incluye prueba de Maquillaje y peinado.",
+        "Kit de Retoque: polvo traslúcido, esponjita, papel de arroz, muestra del labial, cepillito de cejas, cotonitos.",
+        "Verificar disponibilidad de fechas antes de realizar los abonos.",
       ],
     },
   ],

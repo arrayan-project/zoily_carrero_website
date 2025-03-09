@@ -1,6 +1,7 @@
+/*Función: Define los estilos para el FloatingContactButton.*/
 .floating-button-container {
   position: fixed;
-  bottom: 110px; /* Se modifico para que este por encima del boton scroll */
+  bottom: calc(50px + 50px); /* Ahora se calcula dinámicamente */
   right: 20px;
   z-index: 1000; /* Asegura que esté por encima de otros elementos */
   display: flex;
@@ -8,20 +9,22 @@
   justify-content: center;
 }
 
+.floating-button, .button-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .floating-button {
-  background-color: gold; /* Color dorado */
+  background-color: pink; /* Color dorado */
   border: none;
   border-radius: 50%; /* Hace el botón redondo */
   width: 60px;
   height: 60px;
   cursor: pointer;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Sombra suave */
-  display: flex;
-  justify-content: center;
-  align-items: center;
   transition: transform 0.2s ease-in-out;
   animation: pulse 2s infinite; /* Aplica la animación de pulsación */
-  clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%); /* Hace el botón con forma de corazón */
   z-index: 1000;
 }
 
@@ -56,15 +59,7 @@
   .button-icon{
     width: 20px;
     height: 20px;
-    right: 10px;
-    bottom: 90px;
   }
-
-  .floating-button-container {
-    right: 12px;
-    bottom: 90px;
-  }
-
 }
 
 @media (max-width: 480px) {
