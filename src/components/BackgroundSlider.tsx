@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { backgrounds } from '../assets/img/images';
+import { imageArrays } from '../assets/img/images';
+
+const { backgrounds } = imageArrays;
 
 const BackgroundCarousel = () => {
   const [currentBg, setCurrentBg] = useState(0);

@@ -1,14 +1,14 @@
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
-import { useTheme } from "../components/context/useTheme";
+import { useTheme } from "../components/context/useThemeHook";
 import PageBanner from "../components/PageBanner";
 import images from "../assets/img/images";
 import { Link} from "react-router-dom";
-import AnimationWrapper from "../components/AnimationWrapper";
-import "../index.css"; // Asegúrate de importar About.css para los estilos de transición
+import AnimationWrapper from "../components/AnimationLayer";
+import "../GlobalStyles.css"; // Asegúrate de importar About.css para los estilos de transición
 import { useEffect, useState } from "react";
 import { MOBILE_BREAKPOINT } from "../constants";
-import ContactForm from "../components/ContactForm";
-import { getTextColorClass } from "../util"; //Importamos la nueva funcion
+import ContactForm from "../components/ContactUsForm";
+import { getTextColorClass } from "../GeneralUtil"; //Importamos la nueva funcion
 
 
 interface ContactProps {

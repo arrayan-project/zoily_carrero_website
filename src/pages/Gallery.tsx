@@ -7,20 +7,13 @@ import React, {
 } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import PageBanner from "../components/PageBanner";
-import images, {
-  noviaGalleryImages,
-  socialGalleryImages,
-  peinadoGalleryImages,
-  pielMaduraGalleryImages,
-  glamGalleryImages,
-  expressGalleryImages,
-} from "../assets/img/images";
-import { useTheme } from "../components/context/useTheme";
-import AnimationWrapper from "../components/AnimationWrapper";
-import "../index.css";
+import images, { imageArrays } from '../assets/img/images';
+import { useTheme } from "../components/context/useThemeHook";
+import AnimationWrapper from "../components/AnimationLayer";
+import "../GlobalStyles.css";
 import SmoothImage from "../components/SmoothImage";
 import { MOBILE_BREAKPOINT } from "../constants";
-import { getTextColorClass } from "../util";//Importamos las funciones globales
+import { getTextColorClass } from "../GeneralUtil";//Importamos las funciones globales
 
 
 // Define las categorías del menú
@@ -32,6 +25,14 @@ const categories = [
   { name: "Glam", value: "glam" },
   { name: "Express", value: "express" },
 ];
+
+const { galleryBrideImages, gallerySocialImages, galleryHairAndMakeupImages, galleryMatureSkinImages, galleryGlamImages, galleryExpressImages } = imageArrays;
+const noviaGalleryImages = galleryBrideImages;
+const socialGalleryImages = gallerySocialImages;
+const peinadoGalleryImages = galleryHairAndMakeupImages;
+const pielMaduraGalleryImages = galleryMatureSkinImages;
+const glamGalleryImages = galleryGlamImages;
+const expressGalleryImages = galleryExpressImages;
 
 interface ServicesProps {}
 

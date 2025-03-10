@@ -3,18 +3,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import StatsSection from "../components/StatsSection";
 import PageBanner from "../components/PageBanner";
-import images, {
-  noviaImages,
-  socialImages,
-  peinadoImages,
-  maduraImages,
-  glamImages,
-  expressImages,
-} from "../assets/img/images";
-import { useTheme } from "../components/context/useTheme";
-import "../index.css";
+import images, { imageArrays } from '../assets/img/images';
+import { useTheme } from "../components/context/useThemeHook";
+import "../GlobalStyles.css"; // Asegúrate de importar About.css para los estilos de transición
 import ServicesBackgroundSVG from "../components/svgBackground/ServicesBackground";
-import ServiceCarousel from "../components/ServiceCarousel";
+import ServiceCarousel from "../components/ServiceSlider";
 import {
   noviaMakeupServices,
   socialMakeupServices,
@@ -24,7 +17,7 @@ import {
   expressMakeupServices,
 } from "../data/servicesData";
 import { MOBILE_BREAKPOINT } from "../constants";
-import { getTextColorClass } from "../util"; //Importamos la nueva funcion
+import { getTextColorClass } from "../GeneralUtil"; //Importamos la nueva funcion
 
 
 //IMPORTAMOS LA NUEVA DATA
@@ -37,9 +30,9 @@ import {
   infoContentSocial,
   termsContent,
 } from "../data/servicesData";
-import CourseCarousel from "../components/CourseCarousel"; //Importamos el nuevo componente
-import AnimationWrapper from "../components/AnimationWrapper";
-import ModalContainer from "../components/ModalContainer";
+import CourseCarousel from "../components/CourseSlider"; //Importamos el nuevo componente
+import AnimationWrapper from "../components/AnimationLayer";
+import ModalContainer from "../components/ModalRoot";
 import courseData from "../data/coursesData";
 
 
@@ -98,6 +91,14 @@ function Services({}: ServicesProps) {
   }, []);
 
   const { theme } = useTheme();
+
+  const { serviceBrideImages, serviceSocialImages, serviceHairAndMakeupImages, serviceMatureSkinImages, serviceGlamImages, serviceExpressImages} = imageArrays;
+  const noviaImages=serviceBrideImages;
+  const socialImages=serviceSocialImages;
+  const peinadoImages=serviceHairAndMakeupImages;
+  const maduraImages=serviceMatureSkinImages;
+  const glamImages=serviceGlamImages;
+  const expressImages=serviceExpressImages;
 
   return (
     <div className="min-h-screen flex flex-col">

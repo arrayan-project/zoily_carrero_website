@@ -17,14 +17,14 @@ y decide qué renderizar (vista móvil o escritorio).
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './components/context/themeContext';
-import { useTheme } from './components/context/useTheme';
-import Navigation from './components/Navigation';
+import { useTheme } from './components/context/useThemeHook';
+import Navigation from './components/NavBarMenu';
 import Footer from './components/Footer';
 import { MOBILE_BREAKPOINT } from './constants';
 import FloatingContactButton from './components/FloatingContactButton';
-import ContactModal from './components/ContactModal';
-import './index.css';
-import './App.css';
+import ContactModal from './components/ContactUsModal';
+
+import './GlobalStyles.css';
 import ContentDesktop from './components/DesktopView';
 import LandingPageMobile from './MobileView';
 import ThemeToggleButton from './components/ThemeToggleButton';

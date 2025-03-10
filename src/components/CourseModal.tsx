@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { useTheme } from "./context/useTheme"; // Import the useTheme hook
+import { useTheme } from "./context/useThemeHook"; // Import the useTheme hook
 
 interface CourseModalProps {
   isOpen: boolean;

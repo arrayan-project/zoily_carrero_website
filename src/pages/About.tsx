@@ -2,12 +2,12 @@ import { CheckCircle } from "lucide-react";
 import images from "../assets/img/images";
 import PageBanner from "../components/PageBanner";
 import { Link } from "react-router-dom";
-import { useTheme } from "../components/context/useTheme";
-import "../index.css"; // Importa el archivo CSS para los estilos de transición
-import AnimationWrapper from "../components/AnimationWrapper";
+import { useTheme } from "../components/context/useThemeHook";
+import "../GlobalStyles.css"; // Asegúrate de importar About.css para los estilos de transición
+import AnimationWrapper from "../components/AnimationLayer";
 import { useEffect, useState } from "react";
 import { MOBILE_BREAKPOINT } from "../constants";
-import { getTextColorClass, getTextColorClassParagraph } from "../util";//Importamos las funciones globales
+import { getTextColorClass, getTextColorClassParagraph } from "../GeneralUtil";//Importamos las funciones globales
 
 
 interface ServicesProps {

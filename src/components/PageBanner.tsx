@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme } from './context/useTheme'; // Asegúrate de que la ruta a useTheme sea correcta
+import { useTheme } from './context/useThemeHook'; // Asegúrate de que la ruta a useTheme sea correcta
 
 
 interface PageBannerProps {

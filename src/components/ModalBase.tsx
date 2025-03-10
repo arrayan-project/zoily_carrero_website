@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import SlideComponent from './SlideComponent';
 import Slider from 'react-slick';
-import { useTheme } from './context/useTheme';
+import { useTheme } from './context/useThemeHook';
 
 interface ModalProps {
   isOpen: boolean;

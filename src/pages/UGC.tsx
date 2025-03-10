@@ -6,15 +6,15 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import PageBanner from "../components/PageBanner";
-import { useTheme } from "../components/context/useTheme";
-import AnimationWrapper from "../components/AnimationWrapper";
-import "../index.css"; // Asegúrate de importar About.css para los estilos de transición
+import { useTheme } from "../components/context/useThemeHook";
+import AnimationWrapper from "../components/AnimationLayer";
+import "../GlobalStyles.css"; // Asegúrate de importar About.css para los estilos de transición
 import SmoothImage from "../components/SmoothImage"; // Importa el componente SmoothImage
 import images from "../assets/img/images"; // Importa las imágenes de assets
 import ugc from "../assets/img/images"; // Importa las imágenes de UGC
 import { useEffect, useState } from "react";
 import { MOBILE_BREAKPOINT } from "../constants";
-import { getTextColorClass} from "../util";//Importamos las funciones globales
+import { getTextColorClass} from "../GeneralUtil";//Importamos las funciones globales
 
 
 interface ServicesProps {

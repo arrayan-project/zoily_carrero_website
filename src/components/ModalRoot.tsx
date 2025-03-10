@@ -1,6 +1,6 @@
 // ModalContainer.tsx
 import React from 'react';
-import Modal from './Modal';
+import Modal from './ModalBase';
 import CourseModal from './CourseModal';
 import courseData from "../data/coursesData";
 

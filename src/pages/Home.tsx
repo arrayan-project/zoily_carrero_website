@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import { Instagram, Facebook, Pointer as Pinterest } from "lucide-react";
 import {  } from "../assets/img/images";
 import { MOBILE_BREAKPOINT } from "../constants";
-import AnimationWrapper from "../components/AnimationWrapper"; //importamos
-import BackgroundCarousel from '../components/BackgroundCarousel'; // Importar el componente
+import AnimationWrapper from "../components/AnimationLayer"; //importamos
+import BackgroundCarousel from '../components/BackgroundSlider'; // Importar el componente
 import HomeButton from "../components/HomeButton"; //Importar componente
+import { imageArrays } from "../assets/img/images";
 
 interface HomeProps {
   onSmoothScroll: (sectionId: string) => void;

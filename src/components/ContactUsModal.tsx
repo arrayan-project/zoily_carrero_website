@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
-import ContactForm from './ContactForm'; // Importa ContactForm
-import { useTheme } from './context/useTheme';
-import './ContactModal.css';
-import { getTextColorClass} from "../util";//Importamos las funciones globales
+import ContactForm from './ContactUsForm'; // Importa ContactForm
+import { useTheme } from './context/useThemeHook';
+import './ContactUsModal.css';
+import { getTextColorClass} from "../GeneralUtil";//Importamos las funciones globales
 
 interface ContactModalProps {
   isOpen: boolean;

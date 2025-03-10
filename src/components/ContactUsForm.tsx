@@ -1,6 +1,6 @@
 import React from "react";
 
-import FormInput from "./FormInput"; //Importamos FormInput
+import FormInput from "./ContactUsFormInput"; //Importamos FormInput
 
 const ContactForm: React.FC = () => {
 

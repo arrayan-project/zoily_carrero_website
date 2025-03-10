@@ -1,9 +1,9 @@
 import React from "react";
 import SlideComponent from "./SlideComponent";
 import Slider from "react-slick";
-import { useTheme } from "./context/useTheme";
+import { useTheme } from "./context/useThemeHook";
 import { Link } from "react-router-dom";
-import AnimationWrapper from "../components/AnimationWrapper";
+import AnimationWrapper from "./AnimationLayer";
 
 interface ServiceCarouselProps {
   images: string[];

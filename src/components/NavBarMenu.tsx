@@ -13,7 +13,7 @@
 
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useTheme } from '../components/context/useTheme';
+import { useTheme } from './context/useThemeHook';
 
 interface NavigationProps {
   className?: string; //  <<<  AÑADE ESTA LÍNEA: Define className como una prop opcional de tipo string

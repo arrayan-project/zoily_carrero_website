@@ -8,7 +8,7 @@
 */
 
 import React from 'react';
-import { useTheme } from './context/useTheme';
+import { useTheme } from './context/useThemeHook';
 
 interface LayoutMobileProps {
   children: React.ReactNode;
