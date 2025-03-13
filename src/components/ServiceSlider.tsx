@@ -2,19 +2,15 @@ import React from "react";
 import SlideComponent from "./SlideComponent";
 import Slider from "react-slick";
 import { useTheme } from "./context/useThemeHook";
-import { Link } from "react-router-dom";
+import { ModalContent } from "../data/servicesData"; // Importamos la interface
 import AnimationWrapper from "./AnimationLayer";
+
+
 
 interface ServiceCarouselProps {
   images: string[];
   title: string;
-  openModal: (content: {
-    images: string[];
-    title: string;
-    infoContent: React.ReactNode;
-    termsContent: React.ReactNode;
-    description?: string;
-  }) => void;
+  openModal: (content: ModalContent) => void;
   infoContent: React.ReactNode;
   termsContent: React.ReactNode;
   description?: string;
@@ -52,7 +48,7 @@ const ServiceCarousel: React.FC<ServiceCarouselProps> = ({
         className="w-full aspect-square shadow-lg overflow-hidden relative group cursor-pointer rounded-lg"
         onClick={handleOpenModal}
       >
-          <AnimationWrapper animationClassName="fade-in-up-animation">
+          <AnimationWrapper animationClassName="fade-in-up">
               <div>
             <Slider {...sliderSettings}>
               {images.map((img, index) => (

@@ -18,9 +18,6 @@ import {
 } from "../data/servicesData";
 import { MOBILE_BREAKPOINT } from "../constants";
 import { getTextColorClass } from "../GeneralUtil"; //Importamos la nueva funcion
-
-
-//IMPORTAMOS LA NUEVA DATA
 import {
   infoContentNovia,
   infoContentExpress,
@@ -34,39 +31,30 @@ import CourseCarousel from "../components/CourseSlider"; //Importamos el nuevo c
 import AnimationWrapper from "../components/AnimationLayer";
 import ModalContainer from "../components/ModalRoot";
 import courseData from "../data/coursesData";
-
-
-interface ModalContent {
-  images: string[];
-  title: string;
-  infoContent: React.ReactNode;
-  termsContent: React.ReactNode;
-  description?: string;
-}
+import { ModalContent } from "../data/servicesData"; // Importamos la interface
 
 // Define ServicesProps interface here
 interface ServicesProps {}
 
 function Services({}: ServicesProps) {
-
+  //Manejo del estado de los modales
   const [isCourseModalOpen, setIsCourseModalOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState<ModalContent | null>(null); // Use the new interface
-  
-  const openModal = (
-    content: ModalContent | null,
-    courseKey?: string
-  ) => {
-    if (courseKey && courseData[courseKey]) {
-      setSelectedCourse(courseKey);
-      setIsCourseModalOpen(true);
-    } else if (content) {
-      setModalContent(content);
-      setIsModalOpen(true);
+  const [modalContent, setModalContent] = useState<ModalContent | null>(null);
+
+  // Unica funcion openModal
+  const openModal = (content: ModalContent) => {
+    if(content.courseKey){ //Se comprueba si el contenido viene de un curso.
+        setSelectedCourse(content.courseKey)
+        setIsCourseModalOpen(true)
+    } else {
+        setModalContent(content);
+        setIsModalOpen(true);
     }
   };
-  
+
+  //Funcion para cerrar el modal
   const closeModal = (isCourseModal?: boolean) => {
     if (isCourseModal) {
       setIsCourseModalOpen(false);
@@ -76,7 +64,6 @@ function Services({}: ServicesProps) {
       setModalContent(null);
     }
   };
-
   //Manejo del estado del tamaño de ventana
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const isMobileView = windowWidth < MOBILE_BREAKPOINT;
@@ -113,11 +100,11 @@ function Services({}: ServicesProps) {
         ></PageBanner>
         <div className="relative mb-24 md:mb-36">
           <ServicesBackgroundSVG className="absolute inset-0 w-full h-full" />
-          <div className=" mx-auto px-2 py-16 md:py-32 md:px-6 lg:px-48 z-10 ">
+          <div className=" mx-auto px-2 py-16 md:py-32 md:px-6 lg:px-68 z-10 ">
             
-          <AnimationWrapper animationClassName="fade-in-up-animation">
+          <AnimationWrapper animationClassName="fade-in-up">
               <h1
-                  className={`text-4xl md:text-5xl font-cinzel font-extralight text-center mb-24 md:py-10 tracking-wider ${getTextColorClass(theme)}`}
+                  className={`text-2xl md:text-5xl font-cinzel font-extralight text-center mb-24 md:py-10 tracking-wider ${getTextColorClass(theme)}`}
               >
                   CONOCE LO QUE PODEMOS HACER POR TI
               </h1>
@@ -184,55 +171,35 @@ function Services({}: ServicesProps) {
 
           {/* Sección "Nuestros servicios incluyen" */}
           <div className="text-center space-y-8 md:mb-6">
-            <h2
-              className={`text-2xl md:text-3xl font-cinzel font-extralight text-center ${getTextColorClass(theme)}`}
-            >
+            <h2 className={`text-2xl md:text-3xl font-cinzel font-extralight text-center ${getTextColorClass(theme)}`}>
               Nuestros servicios incluyen
             </h2>
 
             <AnimationWrapper animationClassName="fade-in-text">
             <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-600">
-                <li
-                  className={`p-6 shadow-sm p-2 md:p-8 ${getTextColorClass(theme)}`}
-                >
-                  <h4
-                    className={`font-cinzel tracking-wide mb-3 text-center ${getTextColorClass(theme)}`}
-                  >
+                <li className={`p-6 shadow-sm p-2 md:p-8 ${getTextColorClass(theme)}`}>
+                  <h4 className={`font-cinzel tracking-wide mb-3 text-center ${getTextColorClass(theme)}`}>
                     Asesoría para cuidado de la piel
                   </h4>
-                  <p
-                    className={`text-xs sm:text-sm md:text-base font-cinzel ${getTextColorClass(theme)}`}
-                  >
+                  <p className={`text-xs sm:text-sm md:text-base font-cinzel ${getTextColorClass(theme)}`}>
                     Hidratación, limpieza y productos
                   </p>
                 </li>
 
-                <li
-                  className={`p-6 shadow-sm p-2 md:p-8 font-cinzel ${getTextColorClass(theme)}`}
-                >
-                  <h4
-                    className={`tracking-wide mb-3 text-center font-cinzel ${getTextColorClass(theme)}`}
-                  >
+                <li className={`p-6 shadow-sm p-2 md:p-8 font-cinzel ${getTextColorClass(theme)}`}>
+                  <h4 className={`tracking-wide mb-3 text-center font-cinzel ${getTextColorClass(theme)}`}>
                     Asesoría de imagen
                   </h4>
-                  <p
-                    className={`text-xs sm:text-sm md:text-base font-cinzel ${getTextColorClass(theme)}`}
-                  >
+                  <p className={`text-xs sm:text-sm md:text-base font-cinzel ${getTextColorClass(theme)}`}>
                     Accesorios y prendas según la ocasión
                   </p>
                 </li>
 
-                <li
-                  className={`p-6 shadow-sm p-2 md:p-8 font-cinzel ${getTextColorClass(theme)}`}
-                >
-                  <h4
-                    className={`tracking-wide mb-3 text-center font-cinzel ${getTextColorClass(theme)}`}
-                  >
+                <li className={`p-6 shadow-sm p-2 md:p-8 font-cinzel ${getTextColorClass(theme)}`}>
+                  <h4 className={`tracking-wide mb-3 text-center font-cinzel ${getTextColorClass(theme)}`}>
                     Regalo sorpresa
                   </h4>
-                  <p
-                    className={`text-xs sm:text-sm md:text-base font-cinzel ${getTextColorClass(theme)}`}
-                  >
+                  <p className={`text-xs sm:text-sm md:text-base font-cinzel ${getTextColorClass(theme)}`}>
                     Algo que te ayudará a recordar tu día
                   </p>
                 </li>
@@ -247,7 +214,7 @@ function Services({}: ServicesProps) {
           <StatsSection />
         </div>
         {/* Fin sección estadistica de servicios */}
-        <div className=" mx-auto md:px-48 px-2">
+        <div className=" mx-auto md:px-68 px-2">
           {/* Sección Cursos */}
           <div className="text-center space-y-20 pt-16 mb-24 md:mb-48">
           <AnimationWrapper animationClassName="fade-in-text">
@@ -258,7 +225,7 @@ function Services({}: ServicesProps) {
               </h1>
               </AnimationWrapper>
 
-              <AnimationWrapper animationClassName="fade-in-up-animation">
+              <AnimationWrapper animationClassName="fade-in-up">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12 mb-16">
                 {/* CURSO BASICO */}
                 <CourseCarousel

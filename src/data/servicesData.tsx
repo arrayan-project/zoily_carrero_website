@@ -1,4 +1,17 @@
 // servicesData.ts
+//Todos los imports
+import React from "react";
+
+// Nueva interface ModalContent
+export interface ModalContent {
+  images: string[];
+  title: string;
+  infoContent: React.ReactNode;
+  termsContent: React.ReactNode;
+  description?: string;
+  courseKey?: string;
+}
+
 
 export const noviaMakeupServices = {
   description:

@@ -1,21 +1,51 @@
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out; /* Transición para la opacidad */
+}
+
+.modal-container.open {
+  opacity: 1; /* Modal visible */
+}
+
+.modal-container.closing {
+  opacity: 0; /* Modal invisible */
+}
+
 .modal-content {
-  position: relative; /* Para posicionar el botón de cierre */
-  margin: 20px; /* Añade margen para dispositivos pequeños */
+  position: relative;
+  margin: 20px;
+  background-color: inherit; /* Se hereda del padre */
+  border-radius: 0.5rem; /* Borde redondeado */
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); /* Sombra */
 }
 
 .close-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 1rem; /* Espaciado superior */
+  right: 1rem; /* Espaciado derecho */
   border: none;
   background-color: transparent;
   cursor: pointer;
-  padding: 5px;
+  padding: 0.5rem; /* Espaciado interno */
+  transition: color 0.2s ease-in-out; /* Transición de color */
+}
+
+.close-button:hover {
+  color: #6b7280; /* Color al pasar el mouse */
 }
 
 
 @media (max-width: 600px) {
   .modal-content {
-    max-width: 95%;
+      max-width: 95vw; /* Se ajusta a la anchura del viewport */
   }
 }

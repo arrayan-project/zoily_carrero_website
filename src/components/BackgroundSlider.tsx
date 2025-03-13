@@ -1,38 +1,87 @@
 import React, { useState, useEffect } from 'react';
 import { imageArrays } from '../assets/img/images';
 
+//Creamos un type para las props, e incluimos nuevos atributos
+interface BackgroundCarouselProps {
+    transitionDuration?: number;
+    intervalDuration?: number;
+    pauseOnHover?: boolean; // Nueva prop para pausar al pasar el ratón
+  }
+  
 const { backgrounds } = imageArrays;
+const backgroundsLength = backgrounds.length; // Se calcula fuera del useEffect
 
-const BackgroundCarousel = () => {
+const BackgroundCarousel: React.FC<BackgroundCarouselProps> = ({ transitionDuration = 500, intervalDuration = 8000, pauseOnHover = false }) => {
   const [currentBg, setCurrentBg] = useState(0);
   const [fadeOut, setFadeOut] = useState(false);
+  const [isPaused, setIsPaused] = useState(false); // Nuevo estado para controlar la pausa
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setFadeOut(true);
-      setTimeout(() => {
-        setCurrentBg((prev) => (prev + 1) % backgrounds.length);
-        setFadeOut(false);
-      }, 500); // Ajustar el tiempo de la transición a 500ms
-    }, 8000);
+    let interval: number;
 
-    return () => clearInterval(interval);
-  }, []);
+    const startInterval = () => {
+          //inicia el carrusel, seteando un interval y un settimeout.
+      interval = setInterval(() => {
+        setFadeOut(true);
+        setTimeout(() => {
+          setCurrentBg((prev) => (prev + 1) % backgroundsLength);
+          setFadeOut(false);
+        }, transitionDuration);
+      }, intervalDuration);
+    };
+
+    const stopInterval = () => {
+          //Detiene el interval para detener el carrusel.
+      clearInterval(interval);
+    };
+
+    if (!isPaused) {
+      startInterval();
+    }
+
+    return () => {
+      // Funcion de limpieza del interval
+      stopInterval();
+    };
+  }, [transitionDuration, intervalDuration, isPaused]);
+
+//Funcion para manejar el mouse del componente, si esta en pause se activa, si esta activado se pausa.
+  const handleMouseEnter = () => {
+    if (pauseOnHover) {
+      setIsPaused(true); // Pausa el carrusel al pasar el mouse
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (pauseOnHover) {
+      setIsPaused(false); // Reactiva el carrusel al salir el mouse
+    }
+  };
+
+  const gradientOverlay = 'rgba(0, 0, 0, 0.5)';//variable para color de gradiente, se usa mas abajo en la linea 79
+
 
   return (
     <>
       {backgrounds.map((bg, index) => (
         <div
           key={index}
-          className={`absolute inset-0 bg-transition transition-opacity duration-500 ${
-            index === currentBg ? 'opacity-100' : 'opacity-0'
-          } ${fadeOut && index === currentBg ? 'opacity-0' : ''}`}
+          className={`
+            absolute inset-0 
+            bg-transition
+            transition-opacity 
+            duration-${transitionDuration} 
+            bg-cover
+            bg-center
+            z-0
+            ${index === currentBg ? 'opacity-100' : 'opacity-0'}
+            ${fadeOut && index === currentBg ? 'opacity-0' : ''}
+            `}
           style={{
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${bg})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            zIndex: 0,
+            backgroundImage: `linear-gradient(${gradientOverlay}, ${gradientOverlay}), url(${bg})`
           }}
+          onMouseEnter={handleMouseEnter} //se añade la funcion
+          onMouseLeave={handleMouseLeave} //se añade la funcion
         />
       ))}
     </>

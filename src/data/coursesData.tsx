@@ -1,8 +1,12 @@
-// courseData.ts
-import cbasico from "../assets/img/cursos/basico.webp";
-import cintermedio from "../assets/img/cursos/intermedio.webp";
-import cavanzado from "../assets/img/cursos/avanzado.webp";
-import cprofesional from "../assets/img/cursos/profesional.webp";
+/*
+##### Función #####
+- Este archivo contiene la información de los cursos.
+- Incluye las imagenes, titulo, y funciones que devuelven la informacion y los terminos del curso.
+*/
+import cbasico from "../assets/img/cursos/basico.webp"; // Importamos con rutas absolutas
+import cintermedio from "../assets/img/cursos/intermedio.webp"; // Importamos con rutas absolutas
+import cavanzado from "../assets/img/cursos/avanzado.webp"; // Importamos con rutas absolutas
+import cprofesional from "../assets/img/cursos/profesional.webp"; // Importamos con rutas absolutas
 
 interface CourseData {
   title: string;
@@ -91,10 +95,12 @@ export const courseData: Record<string, CourseData> = {
     infoContent: () => {
       return (
         <div className="font-cinzel">
+          {/* Iteramos los servicios del curso */}
           {basicCourseServices.items.map((item, index) => (
             <div key={index} className="mb-4">
               <h4 className="font-bold mb-2">{item.name}</h4>
               <ul className="list-disc list-inside">
+                {/* Iteramos las descripciones de cada servicio */}
                 {item.description.map((desc, descIndex) => (
                   <li key={descIndex}>{desc}</li>
                 ))}

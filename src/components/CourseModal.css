@@ -1,0 +1,76 @@
+/* Definición de Variables CSS */
+:root {
+    --modal-border-radius: 0.5rem;
+    --modal-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --modal-padding: 1rem;
+    --close-button-padding: 0.5rem;
+    --close-button-color-hover: #6b7280;
+    --modal-max-width: 800px;
+    --modal-max-width-medium: 90vw;
+    --modal-max-width-small: 95vw;
+    --close-button-top: 1rem;
+    --close-button-right: 1rem;
+}
+
+.course-modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    padding: var(--modal-padding); /* Usamos la variable */
+}
+
+.course-modal-container.open {
+    opacity: 1;
+}
+
+.course-modal-container.closing {
+    opacity: 0;
+}
+
+.course-modal-content {
+    position: relative;
+    margin: auto;
+    background-color: inherit;
+    border-radius: var(--modal-border-radius); /* Usamos la variable */
+    box-shadow: var(--modal-shadow); /* Usamos la variable */
+    max-width: var(--modal-max-width); /* Usamos la variable */
+    width: 100%;
+}
+
+.course-close-button {
+    position: absolute;
+    top: var(--close-button-top);
+    right: var(--close-button-right);
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: var(--close-button-padding);
+    transition: color 0.2s ease-in-out;
+}
+
+.course-close-button:hover {
+    color: var(--close-button-color-hover); /* Usamos la variable */
+}
+
+/* Media Query para pantallas medianas (iPad y similares) */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .course-modal-content {
+        max-width: var(--modal-max-width-medium); /* Usamos la variable */
+        width: auto;
+    }
+}
+
+/* Media Query para pantallas pequeñas */
+@media (max-width: 600px) {
+    .course-modal-content {
+        max-width: var(--modal-max-width-small); /* Usamos la variable */
+    }
+}
