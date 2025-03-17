@@ -9,40 +9,68 @@
 - AppWrapper.tsx: Este es el único componente que importa y renderiza Footer.
 */
 
-import React from 'react';
-import {Twitter, Instagram, Facebook} from 'lucide-react';
+// Footer.tsx
+import React, { useState } from 'react';
+import { Twitter, Instagram, Facebook} from 'lucide-react';
 
 const Footer: React.FC = () => {
+  const [error, setError] = useState<string | null>(null);
+  const currentYear = new Date().getFullYear();
+
+  const socialLinks = [
+    {
+      href: "https://www.instagram.com/", // Reemplaza con la URL real
+      icon: Instagram,
+      label: "Instagram",
+    },
+    {
+      href: "https://www.facebook.com/", // Reemplaza con la URL real
+      icon: Facebook,
+      label: "Facebook",
+    },
+    {
+      href: "https://www.twitter.com/", // Reemplaza con la URL real
+      icon: Twitter,
+      label: "Twitter",
+    },
+  ];
+
+  if (error) {
+    return (
+      <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-red-500 text-white">
+        <p>{error}</p>
+      </div>
+    );
+  }
+
   return (
     <footer className="bg-gray-800 text-gray-200 py-32">
       <div className="container mx-auto px-4">
-        {/* Contenedor principal: se organiza en columna en móvil y en fila en pantallas medianas hacia arriba */}
         <div className="flex flex-col md:flex-row justify-between items-center">
-          
-          {/* Sección de logo o nombre de la empresa */}
           <div className="mb-4 md:mb-0 text-center md:text-left">
             <h1 className="text-xl font-bold">ZoilyCarrero MakeUp</h1>
-            <p className="text-sm">© 2025 MiEmpresa. Todos los derechos reservados.</p>
+            <p className="text-sm">© {currentYear} MiEmpresa. Todos los derechos reservados.</p>
           </div>
 
-          {/* Social Links */}
           <div className="space-y-4">
             <h3 className="text-xl font-semibold text-white">Conecta con Nosotros</h3>
             <div className="flex space-x-4">
-              <a href="#" className="hover:text-white transition-colors">
-                <Instagram size={24} />
-              </a>
-              <a href="#" className="hover:text-white transition-colors">
-                <Facebook size={24} />
-              </a>
-              <a href="#" className="hover:text-white transition-colors">
-                <Twitter size={24} />
-              </a>
+              {socialLinks.map((link, index) => (
+                <a
+                  key={index}
+                  href={link.href}
+                  className="hover:text-white transition-colors"
+                  aria-label={link.label}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <link.icon size={24} />
+                </a>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Sección adicional para redes sociales o información extra */}
         <div className="mt-6 text-center">
           <p className="text-xs">
             Desarrollado con ♥ por <a href="#" className="hover:underline">ZoilyCarrero</a>

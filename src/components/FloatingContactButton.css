@@ -1,4 +1,15 @@
-/*Función: Define los estilos para el FloatingContactButton.*/
+/* FloatingContactButton.css */
+
+/* Variables CSS */
+:root {
+  --floating-button-color: pink;
+  --floating-button-color-hover: #ff4081;
+  --floating-button-size: 60px;
+  --floating-button-icon-size: 30px;
+  --floating-button-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  --floating-button-border-radius: 50%;
+}
+
 .floating-button-container {
   position: fixed;
   bottom: calc(50px + 50px); /* Ahora se calcula dinámicamente */
@@ -9,29 +20,33 @@
   justify-content: center;
 }
 
-.floating-button, .button-icon {
+.floating-button,
+.button-icon {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .floating-button {
-  background-color: pink; /* Color dorado */
+  background-color: var(--floating-button-color); /* Usa la variable */
   border: none;
-  border-radius: 50%; /* Hace el botón redondo */
-  width: 60px;
-  height: 60px;
+  border-radius: var(--floating-button-border-radius); /* Usa la variable */
+  width: var(--floating-button-size); /* Usa la variable */
+  height: var(--floating-button-size); /* Usa la variable */
   cursor: pointer;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Sombra suave */
-  transition: transform 0.2s ease-in-out;
-  animation: pulse 2s infinite; /* Aplica la animación de pulsación */
-  z-index: 1000;
+  box-shadow: var(--floating-button-shadow); /* Usa la variable */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Transición suave */
+  animation: pulse 2s infinite ease-in-out; /* Animación más suave */
+}
+
+.floating-button:hover {
+  background-color: var(--floating-button-color-hover);
 }
 
 .button-icon {
-    color: white;
-    width: 30px;
-    height: 30px;
+  color: white;
+  width: var(--floating-button-icon-size); /* Usa la variable */
+  height: var(--floating-button-icon-size); /* Usa la variable */
 }
 
 /* Animación de pulsación */
@@ -40,34 +55,30 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(1.1);
+    transform: scale(1.05); /* Menor aumento */
   }
   100% {
     transform: scale(1);
   }
 }
 
-/* Media query para reducir el tamaño en pantallas pequeñas */
+/* Media queries */
 @media (max-width: 768px) {
   .floating-button {
-    width: 50px;
-    height: 50px;
-    right: 15px;
+    --floating-button-size: 50px;
+    --floating-button-icon-size: 20px;
+    right: 10px;
     bottom: 90px;
-  }
-  
-  .button-icon{
-    width: 20px;
-    height: 20px;
   }
 }
 
 @media (max-width: 480px) {
-  .floating-button {
-    width: 40px;
-    height: 40px;
+  .floating-button-container {
+    bottom: calc(50px + 25px);
     right: 10px;
-    bottom: 10px;
-    border-radius: 6px; /* Aún menos redondeados en pantallas muy pequeñas */
+  }
+  .floating-button {
+    --floating-button-size: 40px;
+    border-radius: 6px;
   }
 }

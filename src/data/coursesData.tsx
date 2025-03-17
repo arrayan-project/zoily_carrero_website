@@ -3,10 +3,20 @@
 - Este archivo contiene la información de los cursos.
 - Incluye las imagenes, titulo, y funciones que devuelven la informacion y los terminos del curso.
 */
+import React from "react";
 import cbasico from "../assets/img/cursos/basico.webp"; // Importamos con rutas absolutas
 import cintermedio from "../assets/img/cursos/intermedio.webp"; // Importamos con rutas absolutas
 import cavanzado from "../assets/img/cursos/avanzado.webp"; // Importamos con rutas absolutas
 import cprofesional from "../assets/img/cursos/profesional.webp"; // Importamos con rutas absolutas
+
+interface CourseItem {
+  name: string;
+  description: string[];
+}
+
+interface CourseService {
+  items: CourseItem[];
+}
 
 interface CourseData {
   title: string;
@@ -15,7 +25,7 @@ interface CourseData {
   termsContent: () => JSX.Element;
 }
 
-export const basicCourseServices = {
+export const basicCourseServices: CourseService = {
   items: [
     {
       name: "Contenido del Curso",
@@ -34,7 +44,7 @@ export const basicCourseServices = {
   ],
 };
 
-export const intermediateCourseServices = {
+export const intermediateCourseServices: CourseService = {
   items: [
     {
       name: "Contenido del Curso",
@@ -51,7 +61,7 @@ export const intermediateCourseServices = {
   ],
 };
 
-export const advancedCourseServices = {
+export const advancedCourseServices: CourseService = {
   items: [
     {
       name: "Contenido del Curso",
@@ -72,7 +82,7 @@ export const advancedCourseServices = {
   ],
 };
 
-export const professionalCourseServices = {
+export const professionalCourseServices: CourseService = {
   items: [
     {
       name: "Contenido del Curso",
@@ -88,128 +98,107 @@ export const professionalCourseServices = {
   ],
 };
 
+// Función para generar el contenido de información del curso
+const generateCourseInfo = (courseService: CourseService) => {
+  return () => {
+    try {
+      return (
+        <div className="font-cinzel">
+          {courseService.items.map((item, index) => (
+            <div key={index} className="mb-4">
+              <h4 className="font-bold mb-2">{item.name}</h4>
+              <ul className="list-disc list-inside">
+                {item.description.map((desc, descIndex) => (
+                  <li key={descIndex}>{desc}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      );
+    } catch (error) {
+      console.error("Error al generar el contenido del curso:", error);
+      return <div className="text-red-500">Error al cargar la información del curso.</div>;
+    }
+  };
+};
+
+// Función para generar los términos y condiciones del curso
+const generateCourseTerms = (terms: string) => {
+  return () => {
+    try {
+      return (
+        <div>
+          <h2>{terms}</h2>
+        </div>
+      );
+    } catch (error) {
+      console.error("Error al generar los terminos del curso:", error);
+      return <div className="text-red-500">Error al cargar los terminos del curso.</div>;
+    }
+  };
+};
+
 export const courseData: Record<string, CourseData> = {
   basico: {
     title: "Curso Básico",
     image: cbasico,
-    infoContent: () => {
-      return (
-        <div className="font-cinzel">
-          {/* Iteramos los servicios del curso */}
-          {basicCourseServices.items.map((item, index) => (
-            <div key={index} className="mb-4">
-              <h4 className="font-bold mb-2">{item.name}</h4>
-              <ul className="list-disc list-inside">
-                {/* Iteramos las descripciones de cada servicio */}
-                {item.description.map((desc, descIndex) => (
-                  <li key={descIndex}>{desc}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      );
-    },
-    termsContent: () => {
-      return (
-        <div>
-          <h2>Materiales:</h2>
-          <p>Se proveerán los materiales durante el curso</p>
-          <h2>Requisitos:</h2>
-          <p>No se requieren conocimientos previos</p>
-        </div>
-      );
-    },
+    infoContent: generateCourseInfo(basicCourseServices),
+    termsContent: generateCourseTerms(
+      `
+      <div>
+        <h2>Materiales:</h2>
+        <p>Se proveerán los materiales durante el curso</p>
+        <h2>Requisitos:</h2>
+        <p>No se requieren conocimientos previos</p>
+      </div>
+      `
+    ),
   },
   intermedio: {
     title: "Curso Intermedio",
     image: cintermedio,
-    infoContent: () => {
-      return (
-        <div className="font-cinzel">
-          {intermediateCourseServices.items.map((item, index) => (
-            <div key={index} className="mb-4">
-              <h4 className="font-bold mb-2">{item.name}</h4>
-              <ul className="list-disc list-inside">
-                {item.description.map((desc, descIndex) => (
-                  <li key={descIndex}>{desc}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      );
-    },
-    termsContent: () => {
-      return (
-        <div>
-          <h2>Materiales:</h2>
-          <p>Se proveerán los materiales durante el curso</p>
-          <h2>Requisitos:</h2>
-          <p>Haber realizado el curso basico</p>
-        </div>
-      );
-    },
+    infoContent: generateCourseInfo(intermediateCourseServices),
+    termsContent: generateCourseTerms(
+      `
+      <div>
+        <h2>Materiales:</h2>
+        <p>Se proveerán los materiales durante el curso</p>
+        <h2>Requisitos:</h2>
+        <p>Haber realizado el curso basico</p>
+      </div>
+      `
+    ),
   },
   avanzado: {
     title: "Curso Avanzado",
     image: cavanzado,
-    infoContent: () => {
-      return (
-        <div className="font-cinzel">
-          {advancedCourseServices.items.map((item, index) => (
-            <div key={index} className="mb-4">
-              <h4 className="font-bold mb-2">{item.name}</h4>
-              <ul className="list-disc list-inside">
-                {item.description.map((desc, descIndex) => (
-                  <li key={descIndex}>{desc}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      );
-    },
-    termsContent: () => {
-      return (
-        <div>
-          <h2>Materiales:</h2>
-          <p>Se proveerán los materiales durante el curso</p>
-          <h2>Requisitos:</h2>
-          <p>Haber realizado el curso intermedio</p>
-        </div>
-      );
-    },
+    infoContent: generateCourseInfo(advancedCourseServices),
+    termsContent: generateCourseTerms(
+      `
+      <div>
+        <h2>Materiales:</h2>
+        <p>Se proveerán los materiales durante el curso</p>
+        <h2>Requisitos:</h2>
+        <p>Haber realizado el curso intermedio</p>
+      </div>
+      `
+    ),
   },
   profesional: {
     title: "Curso Profesional",
     image: cprofesional,
-    infoContent: () => {
-      return (
-        <div className="font-cinzel">
-          {professionalCourseServices.items.map((item, index) => (
-            <div key={index} className="mb-4">
-              <h4 className="font-bold mb-2">{item.name}</h4>
-              <ul className="list-disc list-inside">
-                {item.description.map((desc, descIndex) => (
-                  <li key={descIndex}>{desc}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      );
-    },
-    termsContent: () => {
-      return (
-        <div>
-          <h2>Materiales:</h2>
-          <p>Se proveerán los materiales durante el curso</p>
-          <h2>Requisitos:</h2>
-          <p>Haber realizado el curso avanzado</p>
-        </div>
-      );
-    },
+    infoContent: generateCourseInfo(professionalCourseServices),
+    termsContent: generateCourseTerms(
+      `
+      <div>
+        <h2>Materiales:</h2>
+        <p>Se proveerán los materiales durante el curso</p>
+        <h2>Requisitos:</h2>
+        <p>Haber realizado el curso avanzado</p>
+      </div>
+      `
+    ),
   },
 };
-export default courseData
+export default courseData;

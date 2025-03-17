@@ -31,17 +31,21 @@ const CourseModal: React.FC<CourseModalProps> = ({
   const modalContainerRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
   const [isMounted, setIsMounted] = useState(false); // Nuevo estado para controlar si el modal esta montado
+  const [error, setError] = useState<string | null>(null); // Estado para el error
+
 
   useEffect(() => {
     if (isOpen) {
-      setIsMounted(true); // El modal se ha abierto y se marca como montado
+      setIsMounted(true);
     } else {
-      // Cuando se cierra, se quita el estado
-      modalContainerRef.current?.classList.remove("open");
-      modalContainerRef.current?.classList.remove("closing");
-      setIsMounted(false); // Se ha cerrado y se marca como desmontado
+      if (modalContainerRef.current) {
+        modalContainerRef.current.classList.remove("open");
+        modalContainerRef.current.classList.remove("closing");
+      }
+      setIsMounted(false);
     }
   }, [isOpen]);
+
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
@@ -55,8 +59,15 @@ const CourseModal: React.FC<CourseModalProps> = ({
     };
 
     if (isOpen && isMounted) {
-      modalContainerRef.current?.classList.add("open");
-      document.addEventListener("mousedown", handleOutsideClick);
+      try {
+        if (modalContainerRef.current) {
+          modalContainerRef.current.classList.add("open");
+        }
+        document.addEventListener("mousedown", handleOutsideClick);
+      } catch (err) {
+        setError("Error al abrir el modal.");
+        console.error("Error en useEffect:", err);
+      }
     }
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
@@ -64,6 +75,15 @@ const CourseModal: React.FC<CourseModalProps> = ({
   }, [isOpen, onClose, isMounted]);
 
   if (!isOpen) return null;
+
+  // Si hay un error, mostrar un mensaje
+  if (error) {
+    return (
+      <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-red-500 text-white">
+        <p>{error}</p>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -85,7 +105,9 @@ const CourseModal: React.FC<CourseModalProps> = ({
         {/* Botón de cerrar */}
         <CloseButton
           onClick={() => {
-            modalContainerRef.current?.classList.add("closing");
+            if (modalContainerRef.current) {
+              modalContainerRef.current.classList.add("closing");
+            }
             setTimeout(onClose, 300);
           }}
         />

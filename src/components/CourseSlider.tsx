@@ -25,22 +25,39 @@ const CourseSlider: React.FC<CourseSliderProps> = ({
 }) => {
   const { theme } = useTheme();
   const textColorClass = theme === "dark" ? "text-white" : "text-gray-800"; //Variable para el color
+  const [error, setError] = React.useState<string | null>(null);
+
 
   // Funcion para ejecutar el modal
   const handleOpenModal = () => {
-    //obtenemos la informacion del curso.
-    const courseInformation = courseData[courseKey];
+    try {
+      const courseInformation = courseData[courseKey];
+      if (!courseInformation) {
+        setError(`No se encontró información para el curso: ${courseKey}`);
+        return;
+      }
 
-    const content: ModalContent = {
-      //Aqui pasamos los datos que necesita el modal
-      infoContent: courseInformation.infoContent(), // Extraemos el contenido del curso
-      termsContent: courseInformation.termsContent(), // Extraemos el contenido del curso
-      images: [image],
-      title: title,
-      courseKey: courseKey //Añadimos la propiedad courseKey
-    };
-    openModal(content);
+      const content: ModalContent = {
+        infoContent: courseInformation.infoContent(),
+        termsContent: courseInformation.termsContent(),
+        images: [image],
+        title: title,
+        courseKey: courseKey,
+      };
+      openModal(content);
+    } catch (err) {
+      setError(`Error al cargar la información del curso: ${courseKey}`);
+      console.error("Error en handleOpenModal:", err);
+    }
   };
+
+  if (error) {
+    return (
+      <div className="text-red-500">
+        <p>{error}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">

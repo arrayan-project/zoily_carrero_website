@@ -1,3 +1,11 @@
+/*
+#### Responsabilidad ####
+- Define los estilos del botón "Scroll to Top".
+
+#### Componentes que lo utilizan ####
+- ScrollTopButton.tsx: Es el único componente que utiliza este archivo.
+*/
+
 .scroll-to-top-button {
     position: fixed;
     right: 20px; /* Ahora a la derecha */

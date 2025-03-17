@@ -16,104 +16,97 @@ import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from './context/useThemeHook';
 
 interface NavigationProps {
-  className?: string; //  <<<  AÑADE ESTA LÍNEA: Define className como una prop opcional de tipo string
+  className?: string;
 }
 
 const Navigation: React.FC<NavigationProps> = ({ className }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  const { theme } = useTheme()
+  const { theme } = useTheme();
 
-  const isActive = (path: string) => {
-    return location.pathname === path;
-  };
+  const isActive = (path: string) => location.pathname === path;
+
+  // Variables para clases repetidas
+  const navLinkBase = `nav-link block md:inline-block`;
+  const navLinkActive = `text-pink-500`;
+  const navLinkInactive = `${theme === 'dark' ? 'text-white' : 'text-gray-800'}`;
+  const menuButtonBase = `md:hidden absolute top-4 right-4 p-2 hover:text-pink-500 transition-colors duration-300 z-50`;
+  const menuButtonColor = `${theme === 'dark' ? 'text-white' : 'text-gray-800'}`;
+  const menuButtonSpan = `block w-8 h-0.5 bg-current transition-transform duration-300`;
 
   return (
     <nav className={`${className} z-50`}>
       {/* Mobile Menu Button */}
-<button
-  onClick={() => setIsMenuOpen(!isMenuOpen)}
-  className={`md:hidden absolute top-4 right-4 p-2 hover:text-pink-500 transition-colors duration-300 z-50 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}
->
-  <div className="space-y-2">
-    <span className={`block w-8 h-0.5 bg-current transition-transform duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2.5' : ''}`}></span>
-    <span className={`block w-8 h-0.5 bg-current transition-opacity duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></span>
-    <span className={`block w-8 h-0.5 bg-current transition-transform duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2.5' : ''}`}></span>
-  </div>
-</button>
+      <button
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        className={`${menuButtonBase} ${menuButtonColor}`}
+        aria-expanded={isMenuOpen} // Añade aria-expanded para accesibilidad
+        aria-label="Abrir menú de navegación" // Añade aria-label para accesibilidad
+      >
+        <div className="space-y-2">
+          <span className={`${menuButtonSpan} ${isMenuOpen ? 'rotate-45 translate-y-2.5' : ''}`}></span>
+          <span className={`${menuButtonSpan} transition-opacity duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></span>
+          <span className={`${menuButtonSpan} ${isMenuOpen ? '-rotate-45 -translate-y-2.5' : ''}`}></span>
+        </div>
+      </button>
 
       {/* Desktop Menu */}
-      <div className={`
-        md:max-w-6xl md:mx-auto
-        ${isMenuOpen ? `fixed inset-0 bg-opacity-95 z-50 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}` : 'hidden'} md:block
-        transition-all duration-300 ease-in-out
-      `}style={{ maxWidth: '100vw' }}>
+      <div
+        className={`
+          md:max-w-6xl md:mx-auto
+          ${isMenuOpen ? `fixed inset-0 bg-opacity-95 z-50 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}` : 'hidden'} md:block
+          transition-all duration-300 ease-in-out
+        `}
+        style={{ maxWidth: '100vw' }}
+      >
         {/* Botón de cierre (X) - visible solo en menú a pantalla completa */}
         {isMenuOpen && (
           <button
             onClick={() => setIsMenuOpen(false)}
-            className={`md:hidden absolute top-4 right-4 p-2 hover:text-pink-500 transition-colors duration-300 z-50 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}
+            className={`${menuButtonBase} ${menuButtonColor}`}
+            aria-label="Cerrar menú de navegación" // Añade aria-label para accesibilidad
           >
             <div className="space-y-2">
-              <span className={`block w-8 h-0.5 bg-current transform transition-transform duration-300 rotate-45 translate-y-2.5`}></span>
-              <span className={`block w-8 h-0.5 bg-current transition-opacity duration-300 opacity-0`}></span>
-              <span className={`block w-8 h-0.5 bg-current transform transition-transform duration-300 -rotate-45 -translate-y-2.5`}></span>
+              <span className={`${menuButtonSpan} rotate-45 translate-y-2.5`}></span>
+              <span className={`${menuButtonSpan} opacity-0`}></span>
+              <span className={`${menuButtonSpan} -rotate-45 -translate-y-2.5`}></span>
             </div>
           </button>
         )}
-        <div className={`
-          flex flex-col md:flex-row md:justify-center md:items-end
-          space-y-4 md:space-y-12 md:space-x-4
-          font-montserrat text-sm tracking-wider
-          md:text-xs md:md:text-sm
-          md:px-32 md:md:px-0 
-        `}>
-          <Link
-            to="/"
-            className={`nav-link ${isActive('/') ? 'text-pink-500' : ''} ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}
-          >
+        <div
+          className={`
+            flex flex-col md:flex-row md:justify-center md:items-end
+            space-y-4 md:space-y-12 md:space-x-4
+            font-montserrat text-sm tracking-wider
+            md:text-xs md:md:text-sm
+            md:px-32 md:md:px-0
+          `}
+        >
+          <Link to="/" className={`${navLinkBase} ${isActive('/') ? navLinkActive : navLinkInactive}`}>
             INICIO
           </Link>
-          <Link
-            to="/services"
-            className={`nav-link ${isActive('/services') ? 'text-pink-500' : ''} ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}
-          >
+          <Link to="/services" className={`${navLinkBase} ${isActive('/services') ? navLinkActive : navLinkInactive}`}>
             SERVICIOS & CURSOS
           </Link>
-          <Link
-            to="/ugc"
-            className={`nav-link ${isActive('/ugc') ? 'text-pink-500' : ''} ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}
-          >
+          <Link to="/ugc" className={`${navLinkBase} ${isActive('/ugc') ? navLinkActive : navLinkInactive}`}>
             UGC
           </Link>
-          <Link
-            to="/store"
-            className={`nav-link ${isActive('/store') ? 'text-pink-500' : ''} ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}
-          >
+          <Link to="/store" className={`${navLinkBase} ${isActive('/store') ? navLinkActive : navLinkInactive}`}>
             TIENDA
           </Link>
-          <Link
-            to="/gallery"
-            className={`nav-link ${isActive('/gallery') ? 'text-pink-500' : ''} ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}
-          >
+          <Link to="/gallery" className={`${navLinkBase} ${isActive('/gallery') ? navLinkActive : navLinkInactive}`}>
             GALERIA
           </Link>
-          <Link
-            to="/about"
-            className={`nav-link ${isActive('/about') ? 'text-pink-500' : ''} ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}
-          >
+          <Link to="/about" className={`${navLinkBase} ${isActive('/about') ? navLinkActive : navLinkInactive}`}>
             ACERCA DE
           </Link>
-          <Link
-            to="/contact"
-            className={`nav-link ${isActive('/contact') ? 'text-pink-500' : ''} ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}
-          >
+          <Link to="/contact" className={`${navLinkBase} ${isActive('/contact') ? navLinkActive : navLinkInactive}`}>
             CONTACTO
           </Link>
         </div>
       </div>
     </nav>
   );
-}
+};
 
 export default Navigation;

@@ -1,11 +1,25 @@
-import React from "react";
+/*
+##### Función #####
+- Este componente muestra un carrusel de imágenes de un servicio, un título y un botón para ver más detalles. 
+Al hacer clic en el botón o en el título, se abre un modal con más información
+
+##### Componentes con los que interactúa #####
+- SlideComponent: Utiliza SlideComponent para mostrar las imágenes en el slider.
+- Slider: Utiliza el componente Slider de react-slick para el carrusel de imágenes.
+- useTheme: Utiliza el hook useTheme para acceder al tema actual.
+- ModalContent: Utiliza la interface ModalContent para tipar el contenido del modal.
+- AnimationWrapper: Utiliza el componente AnimationWrapper para las animaciones
+
+##### Componentes que lo utilizan #####
+- Se utiliza en la página de servicios para mostrar los carruseles de cada servicio
+*/
+
+import React, { useState } from "react";
 import SlideComponent from "./SlideComponent";
 import Slider from "react-slick";
 import { useTheme } from "./context/useThemeHook";
 import { ModalContent } from "../data/servicesData"; // Importamos la interface
 import AnimationWrapper from "./AnimationLayer";
-
-
 
 interface ServiceCarouselProps {
   images: string[];
@@ -25,6 +39,7 @@ const ServiceCarousel: React.FC<ServiceCarouselProps> = ({
   description,
 }) => {
   const { theme } = useTheme();
+  const [error, setError] = useState<string | null>(null); // Estado para el error
 
   const handleOpenModal = () => {
     openModal({ images, title, infoContent, termsContent, description });
@@ -41,6 +56,18 @@ const ServiceCarousel: React.FC<ServiceCarouselProps> = ({
     arrows: false,
   };
 
+  //Variables para clases repetidas
+  const buttonBase = `absolute top-1/2 left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-lg md:text-base px-2 md:px-6 py-1 md:py-3 rounded`;
+
+  if (error) {
+    console.error("Error en ServiceCarousel:", error);
+    return (
+      <div className="error-container">
+        <p className="error-message">Ha ocurrido un error inesperado en el carrusel de servicios.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6 justify-center items-center text-center">
       {/* Image Container */}
@@ -48,18 +75,19 @@ const ServiceCarousel: React.FC<ServiceCarouselProps> = ({
         className="w-full aspect-square shadow-lg overflow-hidden relative group cursor-pointer rounded-lg"
         onClick={handleOpenModal}
       >
-          <AnimationWrapper animationClassName="fade-in-up">
-              <div>
+        <AnimationWrapper animationClassName="fade-in-up">
+          <div>
             <Slider {...sliderSettings}>
               {images.map((img, index) => (
                 <SlideComponent key={index} img={img} />
               ))}
             </Slider>
           </div>
-          </AnimationWrapper>
+        </AnimationWrapper>
         <button
           onClick={handleOpenModal}
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-lg md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 group-hover:opacity-100"
+          className={`${buttonBase} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+          aria-label={`Ver detalles de ${title}`} // Añade aria-label para accesibilidad
         >
           Ver Detalles
         </button>
@@ -83,7 +111,7 @@ const ServiceCarousel: React.FC<ServiceCarouselProps> = ({
 
       {/* Title Container */}
       <h2
-      onClick={handleOpenModal} // Add the onClick event handler
+        onClick={handleOpenModal} // Add the onClick event handler
         className={`text-xl md:text-2xl font-cinzel tracking-wide cursor-pointer ${
           theme === "dark" ? "text-white" : "text-gray-800"
         }`}

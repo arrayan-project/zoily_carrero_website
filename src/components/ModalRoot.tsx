@@ -1,5 +1,9 @@
-// ModalContainer.tsx
-import React from 'react';
+/*
+##### Función #####
+- Este componente es un contenedor para los modales. Renderiza ModalBase o CourseModal dependiendo de las props.
+*/
+
+import React, { useState } from 'react';
 import Modal from './ModalBase';
 import CourseModal from './CourseModal';
 import courseData from "../data/coursesData";
@@ -19,6 +23,19 @@ const ModalContainer: React.FC<ModalContainerProps> = ({
   closeModal, //cambio
   modalContent,
 }) => {
+
+  const [error, setError] = useState<string | null>(null); // Estado para el error
+
+  if (error) {
+    console.error("Error en ModalRoot:", error); // Registra el error en la consola
+    return (
+      <div className="error-container">
+        <p className="error-message">Ha ocurrido un error inesperado al cargar el modal.</p>
+      </div>
+    );
+  }
+
+
   return (
     <>
       {selectedCourse && courseData[selectedCourse] && (
