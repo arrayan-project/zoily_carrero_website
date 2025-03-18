@@ -1,3 +1,4 @@
+// src/pages/Gallery.tsx
 import React, {
   useState,
   useCallback,
@@ -7,26 +8,24 @@ import React, {
 } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import PageBanner from "../components/PageBanner";
-import images, { imageArrays } from '../assets/img/images';
+import images, { imageArrays } from "../assets/img/images";
 import { useTheme } from "../components/context/useThemeHook";
 import AnimationWrapper from "../components/AnimationLayer";
 import "../GlobalStyles.css";
 import SmoothImage from "../components/SmoothImage";
 import { MOBILE_BREAKPOINT } from "../constants";
-import { getTextColorClass } from "../GeneralUtil";//Importamos las funciones globales
+import { getTextColorClass } from "../GeneralUtil";
+import { galleryCategories, galleryTitle, Category } from "../data/galleryData";
 
-
-// Define las categorías del menú
-const categories = [
-  { name: "Novia", value: "novia" },
-  { name: "Social", value: "social" },
-  { name: "Peinado", value: "peinado" },
-  { name: "Piel Madura", value: "pielMadura" },
-  { name: "Glam", value: "glam" },
-  { name: "Express", value: "express" },
-];
-
-const { galleryBrideImages, gallerySocialImages, galleryHairAndMakeupImages, galleryMatureSkinImages, galleryGlamImages, galleryExpressImages } = imageArrays;
+// Constantes de imágenes
+const {
+  galleryBrideImages,
+  gallerySocialImages,
+  galleryHairAndMakeupImages,
+  galleryMatureSkinImages,
+  galleryGlamImages,
+  galleryExpressImages,
+} = imageArrays;
 const noviaGalleryImages = galleryBrideImages;
 const socialGalleryImages = gallerySocialImages;
 const peinadoGalleryImages = galleryHairAndMakeupImages;
@@ -184,9 +183,7 @@ export default function Gallery({}: ServicesProps) {
   }, [isDragging, currentX, startX, isMobileView]);
 
   return (
-    <div
-      className={`min-h-screen flex flex-col ${getTextColorClass(theme)}`}
-    >
+    <div className={`min-h-screen flex flex-col ${getTextColorClass(theme)}`}>
       <PageBanner
         title="PORTAFOLIO"
         imageSrcs={[images.galleryBannerUp]}
@@ -195,23 +192,28 @@ export default function Gallery({}: ServicesProps) {
 
       <main className="flex-grow">
         <div className="mx-auto py-16 md:py-32">
-        <AnimationWrapper animationClassName="fade-in-text">
-        <h1
-              className={`text-2xl md:text-5xl font-cinzel font-extralight text-center mb-24 md:py-10 tracking-wider ${getTextColorClass(theme)}`}
+          <AnimationWrapper animationClassName="fade-in-text">
+            <h1
+              className={`text-2xl md:text-5xl font-cinzel font-extralight text-center mb-24 md:py-10 tracking-wider ${getTextColorClass(
+                theme
+              )}`}
             >
-              MIRA NUESTROS TRABAJOS
+              {galleryTitle} {/* Usamos el título importado */}
             </h1>
-            </AnimationWrapper>
+          </AnimationWrapper>
 
           <div
             className="flex md:justify-center justify-start space-x-4 mb-8 overflow-x-auto whitespace-nowrap px-12 text-xs font-light md:text-base md:font-normal"
             style={{ maxWidth: "100%" }}
           >
-            {categories.map((category) => (
-          <AnimationWrapper animationClassName="fade-in">
-                <button
-                  key={category.value}
-                  className={`px-4 py-2 rounded-full font-cinzel font-base whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50
+            {galleryCategories.map(
+              (
+                category: Category //Modificamos el map
+              ) => (
+                <AnimationWrapper animationClassName="fade-in">
+                  <button
+                    key={category.value}
+                    className={`px-4 py-2 rounded-full font-cinzel font-base whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50
                                     ${getTextColorClass(theme)}
                                     ${getTextColorClass(theme)}
                                     ${
@@ -224,12 +226,13 @@ export default function Gallery({}: ServicesProps) {
                                         : "bg-gray-100"
                                     }
                                 `}
-                  onClick={() => handleCategoryClick(category.value)}
-                >
-                  {category.name}
-                </button>
+                    onClick={() => handleCategoryClick(category.value)}
+                  >
+                    {category.name}
+                  </button>
                 </AnimationWrapper>
-            ))}
+              )
+            )}
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-1 p-4">
@@ -237,21 +240,22 @@ export default function Gallery({}: ServicesProps) {
               currentGalleryImages.map((img, index) => (
                 <div
                   key={index}
-                  className="w-full aspect-square overflow-hidden"
+                  className={`w-full aspect-square overflow-hidden`}
                 >
                   <SmoothImage
                     src={img}
                     alt={`Gallery ${index}`}
                     className="w-full h-full object-cover cursor-pointer lazy-image"
                     onClick={() => openImage(index)}
+                    fallbackSrc="/img/default-image.png"
                   />
                 </div>
               ))}
             {selectedImage && (
               <div
-                className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4 z-50"
+                className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4 z-50 overflow-auto"
                 onClick={handleModalClick}
-                ref={modalContainerRef} // Añadimos el ref aqui.
+                ref={modalContainerRef}
               >
                 <button
                   className="absolute top-20 right-4 text-white"
@@ -269,8 +273,9 @@ export default function Gallery({}: ServicesProps) {
                   key={selectedImage}
                   src={selectedImage}
                   alt="Selected"
-                  className="max-h-full max-w-full rounded-lg"
+                  className="max-h-[80vh] max-w-[80vw] rounded-lg object-contain"
                   isTransitioning={isModalTransitioning}
+                  fallbackSrc="/img/default-image.png"
                 />
                 <button
                   className="absolute right-4 text-white top-1/2 transform -translate-y-1/2"
