@@ -1,6 +1,32 @@
-// servicesData.ts
-//Todos los imports
+/*
+##### Función #####
+- Tiene como función principal almacenar y organizar la información relacionada con los diferentes
+servicios de maquillaje y peinado que ofrece el negocio.
+- Se ha mejorado la estructura de datos, la reutilización de código, el manejo de errores y la legibilidad.
+*/
+
 import React from "react";
+//Importacion de imagenes
+import novia from "../assets/img/services/boda.webp";
+import social from "../assets/img/services/social1.webp";
+import peinado from "../assets/img/services/social2conpeinado.webp";
+import madura from "../assets/img/services/social14pielmadura.webp";
+import glam from "../assets/img/services/social12.webp";
+import quince from "../assets/img/services/social13.webp";
+
+// Definición de Interfaces
+interface ServiceItem {
+  name: string;
+  price: string;
+  description: string[];
+}
+
+interface Service {
+  description: string;
+  items: ServiceItem[];
+  images: string[];
+  courseKey?: string;
+}
 
 // Nueva interface ModalContent
 export interface ModalContent {
@@ -12,8 +38,27 @@ export interface ModalContent {
   courseKey?: string;
 }
 
+// Componente reutilizable para renderizar la información de un servicio
+const ServiceInfo: React.FC<{ service: Service }> = ({ service }) => {
+  return (
+    <div className="font-cinzel">
+      {service.items.map((item, index) => (
+        <div key={index} className="mb-6">
+          <h4 className="font-bold mb-4">{item.name}</h4>
+          <p className="mb-2">Precio: {item.price}</p>
+          <ul className="text-sm list-disc list-inside">
+            {item.description.map((desc, descIndex) => (
+              <li key={descIndex}>{desc}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  );
+};
 
-export const noviaMakeupServices = {
+// Datos de los Servicios
+export const noviaMakeupServices: Service = {
   description:
     "El servicio de maquillaje para novias incluye todo lo necesario para realzar tu belleza en el día más importante de tu vida.",
   items: [
@@ -44,9 +89,11 @@ export const noviaMakeupServices = {
       ],
     },
   ],
+  images: [novia],
+  courseKey: "avanzado",
 };
 
-export const socialMakeupServices = {
+export const socialMakeupServices: Service = {
   description:
     "El servicio de maquillaje social es ideal para cualquier evento especial, donde desees lucir radiante y destacar tu belleza natural.",
   items: [
@@ -71,9 +118,11 @@ export const socialMakeupServices = {
       ],
     },
   ],
+  images: [social],
+  courseKey: "intermedio",
 };
 
-export const peinadoMakeupServices = {
+export const peinadoMakeupServices: Service = {
   description:
     "El servicio de maquillaje y peinado te ofrece una experiencia completa para realzar tu belleza.",
   items: [
@@ -91,9 +140,10 @@ export const peinadoMakeupServices = {
       ],
     },
   ],
+  images: [peinado],
 };
 
-export const maduraMakeupServices = {
+export const maduraMakeupServices: Service = {
   description:
     "El servicio de maquillaje para piel madura es especial y cuidado, diseñado para realzar la belleza natural.",
   items: [
@@ -110,9 +160,11 @@ export const maduraMakeupServices = {
       ],
     },
   ],
+  images: [madura],
+  courseKey: "basico",
 };
 
-export const glamMakeupServices = {
+export const glamMakeupServices: Service = {
   description:
     "Si buscas un look impactante y sofisticado, el maquillaje Glam es ideal para ti. ",
   items: [
@@ -129,9 +181,11 @@ export const glamMakeupServices = {
       ],
     },
   ],
+  images: [glam],
+  courseKey: "intermedio",
 };
 
-export const expressMakeupServices = {
+export const expressMakeupServices: Service = {
   description:
     "El maquillaje express es perfecto para quinceañeras que desean lucir jóvenes y frescas en su gran día.",
   items: [
@@ -161,197 +215,124 @@ export const expressMakeupServices = {
       ],
     },
   ],
+  images: [quince],
+  courseKey: "avanzado",
 };
 
-//FUNCIONES QUE RETORNARAN JSX
+// Funciones que retornan JSX
 export const infoContentNovia = () => {
-  return (
-    <div className="font-cinzel">
-      {noviaMakeupServices.items.map((item, index) => (
-        <div key={index} className="mb-6">
-          <h4 className="font-bold mb-4">{item.name}</h4>
-          <p className="mb-2">Precio: {item.price}</p>
-          <ul className="text-sm list-disc list-inside">
-            {item.description.map((desc, descIndex) => (
-              <li key={descIndex}>{desc}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
-  );
+  return <ServiceInfo service={noviaMakeupServices} />;
 };
 
 export const infoContentExpress = () => {
-  return (
-    <div className="font-cinzel">
-      {expressMakeupServices.items.map((item, index) => (
-        <div key={index} className="mb-6">
-          <h4 className="font-bold mb-4">{item.name}</h4>
-          <p className="mb-2">Precio: {item.price}</p>
-          <ul className="text-sm list-disc list-inside">
-            {item.description.map((desc, descIndex) => (
-              <li key={descIndex}>{desc}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
-  );
+  return <ServiceInfo service={expressMakeupServices} />;
 };
 
 export const infoContentGlam = () => {
-  return (
-    <div className="font-cinzel">
-      {glamMakeupServices.items.map((item, index) => (
-        <div key={index} className="mb-6">
-          <h4 className="font-bold mb-4">{item.name}</h4>
-          <p className="mb-2">Precio: {item.price}</p>
-          <ul className="text-sm list-disc list-inside">
-            {item.description.map((desc, descIndex) => (
-              <li key={descIndex}>{desc}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
-  );
+  return <ServiceInfo service={glamMakeupServices} />;
 };
 
 export const infoContentMadura = () => {
-  return (
-    <div className="font-cinzel">
-      {maduraMakeupServices.items.map((item, index) => (
-        <div key={index} className="mb-6">
-          <h4 className="font-bold mb-4">{item.name}</h4>
-          <p className="mb-2">Precio: {item.price}</p>
-          <ul className="text-sm list-disc list-inside">
-            {item.description.map((desc, descIndex) => (
-              <li key={descIndex}>{desc}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
-  );
+  return <ServiceInfo service={maduraMakeupServices} />;
 };
 
 export const infoContentPeinado = () => {
-  return (
-    <div className="font-cinzel">
-      {peinadoMakeupServices.items.map((item, index) => (
-        <div key={index} className="mb-6">
-          <h4 className="font-bold mb-4">{item.name}</h4>
-          <p className="mb-2">Precio: {item.price}</p>
-          <ul className="text-sm list-disc list-inside">
-            {item.description.map((desc, descIndex) => (
-              <li key={descIndex}>{desc}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
-  );
+  return <ServiceInfo service={peinadoMakeupServices} />;
 };
 
 export const infoContentSocial = () => {
-  return (
-    <div className="font-cinzel">
-      {socialMakeupServices.items.map((item, index) => (
-        <div key={index} className="mb-6">
-          <h4 className="font-bold mb-4">{item.name}</h4>
-          <p className="mb-2">Precio: {item.price}</p>
-          <ul className="text-sm list-disc list-inside">
-            {item.description.map((desc, descIndex) => (
-              <li key={descIndex}>{desc}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
-  );
+  return <ServiceInfo service={socialMakeupServices} />;
 };
 
 export const termsContent = () => {
-  return (
-    <div>
-      <h1 className="font-cinzel mb-8">Términos y Condiciones del Servicio</h1>
+  try {
+    return (
+      <div>
+        <h1 className="font-cinzel mb-8">Términos y Condiciones del Servicio</h1>
 
-      <h2 className="font-cinzel mb-2">Reservas y Pagos</h2>
-      <ul className="list-disc pl-6 font-cinzel">
-        <li>Para agendar, se debe realizar un abono previo.</li>
-        <li>
-          Si se abona el <strong>30%</strong>, el <strong>70% restante</strong>{" "}
-          debe pagarse al menos <strong>24 horas antes del evento</strong>.
-        </li>
-        <li>
-          Si solo se paga la <strong>prueba</strong> sin reservar la fecha, no
-          se garantiza disponibilidad.
-        </li>
-        <li>La prueba debe pagarse en su totalidad para ser agendada.</li>
-        <li>
-          <strong>No hay reembolsos</strong> una vez reservado el servicio.
-        </li>
-      </ul>
+        <h2 className="font-cinzel mb-2">Reservas y Pagos</h2>
+        <ul className="list-disc pl-6 font-cinzel">
+          <li>Para agendar, se debe realizar un abono previo.</li>
+          <li>
+            Si se abona el <strong>30%</strong>, el <strong>70% restante</strong>{" "}
+            debe pagarse al menos <strong>24 horas antes del evento</strong>.
+          </li>
+          <li>
+            Si solo se paga la <strong>prueba</strong> sin reservar la fecha, no
+            se garantiza disponibilidad.
+          </li>
+          <li>La prueba debe pagarse en su totalidad para ser agendada.</li>
+          <li>
+            <strong>No hay reembolsos</strong> una vez reservado el servicio.
+          </li>
+        </ul>
 
-      <h2 className="font-cinzel mb-2 mt-6">Condiciones del Servicio</h2>
-      <ul className="list-disc pl-6 font-cinzel">
-        <li>
-          <strong>Los peinados no incluyen secado</strong>. El cabello debe
-          estar seco y limpio al natural.
-        </li>
-        <li>
-          El servicio es <strong>intransferible</strong>.
-        </li>
-        <li>
-          Se pueden atender hasta <strong>5 personas adicionales</strong> a la
-          novia. Para grupos, solicitar propuesta.
-        </li>
-      </ul>
+        <h2 className="font-cinzel mb-2 mt-6">Condiciones del Servicio</h2>
+        <ul className="list-disc pl-6 font-cinzel">
+          <li>
+            <strong>Los peinados no incluyen secado</strong>. El cabello debe
+            estar seco y limpio al natural.
+          </li>
+          <li>
+            El servicio es <strong>intransferible</strong>.
+          </li>
+          <li>
+            Se pueden atender hasta <strong>5 personas adicionales</strong> a la
+            novia. Para grupos, solicitar propuesta.
+          </li>
+        </ul>
 
-      <h2 className="font-cinzel mb-2 mt-6">Pruebas y Atención en Estudio</h2>
-      <ul className="list-disc pl-6 font-cinzel">
-        <li>
-          Las pruebas se realizan <strong>solo en días de semana</strong> en mi
-          estudio.
-        </li>
-        <li>
-          Se requiere <strong>puntualidad</strong>. No se atenderá después de{" "}
-          <strong>15 minutos de retraso</strong>.
-        </li>
-        <li>
-          <strong>Evitar el uso del celular</strong> durante el servicio.
-        </li>
-        <li>
-          Informar con anticipación si el evento se cancela. Se puede reagendar
-          dentro de <strong>30 días</strong>; pasado ese plazo, no habrá nueva
-          fecha.
-        </li>
-      </ul>
+        <h2 className="font-cinzel mb-2 mt-6">Pruebas y Atención en Estudio</h2>
+        <ul className="list-disc pl-6 font-cinzel">
+          <li>
+            Las pruebas se realizan <strong>solo en días de semana</strong> en mi
+            estudio.
+          </li>
+          <li>
+            Se requiere <strong>puntualidad</strong>. No se atenderá después de{" "}
+            <strong>15 minutos de retraso</strong>.
+          </li>
+          <li>
+            <strong>Evitar el uso del celular</strong> durante el servicio.
+          </li>
+          <li>
+            Informar con anticipación si el evento se cancela. Se puede reagendar
+            dentro de <strong>30 días</strong>; pasado ese plazo, no habrá nueva
+            fecha.
+          </li>
+        </ul>
 
-      <h2 className="font-cinzel mb-2 mt-6">Servicio a Domicilio</h2>
-      <ul className="list-disc pl-6 font-cinzel">
-        <li>Verificar disponibilidad antes de realizar abonos.</li>
-        <li>
-          El traslado tiene un costo adicional <strong>(ida y vuelta)</strong>.
-        </li>
-        <li>
-          Se cobra un <strong>recargo de $20.000</strong> por servicio a
-          domicilio.
-        </li>
-      </ul>
+        <h2 className="font-cinzel mb-2 mt-6">Servicio a Domicilio</h2>
+        <ul className="list-disc pl-6 font-cinzel">
+          <li>Verificar disponibilidad antes de realizar abonos.</li>
+          <li>
+            El traslado tiene un costo adicional <strong>(ida y vuelta)</strong>.
+          </li>
+          <li>
+            Se cobra un <strong>recargo de $20.000</strong> por servicio a
+            domicilio.
+          </li>
+        </ul>
 
-      <h2 className="font-cinzel mb-2 mt-6">Recomendaciones</h2>
-      <ul className="list-disc pl-6 font-cinzel">
-        <li>
-          <strong>No tener lifting de pestañas</strong>, ya que interfiere con
-          las pestañas de cortina.
-        </li>
-      </ul>
+        <h2 className="font-cinzel mb-2 mt-6">Recomendaciones</h2>
+        <ul className="list-disc pl-6 font-cinzel">
+          <li>
+            <strong>No tener lifting de pestañas</strong>, ya que interfiere con
+            las pestañas de cortina.
+          </li>
+        </ul>
 
-      <p className="font-cinzel mt-6">
-        Estoy disponible para cualquier consulta. ¡Gracias por tu confianza! 😊
-      </p>
-    </div>
-  );
+        <p className="font-cinzel mt-6">
+          Estoy disponible para cualquier consulta. ¡Gracias por tu confianza! 😊
+        </p>
+      </div>
+    );
+  } catch (error) {
+    console.error("Error al generar los términos y condiciones:", error);
+    return (
+      <div className="text-red-500">
+        Error al cargar los términos y condiciones.
+      </div>
+    );
+  }
 };
