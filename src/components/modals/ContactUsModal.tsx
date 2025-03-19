@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'; // Importamos useState
 import { X } from 'lucide-react';
-import ContactForm from './ContactUsForm';
-import { useTheme } from './context/useThemeHook';
+import ContactForm from '../forms/ContactUsForm';
+import { useTheme } from '../context/useThemeHook';
 import './ContactUsModal.css';
-import { getTextColorClass } from "../GeneralUtil"; //Importamos las funciones globales
+import { getTextColorClass } from "../../utils/utils"; //Importamos las funciones globales
 
 // Type para theme
 type ThemeType = 'light' | 'dark';

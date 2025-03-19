@@ -15,11 +15,11 @@ Al hacer clic en el botón o en el título, se abre un modal con más informaci�
 */
 
 import React, { useState } from "react";
-import SlideComponent from "./SlideComponent";
+import SlideComponent from "../common/SlideComponent";
 import Slider from "react-slick";
-import { useTheme } from "./context/useThemeHook";
-import { ModalContent } from "../data/servicesData"; // Importamos la interface
-import AnimationWrapper from "./AnimationLayer";
+import { useTheme } from "../context/useThemeHook";
+import { ModalContent } from "../../data/servicesData"; // Importamos la interface
+import AnimationWrapper from "../common/AnimationLayer";
 
 interface ServiceCarouselProps {
   images: string[];
@@ -41,8 +41,14 @@ const ServiceCarousel: React.FC<ServiceCarouselProps> = ({
   const { theme } = useTheme();
   const [error, setError] = useState<string | null>(null); // Estado para el error
 
+  
   const handleOpenModal = () => {
-    openModal({ images, title, infoContent, termsContent, description });
+    try {
+      openModal({ images, title, infoContent, termsContent, description });
+    } catch (err) {
+      setError("Error al abrir el modal.");
+      console.error("Error en handleOpenModal:", err);
+    }
   };
 
   const sliderSettings = {
@@ -79,7 +85,7 @@ const ServiceCarousel: React.FC<ServiceCarouselProps> = ({
           <div>
             <Slider {...sliderSettings}>
               {images.map((img, index) => (
-                <SlideComponent key={index} img={img} />
+                <SlideComponent key={index} img={img} alt={title}/>
               ))}
             </Slider>
           </div>

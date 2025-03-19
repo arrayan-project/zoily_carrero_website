@@ -13,13 +13,13 @@
 
 import React, { lazy, Suspense, useState } from 'react';
 // Carga diferida de los componentes
-const Home = lazy(() => import('../pages/Home'));
-const Services = lazy(() => import('../pages/Services'));
-const UGC = lazy(() => import('../pages/UGC'));
-const Store = lazy(() => import('../pages/Store'));
-const Gallery = lazy(() => import('../pages/Gallery'));
-const About = lazy(() => import('../pages/About'));
-const Contact = lazy(() => import('../pages/Contact'));
+const Home = lazy(() => import('../../pages/Home'));
+const Services = lazy(() => import('../../pages/Services'));
+const UGC = lazy(() => import('../../pages/UGC'));
+const Store = lazy(() => import('../../pages/Store'));
+const Gallery = lazy(() => import('../../pages/Gallery'));
+const About = lazy(() => import('../../pages/About'));
+const Contact = lazy(() => import('../../pages/Contact'));
 
 interface ContentProps {
   onSmoothScroll: (sectionId: string) => void;

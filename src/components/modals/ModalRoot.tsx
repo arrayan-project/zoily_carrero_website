@@ -4,9 +4,9 @@
 */
 
 import React, { useState } from 'react';
-import Modal from './ModalBase';
+import Modal from '../common/ModalBase';
 import CourseModal from './CourseModal';
-import courseData from "../data/coursesData";
+import courseData from "../../data/coursesData";
 
 interface ModalContainerProps {
   selectedCourse: string | null;

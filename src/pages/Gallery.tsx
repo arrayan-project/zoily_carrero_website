@@ -7,14 +7,14 @@ import React, {
   useRef,
 } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import PageBanner from "../components/PageBanner";
+import PageBanner from "../components/common/PageBanner";
 import images, { imageArrays } from "../assets/img/images";
 import { useTheme } from "../components/context/useThemeHook";
-import AnimationWrapper from "../components/AnimationLayer";
+import AnimationWrapper from "../components/common/AnimationLayer";
 import "../GlobalStyles.css";
-import SmoothImage from "../components/SmoothImage";
-import { MOBILE_BREAKPOINT } from "../constants";
-import { getTextColorClass } from "../GeneralUtil";
+import SmoothImage from "../components/smoothImages/SmoothImage";
+import { MOBILE_BREAKPOINT } from "../constants/constants";
+import { getTextColorClass } from "../utils/utils";
 import { galleryCategories, galleryTitle, Category } from "../data/galleryData";
 
 // Constantes de imágenes

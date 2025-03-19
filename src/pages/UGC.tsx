@@ -5,16 +5,16 @@ import {
   Pointer as Pinterest,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import PageBanner from "../components/PageBanner";
+import PageBanner from "../components/common/PageBanner";
 import { useTheme } from "../components/context/useThemeHook";
-import AnimationWrapper from "../components/AnimationLayer";
+import AnimationWrapper from "../components/common/AnimationLayer";
 import "../GlobalStyles.css"; // Asegúrate de importar About.css para los estilos de transición
-import SmoothImage from "../components/SmoothImage"; // Importa el componente SmoothImage
+import SmoothImage from "../components/smoothImages/SmoothImage"; // Importa el componente SmoothImage
 import images from "../assets/img/images"; // Importa las imágenes de assets
 import ugc from "../assets/img/images"; // Importa las imágenes de UGC
 import { useEffect, useState } from "react";
-import { MOBILE_BREAKPOINT } from "../constants";
-import { getTextColorClass} from "../GeneralUtil";//Importamos las funciones globales
+import { MOBILE_BREAKPOINT } from "../constants/constants";
+import { getTextColorClass} from "../utils/utils";//Importamos las funciones globales
 
 
 interface ServicesProps {

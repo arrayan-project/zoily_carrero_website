@@ -6,7 +6,7 @@
 */
 
 import { useState, useEffect } from 'react';
-import { useTheme } from './context/useThemeHook';
+import { useTheme } from '../context/useThemeHook';
 import { WiMoonAltWaningCrescent4, WiDaySunny } from 'react-icons/wi';
 
 interface ThemeToggleButtonProps {

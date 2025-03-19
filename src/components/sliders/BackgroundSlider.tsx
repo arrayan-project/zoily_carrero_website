@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { imageArrays } from '../assets/img/images';
+import { imageArrays } from '../../assets/img/images';
 
 //Creamos un type para las props, e incluimos nuevos atributos
 interface BackgroundCarouselProps {
@@ -15,15 +15,15 @@ const BackgroundCarousel: React.FC<BackgroundCarouselProps> = ({ transitionDurat
   const [currentBg, setCurrentBg] = useState(0);
   const [fadeOut, setFadeOut] = useState(false);
   const [isPaused, setIsPaused] = useState(false); // Nuevo estado para controlar la pausa
+  let interval: NodeJS.Timeout; // Declaramos interval como NodeJS.Timeout
+  let timeout: NodeJS.Timeout; // Declaramos timeout como NodeJS.Timeout
 
   useEffect(() => {
-    let interval: number;
-
     const startInterval = () => {
           //inicia el carrusel, seteando un interval y un settimeout.
       interval = setInterval(() => {
         setFadeOut(true);
-        setTimeout(() => {
+        timeout = setTimeout(() => { // Asignamos el valor devuelto por setTimeout a timeout
           setCurrentBg((prev) => (prev + 1) % backgroundsLength);
           setFadeOut(false);
         }, transitionDuration);
@@ -33,7 +33,9 @@ const BackgroundCarousel: React.FC<BackgroundCarouselProps> = ({ transitionDurat
     const stopInterval = () => {
           //Detiene el interval para detener el carrusel.
       clearInterval(interval);
+      clearTimeout(timeout); // Limpiamos el timeout
     };
+
 
     if (!isPaused) {
       startInterval();

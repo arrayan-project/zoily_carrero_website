@@ -12,23 +12,20 @@ y decide qué renderizar (vista móvil o escritorio).
 - MainContent: Renderiza condicionalmente LandingPageMobile o ContentDesktop según isMobileView.
 */
 
-
-
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './components/context/themeContext';
 import { useTheme } from './components/context/useThemeHook';
-import Navigation from './components/NavBarMenu';
-import Footer from './components/Footer';
-import { MOBILE_BREAKPOINT } from './constants';
-import FloatingContactButton from './components/FloatingContactButton';
-import ContactModal from './components/ContactUsModal';
-
+import Navigation from './components/navigation/NavBarMenu';
+import Footer from './components/common/Footer';
+import { MOBILE_BREAKPOINT } from './constants/constants';
+import FloatingContactButton from './components/buttons/FloatingContactButton';
+import ContactModal from './components/modals/ContactUsModal';
 import './GlobalStyles.css';
-import ContentDesktop from './components/DesktopView';
+import ContentDesktop from './components/layout/DesktopView';
 import LandingPageMobile from './MobileView';
-import ThemeToggleButton from './components/ThemeToggleButton';
-import ScrollToTopButton from './components/ScrollTopButton';
+import ThemeToggleButton from './components/buttons/ThemeToggleButton';
+import ScrollToTopButton from './components/buttons/ScrollTopButton';
 
 
 

@@ -9,7 +9,7 @@
 
 // MobileFrame.tsx
 import React, { useState } from 'react';
-import { useTheme } from './context/useThemeHook';
+import { useTheme } from '../context/useThemeHook';
 
 interface LayoutMobileProps {
   children: React.ReactNode;

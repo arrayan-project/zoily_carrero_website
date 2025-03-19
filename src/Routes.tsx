@@ -12,15 +12,15 @@
 
 import React, { lazy, Suspense, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Content from './PageSections';
+import Content from './components/layout/PageSections';
 // Carga diferida de los componentes
-const Home = lazy(() => import('../pages/Home'));
-const Services = lazy(() => import('../pages/Services'));
-const UGC = lazy(() => import('../pages/UGC'));
-const Store = lazy(() => import('../pages/Store'));
-const Gallery = lazy(() => import('../pages/Gallery'));
-const About = lazy(() => import('../pages/About'));
-const Contact = lazy(() => import('../pages/Contact'));
+const Home = lazy(() => import('./pages/Home'));
+const Services = lazy(() => import('./pages/Services'));
+const UGC = lazy(() => import('./pages/UGC'));
+const Store = lazy(() => import('./pages/Store'));
+const Gallery = lazy(() => import('./pages/Gallery'));
+const About = lazy(() => import('./pages/About'));
+const Contact = lazy(() => import('./pages/Contact'));
 
 interface RoutesProps {
   onSmoothScroll: (sectionId: string) => void;

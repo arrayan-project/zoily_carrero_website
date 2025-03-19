@@ -10,7 +10,7 @@
 */
 
 import React, { useState, useEffect } from 'react';
-import MyRoutes from './Routes';
+import MyRoutes from '../../Routes';
 
 interface ContentDesktopProps {
   onSmoothScroll: (sectionId: string) => void;

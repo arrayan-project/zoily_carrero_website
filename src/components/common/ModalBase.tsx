@@ -7,7 +7,7 @@ Permite mostrar un título, un slider de imágenes, y dos pestañas de contenido
 import React, { useState, useRef, useEffect } from 'react';
 import SlideComponent from './SlideComponent';
 import Slider from 'react-slick';
-import { useTheme } from './context/useThemeHook';
+import { useTheme } from '../context/useThemeHook';
 
 interface ModalProps {
   isOpen: boolean;
@@ -131,7 +131,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoConte
             <div className="absolute top-0 left-0 w-full h-full tab-content-animation">
               <Slider {...sliderSettings}>
                 {images.map((img, index) => (
-                  <SlideComponent key={index} img={img} />
+                  <SlideComponent key={index} img={img} alt={title} />
                 ))}
               </Slider>
             </div>

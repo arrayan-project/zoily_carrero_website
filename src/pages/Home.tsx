@@ -1,11 +1,11 @@
 // src/pages/Home.tsx
 import { useState, useEffect, memo } from "react";
-import { MOBILE_BREAKPOINT } from "../constants";
-import AnimationWrapper from "../components/AnimationLayer";
-import BackgroundCarousel from "../components/BackgroundSlider";
-import HomeButton from "../components/HomeButton";
+import { MOBILE_BREAKPOINT } from "../constants/constants";
+import AnimationWrapper from "../components/common/AnimationLayer";
+import BackgroundCarousel from "../components/sliders/BackgroundSlider";
+import HomeButton from "../components/buttons/HomeButton";
 import { homeInfo } from "../data/homeData"; // Importamos los datos
-import HomeTitle from "../components/HomeTitle"; // Importamos el componente HomeTitle
+import HomeTitle from "../components/home/HomeTitle"; // Importamos el componente HomeTitle
 
 interface HomeProps {
   onSmoothScroll: (sectionId: string) => void;

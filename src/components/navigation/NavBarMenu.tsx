@@ -13,7 +13,7 @@
 
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useTheme } from './context/useThemeHook';
+import { useTheme } from '../context/useThemeHook';
 
 interface NavigationProps {
   className?: string;

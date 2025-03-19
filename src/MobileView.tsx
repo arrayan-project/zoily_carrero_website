@@ -13,10 +13,10 @@
 - ScrollToTopButton: El boton de scroll. 
 */
 
-import ThemeToggleButton from "./components/ThemeToggleButton";
-import ScrollToTopButton from "./components/ScrollTopButton";
-import LayoutMobile from "./components/MobileFrame";
-import Content from "./components/PageSections";
+import ThemeToggleButton from "./components/buttons/ThemeToggleButton";
+import ScrollToTopButton from "./components/buttons/ScrollTopButton";
+import LayoutMobile from "./components/layout/MobileFrame";
+import Content from "./components/layout/PageSections";
 
 interface LandingPageMobileProps {
   onSmoothScroll: (sectionId: string) => void;

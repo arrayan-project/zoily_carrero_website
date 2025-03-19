@@ -1,5 +1,5 @@
 import React from "react";
-import { useTheme } from "./context/useThemeHook";
+import { useTheme } from "../context/useThemeHook";
 
 type FormInputType = "text" | "email" | "textarea" | "number";
 

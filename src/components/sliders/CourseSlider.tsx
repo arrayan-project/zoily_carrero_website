@@ -6,9 +6,9 @@
 */
 
 import React from "react";
-import { useTheme } from "./context/useThemeHook";
-import courseData from "../data/coursesData"; // Importamos con ruta absoluta
-import { ModalContent } from "../data/servicesData";
+import { useTheme } from "../context/useThemeHook";
+import courseData from "../../data/coursesData"; // Importamos con ruta absoluta
+import { ModalContent } from "../../data/servicesData";
 
 interface CourseSliderProps {
   courseKey: string;
@@ -64,7 +64,6 @@ const CourseSlider: React.FC<CourseSliderProps> = ({
       {/* Image with onClick */}
       <div
         className="w-full h-96 shadow-lg overflow-hidden relative group cursor-pointer rounded-lg"
-        onClick={handleOpenModal}
       >
         <img
           src={image}

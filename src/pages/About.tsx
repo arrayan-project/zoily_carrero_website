@@ -1,35 +1,39 @@
 // src/pages/About.tsx
 import { CheckCircle } from "lucide-react";
 import images from "../assets/img/images";
-import PageBanner from "../components/PageBanner";
+import PageBanner from "../components/common/PageBanner";
 import { useTheme } from "../components/context/useThemeHook";
 import "../GlobalStyles.css";
-import AnimationWrapper from "../components/AnimationLayer";
+import AnimationWrapper from "../components/common/AnimationLayer";
 import { useEffect, useState } from "react";
-import { MOBILE_BREAKPOINT } from "../constants";
-import { getTextColorClass, getTextColorClassParagraph } from "../GeneralUtil";
+import { getTextColorClass, getTextColorClassParagraph } from "../utils/utils";
 import { whyUsPoints, aboutImages, aboutInfo } from "../data/aboutData"; // Importamos los datos
-import ImageWithFallback from "../components/ImageWithFallback"; // Importamos el componente ImageWithFallback
+import ImageWithFallback from "../components/common/ImageWithFallback"; // Importamos el componente ImageWithFallback
+import useWindowSize from "../hooks/useWindowSize"; // Importamos el hook
+import ErrorComponent from "../components/common/ErrorComponent"; // Importamos el componente
+
 
 interface ServicesProps {}
 
 function About({}: ServicesProps) {
   const { theme } = useTheme();
+  const { isMobileView } = useWindowSize(); // Usamos el hook
+  const [error, setError] = useState<string | null>(null); // Nuevo estado para errores
 
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const isMobileView = windowWidth < MOBILE_BREAKPOINT;
 
   useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    try {
+      // Ya no es necesario el useEffect para el tamaño de la ventana
+    } catch (err) {
+      setError("Error al cargar el tamaño de la ventana.");
+      console.error("Error en useEffect:", err);
+    }
   }, []);
+
+  // Si hay un error, mostrar el componente de error
+  if (error) {
+    return <ErrorComponent message={error} />;
+  }
 
   return (
     <div

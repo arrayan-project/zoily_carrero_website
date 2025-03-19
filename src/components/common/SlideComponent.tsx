@@ -11,15 +11,15 @@ import React, { memo } from 'react';
 
 interface SlideComponentProps {
     img: string;
-
+    alt: string;
 }
 
-const SlideComponent: React.FC<SlideComponentProps> = memo(({ img}) => {
+const SlideComponent: React.FC<SlideComponentProps> = memo(({ img, alt}) => {
     return (
         <div style={{ cursor: 'pointer', overflow: 'hidden' }}>
             <img
                 src={img}
-                alt={`Imagen en galería`}
+                alt={alt}
                 className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
                 loading="lazy"
                 role="img" // Añade role="img" para accesibilidad

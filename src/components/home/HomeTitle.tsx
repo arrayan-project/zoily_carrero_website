@@ -1,6 +1,6 @@
 // src/components/HomeTitle.tsx
 import React from "react";
-import AnimationWrapper from "./AnimationLayer";
+import AnimationWrapper from "../common/AnimationLayer";
 
 interface HomeTitleProps {
   title: string;

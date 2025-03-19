@@ -5,10 +5,10 @@
 */
 
 import React, { useRef, useEffect, useState } from "react";
-import CloseButton from "./CloseButton"; // Importamos CloseButton
-import { useTheme } from "./context/useThemeHook";
+import CloseButton from "../common/CloseButton"; // Importamos CloseButton
+import { useTheme } from "../context/useThemeHook";
 import "./CourseModal.css";
-import { getTextColorClass } from "../GeneralUtil"; //Importamos las funciones globales, con ruta absoluta
+import { getTextColorClass } from "../../utils/utils"; //Importamos las funciones globales, con ruta absoluta
 
 interface CourseModalProps {
   isOpen: boolean;
