@@ -5,9 +5,10 @@ Permite mostrar un título, un slider de imágenes, y dos pestañas de contenido
 */
 
 import React, { useState, useRef, useEffect } from 'react';
-import SlideComponent from './SlideComponent';
-import Slider from 'react-slick';
 import { useTheme } from '../context/useThemeHook';
+import Slider from 'react-slick'; // Importa Slider desde react-slick
+import "slick-carousel/slick/slick.css"; // Importa los estilos de slick
+import "slick-carousel/slick/slick-theme.css"; // Importa los estilos del tema de slick
 
 interface ModalProps {
   isOpen: boolean;
@@ -19,6 +20,20 @@ interface ModalProps {
   description?: string;
   children?: React.ReactNode;
 }
+
+// Define SlideComponent directamente aquí, ya que no se importa de otro archivo
+interface SlideComponentProps {
+  img: string;
+  alt: string;
+}
+
+const SlideComponent: React.FC<SlideComponentProps> = ({ img, alt }) => {
+  return (
+    <div className="w-full h-full">
+      <img src={img} alt={alt} className="w-full h-full object-cover object-center" />
+    </div>
+  );
+};
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoContent, termsContent, description }) => {
   const { theme } = useTheme();
@@ -47,6 +62,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoConte
     };
   }, [isOpen, onClose]);
 
+  // Configuraciones del carrusel
   const sliderSettings = {
     dots: false,
     infinite: true,

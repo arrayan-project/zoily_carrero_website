@@ -9,6 +9,13 @@ import cintermedio from "../assets/img/cursos/intermedio.webp"; // Importamos co
 import cavanzado from "../assets/img/cursos/avanzado.webp"; // Importamos con rutas absolutas
 import cprofesional from "../assets/img/cursos/profesional.webp"; // Importamos con rutas absolutas
 
+export interface CourseData {
+  title: string;
+  image: string;
+  infoContent: () => JSX.Element;
+  termsContent: () => JSX.Element;
+}
+
 interface CourseItem {
   name: string;
   description: string[];
@@ -16,13 +23,6 @@ interface CourseItem {
 
 interface CourseService {
   items: CourseItem[];
-}
-
-interface CourseData {
-  title: string;
-  image: string;
-  infoContent: () => JSX.Element;
-  termsContent: () => JSX.Element;
 }
 
 export const basicCourseServices: CourseService = {

@@ -1,10 +1,11 @@
+// src/components/sliders/ServiceSlider.tsx
+
 /*
 ##### Función #####
-- Este componente muestra un carrusel de imágenes de un servicio, un título y un botón para ver más detalles. 
+- Este componente muestra un carrusel de imágenes de un servicio, un título y un botón para ver más detalles.
 Al hacer clic en el botón o en el título, se abre un modal con más información
 
 ##### Componentes con los que interactúa #####
-- SlideComponent: Utiliza SlideComponent para mostrar las imágenes en el slider.
 - Slider: Utiliza el componente Slider de react-slick para el carrusel de imágenes.
 - useTheme: Utiliza el hook useTheme para acceder al tema actual.
 - ModalContent: Utiliza la interface ModalContent para tipar el contenido del modal.
@@ -15,10 +16,10 @@ Al hacer clic en el botón o en el título, se abre un modal con más informaci�
 */
 
 import React, { useState } from "react";
-import SlideComponent from "../common/SlideComponent";
 import Slider from "react-slick";
 import { useTheme } from "../context/useThemeHook";
 import { ModalContent } from "../../data/servicesData"; // Importamos la interface
+import { getTextColorClass } from "../../utils/utils"; // Importamos la funcion
 import AnimationWrapper from "../common/AnimationLayer";
 
 interface ServiceCarouselProps {
@@ -28,6 +29,7 @@ interface ServiceCarouselProps {
   infoContent: React.ReactNode;
   termsContent: React.ReactNode;
   description?: string;
+  courseKey?: string;
 }
 
 const ServiceCarousel: React.FC<ServiceCarouselProps> = ({
@@ -37,11 +39,14 @@ const ServiceCarousel: React.FC<ServiceCarouselProps> = ({
   infoContent,
   termsContent,
   description,
+  courseKey,
 }) => {
+  // Hook para manejar el tema claro-oscuro
   const { theme } = useTheme();
-  const [error, setError] = useState<string | null>(null); // Estado para el error
+  // Estado para manejar errores
+  const [error, setError] = useState<string | null>(null);
 
-  
+  // Función para abrir el modal
   const handleOpenModal = () => {
     try {
       openModal({ images, title, infoContent, termsContent, description });
@@ -51,6 +56,7 @@ const ServiceCarousel: React.FC<ServiceCarouselProps> = ({
     }
   };
 
+  // Configuraciones del carrusel
   const sliderSettings = {
     dots: false,
     infinite: true,
@@ -65,6 +71,7 @@ const ServiceCarousel: React.FC<ServiceCarouselProps> = ({
   //Variables para clases repetidas
   const buttonBase = `absolute top-1/2 left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-lg md:text-base px-2 md:px-6 py-1 md:py-3 rounded`;
 
+  // Si hay un error, se muestra un mensaje de error
   if (error) {
     console.error("Error en ServiceCarousel:", error);
     return (
@@ -76,20 +83,28 @@ const ServiceCarousel: React.FC<ServiceCarouselProps> = ({
 
   return (
     <div className="space-y-6 justify-center items-center text-center">
-      {/* Image Container */}
+      {/* Contenedor de la imagen */}
       <div
-        className="w-full aspect-square shadow-lg overflow-hidden relative group cursor-pointer rounded-lg"
+        className="w-full aspect-[4/5] overflow-hidden relative group cursor-pointer rounded-lg"
         onClick={handleOpenModal}
       >
+        {/* Animacion de la imagen */}
         <AnimationWrapper animationClassName="fade-in-up">
-          <div>
-            <Slider {...sliderSettings}>
-              {images.map((img, index) => (
-                <SlideComponent key={index} img={img} alt={title}/>
-              ))}
-            </Slider>
-          </div>
+          {/* Carrusel de imagenes */}
+          <Slider {...sliderSettings}>
+            {images.map((img, index) => (
+              <div key={index} className="w-full aspect-[4/5]">
+                {/* Imagen */}
+                <img
+                  src={img}
+                  alt={title}
+                  className="w-full h-full object-cover object-center"
+                />
+              </div>
+            ))}
+          </Slider>
         </AnimationWrapper>
+        {/* Boton para ver detalles */}
         <button
           onClick={handleOpenModal}
           className={`${buttonBase} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
@@ -97,6 +112,7 @@ const ServiceCarousel: React.FC<ServiceCarouselProps> = ({
         >
           Ver Detalles
         </button>
+        {/* Icono de la imagen */}
         <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -115,12 +131,10 @@ const ServiceCarousel: React.FC<ServiceCarouselProps> = ({
         </div>
       </div>
 
-      {/* Title Container */}
+      {/* Contenedor del titulo */}
       <h2
         onClick={handleOpenModal} // Add the onClick event handler
-        className={`text-xl md:text-2xl font-cinzel tracking-wide cursor-pointer ${
-          theme === "dark" ? "text-white" : "text-gray-800"
-        }`}
+        className={`text-xl md:text-2xl font-cinzel tracking-wide cursor-pointer ${getTextColorClass(theme)}`} // Usamos getTextColorClass
       >
         {title}
       </h2>

@@ -193,3 +193,101 @@ Important Styles
   opacity: 1;
 }
 
+
+/* Estilos para los marcadores del carrusel */
+.slick-dots {
+  position: relative; /* Cambiamos a posición relativa */
+  bottom: 0; /* Eliminamos la posición vertical */
+  display: block;
+  width: fit-content; /* Limitamos el ancho al contenido */
+  padding: 0;
+  margin: 0 auto; /* Centramos horizontalmente */
+  list-style: none;
+  text-align: center;
+}
+
+.slick-dots li {
+  position: relative;
+  display: inline-block;
+  width: 10px; /* Ajusta el ancho de los marcadores */
+  height: 10px; /* Ajusta la altura de los marcadores */
+  margin: 0 5px; /* Ajusta el margen entre los marcadores */
+  padding: 0;
+  cursor: pointer;
+}
+
+.slick-dots li button {
+  font-size: 0;
+  line-height: 0;
+  display: block;
+  width: 10px; /* Ajusta el ancho de los marcadores */
+  height: 10px; /* Ajusta la altura de los marcadores */
+  padding: 5px;
+  cursor: pointer;
+  color: transparent;
+  border: 0;
+  outline: none;
+  background: transparent;
+}
+
+.slick-dots li button:before {
+  font-family: "slick";
+  font-size: 10px; /* Ajusta el tamaño del punto */
+  line-height: 10px; /* Ajusta la altura del punto */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px; /* Ajusta el ancho del punto */
+  height: 10px; /* Ajusta la altura del punto */
+  content: "•";
+  text-align: center;
+  opacity: 0.5;
+  color: #000; /* Ajusta el color de los marcadores inactivos */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.slick-dots li.slick-active button:before {
+  opacity: 1;
+  color: #e91e63; /* Ajusta el color del marcador activo */
+}
+
+/* Estilos para los marcadores del carrusel en vista movil */
+.center {
+  position: relative; /* Agregamos posición relativa al contenedor del carrusel */
+}
+
+.center .slick-dots {
+  background-color: rgba(255, 255, 255, 0.5); /* Fondo blanquecino transparente */
+  padding: 5px 10px; /* Padding para que se vea el fondo */
+  border-radius: 20px; /* Bordes redondeados */
+  margin-top: 30px; /* Agregamos un margen superior */
+  position: absolute; /* Agregamos posición absoluta */
+  bottom: 25px; /* Ajustamos la posición vertical */
+  left: 50%; /* Centramos horizontalmente */
+  transform: translateX(-50%); /* Centramos horizontalmente */
+}
+
+/* Estilos para el contenedor padre de los marcadores */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.3);
+  margin: 0 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.carousel-dot.active {
+  background-color: #e91e63;
+}

@@ -121,7 +121,7 @@ const StatsSection = () => {
   }
 
   return (
-    <section ref={bannerRef} className="relative bg-rose-200 py-16 w-full mb-24 overflow-hidden">
+    <section ref={bannerRef} className="relative bg-rose-200 py-16 w-full overflow-hidden">
       <div className="absolute inset-0">
         <img
           src={images.zoilyblack}
