@@ -1,43 +1,34 @@
-// src/components/svg/ServicesSectionBackground.tsx
+// src/components/svg/ServicesSectionBackground.tsx (and similarly for CoursesSectionBackground.tsx)
 
 import React from 'react';
-import { useTheme } from '../context/useThemeHook'; // Si necesitas el tema para el color
 
 interface ServicesSectionBackgroundProps {
+  backgroundImage: string;
+  backgroundImageMobile: string;
+  objectPosition?: string;
   children: React.ReactNode;
-  backgroundImage: string; // Ruta de la imagen para pantallas grandes
-  backgroundImageMobile?: string; // Ruta de la imagen para móviles (opcional)
-  objectPosition?: string; // Posición del objeto (ej: "center", "top", "bottom")
 }
 
 const ServicesSectionBackground: React.FC<ServicesSectionBackgroundProps> = ({
-  children,
   backgroundImage,
   backgroundImageMobile,
-  objectPosition = "center", // Valor por defecto: centrado
+  objectPosition = 'center',
+  children,
 }) => {
-  const { theme } = useTheme(); // Si necesitas el tema para el color
-
   return (
-    <div className="relative w-full">
-      {/* Fondo de Imagen */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden">
-        {/* Usamos <picture> para cargar diferentes imágenes */}
-        <picture>
-          {/* Si hay una imagen para móviles, la cargamos en pantallas pequeñas */}
-          {backgroundImageMobile && (
-            <source media="(max-width: 767px)" srcSet={backgroundImageMobile} />
-          )}
-          {/* Imagen por defecto (para pantallas grandes) */}
+    <div className="relative w-full overflow-hidden"> {/* Make the container relative */}
+      <div className="absolute inset-0 w-full h-full z-0"> {/* Background now fills the container */}
+        <picture className="w-full h-full">
+          <source media="(max-width: 768px)" srcSet={backgroundImageMobile} />
           <img
             src={backgroundImage}
-            alt="Fondo de Servicios"
-            className={`w-full h-full object-cover object-${objectPosition}`} // Ajusta la imagen para cubrir el contenedor
+            alt="Background"
+            className="w-full h-full object-cover"
+            style={{ objectPosition }}
           />
         </picture>
       </div>
-      {/* Contenido */}
-      <div className="relative z-10">
+      <div className="relative z-10"> {/* Content is now relative and on top */}
         {children}
       </div>
     </div>

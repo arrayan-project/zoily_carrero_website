@@ -44,9 +44,12 @@ const ServiceInfo: React.FC<{ service: Service }> = ({ service }) => {
     <div className="font-cinzel">
       {service.items.map((item, index) => (
         <div key={index} className="mb-6">
-          <h4 className="font-bold mb-4">{item.name}</h4>
-          <p className="mb-2">Precio: {item.price}</p>
-          <ul className="text-sm list-disc list-inside">
+          {/* Modificado: Añadido text-sm md:text-base */}
+          <h4 className="font-bold mb-4 text-sm md:text-base">{item.name}</h4>
+          {/* Modificado: Añadido text-xs md:text-sm */}
+          <p className="mb-2 text-xs md:text-sm">Precio: {item.price}</p>
+          {/* Modificado: Añadido text-[0.7rem] md:text-xs */}
+          <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
             {item.description.map((desc, descIndex) => (
               <li key={descIndex}>{desc}</li>
             ))}
@@ -248,10 +251,10 @@ export const termsContent = () => {
   try {
     return (
       <div>
-        <h1 className="font-cinzel mb-8">Términos y Condiciones del Servicio</h1>
+        <h1 className="font-cinzel font-bold mb-8 text-sm md:text-base">Términos y Condiciones del Servicio</h1>
 
-        <h2 className="font-cinzel mb-2">Reservas y Pagos</h2>
-        <ul className="list-disc pl-6 font-cinzel">
+        <h2 className="font-cinzel mb-2 text-xs md:text-base">Reservas y Pagos</h2>
+        <ul className="list-disc pl-6 font-cinzel text-xs md:text-sm">
           <li>Para agendar, se debe realizar un abono previo.</li>
           <li>
             Si se abona el <strong>30%</strong>, el <strong>70% restante</strong>{" "}
@@ -267,8 +270,8 @@ export const termsContent = () => {
           </li>
         </ul>
 
-        <h2 className="font-cinzel mb-2 mt-6">Condiciones del Servicio</h2>
-        <ul className="list-disc pl-6 font-cinzel">
+        <h2 className="font-cinzel mb-2 mt-6 text-base md:text-base">Condiciones del Servicio</h2>
+        <ul className="list-disc pl-6 font-cinzel text-xs md:text-sm">
           <li>
             <strong>Los peinados no incluyen secado</strong>. El cabello debe
             estar seco y limpio al natural.
@@ -282,8 +285,8 @@ export const termsContent = () => {
           </li>
         </ul>
 
-        <h2 className="font-cinzel mb-2 mt-6">Pruebas y Atención en Estudio</h2>
-        <ul className="list-disc pl-6 font-cinzel">
+        <h2 className="font-cinzel mb-2 mt-6 text-base md:text-base">Pruebas y Atención en Estudio</h2>
+        <ul className="list-disc pl-6 font-cinzel text-xs md:text-sm">
           <li>
             Las pruebas se realizan <strong>solo en días de semana</strong> en mi
             estudio.
@@ -302,8 +305,8 @@ export const termsContent = () => {
           </li>
         </ul>
 
-        <h2 className="font-cinzel mb-2 mt-6">Servicio a Domicilio</h2>
-        <ul className="list-disc pl-6 font-cinzel">
+        <h2 className="font-cinzel mb-2 mt-6 text-base md:text-base">Servicio a Domicilio</h2>
+        <ul className="list-disc pl-6 font-cinzel text-xs md:text-sm">
           <li>Verificar disponibilidad antes de realizar abonos.</li>
           <li>
             El traslado tiene un costo adicional <strong>(ida y vuelta)</strong>.
@@ -314,15 +317,15 @@ export const termsContent = () => {
           </li>
         </ul>
 
-        <h2 className="font-cinzel mb-2 mt-6">Recomendaciones</h2>
-        <ul className="list-disc pl-6 font-cinzel">
+        <h2 className="font-cinzel mb-2 mt-6 text-base md:text-base">Recomendaciones</h2>
+        <ul className="list-disc pl-6 font-cinzel text-xs md:text-sm">
           <li>
             <strong>No tener lifting de pestañas</strong>, ya que interfiere con
             las pestañas de cortina.
           </li>
         </ul>
 
-        <p className="font-cinzel mt-6">
+        <p className="font-cinzel mt-6 text-sm md:text-base">
           Estoy disponible para cualquier consulta. ¡Gracias por tu confianza! 😊
         </p>
       </div>

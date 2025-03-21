@@ -63,8 +63,17 @@ function Services({}: ServicesProps) {
   const [modalContent, setModalContent] = useState<ModalContent | null>(null);
   const [error, setError] = useState<string | null>(null); // Nuevo estado para errores
   const { isMobileView } = useWindowSize(); // Usamos el hook
-
   const coursesArray: CourseData[] = Object.values(courseData); // Convert courseData object to an array
+  const { theme } = useTheme(); //Constante para manejar hook del tema claro-oscuro
+  const {
+    //Constantes para manejar las imagenes de los servicio
+    serviceBrideImages,
+    serviceSocialImages,
+    serviceHairAndMakeupImages,
+    serviceMatureSkinImages,
+    serviceGlamImages,
+    serviceExpressImages,
+  } = imageArrays;
 
   //Funcion para abrir el modal
   const openModal = useCallback((content: ModalContent) => {
@@ -93,19 +102,6 @@ function Services({}: ServicesProps) {
     return <ErrorComponent message={error} />;
   }
 
-  //Constante para manejar hook del tema claro-oscuro
-  const { theme } = useTheme();
-
-  //Constantes para manejar las imagenes de los servicios
-  const {
-    serviceBrideImages,
-    serviceSocialImages,
-    serviceHairAndMakeupImages,
-    serviceMatureSkinImages,
-    serviceGlamImages,
-    serviceExpressImages,
-  } = imageArrays;
-
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-grow">
@@ -118,97 +114,105 @@ function Services({}: ServicesProps) {
             objectPosition="center top" // Ajustamos la posición del objeto
           >
             {/* Contenedor principal de la seccion de servicios */}
-            <div className=" mx-auto px-2 py-16 md:py-32 md:px-6 lg:px-68 z-10 ">
+            <div className=" mx-auto px-2 py-16 md:py-32 md:px-6 lg:px-68 z-10 max-w-screen-lg">
+              {" "}
+              {/* Moved max-w-screen-lg here */}
               {/* Titulo de la seccion de servicios */}
               <AnimationWrapper animationClassName="fade-in-up">
                 <h1
                   className={`${SERVICES_TITLE_CLASS} ${getTextColorClass(
                     theme
-                  )}`}
+                  )} text-lg md:text-xl lg:text-3xl`}
                 >
                   CONOCE LO QUE PODEMOS HACER POR TI
                 </h1>
               </AnimationWrapper>
-
               {/* Sección servicios de maquillaje */}
               {isMobileView ? (
                 // Si es vista movil, se muestra el carrusel de servicios
-                <MobileServicesCarousel
-                  services={mobileServices}
-                  openModal={openModal}
-                />
+                <div className="center">
+                  {" "}
+                  {/* Agregamos la clase */}
+                  <MobileServicesCarousel
+                    services={mobileServices}
+                    openModal={openModal}
+                  />
+                </div>
               ) : (
                 // Si es vista desktop, se muestra la grilla de servicios
-                <div
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8 md:mb-12"
-                  aria-label="Servicios de Maquillaje"
-                >
-                  {/* Item Novia)*/}
-                  {renderServiceItem(
-                    serviceBrideImages,
-                    "Maquillaje Novia",
-                    openModal,
-                    infoContentNovia(),
-                    termsContent(),
-                    noviaMakeupServices.description
-                  )}
-                  {/* Item Social*/}
-                  {renderServiceItem(
-                    serviceSocialImages,
-                    "Maquillaje Social",
-                    openModal,
-                    infoContentSocial(),
-                    termsContent(),
-                    socialMakeupServices.description
-                  )}
-                  {/* Item Peinado*/}
-                  {renderServiceItem(
-                    serviceHairAndMakeupImages,
-                    "Maquillaje y Peinado",
-                    openModal,
-                    infoContentPeinado(),
-                    termsContent(),
-                    peinadoMakeupServices.description
-                  )}
-                  {/* Item Madura*/}
-                  {renderServiceItem(
-                    serviceMatureSkinImages,
-                    "Maquillaje en Piel Madura",
-                    openModal,
-                    infoContentMadura(),
-                    termsContent(),
-                    maduraMakeupServices.description
-                  )}
-                  {/* Item Glam*/}
-                  {renderServiceItem(
-                    serviceGlamImages,
-                    "Maquillaje Glam",
-                    openModal,
-                    infoContentGlam(),
-                    termsContent(),
-                    glamMakeupServices.description
-                  )}
-                  {/* Item Quinceañera*/}
-                  {renderServiceItem(
-                    serviceExpressImages,
-                    "Maquillaje Quinceañera",
-                    openModal,
-                    infoContentExpress(),
-                    termsContent(),
-                    expressMakeupServices.description
-                  )}
+                <div className="tablet-carousel-container">
+                  <div
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 md:mb-4" // Changed to 3 columns on large screens and gap to 6
+                    aria-label="Servicios de Maquillaje"
+                  >
+                    {/* Item Novia)*/}
+                    {renderServiceItem(
+                      serviceBrideImages,
+                      "Maquillaje Novia",
+                      openModal,
+                      infoContentNovia(),
+                      termsContent(),
+                      noviaMakeupServices.description
+                    )}
+                    {/* Item Social*/}
+                    {renderServiceItem(
+                      serviceSocialImages,
+                      "Maquillaje Social",
+                      openModal,
+                      infoContentSocial(),
+                      termsContent(),
+                      socialMakeupServices.description
+                    )}
+                    {/* Item Peinado*/}
+                    {renderServiceItem(
+                      serviceHairAndMakeupImages,
+                      "Maquillaje y Peinado",
+                      openModal,
+                      infoContentPeinado(),
+                      termsContent(),
+                      peinadoMakeupServices.description
+                    )}
+                    {/* Item Madura*/}
+                    {renderServiceItem(
+                      serviceMatureSkinImages,
+                      "Maquillaje en Piel Madura",
+                      openModal,
+                      infoContentMadura(),
+                      termsContent(),
+                      maduraMakeupServices.description
+                    )}
+                    {/* Item Glam*/}
+                    {renderServiceItem(
+                      serviceGlamImages,
+                      "Maquillaje Glam",
+                      openModal,
+                      infoContentGlam(),
+                      termsContent(),
+                      glamMakeupServices.description
+                    )}
+                    {/* Item Quinceañera*/}
+                    {renderServiceItem(
+                      serviceExpressImages,
+                      "Maquillaje Quinceañera",
+                      openModal,
+                      infoContentExpress(),
+                      termsContent(),
+                      expressMakeupServices.description
+                    )}
+                  </div>
                 </div>
               )}
               {/* Fin sección servicios de maquillaje */}
             </div>
 
             {/* Sección "Nuestros servicios incluyen" */}
-
-            <div className="text-center space-y-8 px-2 py-16 md:py-32 md:px-6 lg:px-68">
+            <div className="text-center space-y-8 px-2 py-16 md:py-8 md:px-6 lg:px-68 mb-24 md:mb-32">
+              {" "}
+              {/* Added mb-24 md:mb-32 */}
               <h2
                 className={`${SERVICES_INCLUDE_TITLE_CLASS} ${getTextColorClass(
                   theme
-                )}`}
+                )} text-lg md:text-xl lg:text-3xl`}
               >
                 Nuestros servicios incluyen
               </h2>
@@ -239,7 +243,6 @@ function Services({}: ServicesProps) {
         </div>
         {/* Fin sección estadistica de servicios */}
 
-
         {/* Courses Section */}
         <CoursesSectionBackground
           backgroundImage={backgroundCourses}
@@ -247,56 +250,61 @@ function Services({}: ServicesProps) {
           objectPosition="center top"
         >
           {/* Add space between stats section and courses section */}
-          <div className="py-16 md:py-24 mx-auto md:px-68 px-2 max-w-screen-lg"> {/* Added max-w-screen-lg */}
-          <div className="text-center">
+          <div className="mx-auto px-2 py-16 md:py-24 md:px-68 max-w-screen-lg">
+            {/* Added max-w-screen-lg */}
+            <div className="text-center">
               <AnimationWrapper animationClassName="fade-in-text">
                 <h1
                   className={`${COURSES_TITLE_CLASS} ${getTextColorClass(
                     theme
-                  )}`}
+                  )} text-lg md:text-xl lg:text-3xl py-12`} // Agregamos la clase
                 >
                   NUESTROS CURSOS
                 </h1>
               </AnimationWrapper>
               <AnimationWrapper animationClassName="fade-in-up">
                 {isMobileView ? (
-                  <MobileCoursesCarousel
-                    courses={coursesArray}
-                    openModal={openModal}
-                  />
+                  <div className="center pb-32 md:pb-32">
+                    <MobileCoursesCarousel
+                      courses={coursesArray}
+                      openModal={openModal}
+                    />
+                  </div>
                 ) : (
-                  <div
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8" 
-                  aria-label="Cursos"
-                  >
-                    {/* CURSO BASICO */}
-                    {renderCourseItem(
-                      [courseData.basico.image],
-                      courseData.basico.title,
-                      openModal,
-                      "basico"
-                    )}
-                    {/* CURSO INTERMEDIO */}
-                    {renderCourseItem(
-                      [courseData.intermedio.image],
-                      courseData.intermedio.title,
-                      openModal,
-                      "intermedio"
-                    )}
-                    {/* CURSO AVANZADO */}
-                    {renderCourseItem(
-                      [courseData.avanzado.image],
-                      courseData.avanzado.title,
-                      openModal,
-                      "avanzado"
-                    )}
-                    {/* CURSO PROFESIONAL */}
-                    {renderCourseItem(
-                      [courseData.profesional.image],
-                      courseData.profesional.title,
-                      openModal,
-                      "profesional"
-                    )}
+                  <div className="tablet-carousel-container">
+                    <div
+                      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8"
+                      aria-label="Cursos"
+                    >
+                      {/* CURSO BASICO */}
+                      {renderCourseItem(
+                        [courseData.basico.image],
+                        courseData.basico.title,
+                        openModal,
+                        "basico"
+                      )}
+                      {/* CURSO INTERMEDIO */}
+                      {renderCourseItem(
+                        [courseData.intermedio.image],
+                        courseData.intermedio.title,
+                        openModal,
+                        "intermedio"
+                      )}
+                      {/* CURSO AVANZADO */}
+                      {renderCourseItem(
+                        [courseData.avanzado.image],
+                        courseData.avanzado.title,
+                        openModal,
+                        "avanzado"
+                      )}
+                      {/* CURSO PROFESIONAL */}
+                      {renderCourseItem(
+                        [courseData.profesional.image],
+                        courseData.profesional.title,
+                        openModal,
+                        "profesional"
+                      )}
+                    </div>
                   </div>
                 )}
               </AnimationWrapper>
@@ -306,7 +314,7 @@ function Services({}: ServicesProps) {
         </CoursesSectionBackground>
 
         {/* Add space between courses section and bottom banner */}
-        <div className="py-16 md:py-24">
+        <div className="relative">
           {/* Componente para mostrar el modal */}
           <ModalContainer
             selectedCourse={selectedCourse}
@@ -315,20 +323,6 @@ function Services({}: ServicesProps) {
             closeModal={closeModal}
             modalContent={modalContent}
           />
-
-          {/* Banner inferior */}
-          {!isMobileView && (
-            <PageBanner
-              title="'Te debes este momento'"
-              imageSrcs={[images.servicesBannerBottom]}
-            ></PageBanner>
-          )}
-          {isMobileView && (
-            <PageBanner
-              title="'Te debes este momento'"
-              imageSrcs={[images.servicesBannerBottom]}
-            ></PageBanner>
-          )}
         </div>
       </main>
     </div>

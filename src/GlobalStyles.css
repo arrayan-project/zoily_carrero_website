@@ -1,25 +1,34 @@
-/* ==================
-  Base Styles
-================== */
+/* ==========================================================================
+   Global Styles
+   ========================================================================== */
+
+/* Importaciones de Fuentes */
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Mr+De+Haviland&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap");
 
+/* Tailwind Directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ==================
-   General Styles
-================== */
+/* Variables de color */
+:root {
+  --color-primary: #e91e63; /* Ejemplo de color primario */
+  --color-secondary: #ff4081; /* Ejemplo de color secundario */
+}
+
+/* Estilos Generales */
 .bg-transition {
   transition: opacity 1s ease-in-out;
 }
-/* ==================
-Nav Links Styles
-================== */
+
+/* ==========================================================================
+   Navigation Styles
+   ========================================================================== */
+
 .nav-link {
-  @apply px-4 py-2 hover:text-pink-500 transition-colors duration-300;
+  @apply px-4 py-2 hover:text-pink-500 transition-colors duration-300 text-sm md:text-sm;
   letter-spacing: 2px;
 }
 
@@ -29,52 +38,153 @@ Nav Links Styles
   }
 }
 
-/* ==================
-Social Icons Styles
-================== */
+/* ==========================================================================
+   Social Icons Styles
+   ========================================================================== */
+
 .social-icon {
   @apply w-8 h-8 text-white hover:text-pink-200 transition-colors duration-300 flex items-center justify-center;
 }
 
-/* ==================
-Animation Styles
-================== */
-/*Animacion del boton*/
-@keyframes color-change {
-  0% {
-    background-color: var(--color-secondary); /* Color inicial (pink-500 de Tailwind, aproximadamente) */
+/* ==========================================================================
+   Carousel Styles
+   ========================================================================== */
+
+/* Estilos base para los marcadores del carrusel */
+.slick-dots {
+  position: relative;
+  bottom: 0;
+  display: block;
+  width: fit-content;
+  padding: 0;
+  margin: 0 auto;
+  list-style: none;
+  text-align: center;
+}
+
+.slick-dots li {
+  position: relative;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.slick-dots li button {
+  font-size: 0;
+  line-height: 0;
+  display: block;
+  width: 10px;
+  height: 10px;
+  padding: 5px;
+  cursor: pointer;
+  color: transparent;
+  border: 0;
+  outline: none;
+  background: transparent;
+}
+
+.slick-dots li button:before {
+  font-family: "slick";
+  font-size: 10px;
+  line-height: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  content: "•";
+  text-align: center;
+  opacity: 0.5;
+  color: #000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.slick-dots li.slick-active button:before {
+  opacity: 1;
+  color: var(--color-primary); /* Usamos la variable de color */
+}
+
+/* Estilos para los marcadores del carrusel en vista movil */
+.center .slick-dots {
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-top: 30px;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Estilos para los marcadores del carrusel en vista de tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .tablet-carousel-container .slick-dots {
+    position: relative;
+    bottom: auto;
+    display: block;
+    width: fit-content;
+    padding: 0;
+    margin: 20px auto 0; /* Ajustamos el margen superior */
+    list-style: none;
+    text-align: center;
+    background-color: transparent;
   }
 
+  .center .slick-dots {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin-top: 30px;
+    position: absolute;
+    bottom: -70px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* ==========================================================================
+   Animation Styles
+   ========================================================================== */
+
+/* Animacion del boton */
+@keyframes color-change {
+  0% {
+    background-color: var(--color-secondary);
+  }
   100% {
-    background-color: var(--color-primary); /* Vuelve al color inicial */
+    background-color: var(--color-primary);
   }
 }
 
 .animate-color-button {
-  animation: color-change 1.5s infinite alternate; /* Aplica la animación */
+  animation: color-change 1.5s infinite alternate;
 }
 
 /* Transicion de fade-in */
 .fade-in-image {
-  opacity: 0; /* Inicialmente invisible */
-  transition: opacity 1s ease-in-out; /* Transición suave de opacidad en 1 segundo */
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
 }
 
 .fade-in-image.visible {
-  opacity: 1; /* Visible cuando se añade la clase 'visible' */
+  opacity: 1;
 }
 
 /* Transicion de fade-in text */
 .fade-in-text {
   opacity: 0;
-  transition: opacity 1.5s ease-in-out; /* Transición para opacidad y posición */
+  transition: opacity 1.5s ease-in-out;
 }
 
 .fade-in-text.visible {
   opacity: 1;
 }
 
-/*Animaciones de entradas*/
+/* Animaciones de entradas */
 @keyframes slide-in-left {
   from {
     transform: translateX(-100%);
@@ -85,34 +195,36 @@ Animation Styles
     opacity: 1;
   }
 }
+
 .slide-in-left {
   animation: slide-in-left 1.5s ease-out forwards;
 }
 
 @keyframes slide-in-right {
-    from {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
+  from {
+    transform: translateX(100%);
+    opacity: 0;
   }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 .slide-in-right {
   animation: slide-in-right 1.5s ease-out forwards;
 }
 
-@keyframes fade-in-up{
-    from {
-        transform: translateY(20px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
+@keyframes fade-in-up {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
   }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 
 .fade-in-up {
   animation: fade-in-up 1.5s ease-out forwards;
@@ -122,14 +234,17 @@ Animation Styles
   transform: translateX(-100%);
   opacity: 0;
 }
+
 .slide-in-left-animation.visible {
   transform: translateX(0);
   opacity: 1;
 }
+
 .slide-in-right-animation {
   transform: translateX(100%);
   opacity: 0;
 }
+
 .slide-in-right-animation.visible {
   transform: translateX(0);
   opacity: 1;
@@ -140,14 +255,15 @@ Animation Styles
   opacity: 0;
   transition: opacity 1s ease-in-out;
 }
+
 .fade-in-up-animation.visible {
   transform: translateY(0);
   opacity: 1;
 }
 
-/* ==================
-Modal Styles
-================== */
+/* ==========================================================================
+   Modal Styles
+   ========================================================================== */
 
 .sr-hidden {
   opacity: 0;
@@ -155,7 +271,6 @@ Modal Styles
 }
 
 .modal-animation {
-  /*Nueva clase para la animacion de los modales*/
   animation: modal-fade-in 0.3s ease-in-out;
 }
 
@@ -171,7 +286,6 @@ Modal Styles
 }
 
 .tab-content-animation {
-  /*Nueva clase para las pestañas de los modales*/
   animation: tab-content-fade-in 0.3s ease-in-out;
 }
 
@@ -185,109 +299,11 @@ Modal Styles
     transform: translateY(0);
   }
 }
-/* ==================
-Important Styles
-================== */
+
+/* ==========================================================================
+   Important Styles
+   ========================================================================== */
 
 .visible-important {
   opacity: 1;
-}
-
-
-/* Estilos para los marcadores del carrusel */
-.slick-dots {
-  position: relative; /* Cambiamos a posición relativa */
-  bottom: 0; /* Eliminamos la posición vertical */
-  display: block;
-  width: fit-content; /* Limitamos el ancho al contenido */
-  padding: 0;
-  margin: 0 auto; /* Centramos horizontalmente */
-  list-style: none;
-  text-align: center;
-}
-
-.slick-dots li {
-  position: relative;
-  display: inline-block;
-  width: 10px; /* Ajusta el ancho de los marcadores */
-  height: 10px; /* Ajusta la altura de los marcadores */
-  margin: 0 5px; /* Ajusta el margen entre los marcadores */
-  padding: 0;
-  cursor: pointer;
-}
-
-.slick-dots li button {
-  font-size: 0;
-  line-height: 0;
-  display: block;
-  width: 10px; /* Ajusta el ancho de los marcadores */
-  height: 10px; /* Ajusta la altura de los marcadores */
-  padding: 5px;
-  cursor: pointer;
-  color: transparent;
-  border: 0;
-  outline: none;
-  background: transparent;
-}
-
-.slick-dots li button:before {
-  font-family: "slick";
-  font-size: 10px; /* Ajusta el tamaño del punto */
-  line-height: 10px; /* Ajusta la altura del punto */
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 10px; /* Ajusta el ancho del punto */
-  height: 10px; /* Ajusta la altura del punto */
-  content: "•";
-  text-align: center;
-  opacity: 0.5;
-  color: #000; /* Ajusta el color de los marcadores inactivos */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.slick-dots li.slick-active button:before {
-  opacity: 1;
-  color: #e91e63; /* Ajusta el color del marcador activo */
-}
-
-/* Estilos para los marcadores del carrusel en vista movil */
-.center {
-  position: relative; /* Agregamos posición relativa al contenedor del carrusel */
-}
-
-.center .slick-dots {
-  background-color: rgba(255, 255, 255, 0.5); /* Fondo blanquecino transparente */
-  padding: 5px 10px; /* Padding para que se vea el fondo */
-  border-radius: 20px; /* Bordes redondeados */
-  margin-top: 30px; /* Agregamos un margen superior */
-  position: absolute; /* Agregamos posición absoluta */
-  bottom: 25px; /* Ajustamos la posición vertical */
-  left: 50%; /* Centramos horizontalmente */
-  transform: translateX(-50%); /* Centramos horizontalmente */
-}
-
-/* Estilos para el contenedor padre de los marcadores */
-.carousel-dots {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  width: fit-content;
-  margin: 0 auto;
-}
-
-.carousel-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.3);
-  margin: 0 5px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.carousel-dot.active {
-  background-color: #e91e63;
 }

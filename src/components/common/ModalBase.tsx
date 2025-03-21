@@ -35,7 +35,7 @@ const SlideComponent: React.FC<SlideComponentProps> = ({ img, alt }) => {
   );
 };
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoContent, termsContent, description }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoContent, termsContent, description }) => { //Eliminamos isCourseModal
   const { theme } = useTheme();
   const [activeTab, setActiveTab] = useState<'Informacion' | 'Terminos' | 'Imagenes'>('Informacion');
   const [error, setError] = useState<string | null>(null);
@@ -43,8 +43,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoConte
 
   // Variables para las clases repetidas
   const tabButtonBase = `flex-1 px-4 py-2 text-sm font-cinzel font-semibold bg-opacity-50`;
-  const tabButtonActive = `bg-white dark:bg-gray-800 text-pink-600`;
-  const tabButtonInactive = `text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400`;
+  const tabButtonActive = `bg-gray-200 dark:bg-gray-800 text-white-600`;
+  const tabButtonInactive = `text-gray-200 dark:text-gray-400 hover:text-gray-500 dark:hover:text-gray-400`;
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -94,6 +94,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoConte
       role="dialog"
       aria-modal="true"
     >
+      
       <div
         className={`modal-animation relative rounded-lg p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto ${
           theme === 'dark' ? 'bg-gray-900 text-white bg-opacity-30' : 'bg-white text-gray-800 bg-opacity-50'
@@ -107,10 +108,10 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoConte
           </svg>
         </button>
 
-        {/* Content of the modal */}
+        {/* Titulo del modal */}
         <div className="font-cinzel">
-          <h2 className="text-2xl font-bold mb-8">{title}</h2>
-          {description && <p className="mb-4">{description}</p>}
+          <h2 className="text-xl font-bold mb-8">{title}</h2>
+          {description && <p className="mb-4 text-sm">{description}</p>}
         </div>
 
         {/* Tab Navigation */}

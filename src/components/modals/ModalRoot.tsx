@@ -1,36 +1,29 @@
 // src/components/modals/ModalRoot.tsx
-
-/*
-##### Función #####
-- Este componente es un contenedor para los modales. Renderiza ModalBase o CourseModal dependiendo de las props.
-*/
-
 import React, { useState } from 'react';
 import Modal from '../common/ModalBase';
 import CourseModal from './CourseModal';
 import courseData from "../../data/coursesData";
-import { ModalContent } from '../../data/servicesData'; // Importamos la interfaz ModalContent
+import { ModalContent } from '../../data/servicesData';
 
 interface ModalContainerProps {
   selectedCourse: string | null;
   isCourseModalOpen: boolean;
   isModalOpen: boolean;
-  closeModal: (isCourseModal?: boolean) => void; //cambio
-  modalContent: ModalContent | null; // Usamos la interfaz ModalContent
+  closeModal: (isCourseModal?: boolean) => void;
+  modalContent: ModalContent | null;
 }
 
 const ModalContainer: React.FC<ModalContainerProps> = ({
   selectedCourse,
   isCourseModalOpen,
   isModalOpen,
-  closeModal, //cambio
+  closeModal,
   modalContent,
 }) => {
-
-  const [error, setError] = useState<string | null>(null); // Estado para el error
+  const [error, setError] = useState<string | null>(null);
 
   if (error) {
-    console.error("Error en ModalRoot:", error); // Registra el error en la consola
+    console.error("Error en ModalRoot:", error);
     return (
       <div className="error-container">
         <p className="error-message">Ha ocurrido un error inesperado al cargar el modal.</p>
@@ -38,17 +31,17 @@ const ModalContainer: React.FC<ModalContainerProps> = ({
     );
   }
 
-
   return (
     <>
       {selectedCourse && courseData[selectedCourse] && (
         <CourseModal
           isOpen={isCourseModalOpen}
-          onClose={() => closeModal(true)} //cambio
+          onClose={() => closeModal(true)}
           images={[courseData[selectedCourse].image]}
           title={courseData[selectedCourse].title}
-          infoContent={courseData[selectedCourse].infoContent} // Pasamos la función
-          termsContent={courseData[selectedCourse].termsContent} // Pasamos la función
+          infoContent={courseData[selectedCourse].infoContent()} // Se llama a la función para obtener el nodo
+          termsContent={courseData[selectedCourse].termsContent()} // Se llama a la función para obtener el nodo
+
         />
       )}
 
@@ -58,8 +51,8 @@ const ModalContainer: React.FC<ModalContainerProps> = ({
           onClose={closeModal}
           images={modalContent.images}
           title={modalContent.title}
-          infoContent={modalContent.infoContent} // Pasamos la función
-          termsContent={modalContent.termsContent} // Pasamos la función
+          infoContent={modalContent.infoContent}
+          termsContent={modalContent.termsContent}
           description={modalContent.description}
         />
       )}

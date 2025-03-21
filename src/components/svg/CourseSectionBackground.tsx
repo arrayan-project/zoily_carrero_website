@@ -19,7 +19,7 @@ const CoursesSectionBackground: React.FC<CoursesSectionBackgroundProps> = ({
   const { theme } = useTheme(); // Si necesitas el tema para el color
 
   return (
-    <section className="relative w-full"> {/* Asegura que ocupe todo el ancho */}
+    <section className="relative w-full flex-grow"> {/* Asegura que ocupe todo el ancho */}
       {/* Fondo de Imagen */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         {/* Usamos <picture> para cargar diferentes imágenes */}

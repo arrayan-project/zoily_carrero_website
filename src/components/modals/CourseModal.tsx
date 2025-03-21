@@ -1,17 +1,17 @@
 // src/components/modals/CourseModal.tsx
-
 import React from "react";
-import Modal from "../common/ModalBase"; // Importamos el componente ModalBase
-import { useTheme } from "../context/useThemeHook"; // Importamos el hook
-import { getTextColorClass } from "../../utils/utils"; // Importamos la funcion
+import Modal from "../common/ModalBase";
+import { useTheme } from "../context/useThemeHook";
+import { getTextColorClass } from "../../utils/utils";
 
 interface CourseModalProps {
   isOpen: boolean;
   onClose: () => void;
   images: string[];
   title: string;
-  infoContent: () => JSX.Element; // Ahora es una función que devuelve JSX
-  termsContent: () => JSX.Element; // Ahora es una función que devuelve JSX
+  infoContent: React.ReactNode;
+  termsContent: React.ReactNode;
+  description?: string;
 }
 
 const CourseModal: React.FC<CourseModalProps> = ({
@@ -21,8 +21,9 @@ const CourseModal: React.FC<CourseModalProps> = ({
   title,
   infoContent,
   termsContent,
+  description,
 }) => {
-  const { theme } = useTheme(); // Usamos el hook
+  const { theme } = useTheme();
 
   return (
     <Modal
@@ -30,8 +31,9 @@ const CourseModal: React.FC<CourseModalProps> = ({
       onClose={onClose}
       images={images}
       title={title}
-      infoContent={infoContent()} // Ejecutamos la función
-      termsContent={termsContent()} // Ejecutamos la función
+      infoContent={infoContent}
+      termsContent={termsContent}
+      description={description}
     />
   );
 };
