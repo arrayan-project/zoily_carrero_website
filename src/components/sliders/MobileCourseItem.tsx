@@ -1,29 +1,29 @@
 // src/components/sliders/MobileCourseItem.tsx
 
 import React from "react";
-import { ModalContent } from "../../data/servicesData";
+import { CourseModalContent } from "../../data/coursesData"; // Importamos CourseModalContent
 import { useTheme } from "../context/useThemeHook";
 import { getTextColorClass } from "../../utils/utils";
 
 interface MobileCourseItemProps {
-  image: string;
+  images: string[];
   title: string;
-  openModal: (content: ModalContent) => void;
+  openModal: (content: CourseModalContent) => void;
   infoContent: React.ReactNode;
   termsContent: React.ReactNode;
-  courseKey: string;
+  description: string;
 }
 
 const MobileCourseItem: React.FC<MobileCourseItemProps> = ({
-  image,
+  images,
   title,
   openModal,
   infoContent,
   termsContent,
-  courseKey,
+  description,
 }) => {
   const handleOpenModal = () => {
-    openModal({ images: [image], title, infoContent, termsContent, courseKey });
+    openModal({ images, title, infoContent, termsContent, description });
   };
 
   const { theme } = useTheme();
@@ -35,7 +35,7 @@ const MobileCourseItem: React.FC<MobileCourseItemProps> = ({
         onClick={handleOpenModal}
       >
         <img
-          src={image}
+          src={images[0]} // Mostramos solo la primera imagen
           alt={title}
           className="w-full h-full object-cover object-center"
         />

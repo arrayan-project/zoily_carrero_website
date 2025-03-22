@@ -21,11 +21,10 @@ interface ServiceItem {
   description: string[];
 }
 
-interface Service {
+export interface Service {
   description: string;
   items: ServiceItem[];
   images: string[];
-  courseKey?: string;
 }
 
 // Nueva interface ModalContent
@@ -35,7 +34,6 @@ export interface ModalContent {
   infoContent: React.ReactNode;
   termsContent: React.ReactNode;
   description?: string;
-  courseKey?: string;
 }
 
 // Componente reutilizable para renderizar la información de un servicio
@@ -93,7 +91,6 @@ export const noviaMakeupServices: Service = {
     },
   ],
   images: [novia],
-  courseKey: "avanzado",
 };
 
 export const socialMakeupServices: Service = {
@@ -122,7 +119,6 @@ export const socialMakeupServices: Service = {
     },
   ],
   images: [social],
-  courseKey: "intermedio",
 };
 
 export const peinadoMakeupServices: Service = {
@@ -164,7 +160,6 @@ export const maduraMakeupServices: Service = {
     },
   ],
   images: [madura],
-  courseKey: "basico",
 };
 
 export const glamMakeupServices: Service = {
@@ -185,7 +180,6 @@ export const glamMakeupServices: Service = {
     },
   ],
   images: [glam],
-  courseKey: "intermedio",
 };
 
 export const expressMakeupServices: Service = {
@@ -219,7 +213,6 @@ export const expressMakeupServices: Service = {
     },
   ],
   images: [quince],
-  courseKey: "avanzado",
 };
 
 // Funciones que retornan JSX

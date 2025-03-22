@@ -29,7 +29,6 @@ interface ServiceCarouselProps {
   infoContent: React.ReactNode;
   termsContent: React.ReactNode;
   description?: string;
-  courseKey?: string;
 }
 
 const ServiceCarousel: React.FC<ServiceCarouselProps> = ({
@@ -39,7 +38,6 @@ const ServiceCarousel: React.FC<ServiceCarouselProps> = ({
   infoContent,
   termsContent,
   description,
-  courseKey,
 }) => {
   // Hook para manejar el tema claro-oscuro
   const { theme } = useTheme();

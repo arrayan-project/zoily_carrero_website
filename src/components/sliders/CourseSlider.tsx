@@ -1,3 +1,5 @@
+// src/components/sliders/CourseSlider.tsx
+
 /*
 ##### Función #####
 - Este componente representa un "slide" dentro de un carrusel de cursos.
@@ -5,89 +7,124 @@
 - Al hacer clic en la imagen o en el título, se debe abrir el modal del curso correspondiente.
 */
 
-import React from "react";
+import React, { useState } from "react";
+import Slider from "react-slick";
 import { useTheme } from "../context/useThemeHook";
-import courseData from "../../data/coursesData"; // Importamos con ruta absoluta
-import { ModalContent } from "../../data/servicesData";
+import { CourseModalContent } from "../../data/coursesData"; // Importamos CourseModalContent
+import { getTextColorClass } from "../../utils/utils"; // Importamos la funcion
+import AnimationWrapper from "../common/AnimationLayer";
 
 interface CourseSliderProps {
-  courseKey: string;
-  title: string;
-  image: string;
-  openModal: (content: ModalContent) => void; //Usamos el nuevo type
+  images: string[];
+    title: string;
+    openModal: (content: CourseModalContent) => void;
+    infoContent: React.ReactNode;
+    termsContent: React.ReactNode;
+    description?: string;
 }
 
 const CourseSlider: React.FC<CourseSliderProps> = ({
-  courseKey,
+  images,
   title,
-  image,
   openModal,
+  infoContent,
+  termsContent,
+  description,
 }) => {
-  const { theme } = useTheme();
-  const textColorClass = theme === "dark" ? "text-white" : "text-gray-800"; //Variable para el color
-  const [error, setError] = React.useState<string | null>(null);
+  // Hook para manejar el tema claro-oscuro
+   const { theme } = useTheme();
+   // Estado para manejar errores
+   const [error, setError] = useState<string | null>(null);
+ 
+   // Función para abrir el modal
+   const handleOpenModal = () => {
+     try {
+       openModal({ images, title, infoContent, termsContent, description });
+     } catch (err) {
+       setError("Error al abrir el modal.");
+       console.error("Error en handleOpenModal:", err);
+     }
+   };
 
-
-  // Funcion para ejecutar el modal
-  const handleOpenModal = () => {
-    try {
-      const courseInformation = courseData[courseKey];
-      if (!courseInformation) {
-        setError(`No se encontró información para el curso: ${courseKey}`);
-        return;
-      }
-
-      const content: ModalContent = {
-        infoContent: courseInformation.infoContent(),
-        termsContent: courseInformation.termsContent(),
-        images: [image],
-        title: title,
-        courseKey: courseKey,
-      };
-      openModal(content);
-    } catch (err) {
-      setError(`Error al cargar la información del curso: ${courseKey}`);
-      console.error("Error en handleOpenModal:", err);
-    }
+  // Configuraciones del carrusel
+  const sliderSettings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: false,
   };
 
+  //Variables para clases repetidas
+  const buttonBase = `absolute top-1/2 left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-lg md:text-base px-2 md:px-6 py-1 md:py-3 rounded`;
+
+  // Si hay un error, se muestra un mensaje de error
   if (error) {
+    console.error("Error en ServiceCarousel:", error);
     return (
-      <div className="text-red-500">
-        <p>{error}</p>
+      <div className="error-container">
+        <p className="error-message">Ha ocurrido un error inesperado en el carrusel de servicios.</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
-      {/* Image with onClick */}
+    <div className="space-y-6 justify-center items-center text-center">
+      {/* Contenedor de la imagen */}
       <div
-        className="w-full h-96 shadow-lg overflow-hidden relative group cursor-pointer rounded-lg"
-      >
-        <img
-          src={image}
-          alt={title}
-          className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
-
-        />
-        <button
-          onClick={(e) => {
-            e.stopPropagation(); // Prevent triggering the image's onClick
-            handleOpenModal();
-          }}
-          className={`
-          absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-6 py-3 rounded 
-          bg-gray-700 hover:bg-gray-900 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-cinzel font-bold
-          `}
-          aria-label={`Ver detalles del curso ${title}`}
-        >
-          Ver detalles
-        </button>
-      </div>
-      <h2
+        className="w-full aspect-[4/5] overflow-hidden relative group cursor-pointer rounded-lg"
         onClick={handleOpenModal}
-        className={`text-xl md:text-2xl font-cinzel tracking-wide ${textColorClass} cursor-pointer`}
+      >
+        {/* Animacion de la imagen */}
+        <AnimationWrapper animationClassName="fade-in-up">
+          {/* Carrusel de imagenes */}
+          <Slider {...sliderSettings}>
+            {images.map((img, index) => (
+              <div key={index} className="w-full aspect-[4/5]">
+                {/* Imagen */}
+                <img
+                  src={img}
+                  alt={title}
+                  className="w-full h-full object-cover object-center"
+                />
+              </div>
+            ))}
+          </Slider>
+        </AnimationWrapper>
+        {/* Boton para ver detalles */}
+        <button
+          onClick={handleOpenModal}
+          className={`${buttonBase} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+          aria-label={`Ver detalles de ${title}`} // Añade aria-label para accesibilidad
+        >
+          Ver Detalles
+        </button>
+        {/* Icono de la imagen */}
+        <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="size-7 text-pink-300"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"
+            />
+          </svg>
+        </div>
+      </div>
+
+      {/* Contenedor del titulo */}
+      <h2
+        onClick={handleOpenModal} // Add the onClick event handler
+        className={`text-xl md:text-2xl font-cinzel tracking-wide cursor-pointer ${getTextColorClass(theme)}`} // Usamos getTextColorClass
       >
         {title}
       </h2>

@@ -19,21 +19,31 @@ import {
   maduraMakeupServices,
   glamMakeupServices,
   expressMakeupServices,
-} from "../data/servicesData";
-import { getTextColorClass } from "../utils/utils"; //Importamos la nueva funcion
-import {
+  ModalContent, // Importamos ModalContent
+  Service,
   infoContentNovia,
   infoContentExpress,
   infoContentGlam,
   infoContentMadura,
   infoContentPeinado,
   infoContentSocial,
-  termsContent,
+  termsContent, // Importamos Service
 } from "../data/servicesData";
+import { getTextColorClass } from "../utils/utils"; //Importamos la nueva funcion
 import AnimationWrapper from "../components/common/AnimationLayer"; //Animacion de textos e imagenes
 import ModalContainer from "../components/modals/ModalRoot"; // Importamos el contenedor de modales
-import courseData from "../data/coursesData"; // Importamos los datos de los cursos
-import { ModalContent } from "../data/servicesData"; // Importamos la interface
+import {
+  basicCourse,
+  intermediateCourse,
+  advancedCourse,
+  professionalCourse,
+  infoContentBasico,
+  infoContentIntermedio,
+  infoContentAvanzado,
+  infoContentProfesional,
+  CourseModalContent, // Importamos CourseModalContent
+  Course, // Importamos Course
+} from "../data/coursesData"; // Importamos los datos de los cursos
 import useWindowSize from "../hooks/useWindowSize"; // Importamos el hook
 import ErrorComponent from "../components/common/ErrorComponent"; // Importamos el componente
 import {
@@ -53,17 +63,15 @@ import backgroundCoursesMobile from "../assets/img/background-pages/bg-1-mobile.
 import MobileServicesCarousel from "../components/sliders/MobileServicesCarousel"; // Importamos el nuevo componente
 import { mobileServices } from "../data/mobileServicesData"; // Importamos el array de servicios
 import MobileCoursesCarousel from "../components/sliders/MobileCoursesCarousel"; // Import the new component
-import { CourseData } from "../data/coursesData"; // Import the interface
 
 function Services({}: ServicesProps) {
   //Manejo del estado de los modales
-  const [isCourseModalOpen, setIsCourseModalOpen] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState<ModalContent | null>(null);
+  const [modalContent, setModalContent] = useState<ModalContent | CourseModalContent | null>(null); // Ahora acepta ambos tipos
   const [error, setError] = useState<string | null>(null); // Nuevo estado para errores
   const { isMobileView } = useWindowSize(); // Usamos el hook
-  const coursesArray: CourseData[] = Object.values(courseData); // Convert courseData object to an array
+  const coursesArray: Course[] = [basicCourse, intermediateCourse, advancedCourse, professionalCourse]; // Creamos un array de cursos
+  const servicesArray: Service[] = [noviaMakeupServices, socialMakeupServices, peinadoMakeupServices, maduraMakeupServices, glamMakeupServices, expressMakeupServices]; // Creamos un array de servicios
   const { theme } = useTheme(); //Constante para manejar hook del tema claro-oscuro
   const {
     //Constantes para manejar las imagenes de los servicio
@@ -76,25 +84,15 @@ function Services({}: ServicesProps) {
   } = imageArrays;
 
   //Funcion para abrir el modal
-  const openModal = useCallback((content: ModalContent) => {
-    if (content.courseKey) {
-      setSelectedCourse(content.courseKey);
-      setIsCourseModalOpen(true);
-    } else {
-      setModalContent(content);
-      setIsModalOpen(true);
-    }
+  const openModal = useCallback((content: ModalContent | CourseModalContent) => { // Ahora acepta ambos tipos
+    setModalContent(content);
+    setIsModalOpen(true);
   }, []);
 
   //Funcion para cerrar el modal
-  const closeModal = useCallback((isCourseModal?: boolean) => {
-    if (isCourseModal) {
-      setIsCourseModalOpen(false);
-      setSelectedCourse(null);
-    } else {
-      setIsModalOpen(false);
-      setModalContent(null);
-    }
+  const closeModal = useCallback(() => {
+    setIsModalOpen(false);
+    setModalContent(null);
   }, []);
 
   //Funcion para manejar errores
@@ -134,7 +132,7 @@ function Services({}: ServicesProps) {
                   {" "}
                   {/* Agregamos la clase */}
                   <MobileServicesCarousel
-                    services={mobileServices}
+                    services={servicesArray} // Pasamos el array de servicios
                     openModal={openModal}
                   />
                 </div>
@@ -266,7 +264,7 @@ function Services({}: ServicesProps) {
                 {isMobileView ? (
                   <div className="center pb-32 md:pb-32">
                     <MobileCoursesCarousel
-                      courses={coursesArray}
+                      courses={coursesArray} // Pasamos el array de cursos
                       openModal={openModal}
                     />
                   </div>
@@ -278,31 +276,39 @@ function Services({}: ServicesProps) {
                     >
                       {/* CURSO BASICO */}
                       {renderCourseItem(
-                        [courseData.basico.image],
-                        courseData.basico.title,
+                        basicCourse.images, // Pasamos el array de imagenes
+                        basicCourse.items[0].name,
                         openModal,
-                        "basico"
+                        infoContentBasico(),
+                        termsContent(),
+                        basicCourse.description
                       )}
                       {/* CURSO INTERMEDIO */}
                       {renderCourseItem(
-                        [courseData.intermedio.image],
-                        courseData.intermedio.title,
+                        intermediateCourse.images, // Pasamos el array de imagenes
+                        intermediateCourse.items[0].name,
                         openModal,
-                        "intermedio"
+                        infoContentIntermedio(),
+                        termsContent(),
+                        intermediateCourse.description
                       )}
                       {/* CURSO AVANZADO */}
                       {renderCourseItem(
-                        [courseData.avanzado.image],
-                        courseData.avanzado.title,
+                        advancedCourse.images, // Pasamos el array de imagenes
+                        advancedCourse.items[0].name,
                         openModal,
-                        "avanzado"
+                        infoContentAvanzado(),
+                        termsContent(),
+                        advancedCourse.description
                       )}
                       {/* CURSO PROFESIONAL */}
                       {renderCourseItem(
-                        [courseData.profesional.image],
-                        courseData.profesional.title,
+                        professionalCourse.images, // Pasamos el array de imagenes
+                        professionalCourse.items[0].name,
                         openModal,
-                        "profesional"
+                        infoContentProfesional(),
+                        termsContent(),
+                        professionalCourse.description
                       )}
                     </div>
                   </div>
@@ -317,8 +323,6 @@ function Services({}: ServicesProps) {
         <div className="relative">
           {/* Componente para mostrar el modal */}
           <ModalContainer
-            selectedCourse={selectedCourse}
-            isCourseModalOpen={isCourseModalOpen}
             isModalOpen={isModalOpen}
             closeModal={closeModal}
             modalContent={modalContent}

@@ -36,36 +36,30 @@ const MobileServiceItem: React.FC<MobileServiceItemProps> = ({
   termsContent,
   description,
 }) => {
-  // Función para abrir el modal
   const handleOpenModal = () => {
     openModal({ images, title, infoContent, termsContent, description });
   };
 
-  // Hook para manejar el tema claro-oscuro
   const { theme } = useTheme();
 
   return (
     <div className="space-y-6 justify-center items-center text-center mb-24 md:mb-0">
-      {/* Contenedor de la imagen */}
       <div
         className="w-full aspect-[4/5] overflow-hidden relative group cursor-pointer rounded-lg"
         onClick={handleOpenModal}
       >
-        {/* Imagen */}
         <img
           src={images[0]} // Mostramos solo la primera imagen
           alt={title}
           className="w-full h-full object-cover object-center"
         />
-        {/* Boton para ver detalles */}
         <button
           onClick={handleOpenModal}
           className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-lg md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
-          aria-label={`Ver detalles de ${title}`} // Añade aria-label para accesibilidad
+          aria-label={`Ver detalles de ${title}`}
         >
           Ver Detalles
         </button>
-        {/* Icono de la imagen */}
         <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -84,10 +78,9 @@ const MobileServiceItem: React.FC<MobileServiceItemProps> = ({
         </div>
       </div>
 
-      {/* Contenedor del titulo */}
       <h2
-        onClick={handleOpenModal} // Add the onClick event handler
-        className={`text-xl md:text-2xl font-cinzel tracking-wide cursor-pointer ${getTextColorClass(theme)}`} // Usamos getTextColorClass
+        onClick={handleOpenModal} 
+        className={`text-xl md:text-2xl font-cinzel tracking-wide cursor-pointer ${getTextColorClass(theme)}`} 
       >
         {title}
       </h2>

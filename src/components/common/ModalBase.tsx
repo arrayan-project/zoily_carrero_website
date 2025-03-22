@@ -1,14 +1,15 @@
 /*
 ##### Función #####
-- Este componente es una base para crear modales. 
+- Este componente es una base para crear modales.
 Permite mostrar un título, un slider de imágenes, y dos pestañas de contenido ("Información" y "Términos").
 */
 
-import React, { useState, useRef, useEffect } from 'react';
-import { useTheme } from '../context/useThemeHook';
-import Slider from 'react-slick'; // Importa Slider desde react-slick
+import React, { useState, useRef, useEffect } from "react";
+import { useTheme } from "../context/useThemeHook";
+import Slider from "react-slick"; // Importa Slider desde react-slick
 import "slick-carousel/slick/slick.css"; // Importa los estilos de slick
 import "slick-carousel/slick/slick-theme.css"; // Importa los estilos del tema de slick
+import { getTextColorClass } from "../../utils/utils";
 
 interface ModalProps {
   isOpen: boolean;
@@ -30,15 +31,28 @@ interface SlideComponentProps {
 const SlideComponent: React.FC<SlideComponentProps> = ({ img, alt }) => {
   return (
     <div className="w-full h-full">
-      <img src={img} alt={alt} className="w-full h-full object-cover object-center" />
+      <img
+        src={img}
+        alt={alt}
+        className="w-full h-full object-cover object-center"
+      />
     </div>
   );
 };
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoContent, termsContent, description }) => { //Eliminamos isCourseModal
+const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  images,
+  title,
+  infoContent,
+  termsContent,
+  description,
+}) => {
   const { theme } = useTheme();
-  const [activeTab, setActiveTab] = useState<'Informacion' | 'Terminos' | 'Imagenes'>('Informacion');
-  const [error, setError] = useState<string | null>(null);
+  const [activeTab, setActiveTab] =
+    useState<"Informacion" | "Terminos" | "Imagenes">("Informacion");
+  const [error] = useState<string | null>(null);
   const modalContentRef = useRef<HTMLDivElement>(null);
 
   // Variables para las clases repetidas
@@ -48,24 +62,27 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoConte
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (modalContentRef.current && !modalContentRef.current.contains(event.target as Node)) {
+      if (
+        modalContentRef.current &&
+        !modalContentRef.current.contains(event.target as Node)
+      ) {
         onClose();
       }
     };
 
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen, onClose]);
 
   // Configuraciones del carrusel
   const sliderSettings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -78,33 +95,61 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoConte
     console.error("Error en ModalBase:", error);
     return (
       <div className="error-container">
-        <p className="error-message">Ha ocurrido un error inesperado en el modal.</p>
+        <p className="error-message">
+          Ha ocurrido un error inesperado en el modal.
+        </p>
       </div>
     );
   }
 
   if (!isOpen) return null;
 
+  const handleModalContentClick = (event: React.MouseEvent) => {
+    event.stopPropagation(); // Evita la propagación del evento
+  };
+
   return (
     <div
       className={`modal-overlay fixed top-0 left-0 w-full h-full z-50 flex justify-center items-center !mt-0 !mb-0 ${
-        theme === 'dark' ? 'bg-black bg-opacity-50 backdrop-blur-md' : 'bg-gray-100 bg-opacity-50 backdrop-blur-sm'
+        theme === "dark"
+          ? "bg-black bg-opacity-50 backdrop-blur-md"
+          : "bg-gray-100 bg-opacity-50 backdrop-blur-sm"
       }`}
       onClick={onClose}
       role="dialog"
       aria-modal="true"
     >
-      
       <div
         className={`modal-animation relative rounded-lg p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto ${
-          theme === 'dark' ? 'bg-gray-900 text-white bg-opacity-30' : 'bg-white text-gray-800 bg-opacity-50'
+          theme === "dark"
+            ? "bg-gray-900 text-white bg-opacity-30"
+            : "bg-white text-gray-800 bg-opacity-50"
         }`}
         ref={modalContentRef}
+        onClick={handleModalContentClick} // Evita que el clic en el contenido cierre el modal
       >
         {/* Close Button */}
-        <button onClick={onClose} className={`absolute top-2 right-2 text-gray-500 hover:text-gray-700 ${theme === 'dark' ? 'dark:text-gray-300 dark:hover:text-gray-100' : ''}`}>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        <button
+          onClick={onClose}
+          className={`absolute top-2 right-2 text-gray-500 hover:text-gray-700 ${
+            theme === "dark"
+              ? "dark:text-gray-300 dark:hover:text-gray-100"
+              : ""
+          }`}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </button>
 
@@ -115,22 +160,34 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoConte
         </div>
 
         {/* Tab Navigation */}
-        <div className={`flex mb-4 mt-12 w-full ${theme === 'dark' ? 'bg-gray-400 bg-opacity-50' : 'bg-gray-100 bg-opacity-50'}`}>
+        <div
+          className={`flex mb-4 mt-12 w-full ${
+            theme === "dark"
+              ? "bg-gray-400 bg-opacity-50"
+              : "bg-gray-100 bg-opacity-50"
+          }`}
+        >
           <button
-            className={`${tabButtonBase} ${activeTab === 'Informacion' ? tabButtonActive : tabButtonInactive}`}
-            onClick={() => setActiveTab('Informacion')}
+            className={`${tabButtonBase} ${
+              activeTab === "Informacion" ? tabButtonActive : tabButtonInactive
+            } ${getTextColorClass(theme)}`}
+            onClick={() => setActiveTab("Informacion")}
           >
             Información
           </button>
           <button
-            className={`${tabButtonBase} ${activeTab === 'Terminos' ? tabButtonActive : tabButtonInactive}`}
-            onClick={() => setActiveTab('Terminos')}
+            className={`${tabButtonBase} ${
+              activeTab === "Terminos" ? tabButtonActive : tabButtonInactive
+            } ${getTextColorClass(theme)}`}
+            onClick={() => setActiveTab("Terminos")}
           >
             Términos
           </button>
           <button
-            className={`${tabButtonBase} ${activeTab === 'Imagenes' ? tabButtonActive : tabButtonInactive}`}
-            onClick={() => setActiveTab('Imagenes')}
+            className={`${tabButtonBase} ${
+              activeTab === "Imagenes" ? tabButtonActive : tabButtonInactive
+            } ${getTextColorClass(theme)}`}
+            onClick={() => setActiveTab("Imagenes")}
           >
             Imágenes
           </button>
@@ -138,13 +195,17 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoConte
 
         {/* Tab Content */}
         <div className="relative h-96">
-          {activeTab === 'Informacion' && (
-            <div className="absolute top-0 left-0 w-full h-full tab-content-animation">{infoContent}</div>
+          {activeTab === "Informacion" && (
+            <div className="absolute top-0 left-0 w-full h-full tab-content-animation">
+              {infoContent}
+            </div>
           )}
-          {activeTab === 'Terminos' && (
-            <div className="absolute top-0 left-0 w-full h-full tab-content-animation">{termsContent}</div>
+          {activeTab === "Terminos" && (
+            <div className="absolute top-0 left-0 w-full h-full tab-content-animation">
+              {termsContent}
+            </div>
           )}
-          {activeTab === 'Imagenes' && (
+          {activeTab === "Imagenes" && (
             <div className="absolute top-0 left-0 w-full h-full tab-content-animation">
               <Slider {...sliderSettings}>
                 {images.map((img, index) => (

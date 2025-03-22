@@ -4,14 +4,24 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { ModalContent } from "../../data/servicesData";
-import MobileCourseItem from "./MobileCourseItem"; // Importamos el nuevo componente
-import { CourseData } from "../../data/coursesData";
-import courseData from "../../data/coursesData"; // Importamos courseData
+import {
+  CourseModalContent,
+  basicCourse,
+  intermediateCourse,
+  advancedCourse,
+  professionalCourse,
+  Course,
+  infoContentBasico,
+  infoContentIntermedio,
+  infoContentAvanzado,
+  infoContentProfesional,
+  termsContent,
+} from "../../data/coursesData";
+import { renderCourseItem } from "../../utils/renderItems";
 
 interface MobileCoursesCarouselProps {
-  courses: CourseData[];
-  openModal: (content: ModalContent) => void;
+  courses: Course[];
+  openModal: (content: CourseModalContent) => void;
 }
 
 const MobileCoursesCarousel: React.FC<MobileCoursesCarouselProps> = ({
@@ -21,7 +31,7 @@ const MobileCoursesCarousel: React.FC<MobileCoursesCarouselProps> = ({
   // Configuraciones del carrusel
   const sliderSettings = {
     dots: true,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -38,14 +48,20 @@ const MobileCoursesCarousel: React.FC<MobileCoursesCarouselProps> = ({
         <Slider {...sliderSettings}>
           {courses.map((course, index) => (
             <div key={index} className="px-2">
-              <MobileCourseItem
-                image={course.image}
-                title={course.title}
-                openModal={openModal}
-                infoContent={course.infoContent()}
-                termsContent={course.termsContent()}
-                courseKey={Object.keys(courseData)[index]} // Now courseData is defined
-              />
+              {renderCourseItem(
+                course.images, // Pasamos el array de imagenes
+                course.items[0].name,
+                openModal,
+                index === 0
+                  ? infoContentBasico()
+                  : index === 1
+                  ? infoContentIntermedio()
+                  : index === 2
+                  ? infoContentAvanzado()
+                  : infoContentProfesional(),
+                termsContent(),
+                course.description
+              )}
             </div>
           ))}
         </Slider>
