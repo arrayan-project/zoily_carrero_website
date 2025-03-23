@@ -72,10 +72,10 @@ const CourseSlider: React.FC<CourseSliderProps> = ({
   }
 
   return (
-    <div className="space-y-6 justify-center items-center text-center">
+    <div className="space-y-4 justify-center items-center text-center">
       {/* Contenedor de la imagen */}
       <div
-        className="w-full aspect-[4/5] overflow-hidden relative group cursor-pointer rounded-lg"
+        className="w-full aspect-[3/1] overflow-hidden relative group cursor-pointer rounded-lg"
         onClick={handleOpenModal}
       >
         {/* Animacion de la imagen */}
@@ -83,7 +83,7 @@ const CourseSlider: React.FC<CourseSliderProps> = ({
           {/* Carrusel de imagenes */}
           <Slider {...sliderSettings}>
             {images.map((img, index) => (
-              <div key={index} className="w-full aspect-[4/5]">
+              <div key={index} className="w-full aspect-[3/1]">
                 {/* Imagen */}
                 <img
                   src={img}

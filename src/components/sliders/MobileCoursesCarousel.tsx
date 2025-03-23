@@ -6,10 +6,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {
   CourseModalContent,
-  basicCourse,
-  intermediateCourse,
-  advancedCourse,
-  professionalCourse,
   Course,
   infoContentBasico,
   infoContentIntermedio,
@@ -31,12 +27,13 @@ const MobileCoursesCarousel: React.FC<MobileCoursesCarouselProps> = ({
   // Configuraciones del carrusel
   const sliderSettings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: false,
-    arrows: false,
+    autoplay:false,
+    autoplaySpeed: 3000,
+    arrows: true,
     className: "center",
     centerMode: true,
     centerPadding: "0px",
@@ -47,7 +44,7 @@ const MobileCoursesCarousel: React.FC<MobileCoursesCarouselProps> = ({
       <div className="relative w-11/12 md:w-10/12">
         <Slider {...sliderSettings}>
           {courses.map((course, index) => (
-            <div key={index} className="px-2">
+            <div key={index} className="px-10">
               {renderCourseItem(
                 course.images, // Pasamos el array de imagenes
                 course.items[0].name,

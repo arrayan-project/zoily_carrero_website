@@ -58,6 +58,15 @@ const ServiceInfo: React.FC<{ service: Service }> = ({ service }) => {
   );
 };
 
+// Funciones para las descripciones
+export const getServicesDescription = () => {
+  return [
+    "✨ Realza tu belleza con nuestros servicios de maquillaje profesional. ✨",
+    "✨ Un look natural, un glam impactante? te ayudamos a brillar en cualquier ocasión. ✨",
+    "💄💖 Reserva tu sesión y luce espectacular en tu evento especial. 💖💄",
+  ];
+};
+
 // Datos de los Servicios
 export const noviaMakeupServices: Service = {
   description:

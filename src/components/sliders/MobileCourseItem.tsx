@@ -1,5 +1,19 @@
 // src/components/sliders/MobileCourseItem.tsx
 
+/*
+##### Función #####
+- Este componente muestra un item de servicio en el carrusel de cursos de la vista móvil.
+- Muestra una imagen, un título y un botón para ver más detalles.
+- Al hacer clic en el botón o en el título, se abre un modal con más información.
+
+##### Componentes con los que interactúa #####
+- ModalContent: Utiliza la interface ModalContent para tipar el contenido del modal.
+- useTheme: Utiliza el hook useTheme para acceder al tema actual.
+
+##### Componentes que lo utilizan #####
+- Se utiliza en el componente MobileCoursesCarousel para mostrar cada servicio.
+*/
+
 import React from "react";
 import { CourseModalContent } from "../../data/coursesData"; // Importamos CourseModalContent
 import { useTheme } from "../context/useThemeHook";
@@ -29,9 +43,9 @@ const MobileCourseItem: React.FC<MobileCourseItemProps> = ({
   const { theme } = useTheme();
 
   return (
-    <div className="space-y-6 justify-center items-center text-center mb-24 md:mb-0">
+    <div className="space-y-6 justify-center items-center text-center">
       <div
-        className="w-full aspect-[4/5] overflow-hidden relative group cursor-pointer rounded-lg"
+        className="w-full aspect-[1/1] overflow-hidden relative group cursor-pointer rounded-lg shadow-xl"
         onClick={handleOpenModal}
       >
         <img

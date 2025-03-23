@@ -53,6 +53,15 @@ const CourseInfo: React.FC<{ course: Course }> = ({ course }) => { // Modificamo
   );
 };
 
+// Funciones para las descripciones
+export const getCoursesDescription = () => {
+  return [
+    "🎓💄 Aprende a maquillarte como un profesional con nuestros cursos! 💄🎓",
+    "Desde técnicas básicas hasta avanzadas, resalta tu belleza y domina el arte del maquillaje.",
+    "✨ Perfecto para principiantes y futuros maquilladores. ¡Inscríbete hoy! ✨",
+  ];
+};
+
 export const basicCourse: Course = { // Modificamos basicCourse
   description: "Aprende las bases del maquillaje profesional.",
   items: [

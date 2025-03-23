@@ -16,27 +16,24 @@ const CoursesSectionBackground: React.FC<CoursesSectionBackgroundProps> = ({
   backgroundImageMobile,
   objectPosition = "center", // Valor por defecto: centrado
 }) => {
-  const { theme } = useTheme(); // Si necesitas el tema para el color
 
   return (
     <section className="relative w-full flex-grow"> {/* Asegura que ocupe todo el ancho */}
-      {/* Fondo de Imagen */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
-        {/* Usamos <picture> para cargar diferentes imágenes */}
-        <picture>
-          {/* Si hay una imagen para móviles, la cargamos en pantallas pequeñas */}
-          {backgroundImageMobile && (
-            <source media="(max-width: 767px)" srcSet={backgroundImageMobile} />
-          )}
-          {/* Imagen por defecto (para pantallas grandes) */}
+        <picture className="w-full h-full">
+          <source media="(max-width: 768px)" srcSet={backgroundImageMobile} />
           <img
             src={backgroundImage}
-            alt="Fondo de Cursos"
-            className={`w-full h-full object-cover object-${objectPosition}`} // Ajusta la imagen para cubrir el contenedor
+            alt="Background"
+            className="w-full h-full object-cover"
+            style={{
+              objectPosition,
+              opacity: 0.4, // Añadido opacidad
+              filter: 'blur(4px)', // Añadido desenfoque
+            }} // Ajusta la imagen para cubrir el contenedor
           />
         </picture>
       </div>
-      {/* Contenido */}
       <div className="relative z-10 w-full">
         {children}
       </div>

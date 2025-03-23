@@ -29,12 +29,13 @@ const MobileServicesCarousel: React.FC<MobileServicesCarouselProps> = ({
   // Configuraciones del carrusel
   const sliderSettings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: false,
-    arrows: false,
+    autoplay:false,
+    autoplaySpeed: 3000,
+    arrows: true,
     className: "center",
     centerMode: true,
     centerPadding: "0px",
@@ -45,7 +46,7 @@ const MobileServicesCarousel: React.FC<MobileServicesCarouselProps> = ({
       <div className="relative w-11/12 md:w-10/12">
         <Slider {...sliderSettings}>
           {services.map((service, index) => (
-            <div key={index} className="px-2">
+            <div key={index} className="px-10">
               {renderServiceItem(
                 service.images, // Pasamos el array de imagenes
                 service.items[0].name,

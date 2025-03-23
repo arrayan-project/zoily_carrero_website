@@ -103,21 +103,47 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Estilos para el modo oscuro */
+body.dark-mode .slick-dots li button:before {
+  color: #fff; /* Color blanco en modo oscuro */
+}
+
 .slick-dots li.slick-active button:before {
   opacity: 1;
   color: var(--color-primary); /* Usamos la variable de color */
 }
 
 /* Estilos para los marcadores del carrusel en vista movil */
-.center .slick-dots {
-  background-color: rgba(255, 255, 255, 0.5);
-  padding: 5px 10px;
-  border-radius: 20px;
-  margin-top: 30px;
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+@media (max-width: 767px) {
+  .center .slick-dots {
+    background-color: transparent;
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin-top: 20px; /* Reducimos el margen superior */
+    position: absolute;
+    bottom: -60px; /* Reducimos la distancia al borde inferior */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .slick-dots li {
+    width: 8px; /* Reducimos el ancho del punto */
+    height: 8px; /* Reducimos la altura del punto */
+    margin: 0 3px; /* Reducimos el margen entre puntos */
+  }
+
+  .slick-dots li button {
+    width: 8px; /* Reducimos el ancho del botón */
+    height: 8px; /* Reducimos la altura del botón */
+    padding: 4px; /* Reducimos el padding del botón */
+  }
+
+  .slick-dots li button:before {
+    font-size: 8px; /* Reducimos el tamaño del punto */
+    line-height: 8px; /* Reducimos el line-height del punto */
+    width: 8px; /* Reducimos el ancho del punto */
+    height: 8px; /* Reducimos la altura del punto */
+  }
 }
 
 /* Estilos para los marcadores del carrusel en vista de tablet */
@@ -128,14 +154,14 @@
     display: block;
     width: fit-content;
     padding: 0;
-    margin: 20px auto 0; /* Ajustamos el margen superior */
+    margin: 15px auto 0; /* Ajustamos el margen superior */
     list-style: none;
     text-align: center;
     background-color: transparent;
   }
 
   .center .slick-dots {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: transparent;
     padding: 5px 10px;
     border-radius: 20px;
     margin-top: 30px;
@@ -144,6 +170,26 @@
     left: 50%;
     transform: translateX(-50%);
   }
+  
+/* Añadimos estos estilos para los puntos en tablet */
+.slick-dots li {
+  width: 9px; /* Reducimos el ancho del punto */
+  height: 9px; /* Reducimos la altura del punto */
+  margin: 0 4px; /* Reducimos el margen entre puntos */
+}
+
+.slick-dots li button {
+  width: 9px; /* Reducimos el ancho del botón */
+  height: 9px; /* Reducimos la altura del botón */
+  padding: 4.5px; /* Reducimos el padding del botón */
+}
+
+.slick-dots li button:before {
+  font-size: 9px; /* Reducimos el tamaño del punto */
+  line-height: 9px; /* Reducimos el line-height del punto */
+  width: 9px; /* Reducimos el ancho del punto */
+  height: 9px; /* Reducimos la altura del punto */
+}
 }
 
 /* ==========================================================================

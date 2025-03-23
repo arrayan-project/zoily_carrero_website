@@ -1,10 +1,10 @@
 /*
 ##### Responsabilidad #####
-- Es el componente principal. Gestiona el tamaño de la pantalla, el tema, la modal de contacto, 
-y decide qué renderizar (vista móvil o escritorio). 
+- Es el componente principal. Gestiona el tamaño de la pantalla, el tema, la modal de contacto,
+y decide qué renderizar (vista móvil o escritorio).
 - Contiene los botones ThemeToggleButton y ScrollToTopButton.
 
-##### Componentes que renderiza ##### 
+##### Componentes que renderiza #####
 - LandingPageMobile, ContentDesktop, Navigation y Footer.
 
 ##### Lógica Clave #####
@@ -27,24 +27,8 @@ import LandingPageMobile from './MobileView';
 import ThemeToggleButton from './components/buttons/ThemeToggleButton';
 import ScrollToTopButton from './components/buttons/ScrollTopButton';
 
-
-
 function App() {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const isMobileView = windowWidth < MOBILE_BREAKPOINT;
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -61,31 +45,53 @@ function App() {
     }
   };
 
-
   return (
-    <ThemeProvider>
+    <ThemeProvider> {/* ThemeProvider now wraps everything */}
       <div className='relative'>
         <Router basename="/zoily_carrero_website/">
           {/* Renderizado condicional */}
-          <MainContent isMobileView={isMobileView} handleSmoothScroll={handleSmoothScroll} openModal={openModal} closeModal={closeModal} isModalOpen={isModalOpen}/>
+          <MainContent handleSmoothScroll={handleSmoothScroll} openModal={openModal} closeModal={closeModal} isModalOpen={isModalOpen} />
         </Router>
       </div>
     </ThemeProvider>
   );
 }
+
 interface MainContentProps {
-  isMobileView: boolean;
   handleSmoothScroll: (sectionId: string) => void;
   openModal: () => void;
   closeModal: () => void;
   isModalOpen: boolean;
 }
 
-function MainContent({ isMobileView, handleSmoothScroll, openModal, closeModal, isModalOpen }: MainContentProps) {
-  const { theme } = useTheme();
+function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen }: MainContentProps) {
+  const { theme } = useTheme(); // Now useTheme is inside ThemeProvider
   const location = useLocation();
   const hideHeaderAndFooter = location.pathname === "/";
   const themeClasses = !hideHeaderAndFooter ? (theme === 'light' ? 'bg-white text-amber-700' : 'bg-gray-800 text-rose-400') : '';
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const isMobileView = windowWidth < MOBILE_BREAKPOINT;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Añadir o eliminar la clase 'dark-mode' al body
+    if (theme === 'dark') {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      // Limpiar la clase 'dark-mode' al desmontar el componente
+      document.body.classList.remove('dark-mode');
+    };
+  }, [theme]); // Dependencia 'theme'
 
   return (
     <>
@@ -98,9 +104,9 @@ function MainContent({ isMobileView, handleSmoothScroll, openModal, closeModal, 
         </>
       ) : (
         <div className={` ${themeClasses}`}>
-            <div className="fixed top-4 left-4 z-50">
-              <ThemeToggleButton />
-            </div>
+          <div className="fixed top-4 left-4 z-50">
+            <ThemeToggleButton />
+          </div>
           {!hideHeaderAndFooter && <Navigation className="md:mb-12" />}
           <ContentDesktop onSmoothScroll={handleSmoothScroll} />
           {!hideHeaderAndFooter && <Footer />}

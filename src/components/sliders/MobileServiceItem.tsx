@@ -26,6 +26,7 @@ interface MobileServiceItemProps {
   infoContent: React.ReactNode;
   termsContent: React.ReactNode;
   description: string;
+  shortDescription: string; // Nueva prop para la descripción corta
 }
 
 const MobileServiceItem: React.FC<MobileServiceItemProps> = ({
@@ -35,6 +36,7 @@ const MobileServiceItem: React.FC<MobileServiceItemProps> = ({
   infoContent,
   termsContent,
   description,
+  shortDescription, // Recibimos la descripción corta
 }) => {
   const handleOpenModal = () => {
     openModal({ images, title, infoContent, termsContent, description });
@@ -43,9 +45,9 @@ const MobileServiceItem: React.FC<MobileServiceItemProps> = ({
   const { theme } = useTheme();
 
   return (
-    <div className="space-y-6 justify-center items-center text-center mb-24 md:mb-0">
+    <div className="space-y-6 justify-center items-center text-center ">
       <div
-        className="w-full aspect-[4/5] overflow-hidden relative group cursor-pointer rounded-lg"
+        className="w-full aspect-[2/3] overflow-hidden relative group cursor-pointer rounded-lg shadow-xl"
         onClick={handleOpenModal}
       >
         <img
@@ -84,6 +86,9 @@ const MobileServiceItem: React.FC<MobileServiceItemProps> = ({
       >
         {title}
       </h2>
+      <p className={`text-sm md:text-base ${getTextColorClass(theme)}`}> {/* Agregamos el párrafo para la descripción */}
+        {shortDescription}
+      </p>
     </div>
   );
 };
