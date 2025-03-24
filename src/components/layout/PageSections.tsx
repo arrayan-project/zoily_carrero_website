@@ -15,9 +15,9 @@ import React, { lazy, Suspense, useState } from 'react';
 // Carga diferida de los componentes
 const Home = lazy(() => import('../../pages/Home'));
 const Services = lazy(() => import('../../pages/Services'));
+const Gallery = lazy(() => import('../../pages/Gallery'));
 const UGC = lazy(() => import('../../pages/UGC'));
 const Store = lazy(() => import('../../pages/Store'));
-const Gallery = lazy(() => import('../../pages/Gallery'));
 const About = lazy(() => import('../../pages/About'));
 const Contact = lazy(() => import('../../pages/Contact'));
 
@@ -47,14 +47,14 @@ function Content({ onSmoothScroll, className }: ContentProps) {
         <section id="services" className="page-section">
           <Services />
         </section>
+        <section id="gallery" className="page-section">
+          <Gallery />
+        </section>
         <section id="ugc" className="page-section">
           <UGC />
         </section>
         <section id="store" className="page-section">
           <Store />
-        </section>
-        <section id="gallery" className="page-section">
-          <Gallery />
         </section>
         <section id="about" className="page-section">
           <About />

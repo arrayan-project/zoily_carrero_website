@@ -1,4 +1,4 @@
-// src/components/SmoothImage.tsx
+// src/components/smoothImages/SmoothImage.tsx
 import React, { useState, useEffect, useRef } from 'react';
 
 interface SmoothImageProps {
@@ -8,6 +8,8 @@ interface SmoothImageProps {
   onClick?: () => void;
   isTransitioning?: boolean;
   fallbackSrc?: string;
+  imageRef?: React.RefObject<HTMLImageElement>;
+  isGridImage?: boolean; // Nueva prop
 }
 
 const SmoothImage: React.FC<SmoothImageProps> = ({
@@ -17,10 +19,13 @@ const SmoothImage: React.FC<SmoothImageProps> = ({
   onClick,
   isTransitioning = false,
   fallbackSrc = '/img/default-image.png',
+  imageRef,
+  isGridImage = false, // Prop por defecto en false
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
-  const imageRef = useRef<HTMLImageElement>(null);
+  const internalImageRef = useRef<HTMLImageElement>(null);
+  const currentImageRef = imageRef || internalImageRef;
 
   useEffect(() => {
     setIsLoading(true);
@@ -30,8 +35,8 @@ const SmoothImage: React.FC<SmoothImageProps> = ({
     img.src = src;
 
     img.onload = () => {
-      if (imageRef.current) {
-        imageRef.current.src = src;
+      if (currentImageRef.current) {
+        currentImageRef.current.src = src;
         setIsLoading(false);
       }
     };
@@ -50,7 +55,7 @@ const SmoothImage: React.FC<SmoothImageProps> = ({
   return (
     <div className={`relative ${className}`}>
       {isLoading && (
-        <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
+        <div aria-hidden="true" className="absolute inset-0 bg-gray-200 animate-pulse"></div>
       )}
       {isError && (
         <img
@@ -64,12 +69,14 @@ const SmoothImage: React.FC<SmoothImageProps> = ({
       )}
       {!isError && (
         <img
-          ref={imageRef}
+          ref={currentImageRef}
           src=""
           alt={alt}
-          className={`w-full h-full object-cover ${
-            isTransitioning ? 'transition-opacity duration-500' : ''
-          } ${isLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500 ease-in-out`}
+          className={`w-full h-full ${
+            isGridImage ? 'object-cover' : 'object-contain' // Condicionamos el object-fit
+          } ${isTransitioning ? 'transition-opacity duration-500' : ''} ${
+            isLoading ? 'opacity-0' : 'opacity-100'
+          } transition-opacity duration-500 ease-in-out`}
           onClick={onClick}
         />
       )}

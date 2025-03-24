@@ -16,9 +16,9 @@ import Content from './components/layout/PageSections';
 // Carga diferida de los componentes
 const Home = lazy(() => import('./pages/Home'));
 const Services = lazy(() => import('./pages/Services'));
+const Gallery = lazy(() => import('./pages/Gallery'));
 const UGC = lazy(() => import('./pages/UGC'));
 const Store = lazy(() => import('./pages/Store'));
-const Gallery = lazy(() => import('./pages/Gallery'));
 const About = lazy(() => import('./pages/About'));
 const Contact = lazy(() => import('./pages/Contact'));
 
@@ -43,9 +43,9 @@ const MyRoutes = ({ onSmoothScroll }: RoutesProps) => {
       <Routes>
         <Route path="/" element={<Home onSmoothScroll={onSmoothScroll} />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/gallery" element={<Gallery />} />
         <Route path="/ugc" element={<UGC />} />
         <Route path="/store" element={<Store />} />
-        <Route path="/gallery" element={<Gallery />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/*" element={<Home onSmoothScroll={onSmoothScroll} />} />

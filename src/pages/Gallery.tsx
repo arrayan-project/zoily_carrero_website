@@ -6,113 +6,75 @@ import React, {
   useMemo,
   useRef,
 } from "react";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import PageBanner from "../components/common/PageBanner";
-import images, { imageArrays } from "../assets/img/images";
-import { useTheme } from "../components/context/useThemeHook";
-import AnimationWrapper from "../components/common/AnimationLayer";
-import "../GlobalStyles.css";
-import SmoothImage from "../components/smoothImages/SmoothImage";
-import { MOBILE_BREAKPOINT } from "../constants/constants";
-import { getTextColorClass } from "../utils/utils";
-import { galleryCategories, galleryTitle, Category } from "../data/galleryData";
 
-// Constantes de imágenes
-const {
-  galleryBrideImages,
-  gallerySocialImages,
-  galleryHairAndMakeupImages,
-  galleryMatureSkinImages,
-  galleryGlamImages,
-  galleryExpressImages,
-} = imageArrays;
-const noviaGalleryImages = galleryBrideImages;
-const socialGalleryImages = gallerySocialImages;
-const peinadoGalleryImages = galleryHairAndMakeupImages;
-const pielMaduraGalleryImages = galleryMatureSkinImages;
-const glamGalleryImages = galleryGlamImages;
-const expressGalleryImages = galleryExpressImages;
+// Importaciones de componentes
+import PageBanner from "../components/common/PageBanner";
+import GalleryTitle from "../components/common/GalleryTitle";
+import GalleryCategoryMenu from "../components/navigation/GalleryCategoryMenu";
+import GalleryImageGrid from "../components/layout/GalleryImageGrid";
+import GalleryModal from "../components/modals/GalleryModal";
+import GalleryBottomBanner from "../components/buttons/GalleryBottomBanner";
+
+// Importaciones de hooks
+import useGalleryModalTouch from "../hooks/useGalleryModalTouch";
+import useWindowSize from "../hooks/useWindowSize";
+
+// Importaciones de utilidades
+import { getImagesForCategory } from "../utils/galleryUtils";
+import { getTextColorClass } from "../utils/utils";
+
+// Importaciones de datos
+import { galleryCategories, galleryTitle } from "../data/galleryData";
+
+// Importaciones de imagenes
+import images from "../assets/img/images";
+
+// Importaciones de context
+import { useTheme } from "../components/context/useThemeHook";
+
+// Importaciones de estilos
+import "../GlobalStyles.css";
 
 interface ServicesProps {}
 
 export default function Gallery({}: ServicesProps) {
+  // Estados del componente
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [isGalleryTransitioning, setIsGalleryTransitioning] = useState(false);
   const [isModalTransitioning, setIsModalTransitioning] = useState(false);
 
-  const [startX, setStartX] = useState(0);
-  const [currentX, setCurrentX] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-
+  // Referencia al contenedor del modal
   const modalContainerRef = useRef<HTMLDivElement>(null);
-  const SWIPE_THRESHOLD = 50;
 
-  const getImagesForCategory = useCallback(() => {
-    switch (selectedCategory) {
-      case "novia":
-        return noviaGalleryImages;
-      case "social":
-        return socialGalleryImages;
-      case "peinado":
-        return peinadoGalleryImages;
-      case "pielMadura":
-        return pielMaduraGalleryImages;
-      case "glam":
-        return glamGalleryImages;
-      case "express":
-        return expressGalleryImages;
-      default:
-        return noviaGalleryImages;
-    }
-  }, [selectedCategory]);
+  // Hook personalizado para obtener el tamaño de la ventana
+  const { isMobileView } = useWindowSize();
 
-  const currentGalleryImages = useMemo(() => {
-    return getImagesForCategory();
-  }, [getImagesForCategory]);
-
+  // Obtener el tema actual
   const { theme } = useTheme();
 
-  //estado del tamaño de ventana
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const isMobileView = windowWidth < MOBILE_BREAKPOINT;
+  // Obtener las imagenes de la categoria seleccionada
+  const currentGalleryImages = useMemo(() => {
+    return getImagesForCategory(selectedCategory);
+  }, [selectedCategory]);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
+  // Abrir la imagen seleccionada
   const openImage = (index: number) => {
     setCurrentIndex(index);
     setSelectedImage(currentGalleryImages[index] ?? null);
   };
 
+  // Cerrar la imagen seleccionada
   const closeImage = () => {
     setSelectedImage(null);
   };
 
-  const nextImage = () => {
-    setIsModalTransitioning(true);
-    const newIndex = (currentIndex + 1) % currentGalleryImages.length;
-    setTimeout(() => {
-      setCurrentIndex(newIndex);
-      setSelectedImage(currentGalleryImages[newIndex] ?? null);
-      setIsModalTransitioning(false);
-    }, 500);
-  };
-
-  const prevImage = () => {
+  // Navegar entre imagenes (anterior y siguiente)
+  const navigateImage = (offset: number) => {
     setIsModalTransitioning(true);
     const newIndex =
-      (currentIndex - 1 + currentGalleryImages.length) %
+      (currentIndex + offset + currentGalleryImages.length) %
       currentGalleryImages.length;
     setTimeout(() => {
       setCurrentIndex(newIndex);
@@ -121,6 +83,13 @@ export default function Gallery({}: ServicesProps) {
     }, 500);
   };
 
+  // Imagen siguiente
+  const nextImage = () => navigateImage(1);
+
+  // Imagen anterior
+  const prevImage = () => navigateImage(-1);
+
+  // Manejar el click en una categoria
   const handleCategoryClick = (categoryValue: string) => {
     setIsGalleryTransitioning(true);
     setSelectedCategory(categoryValue);
@@ -129,171 +98,64 @@ export default function Gallery({}: ServicesProps) {
     }, 500);
   };
 
-  const handleModalClick = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    if (event.target === event.currentTarget) {
-      closeImage();
-    }
-  };
-  //Funciones para el touch
+// Manejar el click fuera del modal
+const handleModalClick = (
+  event: React.MouseEvent<HTMLDivElement, MouseEvent>
+) => {
+  if (event.target === modalContainerRef.current) { // Modificación aquí
+    closeImage();
+  }
+};
 
-  const handleModalTouchStart = (e: TouchEvent) => {
-    setStartX(e.touches[0].clientX);
-    setIsDragging(true);
-  };
-
-  const handleModalTouchMove = (e: TouchEvent) => {
-    if (!isDragging) return;
-    setCurrentX(e.touches[0].clientX);
-    const diff = currentX - startX;
-    if (Math.abs(diff) > SWIPE_THRESHOLD) {
-      if (diff > 0) {
-        prevImage();
-      } else {
-        nextImage();
-      }
-      setStartX(currentX);
-    }
-  };
-
-  const handleModalTouchEnd = () => {
-    setIsDragging(false);
-  };
-
-  useEffect(() => {
-    // Comprobar si es un dispositivo móvil antes de agregar los event listeners
-    if (isMobileView) {
-      const container = modalContainerRef.current;
-
-      if (container) {
-        container.addEventListener("touchstart", handleModalTouchStart);
-        container.addEventListener("touchmove", handleModalTouchMove);
-        container.addEventListener("touchend", handleModalTouchEnd);
-      }
-
-      return () => {
-        if (container) {
-          container.removeEventListener("touchstart", handleModalTouchStart);
-          container.removeEventListener("touchmove", handleModalTouchMove);
-          container.removeEventListener("touchend", handleModalTouchEnd);
-        }
-      };
-    }
-  }, [isDragging, currentX, startX, isMobileView]);
+  // Hook personalizado para el touch en el modal
+  useGalleryModalTouch({
+    prevImage,
+    nextImage,
+    modalContainerRef,
+  });
 
   return (
     <div className={`min-h-screen flex flex-col ${getTextColorClass(theme)}`}>
+      {/* Banner superior */}
       <PageBanner
         title="PORTAFOLIO"
         imageSrcs={[images.galleryBannerUp]}
         objectPosition="left-bottom"
-      ></PageBanner>
+      />
 
       <main className="flex-grow">
         <div className="mx-auto py-16 md:py-32">
-          <AnimationWrapper animationClassName="fade-in-text">
-            <h1
-              className={`text-2xl md:text-5xl font-cinzel font-extralight text-center mb-24 md:py-10 tracking-wider ${getTextColorClass(
-                theme
-              )}`}
-            >
-              {galleryTitle} {/* Usamos el título importado */}
-            </h1>
-          </AnimationWrapper>
+          {/* Titulo de la galeria */}
+          <GalleryTitle title={galleryTitle} />
 
-          <div
-            className="flex md:justify-center justify-start space-x-4 mb-8 overflow-x-auto whitespace-nowrap px-12 text-xs font-light md:text-base md:font-normal"
-            style={{ maxWidth: "100%" }}
-          >
-            {galleryCategories.map(
-              (
-                category: Category //Modificamos el map
-              ) => (
-                <AnimationWrapper animationClassName="fade-in">
-                  <button
-                    key={category.value}
-                    className={`px-4 py-2 rounded-full font-cinzel font-base whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50
-                                    ${getTextColorClass(theme)}
-                                    ${getTextColorClass(theme)}
-                                    ${
-                                      selectedCategory === category.value
-                                        ? theme === "dark"
-                                          ? "bg-pink-400"
-                                          : "bg-pink-200"
-                                        : theme === "dark"
-                                        ? "bg-gray-700"
-                                        : "bg-gray-100"
-                                    }
-                                `}
-                    onClick={() => handleCategoryClick(category.value)}
-                  >
-                    {category.name}
-                  </button>
-                </AnimationWrapper>
-              )
-            )}
-          </div>
+          {/* Menu de categorias */}
+          <GalleryCategoryMenu
+            galleryCategories={galleryCategories}
+            selectedCategory={selectedCategory}
+            handleCategoryClick={handleCategoryClick}
+            theme={theme}
+          />
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-1 p-4">
-            {!isGalleryTransitioning &&
-              currentGalleryImages.map((img, index) => (
-                <div
-                  key={index}
-                  className={`w-full aspect-square overflow-hidden`}
-                >
-                  <SmoothImage
-                    src={img}
-                    alt={`Gallery ${index}`}
-                    className="w-full h-full object-cover cursor-pointer lazy-image"
-                    onClick={() => openImage(index)}
-                    fallbackSrc="/img/default-image.png"
-                  />
-                </div>
-              ))}
-            {selectedImage && (
-              <div
-                className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4 z-50 overflow-auto"
-                onClick={handleModalClick}
-                ref={modalContainerRef}
-              >
-                <button
-                  className="absolute top-20 right-4 text-white"
-                  onClick={closeImage}
-                >
-                  <X size={32} />
-                </button>
-                <button
-                  className="absolute left-4 text-white top-1/2 transform -translate-y-1/2"
-                  onClick={prevImage}
-                >
-                  <ChevronLeft size={40} />
-                </button>
-                <SmoothImage
-                  key={selectedImage}
-                  src={selectedImage}
-                  alt="Selected"
-                  className="max-h-[80vh] max-w-[80vw] rounded-lg object-contain"
-                  isTransitioning={isModalTransitioning}
-                  fallbackSrc="/img/default-image.png"
-                />
-                <button
-                  className="absolute right-4 text-white top-1/2 transform -translate-y-1/2"
-                  onClick={nextImage}
-                >
-                  <ChevronRight size={40} />
-                </button>
-              </div>
-            )}
-          </div>
+          {/* Cuadricula de imagenes */}
+          <GalleryImageGrid
+            currentGalleryImages={currentGalleryImages}
+            openImage={openImage}
+            isGalleryTransitioning={isGalleryTransitioning}
+          />
+
+          {/* Modal de imagen */}
+          <GalleryModal
+            selectedImage={selectedImage}
+            closeImage={closeImage}
+            prevImage={prevImage}
+            nextImage={nextImage}
+            isModalTransitioning={isModalTransitioning}
+            handleModalClick={handleModalClick}
+            modalContainerRef={modalContainerRef}
+            isMobileView={isMobileView}
+          />
         </div>
 
-        {!isMobileView && (
-          <PageBanner
-            title="'Te debes este momento'"
-            imageSrcs={[images.galleryBannerBottom]}
-          ></PageBanner>
-        )}
       </main>
     </div>
   );

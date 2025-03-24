@@ -88,14 +88,14 @@ const Navigation: React.FC<NavigationProps> = ({ className }) => {
           <Link to="/services" className={`${navLinkBase} ${isActive('/services') ? navLinkActive : navLinkInactive}`}>
             SERVICIOS & CURSOS
           </Link>
+          <Link to="/gallery" className={`${navLinkBase} ${isActive('/gallery') ? navLinkActive : navLinkInactive}`}>
+            GALERIA
+          </Link>
           <Link to="/ugc" className={`${navLinkBase} ${isActive('/ugc') ? navLinkActive : navLinkInactive}`}>
             UGC
           </Link>
           <Link to="/store" className={`${navLinkBase} ${isActive('/store') ? navLinkActive : navLinkInactive}`}>
             TIENDA
-          </Link>
-          <Link to="/gallery" className={`${navLinkBase} ${isActive('/gallery') ? navLinkActive : navLinkInactive}`}>
-            GALERIA
           </Link>
           <Link to="/about" className={`${navLinkBase} ${isActive('/about') ? navLinkActive : navLinkInactive}`}>
             ACERCA DE
