@@ -195,6 +195,17 @@ import ugc4 from "../img/ugc/ugc4.webp";
 import phone from "../img/ugc/phoneugc.png";
 
 // ==============================================
+// Importaciones para las nuevas secciones del home
+// ==============================================
+/**
+ *  Imagenes para las nuevas secciones del home
+ */
+import homeSection1 from "../img/background-home/home-sections/home-services1.webp";
+import homeSection2 from "../img/background-home/home-sections/home-courses1.webp";
+import homeSection3 from "../img/background-home/home-sections/home-courses2.webp";
+import homeSection4 from "../img/background-home/home-sections/home-ugc1.webp";
+
+// ==============================================
 // Objeto con todas las imagenes
 // ==============================================
 /**
@@ -227,6 +238,10 @@ const images: Image = {
   ugc3,
   ugc4,
   phone,
+  homeSection1, // Añadimos la nueva imagen
+  homeSection2, // Añadimos la nueva imagen
+  homeSection3, // Añadimos la nueva imagen
+  homeSection4, // Añadimos la nueva imagen
 };
 
 // ==============================================
@@ -314,6 +329,13 @@ const imageArrays: ImageArray = {
     background5,
     background6,
     background7,
+  ],
+  //Array para las nuevas secciones del home
+  homeSectionsImages: [
+    homeSection1,
+    homeSection2,
+    homeSection3,
+    homeSection4,
   ],
 };
 

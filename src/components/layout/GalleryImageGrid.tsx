@@ -14,17 +14,17 @@ const GalleryImageGrid: React.FC<GalleryImageGridProps> = ({
   isGalleryTransitioning
 }) => {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-1 p-4">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 sm:gap-4 md:gap-6 p-4 sm:p-6 md:p-12 lg:p-16 xl:p-24">
       {!isGalleryTransitioning &&
         currentGalleryImages.map((img, index) => (
-          <div key={index} className={`w-full aspect-square overflow-hidden`}>
+          <div key={index} className={`w-full aspect-square overflow-hidden p-1 sm:p-2 md:p-3 lg:p-3 rounded-sm bg-white`} style={{ boxShadow: '4px 0px 10px rgba(0, 0, 0, 0.3)' }}>
             <SmoothImage
               src={img}
               alt={`Gallery ${index}`}
-              className="w-full h-full cursor-pointer lazy-image" // Eliminamos object-cover
+              className="w-full h-full cursor-pointer lazy-image rounded-lg"
               onClick={() => openImage(index)}
               fallbackSrc="/img/default-image.png"
-              isGridImage={true} // Añadimos la prop en true
+              isGridImage={true}
             />
           </div>
         ))}

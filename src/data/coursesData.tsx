@@ -21,6 +21,7 @@ export interface Course { // Creamos la interface Course
   description: string;
   items: CourseItem[];
   images: string[];
+  label: string; // Agregamos la propiedad label
 }
 
 export interface CourseModalContent {
@@ -56,9 +57,8 @@ const CourseInfo: React.FC<{ course: Course }> = ({ course }) => { // Modificamo
 // Funciones para las descripciones
 export const getCoursesDescription = () => {
   return [
-    "🎓💄 Aprende a maquillarte como un profesional con nuestros cursos! 💄🎓",
+    "Aprende a maquillarte como un profesional con nuestros cursos!",
     "Desde técnicas básicas hasta avanzadas, resalta tu belleza y domina el arte del maquillaje.",
-    "✨ Perfecto para principiantes y futuros maquilladores. ¡Inscríbete hoy! ✨",
   ];
 };
 
@@ -81,6 +81,7 @@ export const basicCourse: Course = { // Modificamos basicCourse
     },
   ],
   images: [cbasico],
+  label: "Curso Básico", // Agregamos la propiedad label
 };
 
 export const intermediateCourse: Course = {
@@ -99,6 +100,7 @@ export const intermediateCourse: Course = {
     },
   ],
   images: [cintermedio],  // Imagen asociada al curso intermedio
+  label: "Curso Intermedio", // Agregamos la propiedad label
 };
 
 export const advancedCourse: Course = {
@@ -117,6 +119,7 @@ export const advancedCourse: Course = {
     },
   ],
   images: [cavanzado],  // Imagen asociada al curso avanzado
+  label: "Curso Avanzado", // Agregamos la propiedad label
 };
 
 export const professionalCourse: Course = {
@@ -135,6 +138,7 @@ export const professionalCourse: Course = {
     },
   ],
   images: [cprofesional],  // Imagen asociada al curso profesional
+  label: "Curso Profesional", // Agregamos la propiedad label
 };
 
 

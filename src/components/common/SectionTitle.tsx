@@ -17,7 +17,7 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ title, className }) => {
       <h1
         className={`${className} ${getTextColorClass(
           theme
-        )} text-lg md:text-xl lg:text-3xl mb-12 md:mb-12`}
+        )} mb-12 md:mb-18`}
       >
         {title}
       </h1>

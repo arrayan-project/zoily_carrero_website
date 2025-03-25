@@ -6,34 +6,21 @@ import React, {
   useMemo,
   useRef,
 } from "react";
-
-// Importaciones de componentes
-import PageBanner from "../components/common/PageBanner";
-import GalleryTitle from "../components/common/GalleryTitle";
+import GalleryTitle from "../components/common/GalleryTitle";// Importaciones de componentes
 import GalleryCategoryMenu from "../components/navigation/GalleryCategoryMenu";
 import GalleryImageGrid from "../components/layout/GalleryImageGrid";
 import GalleryModal from "../components/modals/GalleryModal";
-import GalleryBottomBanner from "../components/buttons/GalleryBottomBanner";
-
-// Importaciones de hooks
-import useGalleryModalTouch from "../hooks/useGalleryModalTouch";
+import {
+  SERVICES_TITLE_CLASS,
+  COURSES_TITLE_CLASS,
+} from "../constants/styles";
+import useGalleryModalTouch from "../hooks/useGalleryModalTouch";// Importaciones de hooks
 import useWindowSize from "../hooks/useWindowSize";
-
-// Importaciones de utilidades
-import { getImagesForCategory } from "../utils/galleryUtils";
-import { getTextColorClass } from "../utils/utils";
-
-// Importaciones de datos
-import { galleryCategories, galleryTitle } from "../data/galleryData";
-
-// Importaciones de imagenes
-import images from "../assets/img/images";
-
-// Importaciones de context
-import { useTheme } from "../components/context/useThemeHook";
-
-// Importaciones de estilos
-import "../GlobalStyles.css";
+import { getImagesForCategory } from "../utils/galleryUtils"; // Importaciones de utilidades
+import { getTextColorClass } from "../utils/utils"; // Importaciones de utilidades
+import { galleryCategories, galleryTitle } from "../data/galleryData"; // Importaciones de datos
+import { useTheme } from "../components/context/useThemeHook";// Importaciones de context
+import "../GlobalStyles.css";// Importaciones de estilos
 
 interface ServicesProps {}
 
@@ -117,16 +104,14 @@ const handleModalClick = (
   return (
     <div className={`min-h-screen flex flex-col ${getTextColorClass(theme)}`}>
       {/* Banner superior */}
-      <PageBanner
-        title="PORTAFOLIO"
-        imageSrcs={[images.galleryBannerUp]}
-        objectPosition="left-bottom"
-      />
 
       <main className="flex-grow">
-        <div className="mx-auto py-16 md:py-32">
+        <div className="mx-auto py-16">
           {/* Titulo de la galeria */}
-          <GalleryTitle title={galleryTitle} />
+          <GalleryTitle 
+          title={galleryTitle}
+          className={SERVICES_TITLE_CLASS}
+          />
 
           {/* Menu de categorias */}
           <GalleryCategoryMenu

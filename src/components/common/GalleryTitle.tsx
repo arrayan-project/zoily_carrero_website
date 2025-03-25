@@ -6,17 +6,18 @@ import { useTheme } from "../context/useThemeHook";
 
 interface GalleryTitleProps {
   title: string;
+  className?: string;
 }
 
-const GalleryTitle: React.FC<GalleryTitleProps> = ({ title }) => {
+const GalleryTitle: React.FC<GalleryTitleProps> = ({ title, className }) => {
   const { theme } = useTheme();
   return (
     <AnimationWrapper animationClassName="fade-in-text">
       <h1
-        className={`text-2xl md:text-5xl font-cinzel font-extralight text-center mb-24 md:py-10 tracking-wider ${getTextColorClass(
-          theme
-        )}`}
-      >
+        className={`${className} ${getTextColorClass(
+                  theme
+                )} text-lg md:text-xl lg:text-3xl mb-12 md:mb-12`}
+              >
         {title}
       </h1>
     </AnimationWrapper>

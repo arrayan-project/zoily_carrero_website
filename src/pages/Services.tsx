@@ -9,6 +9,7 @@ import ErrorComponent from "../components/common/ErrorComponent"; // Importamos 
 import {
   SERVICES_TITLE_CLASS,
   COURSES_TITLE_CLASS,
+  HOME_LINKS_TITLE_CLASS,
 } from "../constants/styles";
 import { ServicesProps } from "../interfaces/interfaces";
 import ServicesSectionBackground from "../components/svg/ServicesSectionBackground";
@@ -25,8 +26,8 @@ import { ErrorBoundary } from "react-error-boundary"; // Importamos el component
 import SectionDescription from "../components/common/SectionDescription"; // Importamos el componente SectionDescription
 import { getServicesDescription } from "../data/servicesData"; // Importamos la función
 import { getCoursesDescription } from "../data/coursesData"; // Importamos la función
-
-
+import PageBanner from "../components/common/PageBanner";
+import images from "../assets/img/images";
 
 // Creamos el contexto para el modal
 interface ModalContextProps {
@@ -113,6 +114,7 @@ function Services({}: ServicesProps) {
           <main className="flex-grow">
             {/* Contenedor del banner de la pagina */}
             <div className="relative">
+
               {/* Componente para la imagen de fondo */}
               <ServicesSectionBackground
                 backgroundImage={backgroundServices}
@@ -124,12 +126,12 @@ function Services({}: ServicesProps) {
                   {/* Titulo de la seccion de servicios */}
                   <SectionTitle
                     title="CONOCE LO QUE PODEMOS HACER POR TI"
-                    className={SERVICES_TITLE_CLASS}
+                    className={HOME_LINKS_TITLE_CLASS}
                   />
                   {/* Descripcion de la seccion de servicios */}
                   <SectionDescription
                     description={servicesDescription}
-                    className="mt-4 mb-16 font-cinzel text-center" // Agregamos un margen superior
+                    className="mt-4 mb-16 md:mb-24 font-cinzel text-center" // Agregamos un margen superior
                   />
                   {/* Sección servicios de maquillaje */}
                   <ServicesSection /> {/* Ya no se pasa openModal */}
@@ -157,12 +159,12 @@ function Services({}: ServicesProps) {
                 <div className="text-center">
                   <SectionTitle
                     title="NUESTROS CURSOS"
-                    className={COURSES_TITLE_CLASS}
+                    className={HOME_LINKS_TITLE_CLASS}
                   />
                   {/* Descripcion de la seccion de cursos */}
                   <SectionDescription
                     description={coursesDescription}
-                    className="mt-4 mb-16 font-cinzel text-center" // Agregamos un margen superior
+                    className="mt-4 mb-16 md:mb-24 font-cinzel text-center" // Agregamos un margen superior
                   />
                   <CoursesSection /> {/* Ya no se pasa openModal */}
                 </div>

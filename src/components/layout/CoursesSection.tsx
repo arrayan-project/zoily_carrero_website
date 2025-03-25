@@ -9,18 +9,15 @@ import {
   infoContentIntermedio,
   infoContentAvanzado,
   infoContentProfesional,
-  CourseModalContent,
   Course,
-  termsContent,
+  termsContent, // Importamos termsContent
 } from "../../data/coursesData";
-import { renderCourseItem } from "../../utils/renderItems";
-import MobileCoursesCarousel from "../sliders/MobileCoursesCarousel";
+import CourseSlider from "../sliders/CourseSlider"; // Importamos CourseSlider
 import useWindowSize from "../../hooks/useWindowSize";
 import { useModal } from "../../pages/Services"; // Importamos el hook useModal
+import Slider from "react-slick"; // Importamos Slider
 
-// Eliminamos la interfaz CoursesSectionProps
-
-const CoursesSection: React.FC = () => { // Eliminamos las props
+const CoursesSection: React.FC = () => {
   const { isMobileView } = useWindowSize();
   const { openModal } = useModal(); // Usamos el hook useModal
   const coursesArray: Course[] = [
@@ -30,60 +27,72 @@ const CoursesSection: React.FC = () => { // Eliminamos las props
     professionalCourse,
   ];
 
+  const sliderSettings = {
+    dots: true, // Mostramos los puntos de navegación
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: false, // Ocultamos las flechas de navegación
+  };
+
   return (
     <>
-      {isMobileView ? (
-        <div className="center pb-32 md:pb-32">
-          <MobileCoursesCarousel
-            courses={coursesArray}
-            openModal={openModal}
-          />
-        </div>
-      ) : (
-        <div className="tablet-carousel-container">
+      <div className="tablet-carousel-container">
+        {isMobileView ? (
+          <Slider {...sliderSettings}>
+            {coursesArray.map((course, index) => (
+              <div key={index} className="w-full aspect-square">
+                <CourseSlider
+                  images={course.images}
+                  title={course.label} // Usamos el label como título
+                  openModal={openModal}
+                  infoContent={
+                    index === 0
+                      ? infoContentBasico()
+                      : index === 1
+                      ? infoContentIntermedio()
+                      : index === 2
+                      ? infoContentAvanzado()
+                      : infoContentProfesional()
+                  }
+                  termsContent={termsContent()} // Usamos termsContent
+                  description={course.description}
+                  label={course.label} // Pasamos el label
+                />
+              </div>
+            ))}
+          </Slider>
+        ) : (
           <div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mb-8 md:mb-4"
             aria-label="Cursos"
           >
-            {/* CURSO BASICO */}
-            {renderCourseItem(
-              basicCourse.images, // Pasamos el array de imagenes
-              basicCourse.items[0].name,
-              openModal,
-              infoContentBasico(),
-              termsContent(),
-              basicCourse.description
-            )}
-            {/* CURSO INTERMEDIO */}
-            {renderCourseItem(
-              intermediateCourse.images, // Pasamos el array de imagenes
-              intermediateCourse.items[0].name,
-              openModal,
-              infoContentIntermedio(),
-              termsContent(),
-              intermediateCourse.description
-            )}
-            {/* CURSO AVANZADO */}
-            {renderCourseItem(
-              advancedCourse.images, // Pasamos el array de imagenes
-              advancedCourse.items[0].name,
-              openModal,
-              infoContentAvanzado(),
-              termsContent(),
-              advancedCourse.description
-            )}
-            {/* CURSO PROFESIONAL */}
-            {renderCourseItem(
-              professionalCourse.images, // Pasamos el array de imagenes
-              professionalCourse.items[0].name,
-              openModal,
-              infoContentProfesional(),
-              termsContent(),
-              professionalCourse.description
-            )}
+            {coursesArray.map((course, index) => (
+              <CourseSlider
+                key={index}
+                images={course.images}
+                title={course.label} // Usamos el label como título
+                openModal={openModal}
+                infoContent={
+                  index === 0
+                    ? infoContentBasico()
+                    : index === 1
+                    ? infoContentIntermedio()
+                    : index === 2
+                    ? infoContentAvanzado()
+                    : infoContentProfesional()
+                }
+                termsContent={termsContent()} // Usamos termsContent
+                description={course.description}
+                label={course.label} // Pasamos el label
+              />
+            ))}
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 };

@@ -20,7 +20,7 @@ const HomeContainer: React.FC<HomeContainerProps> = ({ children, className }) =>
   }
 
   return (
-    <div className={`home-container relative min-h-screen ${className || ''}`}>
+    <div className={`home-container relative ${className || ''}`}>
       {children}
     </div>
   );

@@ -25,6 +25,7 @@ export interface Service {
   description: string;
   items: ServiceItem[];
   images: string[];
+  label: string; // Agregamos la propiedad label
 }
 
 // Nueva interface ModalContent
@@ -61,9 +62,8 @@ const ServiceInfo: React.FC<{ service: Service }> = ({ service }) => {
 // Funciones para las descripciones
 export const getServicesDescription = () => {
   return [
-    "✨ Realza tu belleza con nuestros servicios de maquillaje profesional. ✨",
-    "✨ Un look natural, un glam impactante? te ayudamos a brillar en cualquier ocasión. ✨",
-    "💄💖 Reserva tu sesión y luce espectacular en tu evento especial. 💖💄",
+    "Realza tu belleza con nuestros servicios de maquillaje profesional.",
+    "Reserva tu sesión y luce espectacular en tu evento especial.",
   ];
 };
 
@@ -100,6 +100,7 @@ export const noviaMakeupServices: Service = {
     },
   ],
   images: [novia],
+  label: "Maquillaje Novia", // Agregamos la propiedad label
 };
 
 export const socialMakeupServices: Service = {
@@ -128,6 +129,7 @@ export const socialMakeupServices: Service = {
     },
   ],
   images: [social],
+  label: "Maquillaje Social", // Agregamos la propiedad label
 };
 
 export const peinadoMakeupServices: Service = {
@@ -149,6 +151,7 @@ export const peinadoMakeupServices: Service = {
     },
   ],
   images: [peinado],
+  label: "Maquillaje y Peinado", // Agregamos la propiedad label
 };
 
 export const maduraMakeupServices: Service = {
@@ -169,6 +172,7 @@ export const maduraMakeupServices: Service = {
     },
   ],
   images: [madura],
+  label: "Maquillaje Piel Madura", // Agregamos la propiedad label
 };
 
 export const glamMakeupServices: Service = {
@@ -189,6 +193,7 @@ export const glamMakeupServices: Service = {
     },
   ],
   images: [glam],
+  label: "Maquillaje Glam", // Agregamos la propiedad label
 };
 
 export const expressMakeupServices: Service = {
@@ -222,6 +227,7 @@ export const expressMakeupServices: Service = {
     },
   ],
   images: [quince],
+  label: "Maquillaje Quinceañera", // Agregamos la propiedad label
 };
 
 // Funciones que retornan JSX
