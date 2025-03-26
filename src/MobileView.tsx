@@ -1,18 +1,4 @@
-/*
-##### Responsabilidad ##### 
-- Renderiza la estructura de la vista móvil.
-
-#### Componentes que renderiza #### 
-- LayoutMobile, ThemeToggleButton, Content, ScrollToTopButton.
-
-#### Lógica Clave ####
-- LayoutMobile: Envuelve el contenido principal de la vista móvil.
-- div extra: Contiene un div extra para que el boton funcione correctamente.
-- Content: Renderiza las secciones.
-- ThemeToggleButton: El boton de cambiar el tema.
-- ScrollToTopButton: El boton de scroll. 
-*/
-
+// MobileView.tsx
 import ThemeToggleButton from "./components/buttons/ThemeToggleButton";
 import ScrollToTopButton from "./components/buttons/ScrollTopButton";
 import LayoutMobile from "./components/layout/MobileFrame";

@@ -100,6 +100,7 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen }:
       <ScrollToTopButton />
       {isMobileView ? (
         <>
+          <Navigation className="fixed top-0 left-0 w-full" onSmoothScroll={handleSmoothScroll} isMobileView={isMobileView} />
           <LandingPageMobile onSmoothScroll={handleSmoothScroll} />
         </>
       ) : (
@@ -107,7 +108,7 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen }:
           <div className="fixed top-4 left-4 z-50">
             <ThemeToggleButton />
           </div>
-          {!hideHeaderAndFooter && <Navigation className="md:mb-12" />}
+          {!hideHeaderAndFooter && <Navigation className="md:mb-12" onSmoothScroll={handleSmoothScroll} isMobileView={isMobileView} />}
           <ContentDesktop onSmoothScroll={handleSmoothScroll} />
           {!hideHeaderAndFooter && <Footer />}
         </div>

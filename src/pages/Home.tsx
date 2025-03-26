@@ -80,7 +80,9 @@ const Home = memo(({ onSmoothScroll }: HomeProps) => {
         subtitle={homeLinks.subtitle}
         subtitle1={homeLinks.subtitle1}
         links={homeLinks.links}
-      />
+        isMobileView={isMobileView} // Pasar isMobileView
+        onSmoothScroll={onSmoothScroll} // Pasar onSmoothScroll
+    />
       {/* Seccion de caracteristicas */}
       <HomeFeaturesSection
         imageSrc={homeFeatures.imageSrc}

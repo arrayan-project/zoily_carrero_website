@@ -1,25 +1,15 @@
-/*
-##### Función #####
-- Este componente representa la barra de navegación de la aplicación. 
-- Contiene los enlaces a las diferentes secciones y el menú hamburguesa para la vista móvil.
-
-##### Componentes que utiliza #####
-- react-router-dom: Link y useLocation para los enlaces y la ruta actual.
-- useTheme: Para obtener el tema actual.
-
-##### Componentes que lo usan #####
-- AppWrapper.tsx: Importa y renderiza Navigation.
-*/
-
+// NavBarMenu.tsx
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from '../context/useThemeHook';
 
 interface NavigationProps {
   className?: string;
+  onSmoothScroll?: (sectionId: string) => void; // Prop para smoothScroll
+  isMobileView: boolean; // Prop para saber si estamos en vista movil
 }
 
-const Navigation: React.FC<NavigationProps> = ({ className }) => {
+const Navigation: React.FC<NavigationProps> = ({ className, onSmoothScroll, isMobileView }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const { theme } = useTheme();
@@ -27,12 +17,19 @@ const Navigation: React.FC<NavigationProps> = ({ className }) => {
   const isActive = (path: string) => location.pathname === path;
 
   // Variables para clases repetidas
-  const navLinkBase = `nav-link block md:inline-block`;
+  const navLinkBase = `nav-link block lg:inline-block`;
   const navLinkActive = `text-pink-500`;
   const navLinkInactive = `${theme === 'dark' ? 'text-white' : 'text-gray-800'}`;
-  const menuButtonBase = `md:hidden absolute top-4 right-4 p-2 hover:text-pink-500 transition-colors duration-300 z-50`;
+  const menuButtonBase = `lg:hidden absolute top-4 right-4 p-2 hover:text-pink-500 transition-colors duration-300 z-50`; // Agregamos lg:hidden
   const menuButtonColor = `${theme === 'dark' ? 'text-white' : 'text-gray-800'}`;
   const menuButtonSpan = `block w-8 h-0.5 bg-current transition-transform duration-300`;
+
+  const handleLinkClick = (to: string, sectionId?: string) => {
+    setIsMenuOpen(false); // Cerrar el menú
+    if (isMobileView && sectionId && onSmoothScroll) {
+      onSmoothScroll(sectionId); // Ejecutar smoothScroll si es necesario
+    }
+  };
 
   return (
     <nav className={`${className} z-50`}>
@@ -54,7 +51,8 @@ const Navigation: React.FC<NavigationProps> = ({ className }) => {
       <div
         className={`
           md:max-w-6xl md:mx-auto
-          ${isMenuOpen ? `fixed inset-0 bg-opacity-95 z-50 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}` : 'hidden'} md:block
+          ${isMenuOpen ? `fixed inset-0 bg-opacity-95 z-50 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}` : 'hidden'}
+          ${isMenuOpen ? '' : 'hidden'} lg:block lg:relative lg:inset-0 // Agregamos lg:block y lg:relative lg:inset-0
           transition-all duration-300 ease-in-out
         `}
         style={{ maxWidth: '100vw' }}
@@ -75,32 +73,32 @@ const Navigation: React.FC<NavigationProps> = ({ className }) => {
         )}
         <div
           className={`
-            flex flex-col md:flex-row md:justify-center md:items-end
-            space-y-4 md:space-y-12 md:space-x-4
+            flex flex-col lg:flex-row lg:justify-center lg:items-end
+            space-y-4 lg:space-y-12 lg:space-x-4
             font-montserrat text-sm tracking-wider
-            md:text-xs md:md:text-sm
-            md:px-32 md:md:px-0
+            lg:text-xs lg:md:text-sm
+            lg:px-32 lg:md:px-0
           `}
         >
-          <Link to="/" className={`${navLinkBase} ${isActive('/') ? navLinkActive : navLinkInactive}`}>
+          <Link to="/" onClick={() => handleLinkClick("/", "home")} className={`${navLinkBase} ${isActive('/') ? navLinkActive : navLinkInactive}`}>
             INICIO
           </Link>
-          <Link to="/services" className={`${navLinkBase} ${isActive('/services') ? navLinkActive : navLinkInactive}`}>
+          <Link to="/services" onClick={() => handleLinkClick("/services", "services")} className={`${navLinkBase} ${isActive('/services') ? navLinkActive : navLinkInactive}`}>
             SERVICIOS & CURSOS
           </Link>
-          <Link to="/gallery" className={`${navLinkBase} ${isActive('/gallery') ? navLinkActive : navLinkInactive}`}>
+          <Link to="/gallery" onClick={() => handleLinkClick("/gallery", "gallery")} className={`${navLinkBase} ${isActive('/gallery') ? navLinkActive : navLinkInactive}`}> {/* Agregamos sectionId: "gallery" */}
             GALERIA
           </Link>
-          <Link to="/ugc" className={`${navLinkBase} ${isActive('/ugc') ? navLinkActive : navLinkInactive}`}>
+          <Link to="/ugc" onClick={() => handleLinkClick("/ugc", "ugc")} className={`${navLinkBase} ${isActive('/ugc') ? navLinkActive : navLinkInactive}`}>
             UGC
           </Link>
-          <Link to="/store" className={`${navLinkBase} ${isActive('/store') ? navLinkActive : navLinkInactive}`}>
+          <Link to="/store" onClick={() => handleLinkClick("/store", "store")} className={`${navLinkBase} ${isActive('/store') ? navLinkActive : navLinkInactive}`}> {/* Agregamos sectionId: "store" */}
             TIENDA
           </Link>
-          <Link to="/about" className={`${navLinkBase} ${isActive('/about') ? navLinkActive : navLinkInactive}`}>
+          <Link to="/about" onClick={() => handleLinkClick("/about", "about")} className={`${navLinkBase} ${isActive('/about') ? navLinkActive : navLinkInactive}`}> {/* Agregamos sectionId: "about" */}
             ACERCA DE
           </Link>
-          <Link to="/contact" className={`${navLinkBase} ${isActive('/contact') ? navLinkActive : navLinkInactive}`}>
+          <Link to="/contact" onClick={() => handleLinkClick("/contact", "contact")} className={`${navLinkBase} ${isActive('/contact') ? navLinkActive : navLinkInactive}`}> {/* Agregamos sectionId: "contact" */}
             CONTACTO
           </Link>
         </div>

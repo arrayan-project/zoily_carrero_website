@@ -16,18 +16,21 @@ export const homeLinks = {
   links: [
     {
       to: "/services",
+      sectionId: "services",
       imageSrc: imageArrays.homeSectionsImages[0], // Usamos la nueva imagen
       alt: "Servicios",
       label: "Servicios", // Nuevo: Agregamos el texto del recuadro
     },
     {
-      to: "/courses",
+      to: "/services",
+      sectionId: "cursos",
       imageSrc: imageArrays.homeSectionsImages[1], // Usamos la nueva imagen
       alt: "Cursos",
       label: "Cursos", // Nuevo: Agregamos el texto del recuadro
     },
     {
       to: "/ugc",
+      sectionId: "ugc",
       imageSrc: imageArrays.homeSectionsImages[3], // Usamos la nueva imagen
       alt: "UGC",
       label: "UGC", // Nuevo: Agregamos el texto del recuadro

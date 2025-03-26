@@ -8,14 +8,25 @@ interface HomeLinksSectionProps {
   subtitle1: string;
   links: {
     to: string;
+    sectionId?: string; // ID de sección para vista móvil (opcional)
     imageSrc: string;
     alt: string;
-    label: string; // Nuevo: Agregamos una propiedad para el texto del recuadro
+    label: string; // Propiedad para el texto del recuadro
   }[];
+  isMobileView: boolean;
+  onSmoothScroll: (sectionId: string) => void;
 }
 
-const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({ title, subtitle, subtitle1, links }) => {
-  const navigate = useNavigate(); // Inicializamos useNavigate
+const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({ title, subtitle, subtitle1, links, isMobileView, onSmoothScroll }) => {
+  const navigate = useNavigate(); // Inicializamos el hook useNavigate para navegación
+
+  const handleClick = (link: HomeLinksSectionProps['links'][number]) => {
+    if (isMobileView && link.sectionId) {
+      onSmoothScroll(link.sectionId);
+    } else {
+      navigate(link.to);
+    }
+  };
 
   return (
     <section className="py-16 px-4">
@@ -23,18 +34,21 @@ const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({ title, subtitle, su
         <h2 className="text-4xl md:text-5xl font-cinzel font-extralight mb-12">{title}</h2>
         <p className="text-gray-600 font-cinzel">{subtitle}</p>
         <p className="text-gray-600 mb-24 md:mb-28 font-cinzel">{subtitle1}</p>
+        
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {links.map((link, index) => (
             <div
               key={index}
-              className={`w-full aspect-square overflow-hidden p-1 sm:p-2 md:p-3 lg:p-3 rounded-sm bg-white shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer relative group`} style={{ boxShadow: '4px 0px 10px rgba(0, 0, 0, 0.3)' }} // Añadimos relative aquí
-              onClick={() => navigate(link.to)} // Añadimos onClick y usamos navigate
+              className="w-full aspect-square overflow-hidden p-1 sm:p-2 md:p-3 lg:p-3 rounded-sm bg-white shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer relative group"
+              style={{ boxShadow: '4px 0px 10px rgba(0, 0, 0, 0.3)' }} // Añadimos un box-shadow
+              onClick={() => handleClick(link)} // Usamos navigate para redirigir
             >
               <img
                 src={link.imageSrc}
                 alt={link.alt}
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" // Añadimos el zoom aquí
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" // Zoom en la imagen al pasar el cursor
               />
+              
               {/* Recuadro con texto */}
               <div className="absolute bottom-0 left-0 w-full h-1/3 bg-black bg-opacity-50 flex items-center justify-center transition-opacity duration-300 group-hover:bg-opacity-70">
                 <p className="text-white font-cinzel text-lg">{link.label}</p>

@@ -1,18 +1,6 @@
-/*
-#### Responsabilidad ####
-- Define las rutas de la aplicación utilizando react-router-dom.
-
-#### Componentes que renderiza ####
-- Home, Services, UGC, Store, Gallery, About, Contact.
-
-#### Lógica Clave ####
-- Routes y Route: Define las rutas.
-- Content: Dentro de las rutas, se renderiza Content, que es el que contiene las secciones.
-*/
-
+// Routes.tsx
 import React, { lazy, Suspense, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Content from './components/layout/PageSections';
 // Carga diferida de los componentes
 const Home = lazy(() => import('./pages/Home'));
 const Services = lazy(() => import('./pages/Services'));
