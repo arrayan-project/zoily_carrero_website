@@ -1,13 +1,12 @@
 // src/data/homeData.ts
 import images, { imageArrays } from "../assets/img/images";
 
-
 export const homeInfo = {
-    title: "ZOILY CARRERO",
-    subtitle: "SERVICIOS PROFESIONALES DE MAQUILLAJE Y PEINADOS",
-    button1Text: "Ver Servicios",
-    button2Text: "Agenda tu cita",
-  };
+  title: "ZOILY CARRERO",
+  subtitle: "SERVICIOS PROFESIONALES DE MAQUILLAJE Y PEINADOS",
+  button1Text: "Ver Servicios",
+  button2Text: "Agenda tu cita",
+};
 
 export const homeLinks = {
   title: "Explora Nuestros Servicios",
@@ -62,30 +61,8 @@ export const homeFeatures = {
 };
 
 export const homeBrands = {
-  brands: [
-    {
-      imageSrc: images.brand1,
-      alt: "Marca 1",
-    },
-    {
-      imageSrc: images.brand2,
-      alt: "Marca 2",
-    },
-    {
-      imageSrc: images.brand3,
-      alt: "Marca 3",
-    },
-    {
-      imageSrc: images.brand4,
-      alt: "Marca 4",
-    },
-    {
-      imageSrc: images.brand5,
-      alt: "Marca 5",
-    },
-    {
-      imageSrc: images.brand6,
-      alt: "Marca 6",
-    },
-  ],
+  brands: imageArrays.brandImages.map((imageSrc, index) => ({
+    imageSrc: imageSrc,
+    alt: `Marca ${index + 1}`,
+  })),
 };

@@ -1,6 +1,7 @@
 // src/components/home/HomeFeaturesSection.tsx
 import React from 'react';
 import SmoothImage from '../smoothImages/SmoothImage'; // Asegúrate de tener este componente
+import AnimationWrapper from "../common/AnimationLayer";
 
 interface HomeFeaturesSectionProps {
   imageSrc: string;
@@ -16,9 +17,12 @@ const HomeFeaturesSection: React.FC<HomeFeaturesSectionProps> = ({ imageSrc, alt
     <section className="py-0"> {/* Eliminamos padding vertical */}
       <div className="mx-auto w-full">
         <div className="grid grid-cols-1 md:grid-cols-2 items-stretch gap-0 h-full"> {/* Agregamos h-full y items-stretch */}
+        <AnimationWrapper animationClassName="slide-in-left">
           <div className="md:order-1">
-            <SmoothImage src={imageSrc} alt={alt} className="w-full h-full object-cover rounded-lg shadow-md" />
+            <SmoothImage src={imageSrc} alt={alt} className="w-full h-full object-cover rounded-base shadow-md" />
           </div>
+        </AnimationWrapper>
+        <AnimationWrapper animationClassName="slide-in-right">
           <div className="md:order-2 grid grid-cols-1 md:grid-cols-2 gap-0 h-full"> {/* Agregamos h-full */}
             {features.map((feature, index) => (
               <div key={index} className="w-full">
@@ -30,6 +34,7 @@ const HomeFeaturesSection: React.FC<HomeFeaturesSectionProps> = ({ imageSrc, alt
               </div>
             ))}
           </div>
+          </AnimationWrapper>
         </div>
       </div>
     </section>

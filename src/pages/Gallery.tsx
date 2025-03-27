@@ -1,168 +1,76 @@
-// src/pages/Gallery.tsx
-import React, {
-  useState,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-} from "react";
-import GalleryTitle from "../components/common/GalleryTitle"; // Importaciones de componentes
+import React, { useState, useMemo, useRef } from "react";
+import GalleryTitle from "../components/common/GalleryTitle";
 import GalleryCategoryMenu from "../components/navigation/GalleryCategoryMenu";
 import GalleryImageGrid from "../components/layout/GalleryImageGrid";
 import GalleryModal from "../components/modals/GalleryModal";
-import {
-  SERVICES_TITLE_CLASS,
-  COURSES_TITLE_CLASS,
-} from "../constants/styles";
-import useGalleryModalTouch from "../hooks/useGalleryModalTouch"; // Importaciones de hooks
+import { SERVICES_TITLE_CLASS } from "../constants/styles";
+import useGalleryModalTouch from "../hooks/useGalleryModalTouch";
 import useWindowSize from "../hooks/useWindowSize";
-import { getImagesForCategory } from "../utils/galleryUtils"; // Importaciones de utilidades
-import { getTextColorClass } from "../utils/utils"; // Importaciones de utilidades
-import { galleryCategories, galleryTitle } from "../data/galleryData"; // Importaciones de datos
-import { useTheme } from "../components/context/useThemeHook"; // Importaciones de context
-import "../GlobalStyles.css"; // Importaciones de estilos
+import { getImagesForCategory } from "../utils/galleryUtils";
+import { getTextColorClass } from "../utils/utils";
+import { galleryCategories, galleryTitle } from "../data/galleryData";
+import { useTheme } from "../components/context/useThemeHook";
+import "../GlobalStyles.css";
 
-interface ServicesProps {}
-
-export default function Gallery({}: ServicesProps) {
-  // Estados del componente
+export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [isGalleryTransitioning, setIsGalleryTransitioning] = useState(false);
   const [isModalTransitioning, setIsModalTransitioning] = useState(false);
-  const [error, setError] = useState<string | null>(null); // Estado para manejo de errores
+  const [error, setError] = useState<string | null>(null);
 
-  // Referencia al contenedor del modal
   const modalContainerRef = useRef<HTMLDivElement>(null);
-
-  // Hook personalizado para obtener el tamaño de la ventana
   const { isMobileView } = useWindowSize();
-
-  // Obtener el tema actual
   const { theme } = useTheme();
+  const currentGalleryImages = useMemo(() => getImagesForCategory(selectedCategory), [selectedCategory]);
 
-  // Obtener las imágenes de la categoría seleccionada
-  const currentGalleryImages = useMemo(() => {
-    return getImagesForCategory(selectedCategory);
-  }, [selectedCategory]);
-
-  // Función para abrir la imagen seleccionada
   const openImage = (index: number) => {
     try {
       setCurrentIndex(index);
       setSelectedImage(currentGalleryImages[index] ?? null);
-    } catch (err) {
+    } catch {
       setError("Error al abrir la imagen.");
-      console.error("Error en openImage:", err);
     }
   };
 
-  // Función para cerrar la imagen seleccionada
-  const closeImage = () => {
-    try {
-      setSelectedImage(null);
-    } catch (err) {
-      setError("Error al cerrar la imagen.");
-      console.error("Error en closeImage:", err);
-    }
-  };
+  const closeImage = () => setSelectedImage(null);
 
-  // Función para navegar entre imágenes (anterior y siguiente)
   const navigateImage = (offset: number) => {
-    try {
-      setIsModalTransitioning(true);
-      const newIndex =
-        (currentIndex + offset + currentGalleryImages.length) %
-        currentGalleryImages.length;
-      setTimeout(() => {
-        setCurrentIndex(newIndex);
-        setSelectedImage(currentGalleryImages[newIndex] ?? null);
-        setIsModalTransitioning(false);
-      }, 500);
-    } catch (err) {
-      setError("Error al navegar entre las imágenes.");
-      console.error("Error en navigateImage:", err);
-    }
+    setIsModalTransitioning(true);
+    const newIndex = (currentIndex + offset + currentGalleryImages.length) % currentGalleryImages.length;
+    setTimeout(() => {
+      setCurrentIndex(newIndex);
+      setSelectedImage(currentGalleryImages[newIndex] ?? null);
+      setIsModalTransitioning(false);
+    }, 500);
   };
 
-  // Imagen siguiente
+  const prevImage = () => navigateImage(-1);
   const nextImage = () => navigateImage(1);
 
-  // Imagen anterior
-  const prevImage = () => navigateImage(-1);
-
-  // Manejar el click en una categoría
-  const handleCategoryClick = (categoryValue: string) => {
-    try {
-      setIsGalleryTransitioning(true);
-      setSelectedCategory(categoryValue);
-      setTimeout(() => {
-        setIsGalleryTransitioning(false);
-      }, 500);
-    } catch (err) {
-      setError("Error al seleccionar la categoría.");
-      console.error("Error en handleCategoryClick:", err);
-    }
+  const handleCategoryClick = (category: string) => {
+    setIsGalleryTransitioning(true);
+    setSelectedCategory(category);
+    setTimeout(() => setIsGalleryTransitioning(false), 500);
   };
 
-  // Manejar el click fuera del modal
-  const handleModalClick = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    if (event.target === modalContainerRef.current) {
-      closeImage();
-    }
+  const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.target === modalContainerRef.current) closeImage();
   };
 
-  // Hook personalizado para el touch en el modal
-  useGalleryModalTouch({
-    prevImage,
-    nextImage,
-    modalContainerRef,
-  });
+  useGalleryModalTouch({ prevImage, nextImage, modalContainerRef });
 
-  // Si hay un error, mostramos el mensaje de error
-  if (error) {
-    return <div className="error-message">{error}</div>;
-  }
+  if (error) return <p className="error-message">{error}</p>;
 
   return (
-    <div className={`min-h-screen flex flex-col ${getTextColorClass(theme)}`}>
-      {/* Banner superior */}
-      <main className="flex-grow">
-        <div id="gallery" className="mx-auto py-16">
-          {/* Título de la galería */}
-          <GalleryTitle title={galleryTitle} className={SERVICES_TITLE_CLASS} />
-
-          {/* Menú de categorías */}
-          <GalleryCategoryMenu
-            galleryCategories={galleryCategories}
-            selectedCategory={selectedCategory}
-            handleCategoryClick={handleCategoryClick}
-            theme={theme}
-          />
-
-          {/* Cuadrícula de imágenes */}
-          <GalleryImageGrid
-            currentGalleryImages={currentGalleryImages}
-            openImage={openImage}
-            isGalleryTransitioning={isGalleryTransitioning}
-          />
-
-          {/* Modal de imagen */}
-          <GalleryModal
-            selectedImage={selectedImage}
-            closeImage={closeImage}
-            prevImage={prevImage}
-            nextImage={nextImage}
-            isModalTransitioning={isModalTransitioning}
-            handleModalClick={handleModalClick}
-            modalContainerRef={modalContainerRef}
-            isMobileView={isMobileView}
-          />
-        </div>
-      </main>
-    </div>
+    <main className={`min-h-screen ${getTextColorClass(theme)}`}>
+      <section id="gallery" className="mx-auto py-16">
+        <GalleryTitle title={galleryTitle} className={SERVICES_TITLE_CLASS} />
+        <GalleryCategoryMenu {...{ galleryCategories, selectedCategory, handleCategoryClick, theme }} />
+        <GalleryImageGrid {...{ currentGalleryImages, openImage, isGalleryTransitioning }} />
+        <GalleryModal {...{ selectedImage, closeImage, prevImage, nextImage, isModalTransitioning, handleModalClick, modalContainerRef, isMobileView }} />
+      </section>
+    </main>
   );
 }

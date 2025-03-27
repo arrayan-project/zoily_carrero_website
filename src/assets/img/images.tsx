@@ -206,6 +206,22 @@ import homeSection3 from "../img/background-home/home-sections/home-courses2.web
 import homeSection4 from "../img/background-home/home-sections/home-ugc1.webp";
 
 // ==============================================
+// Importaciones para las marcas (icon-brands)
+// ==============================================
+/**
+ *  Imagenes para los logos de las marcas
+ */
+import brandLogo1 from "../img/icon-brands/chanel.png"; // Cambiado a .png
+import brandLogo2 from "../img/icon-brands/dior.png"; // Cambiado a .png
+import brandLogo3 from "../img/icon-brands/yves.png"; // Cambiado a .png
+import brandLogo4 from "../img/icon-brands/estee.png"; // Cambiado a .png
+import brandLogo5 from "../img/icon-brands/nars.png"; // Cambiado a .png
+import brandLogo6 from "../img/icon-brands/maybelline.png"; // Cambiado a .png
+import brandLogo7 from "../img/icon-brands/revlon.png"; // Cambiado a .png
+import brandLogo8 from "../img/icon-brands/urban.png"; // Cambiado a .png
+import brandLogo9 from "../img/icon-brands/mac.png"; // Cambiado a .png
+
+// ==============================================
 // Objeto con todas las imagenes
 // ==============================================
 /**
@@ -238,10 +254,19 @@ const images: Image = {
   ugc3,
   ugc4,
   phone,
-  homeSection1, // Añadimos la nueva imagen
-  homeSection2, // Añadimos la nueva imagen
-  homeSection3, // Añadimos la nueva imagen
-  homeSection4, // Añadimos la nueva imagen
+  homeSection1,
+  homeSection2,
+  homeSection3,
+  homeSection4,
+  brandLogo1,
+  brandLogo2,
+  brandLogo3,
+  brandLogo4,
+  brandLogo5,
+  brandLogo6,
+  brandLogo7,
+  brandLogo8,
+  brandLogo9,
 };
 
 // ==============================================
@@ -336,6 +361,18 @@ const imageArrays: ImageArray = {
     homeSection2,
     homeSection3,
     homeSection4,
+  ],
+  //Array de imagenes para las marcas
+  brandImages: [
+    brandLogo1,
+    brandLogo2,
+    brandLogo3,
+    brandLogo4,
+    brandLogo5,
+    brandLogo6,
+    brandLogo7,
+    brandLogo8,
+    brandLogo9,
   ],
 };
 

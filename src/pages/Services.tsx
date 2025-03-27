@@ -110,7 +110,7 @@ function Services({}: ServicesProps) {
             objectPosition="bottom"
           >
             <section id="services" className="container mx-auto px-2 md:px-4 lg:px-8 xl:px-16 2xl:px-24 py-16 md:py-32 z-10"> {/* AQUI LOS CAMBIOS */}
-            <SectionTitle title="CONOCE LO QUE PODEMOS HACER POR TI" className={HOME_LINKS_TITLE_CLASS} />
+            <SectionTitle title="Conoce lo que podemos hacer por ti" className={HOME_LINKS_TITLE_CLASS} />
               <SectionDescription description={servicesDescription} className="mt-4 mb-16 md:mb-24 font-cinzel text-center" />
               <ServicesSection />
             </section>

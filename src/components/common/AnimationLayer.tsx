@@ -28,41 +28,41 @@ type AnimationWrapperProps = {
 //Funcion que devuelve las opciones de la animacion segun su nombre
 const getAnimationOptions = (className: AnimationClassName) => {
   switch (className) {
-    case "fade-in-up":
+    case "fade-in-up": //el elemento aparece desde abajo y sube hasta su posicion final
       return {
         origin: "bottom",
         distance: "60px",
         duration: 1000,
         delay: 200,
       };
-    case "fade-in-text":
+    case "fade-in-text": //el elemento aparece desde abajo y sube hasta su posicion final
       return {
         origin: "bottom",
         distance: "30px",
         duration: 1000,
         delay: 200,
       };
-    case "fade-in":
+    case "fade-in": //el elemento aparece lentamente
       return {
         origin: "center",
         distance: "0px",
         duration: 3000,
         delay: 200,
       };
-    case "slide-in-left":
-        return {
-          origin: "left",
-          distance: "60px",
-          duration: 1000,
-          delay: 200,
-        };
-    case "slide-in-right":
-        return {
-          origin: "right",
-          distance: "60px",
-          duration: 1000,
-          delay: 200,
-        };
+    case "slide-in-left": //el elemento aparece desde la izquierda hasta su posicion final
+      return {
+        origin: "left",
+        distance: "60px",
+        duration: 1000,
+        delay: 200,
+      };
+    case "slide-in-right": //el elemento aparece desde la derecha hasta su posicion final
+      return {
+        origin: "right",
+        distance: "60px",
+        duration: 1000,
+        delay: 200,
+      };
     default:
       return {};
   }

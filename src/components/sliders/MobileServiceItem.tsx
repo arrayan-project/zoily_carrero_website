@@ -45,7 +45,7 @@ const MobileServiceItem: React.FC<MobileServiceItemProps> = ({
   const { theme } = useTheme();
 
   return (
-    <div className="space-y-6 justify-center items-center text-center ">
+    <div className="space-y-6 justify-center items-center text-center relative">
       <div
         className="w-full aspect-[2/3] overflow-hidden relative group cursor-pointer rounded-lg shadow-xl"
         onClick={handleOpenModal}
@@ -57,12 +57,12 @@ const MobileServiceItem: React.FC<MobileServiceItemProps> = ({
         />
         <button
           onClick={handleOpenModal}
-          className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-lg md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+          className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 bg-gray-700 hover:bg-gray-900 text-white text-lg md:text-base px-2 md:px-6 py-1 md:py-3 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20`}
           aria-label={`Ver detalles de ${title}`}
         >
           Ver Detalles
         </button>
-        <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out">
+        <div className="absolute bottom-2 right-2 pointer-events-none opacity-80 group-hover:opacity-75 transition-opacity duration-300 ease-in-out z-10">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -80,15 +80,19 @@ const MobileServiceItem: React.FC<MobileServiceItemProps> = ({
         </div>
       </div>
 
-      <h2
-        onClick={handleOpenModal} 
-        className={`text-xl md:text-2xl font-cinzel tracking-wide cursor-pointer ${getTextColorClass(theme)}`} 
-      >
-        {title}
-      </h2>
+      <div className="relative z-30"> {/* Contenedor para el texto con z-30 */}
+        <h2
+          onClick={handleOpenModal}
+          className={`text-xl md:text-2xl font-cinzel tracking-wide cursor-pointer ${getTextColorClass(
+            theme
+          )}`}
+        >
+          {title}
+        </h2>
       <p className={`text-sm md:text-base ${getTextColorClass(theme)}`}> {/* Agregamos el párrafo para la descripción */}
         {shortDescription}
       </p>
+      </div>
     </div>
   );
 };
