@@ -1,7 +1,6 @@
 // src/pages/Home.tsx
 import { useState, useEffect, memo } from "react";
 import { MOBILE_BREAKPOINT } from "../constants/constants";
-import AnimationWrapper from "../components/common/AnimationLayer";
 import BackgroundCarousel from "../components/sliders/BackgroundSlider";
 import HomeButton from "../components/buttons/HomeButton";
 import {
@@ -15,8 +14,6 @@ import HomeLinksSection from "../components/home/HomeLinksSection"; // Importamo
 import HomeFeaturesSection from "../components/home/HomeFeaturesSection"; // Importamos el nuevo componente
 import HomeBrandsSection from "../components/home/HomeBrandsSection"; // Importamos el nuevo componente
 import ScrollDownArrow from "../components/common/ScrollDownArrow"; // Importamos el nuevo componente
-import PageBanner from "../components/common/PageBanner";
-import images from "../assets/img/images"; // Importa las imágenes de assets
 
 interface HomeProps {
   onSmoothScroll: (sectionId: string) => void;
@@ -49,7 +46,6 @@ const Home = memo(({ onSmoothScroll }: HomeProps) => {
             {homeInfo && homeInfo.title && homeInfo.subtitle && (
               <HomeTitle title={homeInfo.title} subtitle={homeInfo.subtitle} />
             )}
-            <AnimationWrapper animationClassName="fade-in">
               <div className="flex flex-col sm:flex-row gap-4">
                 {homeInfo && homeInfo.button1Text && (
                   <HomeButton
@@ -74,7 +70,6 @@ const Home = memo(({ onSmoothScroll }: HomeProps) => {
                   </HomeButton>
                 )}
               </div>
-            </AnimationWrapper>
           </main>
           <ScrollDownArrow /> {/* Renderizamos el componente */}
         </div>
@@ -98,13 +93,6 @@ const Home = memo(({ onSmoothScroll }: HomeProps) => {
       <HomeBrandsSection 
       brands={homeBrands.brands} 
       />
-      {/* Banner final (solo en vista de escritorio) */}
-      {!isMobileView && (
-        <PageBanner
-          title="'Te debes este momento'"
-          imageSrcs={[images.contactBannerBottom]}
-        />
-      )}
     </div>
   );
 });

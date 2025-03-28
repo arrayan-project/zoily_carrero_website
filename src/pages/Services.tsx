@@ -6,11 +6,7 @@ import { ModalContent } from "../data/servicesData";
 import ModalContainer from "../components/modals/ModalRoot";
 import { CourseModalContent } from "../data/coursesData";
 import ErrorComponent from "../components/common/ErrorComponent";
-import {
-  SERVICES_TITLE_CLASS,
-  COURSES_TITLE_CLASS,
-  HOME_LINKS_TITLE_CLASS,
-} from "../constants/styles";
+import {HOME_LINKS_TITLE_CLASS} from "../constants/styles";
 import { ServicesProps } from "../interfaces/interfaces";
 import ServicesSectionBackground from "../components/svg/ServicesSectionBackground";
 import CoursesSectionBackground from "../components/svg/CourseSectionBackground";
@@ -26,8 +22,6 @@ import { ErrorBoundary } from "react-error-boundary";
 import SectionDescription from "../components/common/SectionDescription";
 import { getServicesDescription } from "../data/servicesData";
 import { getCoursesDescription } from "../data/coursesData";
-import PageBanner from "../components/common/PageBanner";
-import images from "../assets/img/images";
 
 // Creamos el contexto para el modal
 interface ModalContextProps {

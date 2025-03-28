@@ -58,11 +58,12 @@ const CourseSlider: React.FC<CourseSliderProps> = ({
   }
 
   return (
-    <article className="text-center">
-      <figure
+    <article className="text-center"
+    onClick={handleOpenModal} // Moved onClick to the article
+    >
+      <div
         className="w-full aspect-square overflow-hidden relative group cursor-pointer p-1 sm:p-2 md:p-3 lg:p-3 rounded-sm bg-white shadow-md"
         style={{ boxShadow: "4px 0px 10px rgba(0, 0, 0, 0.3)" }}
-        onClick={handleOpenModal}
       >
         <Slider {...sliderSettings}>
           {images.map((img, index) => (
@@ -79,7 +80,7 @@ const CourseSlider: React.FC<CourseSliderProps> = ({
         <figcaption className="absolute bottom-0 left-0 w-full h-1/3 bg-black bg-opacity-50 flex items-center justify-center transition-opacity duration-300 group-hover:bg-opacity-70">
           <p className="text-white font-cinzel text-lg">{label}</p>
         </figcaption>
-      </figure>
+      </div>
     </article>
   );
 };

@@ -2,7 +2,6 @@
 import React from 'react';
 import { useTheme } from '../context/useThemeHook';
 import { getTextColorClass } from '../../utils/utils';
-import AnimationWrapper from './AnimationLayer';
 
 interface SectionTitleProps {
   title: string;
@@ -13,7 +12,7 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ title, className }) => {
   const { theme } = useTheme();
 
   return (
-    <AnimationWrapper animationClassName="fade-in-up">
+
       <h1
         className={`${className} ${getTextColorClass(
           theme
@@ -21,7 +20,7 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ title, className }) => {
       >
         {title}
       </h1>
-    </AnimationWrapper>
+
   );
 };
 

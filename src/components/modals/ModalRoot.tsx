@@ -1,5 +1,5 @@
 // src/components/modals/ModalRoot.tsx
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Modal from '../common/ModalBase';
 import { ModalContent } from '../../data/servicesData';
 import { CourseModalContent } from '../../data/coursesData';
@@ -15,21 +15,43 @@ const ModalContainer: React.FC<ModalContainerProps> = ({
   closeModal,
   modalContent,
 }) => {
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const modalElement = modalRef.current;
+    if (!modalElement) return;
+
+    if (isModalOpen) {
+      // Mover el foco al modal cuando se abre
+      const focusableElement = modalElement.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (focusableElement instanceof HTMLElement) {
+        focusableElement.focus();
+      }
+      // Remove inert when the modal is open
+      modalElement.inert = false;
+    } else {
+      // Add inert when the modal is closed
+      modalElement.inert = true;
+    }
+  }, [isModalOpen]);
+
+  if (!modalContent) return null;
 
   return (
-    <>
-      {modalContent && (
-        <Modal
-          isOpen={isModalOpen}
-          onClose={closeModal}
-          images={modalContent.images}
-          title={modalContent.title}
-          infoContent={modalContent.infoContent}
-          termsContent={modalContent.termsContent}
-          description={modalContent.description}
-        />
-      )}
-    </>
+    <div
+      ref={modalRef}
+      data-inert={!isModalOpen} // Use data-inert instead of inert
+    >
+      <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        images={modalContent.images}
+        title={modalContent.title}
+        infoContent={modalContent.infoContent}
+        termsContent={modalContent.termsContent}
+        description={modalContent.description}
+      />
+    </div>
   );
 };
 

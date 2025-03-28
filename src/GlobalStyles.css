@@ -5,7 +5,15 @@
 /* Importaciones de Fuentes */
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Mr+De+Haviland&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@300;700&display=swap");
+
+@font-face {
+  font-family: 'Cinzel';
+  src: url('/fonts/Cinzel-Light.woff2') format('woff2'); /* Ajusta la ruta si es necesario */
+  font-weight: 300; /* 'light' es usualmente 300 */
+  font-style: normal;
+  font-display: swap; /* Agrega esta línea */
+}
 
 /* Tailwind Directives */
 @tailwind base;

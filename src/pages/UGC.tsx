@@ -1,25 +1,22 @@
+import React, { useEffect, useState } from "react";
 import {
   Instagram,
   Facebook,
   MessageSquare,
   Pointer as Pinterest,
 } from "lucide-react";
-import { Link } from "react-router-dom";
 import PageBanner from "../components/common/PageBanner";
-import { useTheme } from "../components/context/useThemeHook";
-import AnimationWrapper from "../components/common/AnimationLayer";
-import "../GlobalStyles.css"; // Asegúrate de importar About.css para los estilos de transición
-import SmoothImage from "../components/smoothImages/SmoothImage"; // Importa el componente SmoothImage
-import images from "../assets/img/images"; // Importa las imágenes de assets
-import ugc from "../assets/img/images"; // Importa las imágenes de UGC
-import { useEffect, useState } from "react";
+import SmoothImage from "../components/smoothImages/SmoothImage";
+import images from "../assets/img/images";
 import { MOBILE_BREAKPOINT } from "../constants/constants";
-import { getTextColorClass} from "../utils/utils"; //Importamos las funciones globales
+import SocialIcons from "../components/common/SocialIcons";
+import SectionTitle from "../components/common/SectionTitle";
+import PhoneImageContainer from "../components/ugc/PhoneImageContainer";
+import SectionDescription from "../components/common/SectionDescription";
 
-interface ServicesProps {}
+interface UGCProps {}
 
-function UGC({}: ServicesProps) {
-  const { theme } = useTheme();
+const UGC: React.FC<UGCProps> = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const isMobileView = windowWidth < MOBILE_BREAKPOINT;
 
@@ -44,31 +41,31 @@ function UGC({}: ServicesProps) {
         objectPosition="left-bottom"
       />
 
-      <section id="ugc" className="ugc-section-completa flex md:flex-row flex-col m-0 bg-gray-100 overflow-hidden shadow-md">
-        {/* Sección izquierda */}
+      {/* Main UGC Section */}
+      <section
+        id="ugc"
+        className="ugc-section-completa flex md:flex-row flex-col m-0 bg-gray-100 overflow-hidden shadow-md"
+      >
+        {/* Left Section */}
         <div className="ugc-seccion-izquierda md:w-1/2 w-full flex flex-col">
           <section className="ugc-seccion-izquierda-superior md:h-3/4 h-[75%] bg-[rgb(242,232,225)] flex justify-center items-center">
-            <div className="ugc-title text-center mt-6">
+            <div className="text-center mt-6">
               <h2 className="ugc-title-portafolio font-cinzel font-light text-3xl md:text-5xl lg:text-6xl text-gray-700 mb-2 tracking-normal md:text-6xl">
                 PORTAFOLIO
               </h2>
               <h1 className="ugc-title-ugc font-serif text-[6rem] md:text-[12.5rem] lg:text-[15rem] text-[rgb(212,185,194)] font-bold leading-[0.9] mb-0 md:text-[15rem]">
                 UGC
               </h1>
-              <div className="ugc-social-icons flex gap-3 md:mb-20 mb-5 justify-center items-center">
-                <a href="#" className="ugc-social-icon text-gray-600 hover:text-gray-800 transition-colors duration-200 md:text-base">
-                  <Instagram />
-                </a>
-                <a href="#" className="ugc-social-icon text-gray-600 hover:text-gray-800 transition-colors duration-200 md:text-base">
-                  <Facebook />
-                </a>
-                <a href="#" className="ugc-social-icon text-gray-600 hover:text-gray-800 transition-colors duration-200 md:text-base">
-                  <Pinterest />
-                </a>
-                <a href="#" className="ugc-social-icon text-gray-600 hover:text-gray-800 transition-colors duration-200 md:text-base">
-                  <MessageSquare />
-                </a>
-              </div>
+              <SocialIcons
+                icons={[
+                  { icon: Instagram, href: "#" },
+                  { icon: Facebook, href: "#" },
+                  { icon: Pinterest, href: "#" },
+                  { icon: MessageSquare, href: "#" },
+                ]}
+                className="ugc-social-icons flex gap-3 md:mb-20 mb-5 justify-center items-center"
+                iconClassName="ugc-social-icon text-gray-600 hover:text-gray-800 transition-colors duration-200 md:text-base"
+              />
             </div>
           </section>
           <section className="ugc-seccion-izquierda-inferior md:h-1/4 h-[25%] bg-[rgb(229,210,196)] flex justify-center items-center">
@@ -78,46 +75,48 @@ function UGC({}: ServicesProps) {
           </section>
         </div>
 
-        {/* Sección derecha (imagen) */}
+        {/* Right Section (Image) */}
         <div className="ugc-seccion-derecha md:w-1/2 w-full">
           <SmoothImage
-            src={ugc.zoilyblack}
+            src={images.zoilyblack}
             alt="Imagen UGC"
             className="ugc-image h-full w-full object-cover block"
           />
         </div>
       </section>
 
-      {/* Título de la sección UGC */}
+      {/* UGC Content Title */}
       <section className="ugc-section-title-container mt-20 text-center md:mt-36 md:mb-36 mb-14">
-        <h1 className={`text-4xl md:text-5xl font-cinzel font-extralight text-center mb-12 tracking-wider ${getTextColorClass(theme)}`}>
-          FOTOGRAFÍAS DE CONTENIDO UGC
-        </h1>
+        <SectionTitle
+          title="FOTOGRAFÍAS DE CONTENIDO UGC"
+          className={`text-4xl md:text-5xl font-cinzel font-extralight text-center mb-12 tracking-wider`}
+        />
+        <SectionDescription
+          description={[
+            "Aquí podrás ver algunos ejemplos de fotografías de contenido UGC.",
+            "Si te gusta lo que ves, no dudes en contactarme.",
+          ]}
+          className="mt-4 font-cinzel text-center"
+        />
       </section>
 
-      {/* Segunda sección UGC - Imágenes dentro del teléfono */}
+      {/* UGC Examples Section */}
       <section className="ugc-section ugc-section-images-example-png bg-transparent shadow-none rounded-none mt-10 md:mt-10">
-        <div className="ugc-right-section ugc-right-section-four-images-png flex-1 flex flex-col md:flex-row justify-around items-center">
-          <div className="ugc-images-container-png flex-col md:flex-row flex gap-2 w-full justify-around">
-            {['ugc1', 'ugc2', 'ugc3', 'ugc4'].map((image, index) => (
-              <div key={index} className="ugc-phone-container-png relative max-w-sm mx-auto">
-                <SmoothImage
-                  src={images.phone}
-                  alt="Marco Smartphone"
-                  className="ugc-phone-frame-png w-full h-auto block relative z-10"
-                />
-                <SmoothImage
-                  src={images[image]}
-                  alt={`Ejemplo UGC ${index + 1}`}
-                  className="ugc-image-example-png absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 w-[96%] h-[99%] object-cover rounded-[50px] aspect-[0.7]"
-                />
-              </div>
+        <div className="ugc-right-section ugc-right-section-four-images-png flex flex-col md:flex-row justify-around items-center">
+          <div className="ugc-images-container-png flex flex-col md:flex-row gap-2 w-full justify-around">
+            {["ugc1", "ugc2", "ugc3", "ugc4"].map((image, index) => (
+              <PhoneImageContainer
+                key={index}
+                phoneImage={images.phone}
+                contentImage={images[image]}
+                alt={`Ejemplo UGC ${index + 1}`}
+              />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Banner final (solo en vista de escritorio) */}
+      {/* Final Banner (Desktop Only) */}
       {!isMobileView && (
         <PageBanner
           title="'Te debes este momento'"
@@ -126,6 +125,6 @@ function UGC({}: ServicesProps) {
       )}
     </main>
   );
-}
+};
 
 export default UGC;
