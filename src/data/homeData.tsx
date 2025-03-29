@@ -1,5 +1,5 @@
 // src/data/homeData.ts
-import images, { imageArrays } from "../assets/img/images";
+import { imageArrays } from "../assets/img/images";
 
 export const homeInfo = {
   title: "ZOILY CARRERO",
@@ -66,3 +66,14 @@ export const homeBrands = {
     alt: `Marca ${index + 1}`,
   })),
 };
+
+export const galleryFeatures = {
+  imageSrc: imageArrays.homeSectionsImages[2], // Usamos la nueva imagen
+  alt: "Una ventana a la galeria",
+  gallery: [
+    { 
+    title: "",
+    description:"✨ Descubre nuestra exclusiva galería de servicios y encuentra el look perfecto que se adapte a tu estilo. Desde cortes de cabello modernos, maquillajes espectaculares hasta manicuras impecables, tenemos todo lo que necesitas para resaltar tu belleza única. ¡Inspírate con nuestras opciones y agenda tu cita hoy para lucir increíble! 💄💇‍♀️💅"
+      },
+    ],
+  };

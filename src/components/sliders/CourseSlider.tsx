@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Slider from "react-slick";
-import { useTheme } from "../context/useThemeHook";
 import { CourseModalContent } from "../../data/coursesData";
-import { getTextColorClass } from "../../utils/utils";
 
 interface CourseSliderProps {
   images: string[];
@@ -23,7 +21,7 @@ const CourseSlider: React.FC<CourseSliderProps> = ({
   description,
   label,
 }) => {
-  const { theme } = useTheme();
+
   const [error, setError] = useState<string | null>(null);
 
   const handleOpenModal = () => {

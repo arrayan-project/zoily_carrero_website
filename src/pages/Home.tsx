@@ -3,17 +3,14 @@ import { useState, useEffect, memo } from "react";
 import { MOBILE_BREAKPOINT } from "../constants/constants";
 import BackgroundCarousel from "../components/sliders/BackgroundSlider";
 import HomeButton from "../components/buttons/HomeButton";
-import {
-  homeInfo,
-  homeLinks,
-  homeFeatures,
-  homeBrands,
-} from "../data/homeData"; // Importamos los datos
+import { homeInfo,homeLinks,homeFeatures,homeBrands, galleryFeatures } from "../data/homeData"; // Importamos los datos
 import HomeTitle from "../components/home/HomeTitle"; // Importamos el componente HomeTitle
 import HomeLinksSection from "../components/home/HomeLinksSection"; // Importamos el nuevo componente
 import HomeFeaturesSection from "../components/home/HomeFeaturesSection"; // Importamos el nuevo componente
 import HomeBrandsSection from "../components/home/HomeBrandsSection"; // Importamos el nuevo componente
 import ScrollDownArrow from "../components/common/ScrollDownArrow"; // Importamos el nuevo componente
+import AnimationWrapper from "../components/common/AnimationLayer";
+import HomeGallerySection from "../components/home/HomeGallerySection";
 
 interface HomeProps {
   onSmoothScroll: (sectionId: string) => void;
@@ -46,6 +43,7 @@ const Home = memo(({ onSmoothScroll }: HomeProps) => {
             {homeInfo && homeInfo.title && homeInfo.subtitle && (
               <HomeTitle title={homeInfo.title} subtitle={homeInfo.subtitle} />
             )}
+            <AnimationWrapper animationClassName="fade-in">
               <div className="flex flex-col sm:flex-row gap-4">
                 {homeInfo && homeInfo.button1Text && (
                   <HomeButton
@@ -70,6 +68,7 @@ const Home = memo(({ onSmoothScroll }: HomeProps) => {
                   </HomeButton>
                 )}
               </div>
+            </AnimationWrapper>
           </main>
           <ScrollDownArrow /> {/* Renderizamos el componente */}
         </div>
@@ -92,6 +91,12 @@ const Home = memo(({ onSmoothScroll }: HomeProps) => {
       {/* Seccion de marcas */}
       <HomeBrandsSection 
       brands={homeBrands.brands} 
+      />
+      {/* Seccion de galleria preview */}
+      <HomeGallerySection
+        imageSrc={galleryFeatures.imageSrc} // Usamos la nueva estructura
+        alt={galleryFeatures.alt} // Usamos la nueva estructura
+        gallery={galleryFeatures.gallery} // Usamos la nueva estructura
       />
     </div>
   );

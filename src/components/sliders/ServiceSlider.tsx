@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Slider from "react-slick";
-import { useTheme } from "../context/useThemeHook";
 import { ModalContent } from "../../data/servicesData";
-import { getTextColorClass } from "../../utils/utils";
 
 interface ServiceCarouselProps {
   images: string[];
@@ -23,7 +21,6 @@ const ServiceCarousel: React.FC<ServiceCarouselProps> = ({
   description,
   label,
 }) => {
-  const { theme } = useTheme();
   const [error, setError] = useState<string | null>(null);
 
   const handleOpenModal = () => {

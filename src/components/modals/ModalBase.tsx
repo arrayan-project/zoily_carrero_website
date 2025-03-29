@@ -14,7 +14,7 @@ interface ModalProps {
   description?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, images, title, infoContent, termsContent, description }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, infoContent, termsContent }) => {
   const modalContentRef = useRef<HTMLDivElement>(null);
   const modalContainerRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();

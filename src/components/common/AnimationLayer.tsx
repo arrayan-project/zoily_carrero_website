@@ -23,11 +23,10 @@ type AnimationClassName =
 type AnimationWrapperProps = {
   animationClassName: AnimationClassName; //Nombre de la clase de la animacion
   children: ReactNode; //Contenido del componente
-  isLCP: boolean;
 };
 
 //Funcion que devuelve las opciones de la animacion segun su nombre
-const getAnimationOptions = (className: AnimationClassName, isLCP: boolean = false) => {
+const getAnimationOptions = (className: AnimationClassName) => {
   switch (className) {
     case "fade-in-up": //el elemento aparece desde abajo y sube hasta su posicion final
       return {
@@ -47,8 +46,7 @@ const getAnimationOptions = (className: AnimationClassName, isLCP: boolean = fal
       return {
         origin: "center",
         distance: "0px",
-        duration: 1000,
-        delay: isLCP ? 0 : 200, // Remove delay if isLCP is true
+        duration: 3000,
       };
     case "slide-in-left": //el elemento aparece desde la izquierda hasta su posicion final
       return {
@@ -73,7 +71,7 @@ const getAnimationOptions = (className: AnimationClassName, isLCP: boolean = fal
 const AnimationWrapper: React.FC<AnimationWrapperProps> = ({
   animationClassName,
   children,
-  isLCP = false, // Add isLCP prop
+
 }) => {
   //Referencia del componente
   const elementRef = useRef<HTMLDivElement>(null);
@@ -93,7 +91,7 @@ const AnimationWrapper: React.FC<AnimationWrapperProps> = ({
       });
 
       //Usamos el metodo reveal con las opciones segun la clase de animacion
-      sr.reveal(elementRef.current, getAnimationOptions(animationClassName, isLCP));
+      sr.reveal(elementRef.current, getAnimationOptions(animationClassName));
 
       //Limpiamos el componente al destruir el elemento
       return () => {

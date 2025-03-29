@@ -48,7 +48,8 @@ function App() {
   return (
     <ThemeProvider> {/* ThemeProvider now wraps everything */}
       <div className='relative'>
-        <Router basename="/zoily_carrero_website/">
+       {/* <Router basename="/zoily_carrero_website/"> se debe habilitar para deployar en github*/} 
+        <Router >
           {/* Renderizado condicional */}
           <MainContent handleSmoothScroll={handleSmoothScroll} openModal={openModal} closeModal={closeModal} isModalOpen={isModalOpen} />
         </Router>
