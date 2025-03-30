@@ -15,7 +15,7 @@ interface HomeFeaturesSectionProps {
 
 const HomeFeaturesSection: React.FC<HomeFeaturesSectionProps> = ({ imageSrc, alt, features }) => {
   return (
-    <section className="py-0"> {/* Eliminamos padding vertical */}
+    <section className="py-0 md:mb-12"> {/* Eliminamos padding vertical */}
       <div className="mx-auto w-full">
         <div className="grid grid-cols-1 md:grid-cols-2 items-stretch gap-0 h-full"> {/* Agregamos h-full y items-stretch */}
         <AnimationWrapper animationClassName="slide-in-left">

@@ -1,16 +1,3 @@
-/*
-#### Responsabilidad ####
-- Renderiza las diferentes secciones de la página (Home, Services, etc.).
-
-#### Componentes que renderiza ####
-- Home, Services, UGC, Store, Gallery, About, Contact.
-
-#### Lógica Clave ####
-- <section>: Cada sección se renderiza en una etiqueta <section>.
-- onSmoothScroll: Se pasa la función para el scroll suave al componente Home.
-*/
-
-
 import React, { lazy, Suspense, useState } from 'react';
 // Carga diferida de los componentes
 const Home = lazy(() => import('../../pages/Home'));
@@ -23,10 +10,11 @@ const Contact = lazy(() => import('../../pages/Contact'));
 
 interface ContentProps {
   onSmoothScroll: (sectionId: string) => void;
-  className?: string; // Prop para clases adicionales
+  className?: string;
+  isMobileView: boolean;
 }
 
-function Content({ onSmoothScroll, className }: ContentProps) {
+function Content({ onSmoothScroll, className, isMobileView }: ContentProps) {
   const [error, setError] = useState<string | null>(null);
 
   if (error) {
@@ -42,17 +30,21 @@ function Content({ onSmoothScroll, className }: ContentProps) {
     <div className={className}>
       <Suspense fallback={<div className="loading-container">Cargando...</div>}>
         <section id="home" className="page-section">
-          <Home onSmoothScroll={onSmoothScroll} />
+          <Home onSmoothScroll={onSmoothScroll} isMobileView={isMobileView} />
         </section>
-        <section id="services" className="page-section">
-          <Services />
-        </section>
-        <section id="gallery" className="page-section">
-          <Gallery />
-        </section>
-        <section id="ugc" className="page-section">
-          <UGC />
-        </section>
+        {!isMobileView && (
+          <>
+            <section id="services" className="page-section">
+              <Services />
+            </section>
+            <section id="gallery" className="page-section">
+              <Gallery />
+            </section>
+            <section id="ugc" className="page-section">
+              <UGC />
+            </section>
+          </>
+        )}
         <section id="store" className="page-section">
           <Store />
         </section>

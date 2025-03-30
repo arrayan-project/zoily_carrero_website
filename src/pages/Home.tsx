@@ -3,7 +3,7 @@ import { useState, useEffect, memo } from "react";
 import { MOBILE_BREAKPOINT } from "../constants/constants";
 import BackgroundCarousel from "../components/sliders/BackgroundSlider";
 import HomeButton from "../components/buttons/HomeButton";
-import { homeInfo,homeLinks,homeFeatures,homeBrands, galleryFeatures } from "../data/homeData"; // Importamos los datos
+import { homeInfo, homeLinks, homeFeatures, homeBrands, galleryFeatures } from "../data/homeData"; // Importamos los datos
 import HomeTitle from "../components/home/HomeTitle"; // Importamos el componente HomeTitle
 import HomeLinksSection from "../components/home/HomeLinksSection"; // Importamos el nuevo componente
 import HomeFeaturesSection from "../components/home/HomeFeaturesSection"; // Importamos el nuevo componente
@@ -14,11 +14,11 @@ import HomeGallerySection from "../components/home/HomeGallerySection";
 
 interface HomeProps {
   onSmoothScroll: (sectionId: string) => void;
+  isMobileView: boolean; // Agregamos isMobileView a las props
 }
 
-const Home = memo(({ onSmoothScroll }: HomeProps) => {
+const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => { // Recibimos isMobileView como prop
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const isMobileView = windowWidth < MOBILE_BREAKPOINT;
 
   useEffect(() => {
     const handleResize = () => {
@@ -49,9 +49,10 @@ const Home = memo(({ onSmoothScroll }: HomeProps) => {
                   <HomeButton
                     isMobileView={isMobileView}
                     onSmoothScroll={onSmoothScroll}
-                    to="services"
+                    to="/services"
                     className="px-6 py-3 bg-white text-black font-normal font-cinzel rounded shadow hover:bg-gray-200 transition duration-200 text-center"
                     aria-label={`Ir a la sección de ${homeInfo.button1Text}`}
+                    sectionId="services" // Agregamos el sectionId
                   >
                     {homeInfo.button1Text}
                   </HomeButton>
@@ -60,9 +61,10 @@ const Home = memo(({ onSmoothScroll }: HomeProps) => {
                   <HomeButton
                     isMobileView={isMobileView}
                     onSmoothScroll={onSmoothScroll}
-                    to="contact"
+                    to="/contact"
                     className="px-6 py-3 bg-pink-500 text-white font-normal font-cinzel rounded shadow hover:bg-pink-800 transition duration-200 text-center"
                     aria-label={`Ir a la sección de ${homeInfo.button2Text}`}
+                    sectionId="contact" // Agregamos el sectionId
                   >
                     {homeInfo.button2Text}
                   </HomeButton>
@@ -89,8 +91,8 @@ const Home = memo(({ onSmoothScroll }: HomeProps) => {
         features={homeFeatures.features}
       />
       {/* Seccion de marcas */}
-      <HomeBrandsSection 
-      brands={homeBrands.brands} 
+      <HomeBrandsSection
+        brands={homeBrands.brands}
       />
       {/* Seccion de galleria preview */}
       <HomeGallerySection

@@ -1,30 +1,18 @@
-/*
-#### Responsabilidad ####
--  Define las rutas y renderiza las secciones en la vista de escritorio.
-
-#### Componentes que renderiza ####
-- MyRoutes.
-
-#### Lógica Clave ####
-- MyRoutes: Renderiza las rutas, que son las que renderizan las diferentes secciones.
-*/
-
+// src/components/layout/DesktopView.tsx
 import React, { useState, useEffect } from 'react';
 import MyRoutes from '../../Routes';
 
 interface ContentDesktopProps {
   onSmoothScroll: (sectionId: string) => void;
+  isMobileView: boolean;
+
 }
 
-const ContentDesktop: React.FC<ContentDesktopProps> = ({ onSmoothScroll }: ContentDesktopProps) => {
+const ContentDesktop: React.FC<ContentDesktopProps> = ({ onSmoothScroll, isMobileView }: ContentDesktopProps) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     try {
-      // Aquí iría el código que podría fallar, como cargar las rutas o hacer una llamada a una API
-      // Por ejemplo:
-      // const routes = await loadRoutes();
-      // Si loadRoutes() falla, se lanzará un error y se capturará en el catch
     } catch (err) {
       setError("Error al cargar las rutas de la aplicación.");
       console.error("Error en ContentDesktop:", err);
@@ -39,7 +27,7 @@ const ContentDesktop: React.FC<ContentDesktopProps> = ({ onSmoothScroll }: Conte
     );
   }
 
-  return <MyRoutes onSmoothScroll={onSmoothScroll} />;
+  return <MyRoutes onSmoothScroll={onSmoothScroll} isMobileView={isMobileView}/>;
 };
 
 export default ContentDesktop;

@@ -1,4 +1,4 @@
-// Routes.tsx
+// src/Routes.tsx
 import React, { lazy, Suspense, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 // Carga diferida de los componentes
@@ -12,9 +12,10 @@ const Contact = lazy(() => import('./pages/Contact'));
 
 interface RoutesProps {
   onSmoothScroll: (sectionId: string) => void;
+  isMobileView: boolean;
 }
 
-const MyRoutes = ({ onSmoothScroll }: RoutesProps) => {
+const MyRoutes = ({ onSmoothScroll, isMobileView }: RoutesProps) => {
   const [error, setError] = useState<string | null>(null);
 
   if (error) {
@@ -29,14 +30,14 @@ const MyRoutes = ({ onSmoothScroll }: RoutesProps) => {
   return (
     <Suspense fallback={<div className="loading-container">Cargando...</div>}>
       <Routes>
-        <Route path="/" element={<Home onSmoothScroll={onSmoothScroll} />} />
+        <Route path="/" element={<Home onSmoothScroll={onSmoothScroll} isMobileView={isMobileView} />} />
         <Route path="/services" element={<Services />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/ugc" element={<UGC />} />
         <Route path="/store" element={<Store />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/*" element={<Home onSmoothScroll={onSmoothScroll} />} />
+        <Route path="/*" element={<Home onSmoothScroll={onSmoothScroll} isMobileView={isMobileView} />} />
       </Routes>
     </Suspense>
   );

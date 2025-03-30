@@ -9,10 +9,10 @@ interface HomeLinksSectionProps {
   subtitle1: string;
   links: {
     to: string;
-    sectionId?: string; // ID de sección para vista móvil (opcional)
+    sectionId?: string;
     imageSrc: string;
     alt: string;
-    label: string; // Propiedad para el texto del recuadro
+    label: string;
   }[];
   isMobileView: boolean;
   onSmoothScroll: (sectionId: string) => void;
@@ -22,10 +22,10 @@ const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({ title, subtitle, su
   const navigate = useNavigate();
 
   const handleClick = (link: HomeLinksSectionProps['links'][number]) => {
-    if (isMobileView && link.sectionId) {
-      onSmoothScroll(link.sectionId);
-    } else {
+    if (isMobileView) {
       navigate(link.to);
+    } else {
+      navigate(link.to); // Siempre navegar a la página en vista de escritorio
     }
   };
 
@@ -39,7 +39,6 @@ const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({ title, subtitle, su
         </AnimationWrapper>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {links.map((link) => {
-            // Generamos la key de forma dinámica
             const key = link.sectionId ? `${link.sectionId}-${link.to}` : link.to;
 
             return (

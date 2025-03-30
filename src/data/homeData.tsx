@@ -68,7 +68,7 @@ export const homeBrands = {
 };
 
 export const galleryFeatures = {
-  imageSrc: imageArrays.homeSectionsImages[2], // Usamos la nueva imagen
+  imageSrc: imageArrays.homeSectionsImages[4], // Usamos la nueva imagen
   alt: "Una ventana a la galeria",
   gallery: [
     { 

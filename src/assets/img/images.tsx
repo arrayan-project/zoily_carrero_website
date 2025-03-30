@@ -204,6 +204,7 @@ import homeSection1 from "../img/background-home/home-sections/home-services1.we
 import homeSection2 from "../img/background-home/home-sections/home-courses1.webp";
 import homeSection3 from "../img/background-home/home-sections/home-courses2.webp";
 import homeSection4 from "../img/background-home/home-sections/home-ugc1.webp";
+import homeSection5 from "../img/background-home/home-sections/home-gallery1.webp";
 
 // ==============================================
 // Importaciones para las marcas (icon-brands)
@@ -258,6 +259,7 @@ const images: Image = {
   homeSection2,
   homeSection3,
   homeSection4,
+  homeSection5,
   brandLogo1,
   brandLogo2,
   brandLogo3,
@@ -361,6 +363,7 @@ const imageArrays: ImageArray = {
     homeSection2,
     homeSection3,
     homeSection4,
+    homeSection5,
   ],
   //Array de imagenes para las marcas
   brandImages: [

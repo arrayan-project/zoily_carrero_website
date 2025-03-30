@@ -1,7 +1,6 @@
-// HomeButton.tsx
+// src/components/buttons/HomeButton.tsx
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 
 interface HomeButtonProps {
   isMobileView: boolean;
@@ -11,20 +10,27 @@ interface HomeButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
   ariaLabel?: string;
+  sectionId?: string;
 }
 
-const HomeButton: React.FC<HomeButtonProps> = ({ isMobileView, onSmoothScroll, to, className, children, onClick, ariaLabel }) => {
+const HomeButton: React.FC<HomeButtonProps> = ({ isMobileView, onSmoothScroll, to, className, children, onClick, ariaLabel, sectionId }) => {
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const handleClick = () => {
     try {
-      // Si existe la funcion onClick, se ejecuta primero
       if (onClick) {
         onClick();
       }
-      // Si existe la funcion onSmoothScroll y la prop to, se ejecuta
-      if (onSmoothScroll && to) {
-        onSmoothScroll(to);
+
+      if (to) {
+        if (isMobileView && (to === "/services" || to === "/gallery" || to === "/ugc")) {
+          navigate(to);
+        } else if (isMobileView && to === "/contact") {
+          onSmoothScroll?.("contact"); // Aseguramos que el sectionId sea "contact"
+        } else {
+          navigate(to);
+        }
       }
     } catch (err) {
       const errorMessage = "Error al ejecutar la acción del botón.";
@@ -34,7 +40,7 @@ const HomeButton: React.FC<HomeButtonProps> = ({ isMobileView, onSmoothScroll, t
   };
 
   if (error) {
-    console.error("Error en HomeButton:", error); // Registra el error en la consola
+    console.error("Error en HomeButton:", error);
     return (
       <div className="error-container">
         <p className="error-message">Ha ocurrido un error al intentar ejecutar la acción del botón.</p>
@@ -42,24 +48,16 @@ const HomeButton: React.FC<HomeButtonProps> = ({ isMobileView, onSmoothScroll, t
     );
   }
 
-  if (isMobileView) {
-    return (
-      <button
-        onClick={handleClick}
-        className={`home-button ${className}`}
-        aria-label={ariaLabel}
-        type="button" // Añade type="button" para accesibilidad
-      >
-        {children}
-      </button>
-    );
-  } else {
-    return (
-      <Link to={to || ""} className={`home-button ${className}`} aria-label={ariaLabel}>
-        {children}
-      </Link>
-    );
-  }
+  return (
+    <button
+      onClick={handleClick}
+      className={`home-button ${className}`}
+      aria-label={ariaLabel}
+      type="button"
+    >
+      {children}
+    </button>
+  );
 };
 
 export default HomeButton;

@@ -1,17 +1,3 @@
-/*
-##### Responsabilidad #####
-- Es el componente principal. Gestiona el tamaño de la pantalla, el tema, la modal de contacto,
-y decide qué renderizar (vista móvil o escritorio).
-- Contiene los botones ThemeToggleButton y ScrollToTopButton.
-
-##### Componentes que renderiza #####
-- LandingPageMobile, ContentDesktop, Navigation y Footer.
-
-##### Lógica Clave #####
-- isMobileView: Determina si se muestra la vista móvil o la de escritorio.
-- MainContent: Renderiza condicionalmente LandingPageMobile o ContentDesktop según isMobileView.
-*/
-
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './components/context/themeContext';
@@ -46,11 +32,9 @@ function App() {
   };
 
   return (
-    <ThemeProvider> {/* ThemeProvider now wraps everything */}
+    <ThemeProvider>
       <div className='relative'>
-       {/* <Router basename="/zoily_carrero_website/"> se debe habilitar para deployar en github*/} 
-        <Router >
-          {/* Renderizado condicional */}
+        <Router>
           <MainContent handleSmoothScroll={handleSmoothScroll} openModal={openModal} closeModal={closeModal} isModalOpen={isModalOpen} />
         </Router>
       </div>
@@ -66,7 +50,7 @@ interface MainContentProps {
 }
 
 function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen }: MainContentProps) {
-  const { theme } = useTheme(); // Now useTheme is inside ThemeProvider
+  const { theme } = useTheme();
   const location = useLocation();
   const hideHeaderAndFooter = location.pathname === "/";
   const themeClasses = !hideHeaderAndFooter ? (theme === 'light' ? 'bg-white text-amber-700' : 'bg-gray-800 text-rose-400') : '';
@@ -80,7 +64,6 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen }:
 
     window.addEventListener('resize', handleResize);
 
-    // Añadir o eliminar la clase 'dark-mode' al body
     if (theme === 'dark') {
       document.body.classList.add('dark-mode');
     } else {
@@ -89,10 +72,9 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen }:
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      // Limpiar la clase 'dark-mode' al desmontar el componente
       document.body.classList.remove('dark-mode');
     };
-  }, [theme]); // Dependencia 'theme'
+  }, [theme]);
 
   return (
     <>
@@ -102,7 +84,7 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen }:
       {isMobileView ? (
         <>
           <Navigation className="fixed top-0 left-0 w-full" onSmoothScroll={handleSmoothScroll} isMobileView={isMobileView} />
-          <LandingPageMobile onSmoothScroll={handleSmoothScroll} />
+          <LandingPageMobile onSmoothScroll={handleSmoothScroll} isMobileView={isMobileView} />
         </>
       ) : (
         <div className={` ${themeClasses}`}>
@@ -110,7 +92,7 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen }:
             <ThemeToggleButton />
           </div>
           {!hideHeaderAndFooter && <Navigation className="md:mb-12" onSmoothScroll={handleSmoothScroll} isMobileView={isMobileView} />}
-          <ContentDesktop onSmoothScroll={handleSmoothScroll} />
+          <ContentDesktop onSmoothScroll={handleSmoothScroll} isMobileView={isMobileView} />
           {!hideHeaderAndFooter && <Footer />}
         </div>
       )}
