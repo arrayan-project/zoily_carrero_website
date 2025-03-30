@@ -1,0 +1,1 @@
+import{r as i,M as n}from"./index-ToOnNa6z.js";const r=()=>{const[t,w]=i.useState({width:window.innerWidth,isMobileView:window.innerWidth<n});return i.useEffect(()=>{const e=()=>{w({width:window.innerWidth,isMobileView:window.innerWidth<n})};return window.addEventListener("resize",e),()=>{window.removeEventListener("resize",e)}},[]),t};export{r as u};
