@@ -3,6 +3,8 @@ import React from 'react';
 import SmoothImage from '../smoothImages/SmoothImage';
 import AnimationWrapper from "../common/AnimationLayer";
 import { useNavigate } from 'react-router-dom';
+import { getTextColorClass } from "../../utils/utils";
+import { useTheme } from "../../components/context/useThemeHook";
 
 interface HomeGallerySectionProps {
   imageSrc: string;
@@ -15,23 +17,24 @@ interface HomeGallerySectionProps {
 
 const HomeGallerySection: React.FC<HomeGallerySectionProps> = ({ imageSrc, alt, gallery }) => {
   const navigate = useNavigate();
+  const { theme } = useTheme();
 
   const handleViewMoreClick = () => {
-    navigate('/gallery');
+    navigate('/gallery#gallery');
   };
 
   return (
-    <section className="py-16 px-4"> {/* Agregamos padding vertical y horizontal */}
-      <div className="mx-auto w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 items-stretch gap-8 h-full"> {/* Mantenemos la grilla para la imagen */}
+    <section className={`py-16 px-4 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}> {/* Añadimos la clase de fondo */}
+      <div className={`mx-auto w-full ${theme === "dark" ? "text-white" : "text-gray-800"}`}>
+       <div className="grid grid-cols-1 md:grid-cols-2 items-stretch gap-8 h-full"> {/* Mantenemos la grilla para la imagen */}
           {/* Contenedor de texto */}
           <AnimationWrapper animationClassName="slide-in-left">
             <div className="flex flex-col items-center justify-center gap-4 h-full text-center"> {/* Centrado y flexible */}
               {gallery.map((galleryItem, index) => (
                 <div key={index} className="w-full">
                   <div className="flex flex-col items-center justify-center px-6 py-8"> {/* Padding vertical */}
-                    <h3 className="text-base font-cinzel font-medium mb-4">{galleryItem.title}</h3>
-                    <p className="text-base text-gray-600 font-cinzel px-4">{galleryItem.description}</p>
+                    <h3 className={`text-xl font-cinzel font-medium mb-16 ${getTextColorClass(theme)}`}>{galleryItem.title}</h3>
+                    <p className={`text-sm md:text-xs xl:text-sm text-gray-600 font-cinzel px-4 ${getTextColorClass(theme)}`}>{galleryItem.description}</p>
                   </div>
                 </div>
               ))}

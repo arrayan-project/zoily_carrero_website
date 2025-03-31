@@ -15,25 +15,26 @@ export const homeLinks = {
   links: [
     {
       to: "/services",
-      sectionId: "services",
+      hash: "#services", // Navega a /services#services
       imageSrc: imageArrays.homeSectionsImages[0], // Usamos la nueva imagen
       alt: "Servicios",
       label: "Servicios", // Nuevo: Agregamos el texto del recuadro
     },
     {
       to: "/services",
-      sectionId: "cursos",
+      hash: "#cursos", // Navega a /services#cursos
       imageSrc: imageArrays.homeSectionsImages[1], // Usamos la nueva imagen
       alt: "Cursos",
       label: "Cursos", // Nuevo: Agregamos el texto del recuadro
     },
     {
       to: "/ugc",
-      sectionId: "ugc",
+      hash: "#ugc", // Navega a /ugc#ugc
       imageSrc: imageArrays.homeSectionsImages[3], // Usamos la nueva imagen
       alt: "UGC",
       label: "UGC", // Nuevo: Agregamos el texto del recuadro
     },
+    
   ],
 };
 
@@ -72,8 +73,8 @@ export const galleryFeatures = {
   alt: "Una ventana a la galeria",
   gallery: [
     { 
-    title: "",
-    description:"✨ Descubre nuestra exclusiva galería de servicios y encuentra el look perfecto que se adapte a tu estilo. Desde cortes de cabello modernos, maquillajes espectaculares hasta manicuras impecables, tenemos todo lo que necesitas para resaltar tu belleza única. ¡Inspírate con nuestras opciones y agenda tu cita hoy para lucir increíble! 💄💇‍♀️💅"
+    title: "Descubre nuestra galería",
+    description:" Encuentra el look perfecto que se adapte a tu estilo. Desde cortes de cabello modernos, maquillajes espectaculares hasta manicuras impecables, tenemos todo lo que necesitas para resaltar tu belleza única. ¡Inspírate con nuestras opciones y agenda tu cita hoy para lucir increíble! "
       },
     ],
   };

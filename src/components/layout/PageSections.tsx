@@ -1,12 +1,13 @@
+// src/components/layout/PageSections.tsx
 import React, { lazy, Suspense, useState } from 'react';
 // Carga diferida de los componentes
 const Home = lazy(() => import('../../pages/Home'));
-const Services = lazy(() => import('../../pages/Services'));
-const Gallery = lazy(() => import('../../pages/Gallery'));
-const UGC = lazy(() => import('../../pages/UGC'));
 const Store = lazy(() => import('../../pages/Store'));
 const About = lazy(() => import('../../pages/About'));
 const Contact = lazy(() => import('../../pages/Contact'));
+const Services = lazy(() => import('../../pages/Services'));
+const Gallery = lazy(() => import('../../pages/Gallery'));
+const UGC = lazy(() => import('../../pages/UGC'));
 
 interface ContentProps {
   onSmoothScroll: (sectionId: string) => void;
@@ -32,6 +33,15 @@ function Content({ onSmoothScroll, className, isMobileView }: ContentProps) {
         <section id="home" className="page-section">
           <Home onSmoothScroll={onSmoothScroll} isMobileView={isMobileView} />
         </section>
+        <section id="store" className="page-section">
+          <Store />
+        </section>
+        <section id="about" className="page-section">
+          <About />
+        </section>
+        <section id="contact" className="page-section">
+          <Contact />
+        </section>
         {!isMobileView && (
           <>
             <section id="services" className="page-section">
@@ -45,15 +55,6 @@ function Content({ onSmoothScroll, className, isMobileView }: ContentProps) {
             </section>
           </>
         )}
-        <section id="store" className="page-section">
-          <Store />
-        </section>
-        <section id="about" className="page-section">
-          <About />
-        </section>
-        <section id="contact" className="page-section">
-          <Contact />
-        </section>
       </Suspense>
     </div>
   );

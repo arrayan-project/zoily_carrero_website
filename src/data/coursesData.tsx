@@ -165,12 +165,12 @@ export const termsContent = () => { // Creamos la funcion termsContent
       <div>
         <h1 className="font-cinzel font-bold mb-8 text-sm md:text-base">Términos y Condiciones del Curso</h1>
         <div>
-          <h2>Materiales:</h2>
-          <p>Se proveerán los materiales durante el curso</p>
+          <h2 className="font-cinzel font-bold mb-4 text-sm md:text-base">Materiales:</h2>
+          <p className="font-cinzel mb-4 text-xs md:text-sm">Se proveerán los materiales durante el curso</p>
         </div>
         <div>
-          <h2>Requisitos:</h2>
-          <p>No se requieren conocimientos previos</p>
+          <h2 className="font-cinzel font-bold mb-4 text-sm md:text-base">Requisitos:</h2>
+          <p className="font-cinzel mb-4 text-xs md:text-sm">No se requieren conocimientos previos</p>
         </div>
       </div>
     );

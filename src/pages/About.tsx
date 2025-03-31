@@ -30,11 +30,13 @@ function About({}: ServicesProps) {
 
   return (
     <div className={`min-h-screen ${theme === "dark" ? "text-white" : "text-gray-800"}`}>
+    {!isMobileView && (
       <PageBanner
         title="GUSTO EN CONOCERTE!"
         imageSrcs={[images.aboutBannerUp]}
         objectPosition="left-bottom"
       />
+    )}
 
       <section id="about" className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
         <div className="lg:flex lg:items-start lg:justify-between lg:gap-8">

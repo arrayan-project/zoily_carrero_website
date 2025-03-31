@@ -1,4 +1,5 @@
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
+import { useLocation } from "react-router-dom"; // Importamos useLocation
 import GalleryTitle from "../components/common/GalleryTitle";
 import GalleryCategoryMenu from "../components/navigation/GalleryCategoryMenu";
 import GalleryImageGrid from "../components/layout/GalleryImageGrid";
@@ -11,6 +12,7 @@ import { getTextColorClass } from "../utils/utils";
 import { galleryCategories, galleryTitle } from "../data/galleryData";
 import { useTheme } from "../components/context/useThemeHook";
 import "../GlobalStyles.css";
+import Footer from "../components/common/Footer"; // Importamos el componente Footer
 
 export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -19,6 +21,7 @@ export default function Gallery() {
   const [isGalleryTransitioning, setIsGalleryTransitioning] = useState(false);
   const [isModalTransitioning, setIsModalTransitioning] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const location = useLocation(); // Obtenemos la ubicación actual
 
   const modalContainerRef = useRef<HTMLDivElement>(null);
   const { isMobileView } = useWindowSize();
@@ -61,6 +64,19 @@ export default function Gallery() {
 
   useGalleryModalTouch({ prevImage, nextImage, modalContainerRef });
 
+  // Nuevo useEffect para manejar el scroll al cargar la página
+  useEffect(() => {
+    const hash = location.hash; // Obtenemos el hash de la URL
+    if (hash) {
+      const element = document.querySelector(hash); // Buscamos el elemento con el hash como ID
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" }); // Hacemos scroll al elemento
+      }
+    } else {
+      window.scrollTo(0, 0); // Si no hay hash, hacemos scroll al inicio de la página
+    }
+  }, [location.hash]); // Se ejecuta cada vez que cambia el hash
+
   if (error) return <p className="error-message">{error}</p>;
 
   return (
@@ -71,6 +87,9 @@ export default function Gallery() {
         <GalleryImageGrid {...{ currentGalleryImages, openImage, isGalleryTransitioning }} />
         <GalleryModal {...{ selectedImage, closeImage, prevImage, nextImage, isModalTransitioning, handleModalClick, modalContainerRef, isMobileView }} />
       </section>
+      {isMobileView && (
+                  <Footer />
+                )}
     </main>
   );
 }

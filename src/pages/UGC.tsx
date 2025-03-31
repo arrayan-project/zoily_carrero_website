@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom"; // Importamos useLocation
 import {
   Instagram,
   Facebook,
@@ -13,12 +14,15 @@ import SocialIcons from "../components/common/SocialIcons";
 import SectionTitle from "../components/common/SectionTitle";
 import PhoneImageContainer from "../components/ugc/PhoneImageContainer";
 import SectionDescription from "../components/common/SectionDescription";
+import Footer from "../components/common/Footer"; // Importamos el componente Footer
+import useWindowSize from "../hooks/useWindowSize";
 
 interface UGCProps {}
 
 const UGC: React.FC<UGCProps> = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const isMobileView = windowWidth < MOBILE_BREAKPOINT;
+  const location = useLocation(); // Obtenemos la ubicación actual
+  const { isMobileView } = useWindowSize();
 
   useEffect(() => {
     const handleResize = () => {
@@ -31,6 +35,19 @@ const UGC: React.FC<UGCProps> = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  // Nuevo useEffect para manejar el scroll al cargar la página
+  useEffect(() => {
+    const hash = location.hash; // Obtenemos el hash de la URL
+    if (hash) {
+      const element = document.querySelector(hash); // Buscamos el elemento con el hash como ID
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" }); // Hacemos scroll al elemento
+      }
+    } else {
+      window.scrollTo(0, 0); // Si no hay hash, hacemos scroll al inicio de la página
+    }
+  }, [location.hash]); // Se ejecuta cada vez que cambia el hash
 
   return (
     <main className="ugc-page-container">
@@ -123,6 +140,9 @@ const UGC: React.FC<UGCProps> = () => {
           imageSrcs={[images.contactBannerBottom]}
         />
       )}
+      {isMobileView && (
+            <Footer />
+          )}
     </main>
   );
 };

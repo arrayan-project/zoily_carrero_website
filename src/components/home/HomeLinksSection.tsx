@@ -2,6 +2,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import AnimationWrapper from "../common/AnimationLayer";
+import { getTextColorClass } from "../../utils/utils";
+import { useTheme } from "../../components/context/useThemeHook";
+
 
 interface HomeLinksSectionProps {
   title: string;
@@ -13,29 +16,31 @@ interface HomeLinksSectionProps {
     imageSrc: string;
     alt: string;
     label: string;
+    hash?: string; // Agregamos la propiedad hash
   }[];
   isMobileView: boolean;
   onSmoothScroll: (sectionId: string) => void;
 }
 
-const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({ title, subtitle, subtitle1, links, isMobileView, onSmoothScroll }) => {
+const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({ title, subtitle, subtitle1, links}) => {
   const navigate = useNavigate();
+  const { theme } = useTheme();
 
   const handleClick = (link: HomeLinksSectionProps['links'][number]) => {
-    if (isMobileView) {
-      navigate(link.to);
+    if (link.hash) {
+      navigate(`${link.to}${link.hash}`); // Navegar a la ruta con el hash
     } else {
-      navigate(link.to); // Siempre navegar a la página en vista de escritorio
+      navigate(link.to); // Navegar a la ruta sin hash
     }
   };
 
   return (
-    <section className="py-16 px-4">
+    <section className={`py-16 px-4 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}> {/* Añadimos la clase de fondo */}
       <div className="container mx-auto text-center mb-8 md:mb-24">
-        <AnimationWrapper animationClassName="fade-in-up">
-          <h2 className="text-4xl md:text-5xl font-cinzel font-extralight mb-12">{title}</h2>
-          <p className="text-gray-600 font-cinzel">{subtitle}</p>
-          <p className="text-gray-600 mb-24 md:mb-28 font-cinzel">{subtitle1}</p>
+      <AnimationWrapper animationClassName="fade-in-up">
+          <h2 className={`text-4xl md:text-5xl font-cinzel font-extralight mb-12 ${getTextColorClass(theme)}`}>{title}</h2>
+          <p className={`text-gray-600 font-cinzel ${getTextColorClass(theme)}`}>{subtitle}</p>
+          <p className={`text-gray-600 mb-24 md:mb-28 font-cinzel ${getTextColorClass(theme)}`}>{subtitle1}</p>
         </AnimationWrapper>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {links.map((link) => {

@@ -1,5 +1,6 @@
 // src/pages/Services.tsx
-import React, { useState, useCallback, createContext, useContext } from "react";
+import React, { useState, useCallback, createContext, useContext, useEffect } from "react";
+import { useLocation } from "react-router-dom"; // Importamos useLocation
 import StatsSection from "../components/StatsSection";
 import "../GlobalStyles.css";
 import { ModalContent } from "../data/servicesData";
@@ -22,6 +23,9 @@ import { ErrorBoundary } from "react-error-boundary";
 import SectionDescription from "../components/common/SectionDescription";
 import { getServicesDescription } from "../data/servicesData";
 import { getCoursesDescription } from "../data/coursesData";
+import Footer from "../components/common/Footer"; // Importamos el componente Footer
+import useWindowSize from "../hooks/useWindowSize";
+
 
 // Creamos el contexto para el modal
 interface ModalContextProps {
@@ -84,15 +88,29 @@ export const ModalProvider: React.FC<{ children: React.ReactNode }> = ({
 // Componente principal Services
 function Services({}: ServicesProps) {
   const [error, setError] = useState<string | null>(null);
+  const location = useLocation(); // Obtenemos la ubicación actual
+  const { isMobileView } = useWindowSize();
 
-//Funcion para manejar errores
+  //Funcion para manejar errores
   if (error) {
     return <ErrorComponent error={new Error(error)} resetErrorBoundary={() => setError(null)} message={error} />;
   }
 
-//Obtenemos las descripciones
+  //Obtenemos las descripciones
   const servicesDescription = getServicesDescription();
   const coursesDescription = getCoursesDescription();
+
+  useEffect(() => {
+    const hash = location.hash; // Obtenemos el hash de la URL
+    if (hash) {
+      const element = document.querySelector(hash); // Buscamos el elemento con el hash como ID
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" }); // Hacemos scroll al elemento
+      }
+    } else {
+      window.scrollTo(0, 0); // Si no hay hash, hacemos scroll al inicio de la página
+    }
+  }, [location.hash]); // Se ejecuta cada vez que cambia el hash
 
   return (
     <ErrorBoundary FallbackComponent={ErrorComponent} onReset={() => setError(null)}>
@@ -128,9 +146,13 @@ function Services({}: ServicesProps) {
           </CoursesSectionBackground>
           
           <ModalContentRender />
+          {isMobileView && (
+            <Footer />
+          )}
         </main>
       </ModalProvider>
     </ErrorBoundary>
+
   );
 }
 const ModalContentRender = () => {

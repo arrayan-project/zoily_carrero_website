@@ -5,24 +5,43 @@ import PageBanner from "../components/common/PageBanner";
 import images from "../assets/img/images";
 import AnimationWrapper from "../components/common/AnimationLayer";
 import "../GlobalStyles.css";
-import { useState } from "react";
+import { useEffect } from "react";
 import ContactForm from "../components/forms/ContactUsForm";
 import { getTextColorClass } from "../utils/utils";
 import { contactInfo } from "../data/contactData";
-import ImageWithFallback from "../components/common/ImageWithFallback";
 import useWindowSize from "../hooks/useWindowSize";
-import ErrorComponent from "../components/common/ErrorComponent";
+import { useLocation } from "react-router-dom"; // Importamos useLocation
+import Footer from "../components/common/Footer"; // Importamos el componente Footer
+
 
 interface ContactProps {}
 
 function Contact({}: ContactProps) {
   const { theme } = useTheme();
   const { isMobileView } = useWindowSize();
-  const [error, setError] = useState<string | null>(null);
+  const location = useLocation(); // Obtenemos la ubicación actual
+
+  // Nuevo useEffect para manejar el scroll al cargar la página
+  useEffect(() => {
+    const hash = location.hash; // Obtenemos el hash de la URL
+    if (hash) {
+      const element = document.querySelector(hash); // Buscamos el elemento con el hash como ID
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" }); // Hacemos scroll al elemento
+      }
+    } else {
+      window.scrollTo(0, 0); // Si no hay hash, hacemos scroll al inicio de la página
+    }
+  }, [location.hash]); // Se ejecuta cada vez que cambia el hash
 
   return (
     <div className={`min-h-screen ${theme === "dark" ? "text-white" : "text-gray-800"}`}>
-      <PageBanner title="CONVERSEMOS" imageSrcs={[images.contactBannerUp]} objectPosition="left-bottom" />
+      {!isMobileView && (
+      <PageBanner 
+      title="CONVERSEMOS" 
+      imageSrcs={[images.contactBannerUp]} 
+      objectPosition="left-bottom" />
+    )}
 
       <section id="contact" className="max-w-6xl mx-auto px-4 py-16 md:py-24">
         <AnimationWrapper animationClassName="fade-in-text">
@@ -109,7 +128,14 @@ function Contact({}: ContactProps) {
         </div>
       </section>
 
-      <PageBanner title="'Te debes este momento'" imageSrcs={[images.contactBannerBottom]} objectPosition="left-bottom" />
+      {!isMobileView && (
+      <PageBanner title="'Te debes este momento'"
+       imageSrcs={[images.contactBannerBottom]} 
+       objectPosition="left-bottom" />
+    )}
+      {isMobileView && (
+        <Footer />
+      )}
     </div>
   );
 }

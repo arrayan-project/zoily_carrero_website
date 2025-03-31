@@ -32,7 +32,7 @@ const LayoutMobile: React.FC<LayoutMobileProps> = ({ children, className }) => {
   }
 
   return (
-    <div className={`min-h-screen ${themeClasses} ${className || ''}`}>
+    <div className={`w-full ${themeClasses} ${className || ''}`}>
       {children}
     </div>
   );

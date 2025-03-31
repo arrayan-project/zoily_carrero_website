@@ -1,24 +1,32 @@
 // src/pages/Home.tsx
 import { useState, useEffect, memo } from "react";
-import { MOBILE_BREAKPOINT } from "../constants/constants";
+import { useNavigate } from "react-router-dom";
 import BackgroundCarousel from "../components/sliders/BackgroundSlider";
 import HomeButton from "../components/buttons/HomeButton";
-import { homeInfo, homeLinks, homeFeatures, homeBrands, galleryFeatures } from "../data/homeData"; // Importamos los datos
-import HomeTitle from "../components/home/HomeTitle"; // Importamos el componente HomeTitle
-import HomeLinksSection from "../components/home/HomeLinksSection"; // Importamos el nuevo componente
-import HomeFeaturesSection from "../components/home/HomeFeaturesSection"; // Importamos el nuevo componente
-import HomeBrandsSection from "../components/home/HomeBrandsSection"; // Importamos el nuevo componente
-import ScrollDownArrow from "../components/common/ScrollDownArrow"; // Importamos el nuevo componente
+import { homeInfo, homeLinks, homeFeatures, homeBrands, galleryFeatures } from "../data/homeData";
+import HomeTitle from "../components/home/HomeTitle";
+import HomeLinksSection from "../components/home/HomeLinksSection";
+import HomeFeaturesSection from "../components/home/HomeFeaturesSection";
+import HomeBrandsSection from "../components/home/HomeBrandsSection";
+import ScrollDownArrow from "../components/common/ScrollDownArrow";
 import AnimationWrapper from "../components/common/AnimationLayer";
 import HomeGallerySection from "../components/home/HomeGallerySection";
+import { useTheme } from "../components/context/useThemeHook";
+import Footer from "../components/common/Footer"; // Importamos el componente Footer
+import useWindowSize from "../hooks/useWindowSize";
+
 
 interface HomeProps {
   onSmoothScroll: (sectionId: string) => void;
-  isMobileView: boolean; // Agregamos isMobileView a las props
+  isMobileView: boolean;
 }
 
-const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => { // Recibimos isMobileView como prop
+const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const navigate = useNavigate();
+  const { theme } = useTheme();
+  
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -32,13 +40,23 @@ const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => { // Recibimo
     };
   }, []);
 
+  const handleVerServiciosClick = () => {
+    navigate("/services#services");
+  };
+
+  const handleAgendaTuCitaClick = () => {
+    if (isMobileView) {
+      onSmoothScroll("contact");
+    } else {
+      navigate("/contact#contact");
+    }
+  };
+
   return (
-    <div className="relative">
+    <div className={`relative ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}> {/* Añadimos la clase de fondo */}
       <div className="relative mb-10 md:mb-24">
         <BackgroundCarousel />
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center w-full">
-          {" "}
-          {/* Añadimos absolute inset-0 */}
           <main className="flex-grow flex flex-col items-center justify-center text-center px-4">
             {homeInfo && homeInfo.title && homeInfo.subtitle && (
               <HomeTitle title={homeInfo.title} subtitle={homeInfo.subtitle} />
@@ -48,11 +66,9 @@ const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => { // Recibimo
                 {homeInfo && homeInfo.button1Text && (
                   <HomeButton
                     isMobileView={isMobileView}
-                    onSmoothScroll={onSmoothScroll}
-                    to="/services"
+                    onClick={handleVerServiciosClick}
                     className="px-6 py-3 bg-white text-black font-normal font-cinzel rounded shadow hover:bg-gray-200 transition duration-200 text-center"
                     aria-label={`Ir a la sección de ${homeInfo.button1Text}`}
-                    sectionId="services" // Agregamos el sectionId
                   >
                     {homeInfo.button1Text}
                   </HomeButton>
@@ -60,11 +76,9 @@ const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => { // Recibimo
                 {homeInfo && homeInfo.button2Text && (
                   <HomeButton
                     isMobileView={isMobileView}
-                    onSmoothScroll={onSmoothScroll}
-                    to="/contact"
+                    onClick={handleAgendaTuCitaClick}
                     className="px-6 py-3 bg-pink-500 text-white font-normal font-cinzel rounded shadow hover:bg-pink-800 transition duration-200 text-center"
                     aria-label={`Ir a la sección de ${homeInfo.button2Text}`}
-                    sectionId="contact" // Agregamos el sectionId
                   >
                     {homeInfo.button2Text}
                   </HomeButton>
@@ -72,34 +86,34 @@ const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => { // Recibimo
               </div>
             </AnimationWrapper>
           </main>
-          <ScrollDownArrow /> {/* Renderizamos el componente */}
+          <ScrollDownArrow />
         </div>
       </div>
-      {/* Seccion de enlaces */}
       <HomeLinksSection
         title={homeLinks.title}
         subtitle={homeLinks.subtitle}
         subtitle1={homeLinks.subtitle1}
         links={homeLinks.links}
-        isMobileView={isMobileView} // Pasar isMobileView
-        onSmoothScroll={onSmoothScroll} // Pasar onSmoothScroll
+        isMobileView={isMobileView}
+        onSmoothScroll={onSmoothScroll}
       />
-      {/* Seccion de caracteristicas */}
       <HomeFeaturesSection
         imageSrc={homeFeatures.imageSrc}
         alt={homeFeatures.alt}
         features={homeFeatures.features}
       />
-      {/* Seccion de marcas */}
       <HomeBrandsSection
         brands={homeBrands.brands}
       />
-      {/* Seccion de galleria preview */}
       <HomeGallerySection
-        imageSrc={galleryFeatures.imageSrc} // Usamos la nueva estructura
-        alt={galleryFeatures.alt} // Usamos la nueva estructura
-        gallery={galleryFeatures.gallery} // Usamos la nueva estructura
+        imageSrc={galleryFeatures.imageSrc}
+        alt={galleryFeatures.alt}
+        gallery={galleryFeatures.gallery}
       />
+
+      {!isMobileView && (
+        <Footer />
+       )}
     </div>
   );
 });

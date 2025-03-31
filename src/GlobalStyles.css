@@ -361,3 +361,7 @@ body.dark-mode .slick-dots li button:before {
 .visible-important {
   opacity: 1;
 }
+
+body {
+  overflow-x: hidden;
+}
