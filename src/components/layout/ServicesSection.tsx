@@ -1,50 +1,13 @@
 import React from "react";
 import {
-  noviaMakeupServices,
-  socialMakeupServices,
-  peinadoMakeupServices,
-  maduraMakeupServices,
-  glamMakeupServices,
-  expressMakeupServices,
-  Service,
-  infoContentNovia,
-  infoContentExpress,
-  infoContentGlam,
-  infoContentMadura,
-  infoContentPeinado,
-  infoContentSocial,
+  getInfoContent,
+  servicesArray,
   termsContent,
-} from "../../data/servicesData";
+} from "../../data/servicesData"; // Importamos desde servicesData.tsx
 import ServiceCarousel from "../sliders/ServiceSlider";
 import useWindowSize from "../../hooks/useWindowSize";
 import { useModal } from "../../pages/Services";
 import Slider from "react-slick";
-
-const servicesArray: Service[] = [
-  noviaMakeupServices,
-  socialMakeupServices,
-  peinadoMakeupServices,
-  maduraMakeupServices,
-  glamMakeupServices,
-  expressMakeupServices,
-];
-
-const getInfoContent = (index: number) => {
-  switch (index) {
-    case 0:
-      return infoContentNovia();
-    case 1:
-      return infoContentSocial();
-    case 2:
-      return infoContentPeinado();
-    case 3:
-      return infoContentMadura();
-    case 4:
-      return infoContentGlam();
-    default:
-      return infoContentExpress();
-  }
-};
 
 const sliderSettings = {
   dots: true,
@@ -62,35 +25,35 @@ const ServicesSection: React.FC = () => {
   const { openModal } = useModal();
 
   return (
-    <section aria-label="Servicios de Maquillaje">
+    <section aria-label="Servicios de Maquillaje" className="mb-24">
       {isMobileView ? (
         <Slider {...sliderSettings}>
           {servicesArray.map((service, index) => (
             <div key={index}>
               <ServiceCarousel
-                images={service.images}
-                title={service.label}
+                images={service.modalContent.images} // Usamos service.modalContent.images
+                title={service.modalContent.title} // Usamos service.modalContent.title
                 openModal={openModal}
-                infoContent={getInfoContent(index)}
+                infoContent={getInfoContent(index).infoContent} // Usamos getInfoContent(index).infoContent
                 termsContent={termsContent()}
-                description={service.description}
-                label={service.label}
+                description={getInfoContent(index).description} // Usamos getInfoContent(index).description
+                label={service.modalContent.title} // Usamos service.modalContent.title
               />
             </div>
           ))}
         </Slider>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           {servicesArray.map((service, index) => (
             <ServiceCarousel
               key={index}
-              images={service.images}
-              title={service.label}
+              images={service.modalContent.images} // Usamos service.modalContent.images
+              title={service.modalContent.title} // Usamos service.modalContent.title
               openModal={openModal}
-              infoContent={getInfoContent(index)}
+              infoContent={getInfoContent(index).infoContent} // Usamos getInfoContent(index).infoContent
               termsContent={termsContent()}
-              description={service.description}
-              label={service.label}
+              description={getInfoContent(index).description} // Usamos getInfoContent(index).description
+              label={service.modalContent.title} // Usamos service.modalContent.title
             />
           ))}
         </div>

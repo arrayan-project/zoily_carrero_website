@@ -15,7 +15,7 @@
 */
 
 import React from "react";
-import { ModalContent } from "../../data/servicesData";
+import { ModalContent } from "../../types";
 import { useTheme } from "../context/useThemeHook"; // Importamos el hook
 import { getTextColorClass } from "../../utils/utils"; // Importamos la funcion
 
@@ -25,7 +25,7 @@ interface MobileServiceItemProps {
   openModal: (content: ModalContent) => void;
   infoContent: React.ReactNode;
   termsContent: React.ReactNode;
-  description: string;
+  description?: string; // Ahora es opcional
   shortDescription: string; // Nueva prop para la descripción corta
 }
 
@@ -36,7 +36,7 @@ const MobileServiceItem: React.FC<MobileServiceItemProps> = ({
   infoContent,
   termsContent,
   description,
-  shortDescription, // Recibimos la descripción corta
+  shortDescription = "", // Valor por defecto
 }) => {
   const handleOpenModal = () => {
     openModal({ images, title, infoContent, termsContent, description });

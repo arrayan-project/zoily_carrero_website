@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Slider from "react-slick";
-import { ModalContent } from "../../data/servicesData";
+import { ModalContent } from "../../types";
 
 interface ServiceCarouselProps {
   images: string[];

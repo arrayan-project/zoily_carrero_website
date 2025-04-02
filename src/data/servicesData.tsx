@@ -1,63 +1,11 @@
-/*
-##### Función #####
-- Tiene como función principal almacenar y organizar la información relacionada con los diferentes
-servicios de maquillaje y peinado que ofrece el negocio.
-- Se ha mejorado la estructura de datos, la reutilización de código, el manejo de errores y la legibilidad.
-*/
+// src/data/servicesData.tsx
+import { ModalContent } from "../types";
+import images from "../assets/img/images"; // Importamos el objeto images
 
-import React from "react";
-//Importacion de imagenes
-import novia from "../assets/img/services/boda.webp";
-import social from "../assets/img/services/social1.webp";
-import peinado from "../assets/img/services/social2conpeinado.webp";
-import madura from "../assets/img/services/social14pielmadura.webp";
-import glam from "../assets/img/services/social12.webp";
-import quince from "../assets/img/services/social13.webp";
-
-// Definición de Interfaces
-interface ServiceItem {
-  name: string;
-  price: string;
-  description: string[];
-}
-
+// Nueva interface Service
 export interface Service {
-  description: string;
-  items: ServiceItem[];
-  images: string[];
-  label: string; // Agregamos la propiedad label
+  modalContent: ModalContent;
 }
-
-// Nueva interface ModalContent
-export interface ModalContent {
-  images: string[];
-  title: string;
-  infoContent: React.ReactNode;
-  termsContent: React.ReactNode;
-  description?: string;
-}
-
-// Componente reutilizable para renderizar la información de un servicio
-const ServiceInfo: React.FC<{ service: Service }> = ({ service }) => {
-  return (
-    <div className="font-cinzel">
-      {service.items.map((item, index) => (
-        <div key={index} className="mb-6">
-          {/* Modificado: Añadido text-sm md:text-base */}
-          <h4 className="font-bold mb-4 text-sm md:text-base">{item.name}</h4>
-          {/* Modificado: Añadido text-xs md:text-sm */}
-          <p className="mb-2 text-xs md:text-sm">Precio: {item.price}</p>
-          {/* Modificado: Añadido text-[0.7rem] md:text-xs */}
-          <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
-            {item.description.map((desc, descIndex) => (
-              <li key={descIndex}>{desc}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
-  );
-};
 
 // Funciones para las descripciones
 export const getServicesDescription = () => {
@@ -67,206 +15,260 @@ export const getServicesDescription = () => {
   ];
 };
 
-// Datos de los Servicios
-export const noviaMakeupServices: Service = {
-  description:
-    "El servicio de maquillaje para novias incluye todo lo necesario para realzar tu belleza en el día más importante de tu vida.",
-  items: [
-    {
-      name: "Maquillaje Novia (incluye prueba)",
-      price: "$90.000",
-      description: [
-        "Limpieza facial",
-        "Hidratación",
-        "Maquillaje según la hora y el lugar del evento",
-        "Pestañas",
-        "Sellado del maquillaje",
-        "Aplicación de brillo para labios",
-        "Corrección de la piel",
-      ],
-    },
-    {
-      name: "Maquillaje Novia a Domicilio (incluye prueba)",
-      price: "$110.000",
-      description: [
-        "Limpieza facial",
-        "Hidratación",
-        "Maquillaje según la hora y el lugar del evento",
-        "Pestañas",
-        "Sellado del maquillaje",
-        "Aplicación de brillo para labios",
-        "Corrección de la piel",
-      ],
-    },
-  ],
-  images: [novia],
-  label: "Maquillaje Novia", // Agregamos la propiedad label
+// Funciones que retornan objetos ModalContent
+const infoContentNovia = (): ModalContent => {
+  return {
+    images: [images.novia], // Usamos la imagen importada
+    title: "Maquillaje Novia",
+    infoContent: (
+      <div className="font-cinzel">
+        <div className="mb-6">
+          <h4 className="font-bold mb-4 text-sm md:text-base">
+            Maquillaje Novia (incluye prueba)
+          </h4>
+          <p className="mb-2 text-xs md:text-sm">Precio: $90.000</p>
+          <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
+            <li>Limpieza facial</li>
+            <li>Hidratación</li>
+            <li>Maquillaje según la hora y el lugar del evento</li>
+            <li>Pestañas</li>
+            <li>Sellado del maquillaje</li>
+            <li>Aplicación de brillo para labios</li>
+            <li>Corrección de la piel</li>
+          </ul>
+        </div>
+        <div className="mb-6">
+          <h4 className="font-bold mb-4 text-sm md:text-base">
+            Maquillaje Novia a Domicilio (incluye prueba)
+          </h4>
+          <p className="mb-2 text-xs md:text-sm">Precio: $110.000</p>
+          <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
+            <li>Limpieza facial</li>
+            <li>Hidratación</li>
+            <li>Maquillaje según la hora y el lugar del evento</li>
+            <li>Pestañas</li>
+            <li>Sellado del maquillaje</li>
+            <li>Aplicación de brillo para labios</li>
+            <li>Corrección de la piel</li>
+          </ul>
+        </div>
+      </div>
+    ),
+    termsContent: termsContent(),
+    description:
+      "El servicio de maquillaje para novias incluye todo lo necesario para realzar tu belleza en el día más importante de tu vida.",
+  };
 };
 
-export const socialMakeupServices: Service = {
-  description:
-    "El servicio de maquillaje social es ideal para cualquier evento especial, donde desees lucir radiante y destacar tu belleza natural.",
-  items: [
-    {
-      name: "Maquillaje Social Glam",
-      price: "$60.000.-",
-      description: [
-        "Incluye Tu eliges entre Glam o Look de Día.",
-        "Maquillaje de rostro, técnicas de ojos Soft o Glam que involucran brillo, cortes de cuenca, ahumados entre otros, además hidratación facial, bronzer y contornos, iluminador.",
-        "Pestañas de cortina.",
-        "Verificar disponibilidad de fechas antes de realizar los abonos.",
-      ],
-    },
-    {
-      name: "Maquillaje Social Soft Basic",
-      price: "$38.000.-",
-      description: [
-        "Incluye Maquillaje Soft.",
-        "Hidratación facial previa, Look suave, tonos tierra, trabajo de piel natural.",
-        "Pestañas de cortina.",
-        "Verificar disponibilidad de fechas antes de realizar los abonos.",
-      ],
-    },
-  ],
-  images: [social],
-  label: "Maquillaje Social", // Agregamos la propiedad label
+const infoContentExpress = (): ModalContent => {
+  return {
+    images: [images.glam2], // Usamos la imagen importada
+    title: "Maquillaje Quinceañera",
+    infoContent: (
+      <div className="font-cinzel">
+        <div className="mb-6">
+          <h4 className="font-bold mb-4 text-sm md:text-base">
+            Maquillaje Quinceañera Basic
+          </h4>
+          <p className="mb-2 text-xs md:text-sm">Precio: $75.000.-</p>
+          <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
+            <li>
+              Incluye Tratamiento de hidratación facial previo al maquillaje del
+              día de la celebración.
+            </li>
+            <li>Maquillaje Soft Mate adaptado al estilo de la cliente.</li>
+            <li>Pestañas de cortina.</li>
+            <li>No incluye prueba de Maquillaje</li>
+            <li>
+              Verificar disponibilidad de fechas antes de realizar los abonos.
+            </li>
+          </ul>
+        </div>
+        <div className="mb-6">
+          <h4 className="font-bold mb-4 text-sm md:text-base">
+            Maquillaje y Peinado Quinceañera Full
+          </h4>
+          <p className="mb-2 text-xs md:text-sm">Precio: $110.000.-</p>
+          <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
+            <li>
+              Incluye Tratamiento de hidratación facial previo al maquillaje del
+              día de la celebración con mascarilla hidratante.
+            </li>
+            <li>
+              Maquillaje a elección (Soft o Glam) con productos alta gama.
+            </li>
+            <li>Maquillaje de cuello y escote.</li>
+            <li>Pestañas de cortina.</li>
+            <li>Peinado a elección.</li>
+            <li>Incluye prueba de Maquillaje y peinado.</li>
+            <li>
+              Kit de Retoque: polvo traslúcido, esponjita, papel de arroz,
+              muestra del labial, cepillito de cejas, cotonitos.
+            </li>
+            <li>
+              Verificar disponibilidad de fechas antes de realizar los abonos.
+            </li>
+          </ul>
+        </div>
+      </div>
+    ),
+    termsContent: termsContent(),
+    description:
+      "El maquillaje express es perfecto para quinceañeras que desean lucir jóvenes y frescas en su gran día.",
+  };
 };
 
-export const peinadoMakeupServices: Service = {
-  description:
-    "El servicio de maquillaje y peinado te ofrece una experiencia completa para realzar tu belleza.",
-  items: [
-    {
-      name: "Maquillaje y Peinado",
-      price: "$60.000",
-      description: [
-        "Limpieza facial",
-        "Hidratación",
-        "Maquillaje a elección del cliente",
-        "Pestañas",
-        "Sellado del maquillaje",
-        "Aplicación de brillo para labios",
-        "Peinado según la ocasión",
-      ],
-    },
-  ],
-  images: [peinado],
-  label: "Maquillaje y Peinado", // Agregamos la propiedad label
+const infoContentGlam = (): ModalContent => {
+  return {
+    images: [images.glam], // Usamos la imagen importada
+    title: "Maquillaje Glam",
+    infoContent: (
+      <div className="font-cinzel">
+        <div className="mb-6">
+          <h4 className="font-bold mb-4 text-sm md:text-base">
+            Maquillaje Glam
+          </h4>
+          <p className="mb-2 text-xs md:text-sm">Precio: $45.000</p>
+          <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
+            <li>Limpieza facial</li>
+            <li>Hidratación</li>
+            <li>Maquillaje glam con brillos y glitter</li>
+            <li>Pestañas</li>
+            <li>Sellado del maquillaje</li>
+            <li>Aplicación de brillo para labios</li>
+          </ul>
+        </div>
+      </div>
+    ),
+    termsContent: termsContent(),
+    description:
+      "Si buscas un look impactante y sofisticado, el maquillaje Glam es ideal para ti. ",
+  };
 };
 
-export const maduraMakeupServices: Service = {
-  description:
-    "El servicio de maquillaje para piel madura es especial y cuidado, diseñado para realzar la belleza natural.",
-  items: [
-    {
-      name: "Maquillaje Piel Madura",
-      price: "$35.000",
-      description: [
-        "Limpieza facial",
-        "Hidratación",
-        "Maquillaje diseñado para pieles maduras",
-        "Pestañas",
-        "Sellado del maquillaje",
-        "Aplicación de brillo para labios",
-      ],
-    },
-  ],
-  images: [madura],
-  label: "Maquillaje Piel Madura", // Agregamos la propiedad label
+const infoContentMadura = (): ModalContent => {
+  return {
+    images: [images.pmadura], // Usamos la imagen importada
+    title: "Maquillaje Piel Madura",
+    infoContent: (
+      <div className="font-cinzel">
+        <div className="mb-6">
+          <h4 className="font-bold mb-4 text-sm md:text-base">
+            Maquillaje Piel Madura
+          </h4>
+          <p className="mb-2 text-xs md:text-sm">Precio: $35.000</p>
+          <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
+            <li>Limpieza facial</li>
+            <li>Hidratación</li>
+            <li>Maquillaje diseñado para pieles maduras</li>
+            <li>Pestañas</li>
+            <li>Sellado del maquillaje</li>
+            <li>Aplicación de brillo para labios</li>
+          </ul>
+        </div>
+      </div>
+    ),
+    termsContent: termsContent(),
+    description:
+      "El servicio de maquillaje para piel madura es especial y cuidado, diseñado para realzar la belleza natural.",
+  };
 };
 
-export const glamMakeupServices: Service = {
-  description:
-    "Si buscas un look impactante y sofisticado, el maquillaje Glam es ideal para ti. ",
-  items: [
-    {
-      name: "Maquillaje Glam",
-      price: "$45.000",
-      description: [
-        "Limpieza facial",
-        "Hidratación",
-        "Maquillaje glam con brillos y glitter",
-        "Pestañas",
-        "Sellado del maquillaje",
-        "Aplicación de brillo para labios",
-      ],
-    },
-  ],
-  images: [glam],
-  label: "Maquillaje Glam", // Agregamos la propiedad label
+const infoContentPeinado = (): ModalContent => {
+  return {
+    images: [images.m_peinado2], // Usamos la imagen importada
+    title: "Maquillaje y Peinado",
+    infoContent: (
+      <div className="font-cinzel">
+        <div className="mb-6">
+          <h4 className="font-bold mb-4 text-sm md:text-base">
+            Maquillaje y Peinado
+          </h4>
+          <p className="mb-2 text-xs md:text-sm">Precio: $60.000</p>
+          <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
+            <li>Limpieza facial</li>
+            <li>Hidratación</li>
+            <li>Maquillaje a elección del cliente</li>
+            <li>Pestañas</li>
+            <li>Sellado del maquillaje</li>
+            <li>Aplicación de brillo para labios</li>
+            <li>Peinado según la ocasión</li>
+          </ul>
+        </div>
+      </div>
+    ),
+    termsContent: termsContent(),
+    description:
+      "El servicio de maquillaje y peinado te ofrece una experiencia completa para realzar tu belleza.",
+  };
 };
 
-export const expressMakeupServices: Service = {
-  description:
-    "El maquillaje express es perfecto para quinceañeras que desean lucir jóvenes y frescas en su gran día.",
-  items: [
-    {
-      name: "Maquillaje Quinceañera Basic",
-      price: "$75.000.-",
-      description: [
-        "Incluye Tratamiento de hidratación facial previo al maquillaje del día de la celebración.",
-        "Maquillaje Soft Mate adaptado al estilo de la cliente.",
-        "Pestañas de cortina.",
-        "No incluye prueba de Maquillaje",
-        "Verificar disponibilidad de fechas antes de realizar los abonos.",
-      ],
-    },
-    {
-      name: "Maquillaje y Peinado Quinceañera Full",
-      price: "$110.000.-",
-      description: [
-        "Incluye Tratamiento de hidratación facial previo al maquillaje del día de la celebración con mascarilla hidratante.",
-        "Maquillaje a elección (Soft o Glam) con productos alta gama.",
-        "Maquillaje de cuello y escote.",
-        "Pestañas de cortina.",
-        "Peinado a elección.",
-        "Incluye prueba de Maquillaje y peinado.",
-        "Kit de Retoque: polvo traslúcido, esponjita, papel de arroz, muestra del labial, cepillito de cejas, cotonitos.",
-        "Verificar disponibilidad de fechas antes de realizar los abonos.",
-      ],
-    },
-  ],
-  images: [quince],
-  label: "Maquillaje Quinceañera", // Agregamos la propiedad label
-};
-
-// Funciones que retornan JSX
-export const infoContentNovia = () => {
-  return <ServiceInfo service={noviaMakeupServices} />;
-};
-
-export const infoContentExpress = () => {
-  return <ServiceInfo service={expressMakeupServices} />;
-};
-
-export const infoContentGlam = () => {
-  return <ServiceInfo service={glamMakeupServices} />;
-};
-
-export const infoContentMadura = () => {
-  return <ServiceInfo service={maduraMakeupServices} />;
-};
-
-export const infoContentPeinado = () => {
-  return <ServiceInfo service={peinadoMakeupServices} />;
-};
-
-export const infoContentSocial = () => {
-  return <ServiceInfo service={socialMakeupServices} />;
+const infoContentSocial = (): ModalContent => {
+  return {
+    images: [images.express], // Usamos la imagen importada
+    title: "Maquillaje Social",
+    infoContent: (
+      <div className="font-cinzel">
+        <div className="mb-6">
+          <h4 className="font-bold mb-4 text-sm md:text-base">
+            Maquillaje Social Glam
+          </h4>
+          <p className="mb-2 text-xs md:text-sm">Precio: $60.000.-</p>
+          <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
+            <li>Incluye Tu eliges entre Glam o Look de Día.</li>
+            <li>
+              Maquillaje de rostro, técnicas de ojos Soft o Glam que involucran
+              brillo, cortes de cuenca, ahumados entre otros, además hidratación
+              facial, bronzer y contornos, iluminador.
+            </li>
+            <li>Pestañas de cortina.</li>
+            <li>
+              Verificar disponibilidad de fechas antes de realizar los abonos.
+            </li>
+          </ul>
+        </div>
+        <div className="mb-6">
+          <h4 className="font-bold mb-4 text-sm md:text-base">
+            Maquillaje Social Soft Basic
+          </h4>
+          <p className="mb-2 text-xs md:text-sm">Precio: $38.000.-</p>
+          <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
+            <li>Incluye Maquillaje Soft.</li>
+            <li>
+              Hidratación facial previa, Look suave, tonos tierra, trabajo de
+              piel natural.
+            </li>
+            <li>Pestañas de cortina.</li>
+            <li>
+              Verificar disponibilidad de fechas antes de realizar los abonos.
+            </li>
+          </ul>
+        </div>
+      </div>
+    ),
+    termsContent: termsContent(),
+    description:
+      "El servicio de maquillaje social es ideal para cualquier evento especial, donde desees lucir radiante y destacar tu belleza natural.",
+  };
 };
 
 export const termsContent = () => {
   try {
     return (
       <div>
-        <h1 className="font-cinzel font-bold mb-8 text-sm md:text-base">Términos y Condiciones del Servicio</h1>
+        <h1 className="font-cinzel font-bold mb-8 text-sm md:text-base">
+          Términos y Condiciones del Servicio
+        </h1>
 
-        <h2 className="font-cinzel mb-2 text-xs md:text-base">Reservas y Pagos</h2>
+        <h2 className="font-cinzel mb-2 text-xs md:text-base">
+          Reservas y Pagos
+        </h2>
         <ul className="list-disc pl-6 font-cinzel text-xs md:text-sm">
           <li>Para agendar, se debe realizar un abono previo.</li>
           <li>
-            Si se abona el <strong>30%</strong>, el <strong>70% restante</strong>{" "}
-            debe pagarse al menos <strong>24 horas antes del evento</strong>.
+            Si se abona el <strong>30%</strong>, el{" "}
+            <strong>70% restante</strong> debe pagarse al menos{" "}
+            <strong>24 horas antes del evento</strong>.
           </li>
           <li>
             Si solo se paga la <strong>prueba</strong> sin reservar la fecha, no
@@ -278,7 +280,9 @@ export const termsContent = () => {
           </li>
         </ul>
 
-        <h2 className="font-cinzel mb-2 mt-6 text-base md:text-base">Condiciones del Servicio</h2>
+        <h2 className="font-cinzel mb-2 mt-6 text-base md:text-base">
+          Condiciones del Servicio
+        </h2>
         <ul className="list-disc pl-6 font-cinzel text-xs md:text-sm">
           <li>
             <strong>Los peinados no incluyen secado</strong>. El cabello debe
@@ -293,7 +297,9 @@ export const termsContent = () => {
           </li>
         </ul>
 
-        <h2 className="font-cinzel mb-2 mt-6 text-base md:text-base">Pruebas y Atención en Estudio</h2>
+        <h2 className="font-cinzel mb-2 mt-6 text-base md:text-base">
+          Pruebas y Atención en Estudio
+        </h2>
         <ul className="list-disc pl-6 font-cinzel text-xs md:text-sm">
           <li>
             Las pruebas se realizan <strong>solo en días de semana</strong> en mi
@@ -313,7 +319,9 @@ export const termsContent = () => {
           </li>
         </ul>
 
-        <h2 className="font-cinzel mb-2 mt-6 text-base md:text-base">Servicio a Domicilio</h2>
+        <h2 className="font-cinzel mb-2 mt-6 text-base md:text-base">
+          Servicio a Domicilio
+        </h2>
         <ul className="list-disc pl-6 font-cinzel text-xs md:text-sm">
           <li>Verificar disponibilidad antes de realizar abonos.</li>
           <li>
@@ -325,7 +333,9 @@ export const termsContent = () => {
           </li>
         </ul>
 
-        <h2 className="font-cinzel mb-2 mt-6 text-base md:text-base">Recomendaciones</h2>
+        <h2 className="font-cinzel mb-2 mt-6 text-base md:text-base">
+          Recomendaciones
+        </h2>
         <ul className="list-disc pl-6 font-cinzel text-xs md:text-sm">
           <li>
             <strong>No tener lifting de pestañas</strong>, ya que interfiere con
@@ -347,3 +357,36 @@ export const termsContent = () => {
     );
   }
 };
+
+// Datos de los Servicios
+export const getServices = (): Service[] => {
+  return [
+    { modalContent: infoContentNovia() },
+    { modalContent: infoContentSocial() },
+    { modalContent: infoContentPeinado() },
+    { modalContent: infoContentMadura() },
+    { modalContent: infoContentGlam() },
+    { modalContent: infoContentExpress() },
+  ];
+};
+
+// Exportamos getInfoContent
+export const getInfoContent = (index: number): ModalContent => {
+  switch (index) {
+    case 0:
+      return infoContentNovia();
+    case 1:
+      return infoContentSocial();
+    case 2:
+      return infoContentPeinado();
+    case 3:
+      return infoContentMadura();
+    case 4:
+      return infoContentGlam();
+    default:
+      return infoContentExpress();
+  }
+};
+
+// Exportamos servicesArray
+export const servicesArray: Service[] = getServices();

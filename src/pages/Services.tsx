@@ -3,7 +3,7 @@ import React, { useState, useCallback, createContext, useContext, useEffect } fr
 import { useLocation } from "react-router-dom"; // Importamos useLocation
 import StatsSection from "../components/StatsSection";
 import "../GlobalStyles.css";
-import { ModalContent } from "../data/servicesData";
+import { ModalContent } from "../types";
 import ModalContainer from "../components/modals/ModalRoot";
 import { CourseModalContent } from "../data/coursesData";
 import ErrorComponent from "../components/common/ErrorComponent";
@@ -25,6 +25,8 @@ import { getServicesDescription } from "../data/servicesData";
 import { getCoursesDescription } from "../data/coursesData";
 import Footer from "../components/common/Footer"; // Importamos el componente Footer
 import useWindowSize from "../hooks/useWindowSize";
+import ServicesPreviewSection from "../components/layout/ServicesPreviewSection"; // Importamos TestSection
+
 
 
 // Creamos el contexto para el modal
@@ -125,6 +127,7 @@ function Services({}: ServicesProps) {
             <SectionTitle title="Conoce lo que podemos hacer por ti" className={HOME_LINKS_TITLE_CLASS} />
               <SectionDescription description={servicesDescription} className="mt-4 mb-16 md:mb-24 font-cinzel text-center" />
               <ServicesSection />
+              <ServicesPreviewSection />
             </section>
               <ServicesIncludeSection />
           </ServicesSectionBackground>
@@ -144,8 +147,7 @@ function Services({}: ServicesProps) {
               <CoursesSection />
             </section>
           </CoursesSectionBackground>
-          
-          <ModalContentRender />
+          <ModalContentRender /> {/* Renderizamos ModalContentRender aquí */}
           {isMobileView && (
             <Footer />
           )}
