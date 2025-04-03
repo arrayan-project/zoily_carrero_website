@@ -23,10 +23,10 @@ import { ErrorBoundary } from "react-error-boundary";
 import SectionDescription from "../components/common/SectionDescription";
 import { getServicesDescription } from "../data/servicesData";
 import { getCoursesDescription } from "../data/coursesData";
-import Footer from "../components/common/Footer"; // Importamos el componente Footer
+import Footer2 from "../components/common/Footer2"; // Importamos el componente Footer
 import useWindowSize from "../hooks/useWindowSize";
 import ServicesPreviewSection from "../components/layout/ServicesPreviewSection"; // Importamos TestSection
-
+import ServicesSection2 from '../components/layout/ServicesSection2'; // Importa el nuevo componente
 
 
 // Creamos el contexto para el modal
@@ -126,8 +126,9 @@ function Services({}: ServicesProps) {
             <section id="services" className="container mx-auto px-2 md:px-4 lg:px-8 xl:px-16 2xl:px-24 py-16 md:py-32 z-10"> {/* AQUI LOS CAMBIOS */}
             <SectionTitle title="Conoce lo que podemos hacer por ti" className={HOME_LINKS_TITLE_CLASS} />
               <SectionDescription description={servicesDescription} className="mt-4 mb-16 md:mb-24 font-cinzel text-center" />
-              <ServicesSection />
+              {/*<ServicesSection />*/}
               <ServicesPreviewSection />
+              <ServicesSection2 />
             </section>
               <ServicesIncludeSection />
           </ServicesSectionBackground>
@@ -149,7 +150,7 @@ function Services({}: ServicesProps) {
           </CoursesSectionBackground>
           <ModalContentRender /> {/* Renderizamos ModalContentRender aquí */}
           {isMobileView && (
-            <Footer />
+            <Footer2 />
           )}
         </main>
       </ModalProvider>

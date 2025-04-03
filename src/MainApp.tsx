@@ -4,7 +4,6 @@ import { BrowserRouter as Router, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './components/context/themeContext';
 import { useTheme } from './components/context/useThemeHook';
 import Navigation from './components/navigation/NavBarMenu';
-import Footer from './components/common/Footer';
 import { MOBILE_BREAKPOINT } from './constants/constants';
 import FloatingContactButton from './components/buttons/FloatingContactButton';
 import ContactModal from './components/modals/ContactUsModal';
@@ -13,6 +12,9 @@ import ContentDesktop from './components/layout/DesktopView';
 import LandingPageMobile from './MobileView';
 import ThemeToggleButton from './components/buttons/ThemeToggleButton';
 import ScrollToTopButton from './components/buttons/ScrollTopButton';
+import Footer from './components/common/Footer'; // Importa Footer2
+
+
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -108,7 +110,7 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen, i
           </div>
           {!hideHeaderAndFooter && <Navigation className="md:mb-12" onSmoothScroll={handleSmoothScroll} isMobileView={isMobileView} isInternalScroll={isInternalScroll} isNavigating={isNavigating} />} {/* Pasamos la ref */}
           <ContentDesktop onSmoothScroll={handleSmoothScroll} isMobileView={isMobileView} />
-          {!hideHeaderAndFooter && <Footer />}
+          {!hideHeaderAndFooter && <Footer/>}
         </div>
       )}
     </div>
