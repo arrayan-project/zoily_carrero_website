@@ -26,7 +26,7 @@ interface MobileServiceItemProps {
   infoContent: React.ReactNode;
   termsContent: React.ReactNode;
   description?: string; // Ahora es opcional
-  shortDescription: string; // Nueva prop para la descripción corta
+
 }
 
 const MobileServiceItem: React.FC<MobileServiceItemProps> = ({
@@ -36,10 +36,10 @@ const MobileServiceItem: React.FC<MobileServiceItemProps> = ({
   infoContent,
   termsContent,
   description,
-  shortDescription = "", // Valor por defecto
+
 }) => {
   const handleOpenModal = () => {
-    openModal({ images, title, infoContent, termsContent, description });
+    openModal({ images, title, infoContent, termsContent, description,  });
   };
 
   const { theme } = useTheme();
@@ -90,7 +90,7 @@ const MobileServiceItem: React.FC<MobileServiceItemProps> = ({
           {title}
         </h2>
       <p className={`text-sm md:text-base ${getTextColorClass(theme)}`}> {/* Agregamos el párrafo para la descripción */}
-        {shortDescription}
+        
       </p>
       </div>
     </div>

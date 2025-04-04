@@ -7,6 +7,7 @@ export interface Service {
   modalContent: ModalContent;
 }
 
+
 // Funciones para las descripciones
 export const getServicesDescription = () => {
   return [

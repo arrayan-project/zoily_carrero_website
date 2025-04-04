@@ -1,9 +1,9 @@
 // src/components/layout/ServicesPreviewSection.tsx
 import React from 'react';
-import styles from './test.module.css';
+import styles from '../Services&Courses/ServicesColumn.module.css';
 import { useModal } from '../../pages/Services';
 import { getInfoContent, servicesArray } from '../../data/servicesData'; // Importamos desde servicesData.tsx
-import ServicePreviewItem from './ServicePreviewItem';
+import ServicesColumnsItem from './ServicesColumnsItem';
 
 const ServicesPreviewSection: React.FC = () => {
   const { openModal } = useModal();
@@ -11,7 +11,7 @@ const ServicesPreviewSection: React.FC = () => {
   return (
     <div className={styles['flex-wrapper']}>
       {servicesArray.map((service, index) => (
-        <ServicePreviewItem
+        <ServicesColumnsItem
           key={index}
           service={service}
           openModal={openModal}

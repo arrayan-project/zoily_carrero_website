@@ -1,6 +1,6 @@
 // src/utils/renderItems.tsx
 import React from 'react';
-import { ModalContent } from '../data/servicesData';
+import { ModalContent } from "../types";
 import { CourseModalContent } from '../data/coursesData';
 import renderCarousel from './renderCarousel';
 import MobileServiceItem from '../components/sliders/MobileServiceItem'; // Importamos MobileServiceItem

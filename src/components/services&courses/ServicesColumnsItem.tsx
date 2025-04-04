@@ -1,19 +1,19 @@
 // src/components/layout/ServicePreviewItem.tsx
 import React, { useState } from "react";
-import styles from './test.module.css';
+import styles from './ServicesColumn.module.css';
 import { Service} from '../../data/servicesData'; // Importamos Service, ModalContent y termsContent
 import ServicesButton from '../buttons/ServicesButton';
 import { ModalContent } from "../../types";
 
-interface ServicePreviewItemProps {
+interface ServiceColumnsItemProps {
   service: Service; // Recibe un objeto Service
   openModal: (content: ModalContent) => void;
   getInfoContent: (index: number) => ModalContent; // Modificamos el tipo de retorno
   index: number;
 }
 
-const ServicePreviewItem: React.FC<ServicePreviewItemProps> = ({ service, openModal, getInfoContent, index }) => {
-  const [error, setError] = useState<string | null>(null);
+const ServiceColumnsItem: React.FC<ServiceColumnsItemProps> = ({ service, openModal, getInfoContent, index }) => {
+  const [, setError] = useState<string | null>(null);
 
   const handleOpenModal = () => {
     try {
@@ -47,4 +47,4 @@ const ServicePreviewItem: React.FC<ServicePreviewItemProps> = ({ service, openMo
   );
 };
 
-export default ServicePreviewItem;
+export default ServiceColumnsItem;

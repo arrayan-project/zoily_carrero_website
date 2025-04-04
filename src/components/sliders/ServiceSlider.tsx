@@ -9,7 +9,7 @@ interface ServiceCarouselProps {
   infoContent: React.ReactNode;
   termsContent: React.ReactNode;
   description?: string;
-  label: string;
+  label?: string;
 }
 
 const ServiceCarousel: React.FC<ServiceCarouselProps> = ({

@@ -3,20 +3,20 @@ import { useState, useEffect } from 'react';
 import { MOBILE_BREAKPOINT } from '../constants/constants';
 
 interface WindowSize {
-  width: number;
+  windowWidth: number;
   isMobileView: boolean;
 }
 
 const useWindowSize = (): WindowSize => {
   const [windowSize, setWindowSize] = useState<WindowSize>({
-    width: window.innerWidth,
+    windowWidth: window.innerWidth,
     isMobileView: window.innerWidth < MOBILE_BREAKPOINT,
   });
 
   useEffect(() => {
     const handleResize = () => {
       setWindowSize({
-        width: window.innerWidth,
+        windowWidth: window.innerWidth,
         isMobileView: window.innerWidth < MOBILE_BREAKPOINT,
       });
     };

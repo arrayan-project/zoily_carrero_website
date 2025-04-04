@@ -1,7 +1,7 @@
 // src/pages/Home.tsx
 import { useState, useEffect, memo } from "react";
 import { useNavigate } from "react-router-dom";
-import BackgroundCarousel from "../components/sliders/BackgroundSlider";
+import BackgroundSliderHome from "../components/sliders/BackgroundSliderHome";
 import HomeButton from "../components/buttons/HomeButton";
 import { homeInfo, homeLinks, homeFeatures, homeBrands, galleryFeatures } from "../data/homeData";
 import HomeTitle from "../components/home/HomeTitle";
@@ -13,7 +13,7 @@ import AnimationWrapper from "../components/common/AnimationLayer";
 import HomeGallerySection from "../components/home/HomeGallerySection";
 import { useTheme } from "../components/context/useThemeHook";
 import Footer from "../components/common/Footer"; // Importamos el componente Footer
-import useWindowSize from "../hooks/useWindowSize";
+
 
 
 interface HomeProps {
@@ -22,7 +22,7 @@ interface HomeProps {
 }
 
 const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
   const { theme } = useTheme();
   
@@ -55,7 +55,7 @@ const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => {
   return (
     <div className={`relative ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}> {/* Añadimos la clase de fondo */}
       <div className="relative mb-10 md:mb-24">
-        <BackgroundCarousel />
+        <BackgroundSliderHome />
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center w-full">
           <main className="flex-grow flex flex-col items-center justify-center text-center px-4">
             {homeInfo && homeInfo.title && homeInfo.subtitle && (

@@ -9,7 +9,7 @@ interface CourseSliderProps {
   infoContent: React.ReactNode;
   termsContent: React.ReactNode;
   description?: string;
-  label: string;
+  label?: string;
 }
 
 const CourseSlider: React.FC<CourseSliderProps> = ({

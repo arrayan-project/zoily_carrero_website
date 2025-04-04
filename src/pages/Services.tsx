@@ -1,14 +1,22 @@
 // src/pages/Services.tsx
-import React, { useState, useCallback, createContext, useContext, useEffect } from "react";
+import React, {
+  useState,
+  useCallback,
+  createContext,
+  useContext,
+  useEffect,
+} from "react";
 import { useLocation } from "react-router-dom"; // Importamos useLocation
-import StatsSection from "../components/StatsSection";
-import "../GlobalStyles.css";
-import { ModalContent } from "../types";
-import ModalContainer from "../components/modals/ModalRoot";
-import { CourseModalContent } from "../data/coursesData";
-import ErrorComponent from "../components/common/ErrorComponent";
-import {HOME_LINKS_TITLE_CLASS} from "../constants/styles";
+import { HOME_LINKS_TITLE_CLASS } from "../constants/styles";
 import { ServicesProps } from "../interfaces/interfaces";
+import { ModalContent } from "../types";
+import { CourseModalContent } from "../data/coursesData";
+import { getServicesDescription } from "../data/servicesData";
+import { getCoursesDescription } from "../data/coursesData";
+import { ErrorBoundary } from "react-error-boundary";
+import StatsSection from "../components/StatsSection";
+import ModalContainer from "../components/modals/ModalRoot";
+import ErrorComponent from "../components/common/ErrorComponent";
 import ServicesSectionBackground from "../components/svg/ServicesSectionBackground";
 import CoursesSectionBackground from "../components/svg/CourseSectionBackground";
 import backgroundServices from "../assets/img/background-pages/bg-7-desktop.webp";
@@ -16,18 +24,15 @@ import backgroundServicesMobile from "../assets/img/background-pages/bg-7-deskto
 import backgroundCourses from "../assets/img/background-pages/bg-8-desktop.webp";
 import backgroundCoursesMobile from "../assets/img/background-pages/bg-8-desktop.webp";
 import SectionTitle from "../components/common/SectionTitle";
-import ServicesSection from "../components/layout/ServicesSection";
-import CoursesSection from "../components/layout/CoursesSection";
+import ServicesSection from "../components/services&courses/ServicesSection";
+import CoursesSection from "../components/services&courses/CoursesSection";
 import ServicesIncludeSection from "../components/layout/ServicesIncludeSection";
-import { ErrorBoundary } from "react-error-boundary";
 import SectionDescription from "../components/common/SectionDescription";
-import { getServicesDescription } from "../data/servicesData";
-import { getCoursesDescription } from "../data/coursesData";
-import Footer2 from "../components/common/Footer2"; // Importamos el componente Footer
+import Footer2 from "../components/common/Footer2";
 import useWindowSize from "../hooks/useWindowSize";
-import ServicesPreviewSection from "../components/layout/ServicesPreviewSection"; // Importamos TestSection
-import ServicesSection2 from '../components/layout/ServicesSection2'; // Importa el nuevo componente
-
+import ServicesColumnsSection from "../components/services&courses/ServicesColumnsSection"; 
+import ServicesSectionCarousel from "../components/services&courses/ServicesCarouselSection"; 
+import "../GlobalStyles.css";
 
 // Creamos el contexto para el modal
 interface ModalContextProps {
@@ -56,7 +61,7 @@ export const ModalProvider: React.FC<{ children: React.ReactNode }> = ({
     ModalContent | CourseModalContent | null
   >(null);
 
-//Funcion para abrir el modal
+  //Funcion para abrir el modal
   const openModal = useCallback(
     (content: ModalContent | CourseModalContent) => {
       try {
@@ -69,7 +74,7 @@ export const ModalProvider: React.FC<{ children: React.ReactNode }> = ({
     []
   );
 
-//Funcion para cerrar el modal
+  //Funcion para cerrar el modal
   const closeModal = useCallback(() => {
     try {
       setIsModalOpen(false);
@@ -84,18 +89,26 @@ export const ModalProvider: React.FC<{ children: React.ReactNode }> = ({
     openModal,
     closeModal,
   };
-  return <ModalContext.Provider value={value}>{children}</ModalContext.Provider>;
+  return (
+    <ModalContext.Provider value={value}>{children}</ModalContext.Provider>
+  );
 };
 
 // Componente principal Services
 function Services({}: ServicesProps) {
   const [error, setError] = useState<string | null>(null);
-  const location = useLocation(); // Obtenemos la ubicación actual
+  const location = useLocation();
   const { isMobileView } = useWindowSize();
 
   //Funcion para manejar errores
   if (error) {
-    return <ErrorComponent error={new Error(error)} resetErrorBoundary={() => setError(null)} message={error} />;
+    return (
+      <ErrorComponent
+        error={new Error(error)}
+        resetErrorBoundary={() => setError(null)}
+        message={error}
+      />
+    );
   }
 
   //Obtenemos las descripciones
@@ -115,7 +128,10 @@ function Services({}: ServicesProps) {
   }, [location.hash]); // Se ejecuta cada vez que cambia el hash
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorComponent} onReset={() => setError(null)}>
+    <ErrorBoundary
+      FallbackComponent={ErrorComponent}
+      onReset={() => setError(null)}
+    >
       <ModalProvider>
         <main className="min-h-screen flex flex-col">
           <ServicesSectionBackground
@@ -123,44 +139,65 @@ function Services({}: ServicesProps) {
             backgroundImageMobile={backgroundServicesMobile}
             objectPosition="bottom"
           >
-            <section id="services" className="container mx-auto px-2 md:px-4 lg:px-8 xl:px-16 2xl:px-24 py-16 md:py-32 z-10"> {/* AQUI LOS CAMBIOS */}
-            <SectionTitle title="Conoce lo que podemos hacer por ti" className={HOME_LINKS_TITLE_CLASS} />
-              <SectionDescription description={servicesDescription} className="mt-4 mb-16 md:mb-24 font-cinzel text-center" />
+            <section
+              id="services"
+              className="container mx-auto px-2 md:px-4 lg:px-8 xl:px-16 2xl:px-24 py-16 md:py-32 z-10"
+            >
+              <SectionTitle
+                title="Conoce lo que podemos hacer por ti"
+                className={HOME_LINKS_TITLE_CLASS}
+              />
+              <SectionDescription
+                description={servicesDescription}
+                className="mt-4 mb-16 md:mb-24 font-cinzel text-center"
+              />
               {/*<ServicesSection />*/}
-              <ServicesPreviewSection />
-              <ServicesSection2 />
+              {!isMobileView && <ServicesSectionCarousel />}
+              {isMobileView && <ServicesColumnsSection />}
             </section>
-              <ServicesIncludeSection />
+            <ServicesIncludeSection />
           </ServicesSectionBackground>
-          
-            <section className="w-full">
-              <StatsSection />
-            </section>
-          
+
+          <section className="w-full">
+            <StatsSection />
+          </section>
+
           <CoursesSectionBackground
             backgroundImage={backgroundCourses}
             backgroundImageMobile={backgroundCoursesMobile}
             objectPosition="center top"
           >
-            <section id="cursos" className="mx-auto px-4 md:px-6 lg:px-12 xl:px-24 2xl:px-32 py-16 md:py-24 max-w-screen-lg text-center">
-              <SectionTitle title="NUESTROS CURSOS" className={HOME_LINKS_TITLE_CLASS} />
-              <SectionDescription description={coursesDescription} className="mt-4 mb-16 md:mb-24 font-cinzel text-center" />
+            <section
+              id="cursos"
+              className="mx-auto px-4 md:px-6 lg:px-12 xl:px-24 2xl:px-32 py-16 md:py-24 max-w-screen-lg text-center"
+            >
+              <SectionTitle
+                title="NUESTROS CURSOS"
+                className={HOME_LINKS_TITLE_CLASS}
+              />
+              <SectionDescription
+                description={coursesDescription}
+                className="mt-4 mb-16 md:mb-24 font-cinzel text-center"
+              />
               <CoursesSection />
             </section>
           </CoursesSectionBackground>
-          <ModalContentRender /> {/* Renderizamos ModalContentRender aquí */}
-          {isMobileView && (
-            <Footer2 />
-          )}
+          <ModalContentRender />
+          {isMobileView && <Footer2 />}
         </main>
       </ModalProvider>
     </ErrorBoundary>
-
   );
 }
 const ModalContentRender = () => {
   const { isModalOpen, closeModal, modalContent } = useModal();
-  return <ModalContainer isModalOpen={isModalOpen} closeModal={closeModal} modalContent={modalContent} />;
+  return (
+    <ModalContainer
+      isModalOpen={isModalOpen}
+      closeModal={closeModal}
+      modalContent={modalContent}
+    />
+  );
 };
 
 export default Services;

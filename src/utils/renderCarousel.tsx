@@ -2,7 +2,7 @@
 import React from 'react';
 import CourseCarousel from '../components/sliders/CourseSlider';
 import ServiceCarousel from '../components/sliders/ServiceSlider';
-import { ModalContent } from '../data/servicesData';
+import { ModalContent } from "../types";
 import { CourseModalContent } from '../data/coursesData';
 
 const renderCarousel = (
@@ -12,7 +12,8 @@ const renderCarousel = (
   infoContent?: React.ReactNode,
   termsContent?: React.ReactNode,
   description?: string,
-  isCourse?: boolean // Nueva prop para indicar si es un curso
+  isCourse?: boolean, 
+  label?: string,
 ): JSX.Element => {
   const commonProps = {
     images: images,
@@ -21,6 +22,7 @@ const renderCarousel = (
     infoContent: infoContent || <></>,
     termsContent: termsContent || <></>,
     description: description,
+    label:label,
   };
 
   if (isCourse) {
