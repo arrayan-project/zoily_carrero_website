@@ -1,4 +1,4 @@
-import images from '../../assets/img/images';
+import images from '../../assets/images';
 import { useTheme } from "../../components/context/useThemeHook";
 import "../../GlobalStyles.css"
 import AnimationWrapper from "../common/AnimationLayer";

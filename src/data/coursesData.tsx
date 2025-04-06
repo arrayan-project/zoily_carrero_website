@@ -6,10 +6,10 @@
 - Incluye las imagenes, titulo, y funciones que devuelven la informacion y los terminos del curso.
 */
 import React from "react";
-import cbasico from "../assets/img/cursos/basico.webp"; // Importamos con rutas absolutas
-import cintermedio from "../assets/img/cursos/intermedio.webp"; // Importamos con rutas absolutas
-import cavanzado from "../assets/img/cursos/avanzado.webp"; // Importamos con rutas absolutas
-import cprofesional from "../assets/img/cursos/profesional.webp"; // Importamos con rutas absolutas
+import cbasico from "/img/cursos/basico.webp"; // Importamos con rutas absolutas
+import cintermedio from "/img/cursos/intermedio.webp"; // Importamos con rutas absolutas
+import cavanzado from "/img/cursos/avanzado.webp"; // Importamos con rutas absolutas
+import cprofesional from "/img/cursos/profesional.webp"; // Importamos con rutas absolutas
 
 interface CourseItem { // Modificamos CourseItem
   name: string;

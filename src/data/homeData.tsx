@@ -1,5 +1,5 @@
 // src/data/homeData.ts
-import { imageArrays } from "../assets/img/images";
+import { imageArrays } from "../assets/images";
 
 export const homeInfo = {
   title: "ZOILY CARRERO",

@@ -1,6 +1,6 @@
 // src/data/servicesData.tsx
 import { ModalContent } from "../types";
-import images from "../assets/img/images"; // Importamos el objeto images
+import images from "../assets/images"; // Importamos el objeto images
 
 // Nueva interface Service
 export interface Service {

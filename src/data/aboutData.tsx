@@ -1,5 +1,5 @@
 // src/data/aboutData.ts
-import images from "../assets/img/images";
+import images from "../assets/images";
 
 export const whyUsPoints = [
   "Experiencia comprobada en el sector",

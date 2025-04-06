@@ -2,7 +2,7 @@
 import React from 'react';
 import ImageWithFallback from '../common/ImageWithFallback';
 import { aboutImages } from '../../data/aboutData';
-import images from '../../assets/img/images';
+import images from '../../assets/images';
 
 const AboutImagesSection: React.FC = () => {
   return (

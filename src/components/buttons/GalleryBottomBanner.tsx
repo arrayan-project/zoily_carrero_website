@@ -1,7 +1,7 @@
 // src/components/gallery/GalleryBottomBanner.tsx
 import React from "react";
 import PageBanner from "../common/PageBanner";
-import images from "../../assets/img/images";
+import images from "../../assets/images";
 
 interface GalleryBottomBannerProps {
   isMobileView: boolean;

@@ -12,7 +12,7 @@ La animación de los contadores se activa cuando la sección es visible en la pa
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { PersonStanding, Brush, Handshake } from "lucide-react";
-import images from '../assets/img/images';
+import images from '../assets/images';
 
 // Componente de contador animado
 interface CounterProps {

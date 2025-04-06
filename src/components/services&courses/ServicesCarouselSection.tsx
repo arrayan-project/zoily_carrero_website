@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import ServicesCarouselSectionEffects from './ServicesCarouselSectionEffects';
-import images from '../../assets/img/images';
+import images from '../../assets/images';
 import useWindowSize from "../../hooks/useWindowSize";
 import { getTextColorClass } from "../../utils/utils";
 import { useTheme } from "../context/useThemeHook";

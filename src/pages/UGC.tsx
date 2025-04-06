@@ -1,7 +1,7 @@
 // src/pages/UGC.tsx
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import images from "../assets/img/images";
+import images from "../assets/images";
 import Footer from "../components/common/Footer";
 import useWindowSize from "../hooks/useWindowSize";
 import UGCMainSection from "../components/ugc/UGCMainSection";

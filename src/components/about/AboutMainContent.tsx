@@ -3,7 +3,7 @@ import React from 'react';
 import AnimationWrapper from '../common/AnimationLayer';
 import ImageWithFallback from '../common/ImageWithFallback';
 import { aboutInfo } from '../../data/aboutData';
-import images from '../../assets/img/images';
+import images from '../../assets/images';
 import { useTheme } from '../context/useThemeHook';
 
 const AboutMainContent: React.FC = () => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { imageArrays } from "../../assets/img/images";
+import { imageArrays } from "../../assets/images";
 
 interface BackgroundCarouselProps {
   transitionDuration?: number;

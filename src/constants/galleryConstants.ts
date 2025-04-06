@@ -1,5 +1,5 @@
 // src/data/galleryConstants.ts
-import { imageArrays } from "../assets/img/images";
+import { imageArrays } from "../assets/images";
 
 const {
   galleryBrideImages,
