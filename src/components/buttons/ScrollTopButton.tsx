@@ -38,6 +38,7 @@ const ScrollToTopButton = () => {
 
   return (
     <button
+      type="button"
       onClick={scrollToTop}
       className={` scroll-to-top-button `}
     >

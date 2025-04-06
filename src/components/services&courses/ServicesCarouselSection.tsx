@@ -20,7 +20,7 @@ const ServicesCarouselSection: React.FC = () => {
   const [mainIndex, setMainIndex] = useState(0);
   const [orderedItems, setOrderedItems] = useState<ServiceItem[]>([]);
   const { windowWidth, isMobileView } = useWindowSize();
-  const { theme } = useTheme();
+  const { theme, colors } = useTheme();
   const { openModal } = useModal(); // Obtenemos openModal
 
   const initialServiceItems: ServiceItem[] = [
@@ -93,7 +93,7 @@ const ServicesCarouselSection: React.FC = () => {
         return (
           <div
             key={`service-${index}`}
-            className={`carousel-item absolute top-1/2 -translate-y-1/2 rounded-2xl shadow-lg bg-no-repeat transition-all duration-700 ${getItemWidth(isMain)} ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'}`}
+            className={`carousel-item absolute top-1/2 -translate-y-1/2 rounded-2xl shadow-lg bg-no-repeat transition-all duration-700 ${getItemWidth(isMain)}`}
             style={{
               backgroundImage: `url(${item.imageUrl})`,
               backgroundPosition: '65% 30%',
@@ -101,6 +101,8 @@ const ServicesCarouselSection: React.FC = () => {
               backgroundRepeat: 'no-repeat', // Avoid image repetition
               left: isMain ? '50%' : `calc(60% + ${offset}px)`,
               transform: isMain ? 'translate(-50%, -50%)' : 'translateY(-50%)',
+              backgroundColor: colors.background, 
+              color: colors.text
             }}
           >
             <CarouselContent isMain={isMain} isMobileView={isMobileView} windowWidth={windowWidth}>

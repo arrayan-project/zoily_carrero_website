@@ -1,5 +1,5 @@
 // src/Routes.tsx
-import React, { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 // Carga diferida de los componentes
 const Home = lazy(() => import('./pages/Home'));
@@ -16,7 +16,7 @@ interface RoutesProps {
 }
 
 const MyRoutes = ({ onSmoothScroll, isMobileView }: RoutesProps) => {
-  const [error, setError] = useState<string | null>(null);
+  const [error] = useState<string | null>(null);
 
   if (error) {
     console.error("Error en MyRoutes:", error);

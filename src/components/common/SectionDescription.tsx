@@ -1,8 +1,6 @@
 // src/components/common/SectionDescription.tsx
-
 import React from "react";
 import { useTheme } from "../context/useThemeHook";
-import { getTextColorClass } from "../../utils/utils";
 import AnimationWrapper from './AnimationLayer';
 
 
@@ -15,16 +13,14 @@ const SectionDescription: React.FC<SectionDescriptionProps> = ({
   description,
   className,
 }) => {
-  const { theme } = useTheme();
+  const { colors } = useTheme();
 
   //Verificamos si es un array o un string
   if (Array.isArray(description)) {
     return (
      <AnimationWrapper animationClassName="fade-in-up">
       <p
-        className={`text-center text-sm md:text-base font-light tracking-wide ${getTextColorClass(
-          theme
-        )} ${className}`}
+        className={`text-center text-sm md:text-base font-light tracking-wide ${className}`} style={{ color: colors.bannerTitle }}
       >
         {description.map((line, index) => (
           <React.Fragment key={index}>
@@ -39,9 +35,7 @@ const SectionDescription: React.FC<SectionDescriptionProps> = ({
     return (
         <AnimationWrapper animationClassName="fade-in-up">
       <p
-        className={`text-center text-sm md:text-base font-light tracking-wide ${getTextColorClass(
-          theme
-        )} ${className}`}
+        className={`text-center text-sm md:text-base font-light tracking-wide ${className}`} style={{ color: colors.bannerTitle }}
       >
         {description}
       </p>

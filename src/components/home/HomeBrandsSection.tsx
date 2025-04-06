@@ -1,5 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import SmoothImage from '../smoothImages/SmoothImage';
+import { useTheme } from "../../components/context/useThemeHook";
+
 
 interface HomeBrandsSectionProps {
   brands: {
@@ -12,6 +14,8 @@ const HomeBrandsSection: React.FC<HomeBrandsSectionProps> = ({ brands }) => {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [scrollPosition, setScrollPosition] = useState(0);
   const scrollSpeed = 1; // Ajusta la velocidad del desplazamiento
+  const { colors } = useTheme();
+  
 
   useEffect(() => {
     const slider = sliderRef.current;
@@ -38,7 +42,7 @@ const HomeBrandsSection: React.FC<HomeBrandsSectionProps> = ({ brands }) => {
   return (
     <section className="py-16 px-4 bg-gray-100">
       <div className="container mx-auto">
-        <h2 className="text-3xl font-cinzel font-extralight text-center mb-8">Nuestras Marcas</h2>
+        <h2 className="text-3xl font-cinzel font-extralight text-center mb-8" style={{ color: colors.accent }}>Nuestras Marcas</h2>
         <div ref={sliderRef} className="relative overflow-hidden w-full">
           <div
             className="flex gap-8 whitespace-nowrap"

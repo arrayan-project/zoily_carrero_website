@@ -42,7 +42,7 @@ const FloatingContactButton: React.FC<FloatingContactButtonProps> = ({ onClick }
 
   return (
     <div className="floating-button-container">
-      <button className="floating-button" onClick={handleClick} aria-label="Abrir modal de contacto">
+      <button type="button" className="floating-button" onClick={handleClick} aria-label="Abrir modal de contacto">
         <Mail className="button-icon" />
       </button>
     </div>

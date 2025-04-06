@@ -1,7 +1,7 @@
 // src/components/modals/ModalRoot.tsx
 import React, { useEffect, useRef } from 'react';
 import Modal from '../common/ModalBase';
-import { ModalContent } from '../../data/servicesData';
+import { ModalContent } from '../../types';
 import { CourseModalContent } from '../../data/coursesData';
 
 interface ModalContainerProps {

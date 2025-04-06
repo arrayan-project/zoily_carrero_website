@@ -18,7 +18,7 @@ interface LayoutMobileProps {
 
 const LayoutMobile: React.FC<LayoutMobileProps> = ({ children, className }) => {
   const { theme } = useTheme();
-  const [error, setError] = useState<string | null>(null);
+  const [error] = useState<string | null>(null);
   //Se crea una variable para las clases condicionales
   const themeClasses = theme === 'light' ? 'bg-white text-amber-700' : 'bg-gray-800 text-rose-400';
 

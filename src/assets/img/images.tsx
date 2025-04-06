@@ -222,6 +222,18 @@ import brandLogo7 from "../img/icon-brands/revlon.png"; // Cambiado a .png
 import brandLogo8 from "../img/icon-brands/urban.png"; // Cambiado a .png
 import brandLogo9 from "../img/icon-brands/mac.png"; // Cambiado a .png
 
+
+/**
+ *  Imagenes para los logos de las marcas UGC
+ */
+import ugcBrandLogo1 from "../img/ugc/BeautyPlus.png"; 
+import ugcBrandLogo2 from "../img/ugc/cetaphil.png";
+import ugcBrandLogo3 from "../img/ugc/esika.png";
+import ugcBrandLogo4 from "../img/ugc/gillette-venus.png";
+import ugcBrandLogo5 from "../img/ugc/neutrogena.png";
+import ugcBrandLogo6 from "../img/ugc/pantene.png";
+
+
 // ==============================================
 // Objeto con todas las imagenes
 // ==============================================
@@ -269,6 +281,12 @@ const images: Image = {
   brandLogo7,
   brandLogo8,
   brandLogo9,
+  ugcBrandLogo1,
+  ugcBrandLogo2,
+  ugcBrandLogo3,
+  ugcBrandLogo4,
+  ugcBrandLogo5,
+  ugcBrandLogo6,
 };
 
 // ==============================================

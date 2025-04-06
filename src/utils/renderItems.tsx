@@ -2,7 +2,6 @@
 import React from 'react';
 import { ModalContent } from "../types";
 import { CourseModalContent } from '../data/coursesData';
-import renderCarousel from './renderCarousel';
 import MobileServiceItem from '../components/sliders/MobileServiceItem'; // Importamos MobileServiceItem
 import MobileCourseItem from '../components/sliders/MobileCourseItem'; // Importamos MobileCourseItem
 

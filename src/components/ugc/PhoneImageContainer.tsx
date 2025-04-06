@@ -8,9 +8,13 @@ interface PhoneImageContainerProps {
   alt: string;
 }
 
-const PhoneImageContainer: React.FC<PhoneImageContainerProps> = ({ phoneImage, contentImage, alt }) => {
+const PhoneImageContainer: React.FC<PhoneImageContainerProps> = ({
+  phoneImage,
+  contentImage,
+  alt,
+}) => {
   return (
-    <div className="ugc-phone-container-png relative max-w-sm mx-auto">
+    <div className="ugc-phone-container-png relative max-w-md mx-auto">
       <SmoothImage
         src={phoneImage}
         alt="Marco Smartphone"
@@ -19,7 +23,7 @@ const PhoneImageContainer: React.FC<PhoneImageContainerProps> = ({ phoneImage, c
       <SmoothImage
         src={contentImage}
         alt={alt}
-        className="ugc-image-example-png absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 w-[96%] h-[99%] object-cover rounded-[50px] aspect-[0.7]"
+        className="ugc-image-example-png absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 w-[94%] h-[99%] rounded-[40px] md:w-[94%] md:h-[99%] md:rounded-[50px] object-cover aspect-[0.7]"
       />
     </div>
   );

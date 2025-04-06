@@ -1,7 +1,5 @@
 // src/components/svg/CourseSectionBackground.tsx
-
 import React from 'react';
-import { useTheme } from '../context/useThemeHook'; // Si necesitas el tema para el color
 
 interface CoursesSectionBackgroundProps {
   children: React.ReactNode;

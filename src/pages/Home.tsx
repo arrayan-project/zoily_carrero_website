@@ -24,7 +24,7 @@ interface HomeProps {
 const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => {
   const [, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
-  const { theme } = useTheme();
+  const { colors } = useTheme();
   
 
 
@@ -53,7 +53,10 @@ const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => {
   };
 
   return (
-    <div className={`relative ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}> {/* Añadimos la clase de fondo */}
+    <div
+      className="relative transition-colors duration-300"
+      style={{ backgroundColor: colors.background, color: colors.text }}
+    > 
       <div className="relative mb-10 md:mb-24">
         <BackgroundSliderHome />
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center w-full">
@@ -77,7 +80,7 @@ const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => {
                   <HomeButton
                     isMobileView={isMobileView}
                     onClick={handleAgendaTuCitaClick}
-                    className="px-6 py-3 bg-pink-500 text-white font-normal font-cinzel rounded shadow hover:bg-pink-800 transition duration-200 text-center"
+                    className="px-6 py-3 bg-pink-700 text-white font-normal font-cinzel rounded shadow hover:bg-pink-900 transition duration-200 text-center"
                     aria-label={`Ir a la sección de ${homeInfo.button2Text}`}
                   >
                     {homeInfo.button2Text}

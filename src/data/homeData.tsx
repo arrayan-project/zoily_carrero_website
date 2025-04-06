@@ -14,6 +14,7 @@ export const homeLinks = {
   subtitle1: "Acompañanos y acepta el regalo de ser tu mejor versión.",
   links: [
     {
+      id: "link-services", // Unique ID
       to: "/services",
       hash: "#services", // Navega a /services#services
       imageSrc: imageArrays.homeSectionsImages[0], // Usamos la nueva imagen
@@ -21,6 +22,7 @@ export const homeLinks = {
       label: "Servicios", // Nuevo: Agregamos el texto del recuadro
     },
     {
+      id: "link-curses", // Unique ID
       to: "/services",
       hash: "#cursos", // Navega a /services#cursos
       imageSrc: imageArrays.homeSectionsImages[1], // Usamos la nueva imagen
@@ -28,6 +30,7 @@ export const homeLinks = {
       label: "Cursos", // Nuevo: Agregamos el texto del recuadro
     },
     {
+      id: "link-contact", // Unique ID
       to: "/ugc",
       hash: "#ugc", // Navega a /ugc#ugc
       imageSrc: imageArrays.homeSectionsImages[3], // Usamos la nueva imagen

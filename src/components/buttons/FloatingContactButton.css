@@ -55,7 +55,7 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(1.05); /* Menor aumento */
+    transform: scale(1.5); /* Menor aumento */
   }
   100% {
     transform: scale(1);

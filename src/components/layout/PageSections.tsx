@@ -1,5 +1,5 @@
 // src/components/layout/PageSections.tsx
-import React, { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 // Carga diferida de los componentes
 const Home = lazy(() => import('../../pages/Home'));
 const Store = lazy(() => import('../../pages/Store'));
@@ -16,7 +16,7 @@ interface ContentProps {
 }
 
 function Content({ onSmoothScroll, className, isMobileView }: ContentProps) {
-  const [error, setError] = useState<string | null>(null);
+  const [error] = useState<string | null>(null);
 
   if (error) {
     console.error("Error en PageSections:", error);

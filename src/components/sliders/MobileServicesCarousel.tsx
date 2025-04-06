@@ -42,7 +42,6 @@ const MobileServicesCarousel: React.FC<MobileServicesCarouselProps> = ({ openMod
                 infoContent={getInfoContent(index).infoContent}
                 termsContent={getInfoContent(index).termsContent}
                 description={getInfoContent(index).description}
-                shortDescription={service.modalContent.description || ""} // Valor por defecto
               />
             </div>
           ))}

@@ -3,8 +3,6 @@
    ========================================================================== */
 
 /* Importaciones de Fuentes */
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Mr+De+Haviland&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@300;700&display=swap");
 
 @font-face {
@@ -206,12 +204,14 @@ body.dark-mode .slick-dots li button:before {
 
 /* Animacion del boton */
 @keyframes color-change {
-  0% {
-    background-color: var(--color-secondary);
-  }
-  100% {
-    background-color: var(--color-primary);
-  }
+    0% {
+        transform: scale(1);
+        background-color: var(--color-secondary);
+    }
+    100% {
+        transform: scale(1.1);
+        background-color: var(--color-primary);
+    }
 }
 
 .animate-color-button {
@@ -364,4 +364,14 @@ body.dark-mode .slick-dots li button:before {
 
 body {
   overflow-x: hidden;
+}
+
+.heart-shape {
+  clip-path: path('M 150 270 C 150 270, 0 180, 0 90 C 0 30, 60 0, 75 30 C 90 0, 150 30, 150 90 C 150 30, 210 0, 225 30 C 240 0, 300 30, 300 90 C 300 180, 150 270, 150 270 Z');
+  background-color: turquoise;
+}
+
+/* GlobalStyles.css */
+.ugc-background-text span {
+  line-height: 0.8; /* Adjust as needed */
 }

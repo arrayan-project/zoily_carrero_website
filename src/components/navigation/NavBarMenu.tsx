@@ -99,7 +99,7 @@ const Navigation: React.FC<NavigationProps> = ({ className, onSmoothScroll, isMo
           </button>
         )}
 
-        <div className="flex flex-col lg:flex-row lg:justify-center lg:items-center space-y-6 lg:space-y-0 lg:space-x-6 font-montserrat text-xl lg:text-sm tracking-wider text-center lg:text-left mt-8 lg:mt-0 relative z-10">
+        <div className="flex flex-col lg:flex-row lg:justify-center lg:items-center space-y-6 lg:space-y-0 lg:space-x-6 font-cinzel text-xl lg:text-sm tracking-wider text-center lg:text-left mt-8 lg:mt-0 relative z-10">
           <Link to="/" onClick={() => handleLinkClick("/", "home")} className={`${navLinkBase} ${isActive('/') ? navLinkActive : navLinkInactive}`}>INICIO</Link>
           <Link to="/services" onClick={() => handleLinkClick("/services", undefined, "#services")} className={`${navLinkBase} ${isActive('/services') ? navLinkActive : navLinkInactive}`}>SERVICIOS & CURSOS</Link>
           <Link to="/gallery" onClick={() => handleLinkClick("/gallery", undefined, "#gallery")} className={`${navLinkBase} ${isActive('/gallery') ? navLinkActive : navLinkInactive}`}>GALERIA</Link>

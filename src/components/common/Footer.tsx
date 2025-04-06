@@ -14,7 +14,7 @@ import React, { useState } from 'react';
 import { Twitter, Instagram, Facebook} from 'lucide-react';
 
 const Footer: React.FC = () => {
-  const [error, setError] = useState<string | null>(null);
+  const [error] = useState<string | null>(null);
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [

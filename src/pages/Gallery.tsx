@@ -1,14 +1,13 @@
 import React, { useState, useMemo, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom"; // Importamos useLocation
-import GalleryTitle from "../components/common/GalleryTitle";
+import GalleryTitle from "../components/gallery/GalleryTitle";
 import GalleryCategoryMenu from "../components/navigation/GalleryCategoryMenu";
-import GalleryImageGrid from "../components/layout/GalleryImageGrid";
+import GalleryImageGrid from "../components/gallery/GalleryImageGrid";
 import GalleryModal from "../components/modals/GalleryModal";
-import { SERVICES_TITLE_CLASS } from "../constants/styles";
+import { HOME_LINKS_TITLE_CLASS } from "../constants/styles";
 import useGalleryModalTouch from "../hooks/useGalleryModalTouch";
 import useWindowSize from "../hooks/useWindowSize";
 import { getImagesForCategory } from "../utils/galleryUtils";
-import { getTextColorClass } from "../utils/utils";
 import { galleryCategories, galleryTitle } from "../data/galleryData";
 import { useTheme } from "../components/context/useThemeHook";
 import "../GlobalStyles.css";
@@ -25,8 +24,11 @@ export default function Gallery() {
 
   const modalContainerRef = useRef<HTMLDivElement>(null);
   const { isMobileView } = useWindowSize();
-  const { theme } = useTheme();
-  const currentGalleryImages = useMemo(() => getImagesForCategory(selectedCategory), [selectedCategory]);
+  const { colors, theme } = useTheme();
+  const currentGalleryImages = useMemo(
+    () => getImagesForCategory(selectedCategory),
+    [selectedCategory]
+  );
 
   const openImage = (index: number) => {
     try {
@@ -41,7 +43,9 @@ export default function Gallery() {
 
   const navigateImage = (offset: number) => {
     setIsModalTransitioning(true);
-    const newIndex = (currentIndex + offset + currentGalleryImages.length) % currentGalleryImages.length;
+    const newIndex =
+      (currentIndex + offset + currentGalleryImages.length) %
+      currentGalleryImages.length;
     setTimeout(() => {
       setCurrentIndex(newIndex);
       setSelectedImage(currentGalleryImages[newIndex] ?? null);
@@ -80,16 +84,37 @@ export default function Gallery() {
   if (error) return <p className="error-message">{error}</p>;
 
   return (
-    <main className={`min-h-screen ${getTextColorClass(theme)}`}>
-      <section id="gallery" className="mx-auto py-16">
-        <GalleryTitle title={galleryTitle} className={SERVICES_TITLE_CLASS} />
-        <GalleryCategoryMenu {...{ galleryCategories, selectedCategory, handleCategoryClick, theme }} />
-        <GalleryImageGrid {...{ currentGalleryImages, openImage, isGalleryTransitioning }} />
-        <GalleryModal {...{ selectedImage, closeImage, prevImage, nextImage, isModalTransitioning, handleModalClick, modalContainerRef, isMobileView }} />
+    <main
+      className={`min-h-screen`}
+      style={{ backgroundColor: colors.background, color: colors.text }}
+    >
+      <section id="gallery" className="mx-auto py-16 mb-24">
+        <GalleryTitle title={galleryTitle} className={HOME_LINKS_TITLE_CLASS} />
+        <GalleryCategoryMenu
+          {...{
+            galleryCategories,
+            selectedCategory,
+            handleCategoryClick,
+            theme,
+          }}
+        />
+        <GalleryImageGrid
+          {...{ currentGalleryImages, openImage, isGalleryTransitioning }}
+        />
+        <GalleryModal
+          {...{
+            selectedImage,
+            closeImage,
+            prevImage,
+            nextImage,
+            isModalTransitioning,
+            handleModalClick,
+            modalContainerRef,
+            isMobileView,
+          }}
+        />
       </section>
-      {isMobileView && (
-                  <Footer />
-                )}
+      {isMobileView && <Footer />}
     </main>
   );
 }

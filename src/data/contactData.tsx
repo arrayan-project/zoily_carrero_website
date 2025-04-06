@@ -1,10 +1,10 @@
 // src/data/contactData.ts
 export const contactInfo = {
-    phone: "(555) 123-4567",
-    email: "info@sadiesfloral.com",
+    phone: "(XXX) XX XXX XXX",
+    email: "info@zoilycarrero.com",
     location: {
-      street: "123 Floral Street",
-      city: "New York, NY 10001",
+      street: "Av. Providencia XXXXX, local XX",
+      city: "Providencia, Santiago",
     },
     schedule: {
       mondayToFriday: "9:00 AM - 6:00 PM",

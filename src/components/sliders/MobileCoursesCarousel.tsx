@@ -35,16 +35,15 @@ const MobileCoursesCarousel: React.FC<MobileCoursesCarouselProps> = ({
     autoplaySpeed: 3000,
     arrows: true,
     className: "center",
-    centerMode: true,
     centerPadding: "0px",
   };
 
   return (
     <div className="w-full flex justify-center">
-      <div className="relative w-11/12 md:w-10/12">
+      <div className="relative w-full">
         <Slider {...sliderSettings}>
           {courses.map((course, index) => (
-            <div key={index} className="px-10">
+            <div key={index} className="px-5">
               {renderCourseItem(
                 course.images, // Pasamos el array de imagenes
                 course.items[0].name,

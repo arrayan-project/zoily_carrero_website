@@ -16,7 +16,7 @@ interface ThemeToggleButtonProps {
 const ThemeToggleButton: React.FC<ThemeToggleButtonProps> = ({ className }) => {
   const { theme, toggleTheme } = useTheme();
   const [screenWidth, setScreenWidth] = useState(window.innerWidth); // Estado para el ancho de pantalla
-  const [error, setError] = useState<string | null>(null); // Estado para el error
+  const [error] = useState<string | null>(null); // Estado para el error
 
 
   useEffect(() => {
@@ -42,6 +42,7 @@ const ThemeToggleButton: React.FC<ThemeToggleButtonProps> = ({ className }) => {
 
   return (
     <button
+      type="button"
       onClick={toggleTheme}
       className={`${className} ${buttonBase} ${buttonTheme}`}
       aria-label={theme === 'light' ? 'Activar modo oscuro' : 'Activar modo claro'}

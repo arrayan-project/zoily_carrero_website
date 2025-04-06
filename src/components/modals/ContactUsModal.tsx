@@ -5,8 +5,6 @@ import { useTheme } from '../context/useThemeHook';
 import './ContactUsModal.css';
 import { getTextColorClass } from "../../utils/utils"; //Importamos las funciones globales
 
-// Type para theme
-type ThemeType = 'light' | 'dark';
 
 interface ContactModalProps {
     isOpen: boolean;

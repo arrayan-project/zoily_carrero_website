@@ -29,7 +29,7 @@ const PageBanner: React.FC<PageBannerProps> = ({ title, imageSrcs, objectPositio
   const bannerImageSrc = imageSrcs && imageSrcs.length > 0 ? imageSrcs[0] : null;
   const defaultImageOpacity = imageOpacity !== undefined ? imageOpacity : 0.7;
   const { theme, colors } = useTheme();
-  const [error, setError] = useState<string | null>(null);
+  const [error] = useState<string | null>(null);
 
   // Define el color de superposición por defecto basado en el tema
   const defaultOverlayColor = theme === 'dark' ? colors.bannerImageOverlay : colors.bannerImageOverlay;

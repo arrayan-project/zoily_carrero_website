@@ -1,7 +1,8 @@
 // src/components/common/SectionTitle.tsx
 import React from 'react';
 import { useTheme } from '../context/useThemeHook';
-import { getTextColorClass } from '../../utils/utils';
+import AnimationWrapper from "../common/AnimationLayer";
+
 
 interface SectionTitleProps {
   title: string;
@@ -9,18 +10,17 @@ interface SectionTitleProps {
 }
 
 const SectionTitle: React.FC<SectionTitleProps> = ({ title, className }) => {
-  const { theme } = useTheme();
+  const { colors } = useTheme();
 
   return (
-
+    <AnimationWrapper animationClassName="fade-in-text">
       <h1
-        className={`${className} ${getTextColorClass(
-          theme
-        )} mb-12 md:mb-18`}
+        className={`${className} text-xl mb-12 md:mb-18`} 
+        style={{ color: colors.accent }}
       >
         {title}
       </h1>
-
+   </AnimationWrapper>
   );
 };
 

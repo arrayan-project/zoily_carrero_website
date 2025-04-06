@@ -20,7 +20,10 @@ const GalleryImageGrid: React.FC<GalleryImageGridProps> = ({
           currentGalleryImages.map((img, index) => (
             <div
               key={index}
-              className={'w-full aspect-square overflow-hidden p-1.5 sm:p-2 md:p-2.5 lg:p-2.5 rounded-sm bg-white'} style={{ boxShadow: '4px 0px 10px rgba(0, 0, 0, 0.3)' }}
+              className={'w-full aspect-square overflow-hidden rounded-sm bg-white shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer relative group'} 
+              style={{ boxShadow: '4px 4px 10px rgba(0, 0, 0, 0.3)',
+              border: '8px solid white'
+               }}
             >
               <LazyLoad height={200} offset={100} once>
                 <SmoothImage

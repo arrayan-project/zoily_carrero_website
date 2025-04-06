@@ -13,7 +13,7 @@ interface HomeButtonProps {
   sectionId?: string;
 }
 
-const HomeButton: React.FC<HomeButtonProps> = ({ isMobileView, onSmoothScroll, to, className, children, onClick, ariaLabel, sectionId }) => {
+const HomeButton: React.FC<HomeButtonProps> = ({ isMobileView, onSmoothScroll, to, className, children, onClick, ariaLabel }) => {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 

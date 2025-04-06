@@ -77,7 +77,7 @@ const StatItem: React.FC<StatItemProps> = ({ icon, value, label, suffix, index, 
 const StatsSection = () => {
   const [isBannerVisible, setIsBannerVisible] = useState(false);
   const bannerRef = useRef<HTMLElement>(null);
-  const [error, setError] = useState<string | null>(null); // Estado para el error
+  const [error] = useState<string | null>(null); // Estado para el error
 
   useEffect(() => {
     const observer = new IntersectionObserver(

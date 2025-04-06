@@ -17,22 +17,17 @@ import { ErrorBoundary } from "react-error-boundary";
 import StatsSection from "../components/StatsSection";
 import ModalContainer from "../components/modals/ModalRoot";
 import ErrorComponent from "../components/common/ErrorComponent";
-import ServicesSectionBackground from "../components/svg/ServicesSectionBackground";
-import CoursesSectionBackground from "../components/svg/CourseSectionBackground";
-import backgroundServices from "../assets/img/background-pages/bg-7-desktop.webp";
-import backgroundServicesMobile from "../assets/img/background-pages/bg-7-desktop.webp";
-import backgroundCourses from "../assets/img/background-pages/bg-8-desktop.webp";
-import backgroundCoursesMobile from "../assets/img/background-pages/bg-8-desktop.webp";
-import SectionTitle from "../components/common/SectionTitle";
-import ServicesSection from "../components/services&courses/ServicesSection";
+import SectionTitle from "../components/services&courses/ServicesSectionTitle";
 import CoursesSection from "../components/services&courses/CoursesSection";
 import ServicesIncludeSection from "../components/layout/ServicesIncludeSection";
 import SectionDescription from "../components/common/SectionDescription";
-import Footer2 from "../components/common/Footer2";
+import Footer from "../components/common/Footer";
 import useWindowSize from "../hooks/useWindowSize";
-import ServicesColumnsSection from "../components/services&courses/ServicesColumnsSection"; 
-import ServicesSectionCarousel from "../components/services&courses/ServicesCarouselSection"; 
+import ServicesColumnsSection from "../components/services&courses/ServicesColumnsSection";
+import ServicesCarouselSection from "../components/services&courses/ServicesCarouselSection";
 import "../GlobalStyles.css";
+import { useTheme } from "../components/context/useThemeHook";
+
 
 // Creamos el contexto para el modal
 interface ModalContextProps {
@@ -127,63 +122,59 @@ function Services({}: ServicesProps) {
     }
   }, [location.hash]); // Se ejecuta cada vez que cambia el hash
 
+    const { colors } = useTheme();
+
   return (
     <ErrorBoundary
       FallbackComponent={ErrorComponent}
       onReset={() => setError(null)}
     >
       <ModalProvider>
-        <main className="min-h-screen flex flex-col">
-          <ServicesSectionBackground
-            backgroundImage={backgroundServices}
-            backgroundImageMobile={backgroundServicesMobile}
-            objectPosition="bottom"
+        <main className="min-h-screen flex flex-col" 
+        style={{ backgroundColor: colors.background, color: colors.text }}
+        > 
+          <section
+            id="services"
+            className="container mx-auto mt-12 md:mt-24 md:mb-20 px-2 md:px-4 lg:px-8 xl:px-16 2xl:px-24 py-16 md:py-32 z-10"
           >
-            <section
-              id="services"
-              className="container mx-auto px-2 md:px-4 lg:px-8 xl:px-16 2xl:px-24 py-16 md:py-32 z-10"
-            >
-              <SectionTitle
-                title="Conoce lo que podemos hacer por ti"
-                className={HOME_LINKS_TITLE_CLASS}
-              />
-              <SectionDescription
-                description={servicesDescription}
-                className="mt-4 mb-16 md:mb-24 font-cinzel text-center"
-              />
-              {/*<ServicesSection />*/}
-              {!isMobileView && <ServicesSectionCarousel />}
-              {isMobileView && <ServicesColumnsSection />}
-            </section>
-            <ServicesIncludeSection />
-          </ServicesSectionBackground>
+            <SectionTitle
+              title="Conoce lo que podemos hacer por ti"
+              className={HOME_LINKS_TITLE_CLASS}
+            />
+            <SectionDescription
+              description={servicesDescription}
+              className="mt-4 mb-16 md:mb-24 font-cinzel text-center"
+            />
+            {/*<ServicesSection />*/}
+            {!isMobileView && <ServicesCarouselSection />}
+            {isMobileView && <ServicesColumnsSection />}
+          </section>
+
+          <section style={{ backgroundColor: colors.background, color: colors.text }}>
+          <ServicesIncludeSection />
+          </section>
 
           <section className="w-full">
             <StatsSection />
           </section>
 
-          <CoursesSectionBackground
-            backgroundImage={backgroundCourses}
-            backgroundImageMobile={backgroundCoursesMobile}
-            objectPosition="center top"
+          <section
+            id="cursos"
+            className="mx-auto mb-24 mt-12 px-4 md:px-6 lg:px-12 xl:px-24 2xl:px-32 py-16 md:py-24 max-w-screen-lg text-center"
           >
-            <section
-              id="cursos"
-              className="mx-auto px-4 md:px-6 lg:px-12 xl:px-24 2xl:px-32 py-16 md:py-24 max-w-screen-lg text-center"
-            >
-              <SectionTitle
-                title="NUESTROS CURSOS"
-                className={HOME_LINKS_TITLE_CLASS}
-              />
-              <SectionDescription
-                description={coursesDescription}
-                className="mt-4 mb-16 md:mb-24 font-cinzel text-center"
-              />
-              <CoursesSection />
-            </section>
-          </CoursesSectionBackground>
+            <SectionTitle
+              title="NUESTROS CURSOS"
+              className={HOME_LINKS_TITLE_CLASS}
+            />
+            <SectionDescription
+              description={coursesDescription}
+              className="mt-4 mb-16 md:mb-24 font-cinzel text-center"
+            />
+            <CoursesSection />
+          </section>
+
           <ModalContentRender />
-          {isMobileView && <Footer2 />}
+          {isMobileView && <Footer />}
         </main>
       </ModalProvider>
     </ErrorBoundary>

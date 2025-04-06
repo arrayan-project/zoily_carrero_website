@@ -8,7 +8,7 @@ interface HomeContainerProps {
 }
 
 const HomeContainer: React.FC<HomeContainerProps> = ({ children, className }) => {
-  const [error, setError] = useState<string | null>(null);
+  const [error] = useState<string | null>(null);
 
   if (error) {
     console.error("Error en HomeContainer:", error); // Registra el error en la consola
