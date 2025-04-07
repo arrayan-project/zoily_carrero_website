@@ -12,7 +12,7 @@ import ContentDesktop from './components/layout/DesktopView';
 import LandingPageMobile from './MobileView';
 import ThemeToggleButton from './components/buttons/ThemeToggleButton';
 import ScrollToTopButton from './components/buttons/ScrollTopButton';
-import Footer from './components/common/Footer'; // Importa Footer2
+import Footer3 from './components/common/Footer3';
 
 
 
@@ -59,10 +59,12 @@ interface MainContentProps {
 }
 
 function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen, isInternalScroll, isNavigating }: MainContentProps) {
-  const { theme } = useTheme();
+  const {colors, theme } = useTheme();
   const location = useLocation();
-  const hideHeaderAndFooter = location.pathname === "/";
-  const themeClasses = !hideHeaderAndFooter ? (theme === 'light' ? 'bg-white text-amber-700' : 'bg-gray-800 text-rose-400') : '';
+  const hideHeaderAndFooter3 = location.pathname === "/";
+  const themeClasses = !hideHeaderAndFooter3
+  ? `bg-[${colors.background}] text-[${colors.accent}]` // Use theme colors
+  : '';
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const isMobileView = windowWidth < MOBILE_BREAKPOINT;
 
@@ -108,9 +110,9 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen, i
           <div className="fixed top-4 left-4 z-[70]">
             <ThemeToggleButton />
           </div>
-          {!hideHeaderAndFooter && <Navigation className="md:mb-12" onSmoothScroll={handleSmoothScroll} isMobileView={isMobileView} isInternalScroll={isInternalScroll} isNavigating={isNavigating} />} {/* Pasamos la ref */}
+          {!hideHeaderAndFooter3 && <Navigation className="md:mb-12" onSmoothScroll={handleSmoothScroll} isMobileView={isMobileView} isInternalScroll={isInternalScroll} isNavigating={isNavigating} />} {/* Pasamos la ref */}
           <ContentDesktop onSmoothScroll={handleSmoothScroll} isMobileView={isMobileView} />
-          {!hideHeaderAndFooter && <Footer/>}
+          {!hideHeaderAndFooter3 && <Footer3/>}
         </div>
       )}
     </div>

@@ -5,7 +5,7 @@ import "../GlobalStyles.css";
 import ContactForm from "../components/forms/ContactUsForm";
 import useWindowSize from "../hooks/useWindowSize";
 import { useLocation } from "react-router-dom";
-import Footer from "../components/common/Footer";
+import Footer3 from "../components/common/Footer3";
 import ContactInfoSection from "../components/contact/ContactInfoSection";
 import ContactSocialMediaSection from "../components/contact/ContactSocialMediaSection";
 import ContactMainTitle from "../components/contact/ContactMainTitle";
@@ -47,7 +47,7 @@ function Contact({}: ContactProps) {
           </section>
         </div>
       </section>
-      {isMobileView && <Footer />}
+      {isMobileView && <Footer3 />}
     </div>
   );
 }

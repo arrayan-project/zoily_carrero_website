@@ -14,7 +14,7 @@ const UGCMiddleBanner: React.FC<BannerProps> = ({
   const { colors } = useTheme();
 
   return (
-    <div className="w-full py-6 px-4 text-center mt-24 mb-24 relative overflow-hidden">
+    <div className="w-full py-6 px-4 text-center mt-24 relative overflow-hidden">
       <AnimationWrapper animationClassName="fade-in">
         <div className={`mx-auto ${maxWidth}`}>
           <h1

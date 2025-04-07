@@ -21,7 +21,7 @@ import SectionTitle from "../components/services&courses/ServicesSectionTitle";
 import CoursesSection from "../components/services&courses/CoursesSection";
 import ServicesIncludeSection from "../components/layout/ServicesIncludeSection";
 import SectionDescription from "../components/common/SectionDescription";
-import Footer from "../components/common/Footer";
+import Footer3 from "../components/common/Footer3";
 import useWindowSize from "../hooks/useWindowSize";
 import ServicesColumnsSection from "../components/services&courses/ServicesColumnsSection";
 import ServicesCarouselSection from "../components/services&courses/ServicesCarouselSection";
@@ -174,7 +174,7 @@ function Services({}: ServicesProps) {
           </section>
 
           <ModalContentRender />
-          {isMobileView && <Footer />}
+          {isMobileView && <Footer3 />}
         </main>
       </ModalProvider>
     </ErrorBoundary>

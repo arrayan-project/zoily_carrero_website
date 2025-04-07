@@ -11,7 +11,7 @@ import { getImagesForCategory } from "../utils/galleryUtils";
 import { galleryCategories, galleryTitle } from "../data/galleryData";
 import { useTheme } from "../components/context/useThemeHook";
 import "../GlobalStyles.css";
-import Footer from "../components/common/Footer"; // Importamos el componente Footer
+import Footer3 from "../components/common/Footer3"; // Importamos el componente Footer
 
 export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -88,7 +88,7 @@ export default function Gallery() {
       className={`min-h-screen`}
       style={{ backgroundColor: colors.background, color: colors.text }}
     >
-      <section id="gallery" className="mx-auto py-16 mb-24">
+      <section id="gallery" className="mx-auto py-16">
         <GalleryTitle title={galleryTitle} className={HOME_LINKS_TITLE_CLASS} />
         <GalleryCategoryMenu
           {...{
@@ -114,7 +114,7 @@ export default function Gallery() {
           }}
         />
       </section>
-      {isMobileView && <Footer />}
+      {isMobileView && <Footer3 />}
     </main>
   );
 }

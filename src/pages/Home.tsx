@@ -12,7 +12,7 @@ import ScrollDownArrow from "../components/common/ScrollDownArrow";
 import AnimationWrapper from "../components/common/AnimationLayer";
 import HomeGallerySection from "../components/home/HomeGallerySection";
 import { useTheme } from "../components/context/useThemeHook";
-import Footer from "../components/common/Footer"; // Importamos el componente Footer
+import Footer3 from "../components/common/Footer3";
 
 
 
@@ -115,7 +115,7 @@ const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => {
       />
 
       {!isMobileView && (
-        <Footer />
+        <Footer3 />
        )}
     </div>
   );
