@@ -1,1 +1,0 @@
-import{r as e,i as n}from"./index-CDqcuJGM.js";const d=()=>{const[t,w]=e.useState({windowWidth:window.innerWidth,isMobileView:window.innerWidth<n});return e.useEffect(()=>{const i=()=>{w({windowWidth:window.innerWidth,isMobileView:window.innerWidth<n})};return window.addEventListener("resize",i),()=>{window.removeEventListener("resize",i)}},[]),t};export{d as u};
