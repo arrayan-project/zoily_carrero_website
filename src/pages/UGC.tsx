@@ -93,7 +93,7 @@ const UGC: React.FC<UGCProps> = () => {
       </div>
 
       <UGCMiddleBanner 
-      text="Soy creadora de contenido UGC especializado en generar piezas auténticas, 
+      text="Soy creadora de contenido UGC especializada en generar piezas auténticas, 
       creativas y alineadas con los valores de cada marca."/>
 
       <UGCBrandsAlliances />

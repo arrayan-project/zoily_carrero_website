@@ -8,11 +8,9 @@ const Footer = () => {
 
   return (
     <footer
-      className="relative bg-black text-white mt-100 z-10"
+      className="relative bg-black text-white z-10" // Removed mt-100
       style={{ color: colors.bannerTitle }}
     >
-      {" "}
-      {/* Add negative margin and z-index */}
       <div
         className="top-0 left-0 w-[100%]"
         style={{ backgroundColor: colors.section }}
@@ -27,11 +25,11 @@ const Footer = () => {
             d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,
                         250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,
                         3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
-            className="relative block h-[600px]"
+            className="relative block h-[120px]" //Adjust the height of the svg
             style={{ fill: colors.background }}
           ></path>
         </svg>
-        <div className="grid lg:grid-cols-4 gap-20 sm:grid-cols-1 p-20">
+        <div className="grid lg:grid-cols-4 gap-20 sm:grid-cols-1 px-10 py-10 md:px-20 md:py-20"> {/* Adjusted padding */}
           <div className="flex flex-col gap-5">
             <h2
               className="text-xl text-pink-500 font-cinzel"
@@ -142,7 +140,7 @@ const Footer = () => {
             </form>
           </div>
         </div>
-        <h6 className="text-center">
+        <h6 className="text-center p-6">
           &copy; Desarrollado con ♥ por ZoilyCarrero {Year}
         </h6>
       </div>

@@ -26,16 +26,17 @@ const ServiceColumnsItem: React.FC<ServiceColumnsItemProps> = ({ service, openMo
       className={styles['service-preview-item']}
       style={{ backgroundImage: `url(${service.modalContent.images[0]})` }}
     >
-      <div className={styles.overlay}>
+      <div className={`${styles.overlay} ${styles['overlay-bottom']}`}>
         <div className={styles['overlay-inner']}>
-          <h2>{service.category}</h2>
+          <h2 className="font-cinzel text-xl">{service.category}</h2>
           <p>{service.description}</p>
+
 
           <ServicesButton
             onClick={handleOpenModal}
-            className={`${styles.button} px-6 py-3 bg-pink-500 text-white font-normal font-cinzel rounded shadow hover:bg-pink-800 transition duration-200 text-center`}
+            className={`${styles.button} px-3 py-1 bg-pink-500 text-white text-sm font-cinzel shadow hover:bg-pink-800 transition duration-200 text-center`}
           >
-            Ver más...
+            Ver más
           </ServicesButton>
         </div>
       </div>

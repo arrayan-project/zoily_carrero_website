@@ -18,7 +18,7 @@ const UGCMiddleBanner: React.FC<BannerProps> = ({
       <AnimationWrapper animationClassName="fade-in">
         <div className={`mx-auto ${maxWidth}`}>
           <h1
-            className="text-xl md:text-xl font-cinzel italic"
+            className="text-base md:text-xl font-cinzel italic"
             style={{ color: colors.text }}
           >
             {text}

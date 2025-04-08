@@ -29,24 +29,33 @@
   }
   
   .overlay {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 10px;
     position: absolute;
     top: 0;
-    right: 0;
-    bottom: 0;
     left: 0;
-    transition: background-color 0.4s;
-    flex-direction: column;
-    gap: 10px;
-    background-color: rgba(0, 0, 0, 0); /* Sin atenuación inicial */
-    opacity: 1; /* Se muestra siempre */
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .overlay-bottom {
+    align-items: flex-end; /* Alinea los elementos al final (abajo) */
+    padding: 1rem; /* Añade un padding para separar el contenido del borde */
+  }
+  
+  .overlay-inner {
+    text-align: center;
+    color: white;
+    width: 100%;
+    margin-bottom: 1rem; /* Espacio entre el contenido y el borde inferior */
   }
   
   .course-preview-item:hover .overlay {
-    background-color: rgba(0, 0, 0, 0.5); /* Atenuación al hacer hover */
+    opacity: 1;  
   }
   
   .overlay-inner * {
@@ -94,7 +103,7 @@
     }
     
     .overlay {
-      background-color: rgba(0, 0, 0, 0.5); /* Se muestra siempre */
+      background-color: rgba(0, 0, 0, 0.3); /* Se muestra siempre */
       opacity: 1; /* Se muestra siempre */
     }
     
