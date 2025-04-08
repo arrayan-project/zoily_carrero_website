@@ -1,93 +1,29 @@
 // src/pages/Services.tsx
 import React, {
   useState,
-  useCallback,
-  createContext,
-  useContext,
   useEffect,
 } from "react";
-import { useLocation } from "react-router-dom"; // Importamos useLocation
+import { useLocation } from "react-router-dom";
 import { HOME_LINKS_TITLE_CLASS } from "../constants/styles";
 import { ServicesProps } from "../interfaces/interfaces";
-import { ModalContent } from "../types";
-import { CourseModalContent } from "../data/coursesData";
-import { getServicesDescription } from "../data/servicesData";
 import { getCoursesDescription } from "../data/coursesData";
+import { getServicesDescription } from "../data/servicesData";
 import { ErrorBoundary } from "react-error-boundary";
+import { useTheme } from "../components/context/useThemeHook";
+import Footer3 from "../components/common/Footer3";
+import useWindowSize from "../hooks/useWindowSize";
 import StatsSection from "../components/StatsSection";
 import ModalContainer from "../components/modals/ModalRoot";
 import ErrorComponent from "../components/common/ErrorComponent";
-import SectionTitle from "../components/services&courses/ServicesSectionTitle";
-import CoursesSection from "../components/services&courses/CoursesSection";
+import SectionTitle from "../components/common/SectionTitle";
 import ServicesIncludeSection from "../components/layout/ServicesIncludeSection";
 import SectionDescription from "../components/common/SectionDescription";
-import Footer3 from "../components/common/Footer3";
-import useWindowSize from "../hooks/useWindowSize";
-import ServicesColumnsSection from "../components/services&courses/ServicesColumnsSection";
+import ServicesColumnSection from "../components/services&courses/ServicesColumnsSection";
 import ServicesCarouselSection from "../components/services&courses/ServicesCarouselSection";
+import CoursesColumnSection from "../components/services&courses/CourseColumnsSection";
+import CoursesCarouselSection from "../components/services&courses/CourseCarouselSection";
+import { ModalProvider, useModal } from "../components/context/ModalContext"; // Importamos ModalProvider y useModal
 import "../GlobalStyles.css";
-import { useTheme } from "../components/context/useThemeHook";
-
-
-// Creamos el contexto para el modal
-interface ModalContextProps {
-  isModalOpen: boolean;
-  modalContent: ModalContent | CourseModalContent | null;
-  openModal: (content: ModalContent | CourseModalContent) => void;
-  closeModal: () => void;
-}
-const ModalContext = createContext<ModalContextProps | undefined>(undefined);
-
-// Hook personalizado para usar el contexto del modal
-export const useModal = () => {
-  const context = useContext(ModalContext);
-  if (!context) {
-    throw new Error("useModal debe ser usado dentro de un ModalProvider");
-  }
-  return context;
-};
-
-// Componente proveedor del contexto del modal
-export const ModalProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState<
-    ModalContent | CourseModalContent | null
-  >(null);
-
-  //Funcion para abrir el modal
-  const openModal = useCallback(
-    (content: ModalContent | CourseModalContent) => {
-      try {
-        setModalContent(content);
-        setIsModalOpen(true);
-      } catch (error) {
-        console.error("Error al abrir el modal:", error);
-      }
-    },
-    []
-  );
-
-  //Funcion para cerrar el modal
-  const closeModal = useCallback(() => {
-    try {
-      setIsModalOpen(false);
-      setModalContent(null);
-    } catch (error) {
-      console.error("Error al cerrar el modal:", error);
-    }
-  }, []);
-  const value = {
-    isModalOpen,
-    modalContent,
-    openModal,
-    closeModal,
-  };
-  return (
-    <ModalContext.Provider value={value}>{children}</ModalContext.Provider>
-  );
-};
 
 // Componente principal Services
 function Services({}: ServicesProps) {
@@ -122,7 +58,7 @@ function Services({}: ServicesProps) {
     }
   }, [location.hash]); // Se ejecuta cada vez que cambia el hash
 
-    const { colors } = useTheme();
+  const { colors } = useTheme();
 
   return (
     <ErrorBoundary
@@ -130,9 +66,10 @@ function Services({}: ServicesProps) {
       onReset={() => setError(null)}
     >
       <ModalProvider>
-        <main className="min-h-screen flex flex-col" 
-        style={{ backgroundColor: colors.background, color: colors.text }}
-        > 
+        <main
+          className="min-h-screen flex flex-col"
+          style={{ backgroundColor: colors.background, color: colors.text }}
+        >
           <section
             id="services"
             className="container mx-auto mt-12 md:mt-24 md:mb-20 px-2 md:px-4 lg:px-8 xl:px-16 2xl:px-24 py-16 md:py-32 z-10"
@@ -145,13 +82,14 @@ function Services({}: ServicesProps) {
               description={servicesDescription}
               className="mt-4 mb-16 md:mb-24 font-cinzel text-center"
             />
-            {/*<ServicesSection />*/}
             {!isMobileView && <ServicesCarouselSection />}
-            {isMobileView && <ServicesColumnsSection />}
+            {isMobileView && <ServicesColumnSection />}
           </section>
 
-          <section style={{ backgroundColor: colors.background, color: colors.text }}>
-          <ServicesIncludeSection />
+          <section
+            style={{ backgroundColor: colors.background, color: colors.text }}
+          >
+            <ServicesIncludeSection />
           </section>
 
           <section className="w-full">
@@ -160,7 +98,7 @@ function Services({}: ServicesProps) {
 
           <section
             id="cursos"
-            className="mx-auto mb-24 mt-12 px-4 md:px-6 lg:px-12 xl:px-24 2xl:px-32 py-16 md:py-24 max-w-screen-lg text-center"
+            className="container mx-auto mt-12 md:mt-24 md:mb-20 px-2 md:px-4 lg:px-8 xl:px-16 2xl:px-24 py-16 md:py-32 z-10"
           >
             <SectionTitle
               title="NUESTROS CURSOS"
@@ -170,7 +108,8 @@ function Services({}: ServicesProps) {
               description={coursesDescription}
               className="mt-4 mb-16 md:mb-24 font-cinzel text-center"
             />
-            <CoursesSection />
+            {!isMobileView && <CoursesCarouselSection />} {/* Usamos CoursesCarouselSection */}
+            {isMobileView && <CoursesColumnSection />} {/* Usamos CoursesPreviewSection */}
           </section>
 
           <ModalContentRender />

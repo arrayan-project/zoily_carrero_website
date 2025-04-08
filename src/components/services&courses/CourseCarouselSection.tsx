@@ -1,22 +1,22 @@
-import ServicesNavigation from './ServicesCarouselNavigation';
+import CourseNavigation from "./CourseCarouselNavigation";
 import useWindowSize from "../../hooks/useWindowSize";
 import { getTextColorClass } from "../../utils/utils";
 import { useTheme } from "../context/useThemeHook";
 import { useModal } from "../context/ModalContext";
-import { getInfoContent, servicesData } from "../../data/servicesData";
+import { getInfoContent, coursesData } from "../../data/coursesData";
 import { ModalContent } from "../modals/ModalInterfaces";
-import ServicesLogic from "./ServicesCarouselLogic";
-import ServicesContent from "./ServicesCarouselContent";
-import { Service } from '../../types/ServiceInterfaces';
+import CourseLogic from "./CourseCarouselLogic";
+import CourseContent from "./CourseCarouselContent";
+import { Course } from '../../types/CourseInterfaces';
 
-const ServicesCarouselSection: React.FC = () => {
+const CourseCarouselSection: React.FC = () => {
   const { windowWidth, isMobileView } = useWindowSize();
   const { theme, colors } = useTheme();
   const { openModal } = useModal();
 
-  const initialServiceItems: Service[] = servicesData;
+  const initialCourseItems: Course[] = coursesData;
 
-  const { serviceItems, handleServiceTransition } = ServicesLogic({ initialServiceItems });
+  const { courseItems, handleCourseTransition } = CourseLogic({ initialCourseItems });
 
   // Calculate responsive offset
   const calculateOffset = (index: number) => {
@@ -38,10 +38,10 @@ const ServicesCarouselSection: React.FC = () => {
   // Calculate responsive item width
   const getItemWidth = (isCurrentItem: boolean) => {
     const widths = {
-      mobile: 'w-[120px] h-[180px] z-20',
-      tablet: 'w-[140px] h-[200px] z-20',
-      desktop: 'w-[180px] h-[260px] z-20',
-      main: 'w-full h-full left-0 z-10',
+      mobile: "w-[120px] h-[180px] z-20",
+      tablet: "w-[140px] h-[200px] z-20",
+      desktop: "w-[180px] h-[260px] z-20",
+      main: "w-full h-full left-0 z-10",
     };
 
     if (isCurrentItem) {
@@ -59,20 +59,22 @@ const ServicesCarouselSection: React.FC = () => {
   const imageOpacityClass = theme === 'dark' ? 'opacity-60' : 'opacity-70';
 
   return (
-    <ServicesNavigation handleServiceTransition={handleServiceTransition} windowWidth={windowWidth}>
-      {serviceItems.map((item, index) => {
+    <CourseNavigation handleCourseTransition={handleCourseTransition} windowWidth={windowWidth}>
+      {courseItems.map((item, index) => {
         const isCurrentItem = index === 0;
         const offset = calculateOffset(index);
 
         return (
           <div
-            key={`service-${index}`}
+            key={`course-${index}`}
             className={`carousel-item absolute top-1/2 -translate-y-1/2 rounded-2xl shadow-lg transition-all duration-700 ${getItemWidth(isCurrentItem)} overflow-hidden`}
             style={{
-              left: isCurrentItem ? '50%' : `calc(60% + ${offset}px)`,
-              transform: isCurrentItem ? 'translate(-50%, -50%)' : 'translateY(-50%)',
+              left: isCurrentItem ? "50%" : `calc(-30% + ${offset}px)`,
+              transform: isCurrentItem
+                ? "translate(-50%, -50%)"
+                : "translateY(-50%)",
               backgroundColor: colors.background,
-              color: colors.text
+              color: colors.text,
             }}
           >
             {/* Background Image */}
@@ -80,24 +82,24 @@ const ServicesCarouselSection: React.FC = () => {
               className={`absolute inset-0 bg-no-repeat bg-cover bg-center ${imageOpacityClass}`}
               style={{
                 backgroundImage: `url(${item.modalContent.images[0]})`,
-                backgroundPosition: '65% 30%',
+                backgroundPosition: "65% 30%",
               }}
             />
             {/* Content */}
-            <ServicesContent isCurrentItem={isCurrentItem} isMobileView={isMobileView} windowWidth={windowWidth}>
+            <CourseContent isCurrentItem={isCurrentItem} isMobileView={isMobileView} windowWidth={windowWidth}>
               {isCurrentItem && (
                 <>
                   <h2
-                    className={`carousel-name mb-2 font-cinzel opacity-100 transition-opacity duration-500 ${getTextColorClass(theme)} ${
-                      isMobileView ? "text-[24px]" : "text-[44px]"
-                    }`}
+                    className={`carousel-name mb-2 font-cinzel opacity-100 transition-opacity duration-500 ${getTextColorClass(
+                      theme
+                    )} ${isMobileView ? "text-[24px]" : "text-[44px]"}`}
                   >
                     {item.category}
                   </h2>
                   <p
-                    className={`carousel-description mb-3 font-cinzel opacity-100 transition-opacity duration-500 ${getTextColorClass(theme)} ${
-                      isMobileView ? "text-sm" : "text-base"
-                    }`}
+                    className={`carousel-description mb-3 font-cinzel opacity-100 transition-opacity duration-500 ${getTextColorClass(
+                      theme
+                    )} ${isMobileView ? "text-sm" : "text-base"}`}
                   >
                     {item.description}
                   </p>
@@ -106,8 +108,8 @@ const ServicesCarouselSection: React.FC = () => {
                       isMobileView ? "text-sm" : "text-base"
                     }`}
                     onClick={() => {
-                      const currentItem = serviceItems[0];
-                      const modalIndex = servicesData.findIndex(service => service.category === currentItem.category);
+                      const currentItem = courseItems[0];
+                      const modalIndex = coursesData.findIndex(course => course.category === currentItem.category);
                       const modalContent: ModalContent = getInfoContent(modalIndex);
                       openModal(modalContent);
                     }}
@@ -116,12 +118,12 @@ const ServicesCarouselSection: React.FC = () => {
                   </button>
                 </>
               )}
-            </ServicesContent>
+            </CourseContent>
           </div>
         );
       })}
-    </ServicesNavigation>
+    </CourseNavigation>
   );
 };
 
-export default ServicesCarouselSection;
+export default CourseCarouselSection;

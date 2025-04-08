@@ -9,8 +9,9 @@ const UGC = lazy(() => import('./pages/UGC'));
 const Store = lazy(() => import('./pages/Store'));
 const About = lazy(() => import('./pages/About'));
 const Contact = lazy(() => import('./pages/Contact'));
-const Terms = lazy(() => import('./pages/Terms')); // Import Terms
-const Policy = lazy(() => import('./pages/Policy')); // Import Policy
+const Terms = lazy(() => import('./pages/Terms'));
+const Policy = lazy(() => import('./pages/Policy')); 
+const FAQ = lazy(() => import('./pages/FAQ'));
 
 interface RoutesProps {
   onSmoothScroll: (sectionId: string) => void;
@@ -41,6 +42,7 @@ const MyRoutes = ({ onSmoothScroll, isMobileView }: RoutesProps) => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/terms" element={<Terms />} /> {/* Add Terms route */}
         <Route path="/policy" element={<Policy />} /> {/* Add Policy route */}
+        <Route path="/faq" element={<FAQ />} /> {/* Add FAQ route */}
         <Route path="/*" element={<Home onSmoothScroll={onSmoothScroll} isMobileView={isMobileView} />} />
       </Routes>
     </Suspense>

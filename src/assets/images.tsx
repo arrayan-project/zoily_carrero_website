@@ -58,6 +58,10 @@ const images: Image = {
   ugcBrandLogo4: "/img/ugc/gillette-venus.png",
   ugcBrandLogo5: "/img/ugc/neutrogena.png",
   ugcBrandLogo6: "/img/ugc/pantene.png",
+  cbasico: "/img/cursos/basico.webp",
+  cintermedio: "/img/cursos/intermedio.webp",
+  cavanzado: "/img/cursos/avanzado.webp",
+  cprofesional: "/img/cursos/profesional.webp",
 };
 
 // ==============================================

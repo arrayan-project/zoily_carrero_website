@@ -1,7 +1,7 @@
 // src/components/common/SectionTitle.tsx
 import React from 'react';
 import { useTheme } from '../context/useThemeHook';
-import AnimationWrapper from "../common/AnimationLayer";
+import AnimationWrapper from "./AnimationLayer";
 
 
 interface SectionTitleProps {

@@ -1,6 +1,6 @@
 // src/components/ugc/UGCContentTitleSection.tsx
 import React from "react";
-import SectionTitle from "../services&courses/ServicesSectionTitle";
+import SectionTitle from "../common/SectionTitle";
 import SectionDescription from "../common/SectionDescription";
 
 

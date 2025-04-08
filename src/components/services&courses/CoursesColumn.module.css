@@ -1,0 +1,121 @@
+/* TestSection.module.css */
+
+.course-preview-item {
+    position: relative;
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: flex 0.4s;
+    width: 200px;
+    height: 800px; /* Aumentamos la altura en escritorio */
+    cursor: pointer;
+  }
+  
+  .course-preview-item:hover {
+    flex: 3;
+  }
+  
+  .flex-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0px;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  
+  .overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transition: background-color 0.4s;
+    flex-direction: column;
+    gap: 10px;
+    background-color: rgba(0, 0, 0, 0); /* Sin atenuación inicial */
+    opacity: 1; /* Se muestra siempre */
+  }
+  
+  .course-preview-item:hover .overlay {
+    background-color: rgba(0, 0, 0, 0.5); /* Atenuación al hacer hover */
+  }
+  
+  .overlay-inner * {
+    opacity: 0; /* Ocultos en desktop */
+    visibility: hidden; /* Ocultos en desktop */
+    transform: none;
+    transition: all 0.3s 0.3s;
+  }
+  
+  .course-preview-item:hover .overlay-inner * {
+    opacity: 1; /* Se muestra al hacer hover */
+    visibility: visible; /* Se muestra al hacer hover */
+    transform: none; /* Se muestra al hacer hover */
+  }
+  
+  .overlay h2, .overlay .button {
+    opacity: 0; /* Ocultos en desktop */
+    visibility: hidden; /* Ocultos en desktop */
+    transition: opacity 0.4s, visibility 0.4s;
+  }
+  
+  .course-preview-item:hover .overlay h2, 
+  .course-preview-item:hover .overlay .button {
+    opacity: 1; /* Se muestra al hacer hover */
+    visibility: visible; /* Se muestra al hacer hover */
+  }
+  
+  .overlay p {
+    display: none !important; /* Nunca se muestra */
+  }
+  
+  @media screen and (max-width: 850px) {
+    .flex-wrapper {
+      flex-direction: column; /* Disposición en columna */
+      height: auto; /* Eliminamos la altura fija */
+    }
+  
+    .course-preview-item {
+      width: 100%; /* Ancho completo */
+      aspect-ratio: 16/9; /* Relación de aspecto 16:9 para imágenes alargadas */
+    }
+  
+    .course-preview-item:hover {
+      flex: 1; /* Mantenemos el flex en 1 */
+    }
+    
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.5); /* Se muestra siempre */
+      opacity: 1; /* Se muestra siempre */
+    }
+    
+    .overlay-inner * {
+      opacity: 1; /* Se muestra siempre */
+      visibility: visible; /* Se muestra siempre */
+      transform: none; /* Se muestra siempre */
+    }
+  
+    .overlay h2, .overlay .button {
+      opacity: 1; /* Siempre visibles en móvil */
+      visibility: visible; /* Siempre visibles en móvil */
+    }
+  
+    .overlay p {
+      display: none !important; /* Nunca se muestra */
+    }
+  }
+  
+  /* Estilos para el botón */
+  .button {
+    margin-top: 10px; /* Agregamos un margen superior */
+    position: relative; /* Agregamos posición relativa */
+  }

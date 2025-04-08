@@ -56,7 +56,7 @@ const Footer = () => {
             <li className="my-4 list-none font-cinzel text-sm">Guías & Ideas</li>
             <li className="my-4 list-none font-cinzel text-sm">Tips & Trucos</li>
             <li className="my-4 list-none font-cinzel text-sm">
-                <Link to="/gallery">Galería</Link>
+                <Link to="/gallery" className="hover:text-pink-300">Galería</Link>
             </li>
           </div>
 
@@ -68,12 +68,14 @@ const Footer = () => {
               Link Útiles
             </li>
             <li className="my-4 list-none font-cinzel text-sm">
-              <Link to="/policy">Políticas de Privacidad</Link>
+              <Link to="/policy" className="hover:text-pink-300">Políticas de Privacidad</Link>
             </li>
             <li className="my-4 list-none font-cinzel text-sm">
-              <Link to="/terms">Terminos & Condiciones</Link>
+              <Link to="/terms" className="hover:text-pink-300">Terminos & Condiciones</Link>
             </li>
-            <li className="my-4 list-none font-cinzel text-sm">Políticas</li>
+            <li className="my-4 list-none font-cinzel text-sm">
+              <Link to="/faq" className="hover:text-pink-300">FAQ</Link>
+            </li>
           </div>
           <div className="mb-4 md:mb-0">
             <h2
@@ -133,7 +135,7 @@ const Footer = () => {
               <button
                 type="submit"
                 className="bg-pink-400 px-8 py-2 rounded-full text-white
-                                 absolute top-0 right-0 font-cinzel"
+                                 absolute top-0 right-0 font-cinzel hover:bg-pink-800"
               >
                 Submit
               </button>

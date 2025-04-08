@@ -1,5 +1,5 @@
 import React from "react";
-import { Course, termsContent } from "../../data/coursesData";
+import { Course, termsContent } from "../data/coursesData";
 import { 
   basicCourse, 
   intermediateCourse, 
@@ -9,10 +9,10 @@ import {
   infoContentIntermedio, 
   infoContentAvanzado, 
   infoContentProfesional 
-} from "../../data/coursesData";
-import CourseSlider from "../sliders/CourseSlider"; 
-import useWindowSize from "../../hooks/useWindowSize"; 
-import { useModal } from "../../pages/Services";
+} from "../data/coursesData";
+import CourseSlider from "../components/sliders/CourseSlider"; 
+import useWindowSize from "../hooks/useWindowSize"; 
+import { useModal } from "../pages/Services";
 import Slider from "react-slick";
 
 const CoursesSection: React.FC = () => {

@@ -1,13 +1,12 @@
-// src/components/modals/ModalRoot.tsx
+// ModalRoot manages the state and content of the modal and connects it to the ModalContext.
 import React, { useEffect, useRef } from 'react';
 import Modal from '../common/ModalBase';
-import { ModalContent } from '../../types';
-import { CourseModalContent } from '../../data/coursesData';
+import { ModalContent } from "../modals/ModalInterfaces"; // Importamos ModalContent
 
 interface ModalContainerProps {
   isModalOpen: boolean;
   closeModal: () => void;
-  modalContent: ModalContent | CourseModalContent | null;
+  modalContent: ModalContent | null; // Usamos ModalContent
 }
 
 const ModalContainer: React.FC<ModalContainerProps> = ({

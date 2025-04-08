@@ -3,10 +3,10 @@ import {
   getInfoContent,
   servicesArray,
   termsContent,
-} from "../../data/servicesData"; // Importamos desde servicesData.tsx
-import ServiceCarousel from "../sliders/ServiceSlider";
-import useWindowSize from "../../hooks/useWindowSize";
-import { useModal } from "../../pages/Services";
+} from "../data/servicesData"; // Importamos desde servicesData.tsx
+import ServiceCarousel from "../components/sliders/ServiceSlider";
+import useWindowSize from "../hooks/useWindowSize";
+import { useModal } from "../pages/Services";
 import Slider from "react-slick";
 
 const sliderSettings = {

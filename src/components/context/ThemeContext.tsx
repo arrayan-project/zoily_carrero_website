@@ -67,7 +67,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     dark: {
       background: "#091217",           // Fondo oscuro elegante #2D3748 #2B2B2B
       text: "#E0D2C7",                 // Texto principal claro y cálido
-      section: "#090a0d",              // Fondo de secciones
+      section: "#01040d",              // Fondo de secciones
       secondaryText: "#C7A49E",        // Texto secundario rosado
       accent: "#C08081",               // Botones y acentos
       hover: "#E4C9B8",                // Hover claro y elegante
