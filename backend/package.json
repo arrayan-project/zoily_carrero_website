@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
+    "firebase-admin": "^11.0.1",
+    "firebase-functions": "^6.3.2"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.5"
+  },
+  "scripts": {
+    "build": "tsc",
+    "deploy": "firebase deploy",
+    "start": "firebase emulators:start"
+  }
+}
