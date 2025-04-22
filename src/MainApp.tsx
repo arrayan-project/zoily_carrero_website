@@ -13,13 +13,12 @@ import LandingPageMobile from './MobileView';
 import ThemeToggleButton from './components/buttons/ThemeToggleButton';
 import ScrollToTopButton from './components/buttons/ScrollTopButton';
 import Footer3 from './components/common/Footer3';
-
-
+import { HelmetProvider } from 'react-helmet-async';
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const isInternalScroll = useRef(false); // Creamos la ref
-  const isNavigating = useRef(false); // Nueva ref para controlar la navegación
+  const isInternalScroll = useRef(false);
+  const isNavigating = useRef(false);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -30,22 +29,30 @@ function App() {
   };
 
   const handleSmoothScroll = (sectionId: string = 'home') => {
-    isInternalScroll.current = true; // Indicamos que es un scroll interno
+    isInternalScroll.current = true;
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
-      // No necesitamos el timeout aquí, el useEffect se encargará
     }
   };
 
   return (
-    <ThemeProvider>
-      <div className='relative w-full overflow-x-hidden'>
-        <Router>
-          <MainContent handleSmoothScroll={handleSmoothScroll} openModal={openModal} closeModal={closeModal} isModalOpen={isModalOpen} isInternalScroll={isInternalScroll} isNavigating={isNavigating} /> {/* Pasamos la ref */}
-        </Router>
-      </div>
-    </ThemeProvider>
+    <HelmetProvider>
+      <ThemeProvider>
+        <div className='relative w-full overflow-x-hidden'>
+          <Router>
+            <MainContent
+              handleSmoothScroll={handleSmoothScroll}
+              openModal={openModal}
+              closeModal={closeModal}
+              isModalOpen={isModalOpen}
+              isInternalScroll={isInternalScroll}
+              isNavigating={isNavigating}
+            />
+          </Router>
+        </div>
+      </ThemeProvider>
+    </HelmetProvider>
   );
 }
 
@@ -55,16 +62,17 @@ interface MainContentProps {
   closeModal: () => void;
   isModalOpen: boolean;
   isInternalScroll: React.MutableRefObject<boolean>;
-  isNavigating: React.MutableRefObject<boolean>; // Recibimos la nueva ref
+  isNavigating: React.MutableRefObject<boolean>;
 }
 
 function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen, isInternalScroll, isNavigating }: MainContentProps) {
-  const {colors, theme } = useTheme();
+  const { colors, theme } = useTheme();
   const location = useLocation();
-  const hideHeaderAndFooter3 = location.pathname === "/";
-  const themeClasses = !hideHeaderAndFooter3
-  ? `bg-[${colors.background}] text-[${colors.accent}]` // Use theme colors
-  : '';
+  // Simplificamos la lógica de ocultar/mostrar
+  const showHeaderAndFooter = location.pathname !== "/"; // Es más claro decir cuándo mostrarlo
+  const themeClasses = showHeaderAndFooter
+    ? `bg-[${colors.background}] text-[${colors.accent}]` // Usa los colores del tema
+    : ''; // Sin clases extra si está oculto
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const isMobileView = windowWidth < MOBILE_BREAKPOINT;
 
@@ -75,6 +83,7 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen, i
 
     window.addEventListener('resize', handleResize);
 
+    // Aplicar clase al body para modo oscuro (opcional pero útil)
     if (theme === 'dark') {
       document.body.classList.add('dark-mode');
     } else {
@@ -83,17 +92,19 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen, i
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      document.body.classList.remove('dark-mode');
+      document.body.classList.remove('dark-mode'); // Limpiar al desmontar
     };
   }, [theme]);
 
   useEffect(() => {
-    if (!isInternalScroll.current && !isNavigating.current) { // Solo reiniciamos si no es un scroll interno y no estamos navegando
+    // Scroll al inicio en cambio de ruta, excepto si es scroll interno o navegación
+    if (!isInternalScroll.current && !isNavigating.current) {
       window.scrollTo(0, 0);
     }
-    isInternalScroll.current = false; // Reiniciamos la ref después del scroll
-    isNavigating.current = false; // Reiniciamos la ref después de la navegación
-  }, [location.pathname]);
+    // Reiniciar flags después de que el efecto se complete
+    isInternalScroll.current = false;
+    isNavigating.current = false;
+  }, [location.pathname, isInternalScroll, isNavigating]); // Añadir refs a dependencias
 
   return (
     <div className="w-full">
@@ -102,7 +113,14 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen, i
       <ScrollToTopButton />
       {isMobileView ? (
         <div className="w-full relative">
-          <Navigation className="fixed top-0 left-0 w-full z-50" onSmoothScroll={handleSmoothScroll} isMobileView={isMobileView} isInternalScroll={isInternalScroll} isNavigating={isNavigating} /> {/* Pasamos la ref */}
+          {/* Asegúrate que Navigation reciba las props necesarias */}
+          <Navigation
+            className="fixed top-0 left-0 w-full z-50"
+            onSmoothScroll={handleSmoothScroll}
+            isMobileView={isMobileView}
+            isInternalScroll={isInternalScroll}
+            isNavigating={isNavigating}
+          />
           <LandingPageMobile onSmoothScroll={handleSmoothScroll} isMobileView={isMobileView} />
         </div>
       ) : (
@@ -110,9 +128,19 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen, i
           <div className="fixed top-4 left-4 z-[70]">
             <ThemeToggleButton />
           </div>
-          {!hideHeaderAndFooter3 && <Navigation className="md:mb-12" onSmoothScroll={handleSmoothScroll} isMobileView={isMobileView} isInternalScroll={isInternalScroll} isNavigating={isNavigating} />} {/* Pasamos la ref */}
+          {/* Mostrar Navigation si showHeaderAndFooter es true */}
+          {showHeaderAndFooter && (
+            <Navigation
+              className="md:mb-12"
+              onSmoothScroll={handleSmoothScroll}
+              isMobileView={isMobileView}
+              isInternalScroll={isInternalScroll}
+              isNavigating={isNavigating}
+            />
+          )}
           <ContentDesktop onSmoothScroll={handleSmoothScroll} isMobileView={isMobileView} />
-          {!hideHeaderAndFooter3 && <Footer3/>}
+          {/* Mostrar Footer3 si showHeaderAndFooter es true */}
+          {showHeaderAndFooter && <Footer3 />}
         </div>
       )}
     </div>

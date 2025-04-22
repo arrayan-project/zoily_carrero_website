@@ -12,7 +12,7 @@
 
 .floating-button-container {
   position: fixed;
-  bottom: calc(50px + 50px); /* Ahora se calcula dinámicamente */
+  bottom: 100px; /* Ahora se calcula dinámicamente */
   right: 20px;
   z-index: 1000; /* Asegura que esté por encima de otros elementos */
   display: flex;
@@ -64,17 +64,20 @@
 
 /* Media queries */
 @media (max-width: 768px) {
+  .floating-button-container { /* Aplicar aquí */
+    right: 10px;
+    bottom: 90px;
+  }
   .floating-button {
     --floating-button-size: 50px;
     --floating-button-icon-size: 20px;
-    right: 10px;
-    bottom: 90px;
+    /* Quitar right y bottom de aquí si no era intencional */
   }
 }
 
 @media (max-width: 480px) {
   .floating-button-container {
-    bottom: calc(50px + 25px);
+    bottom: 75px;
     right: 10px;
   }
   .floating-button {

@@ -13,7 +13,7 @@ import AnimationWrapper from "../components/common/AnimationLayer";
 import HomeGallerySection from "../components/home/HomeGallerySection";
 import { useTheme } from "../components/context/useThemeHook";
 import Footer3 from "../components/common/Footer3";
-
+import { Helmet } from 'react-helmet-async'; // <--- 1. Importa Helmet
 
 
 interface HomeProps {
@@ -57,6 +57,13 @@ const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => {
       className="relative transition-colors duration-300"
       style={{ backgroundColor: colors.background, color: colors.text }}
     > 
+    <Helmet>
+        <title>Zoily Carrero MakeUp - Maquillaje Profesional y Cursos</title>
+        <meta
+          name="description"
+          content="Descubre el arte del maquillaje profesional con Zoily Carrero. Ofrecemos servicios personalizados, cursos de automaquillaje y contenido UGC. ¡Agenda tu cita!"
+        />
+    </Helmet>
       <div className="relative mb-10 md:mb-24">
         <BackgroundSliderHome />
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center w-full">

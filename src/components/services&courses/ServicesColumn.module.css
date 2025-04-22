@@ -95,7 +95,7 @@
 
   .service-preview-item {
     width: 100%; /* Ancho completo */
-    aspect-ratio: 16/9; /* Relación de aspecto 16:9 para imágenes alargadas */
+    aspect-ratio: 3/4; /* Relación de aspecto 16:9 para imágenes alargadas */
   }
 
   .service-preview-item:hover {
@@ -103,8 +103,22 @@
   }
   
   .overlay {
-    background-color: rgba(0, 0, 0, 0.3); /* Se muestra siempre */
+    /* Cambiamos background-color por background con un degradado */
+    background: linear-gradient(
+      to top, /* Dirección del degradado: de abajo hacia arriba */
+      rgba(0, 0, 0, 0.7) 25%, /* Color inicial (abajo): negro semi-transparente más oscuro */
+      rgba(0, 0, 0, 0) 90% /* Color final (a mitad de altura): totalmente transparente */
+    );
     opacity: 1; /* Se muestra siempre */
+    /* Mantenemos el resto de propiedades si las hubiera */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    transition: none; /* Quitamos la transición en móvil si no la necesitas */
   }
   
   .overlay-inner * {

@@ -24,6 +24,7 @@ import CoursesColumnSection from "../components/services&courses/CourseColumnsSe
 import CoursesCarouselSection from "../components/services&courses/CourseCarouselSection";
 import { ModalProvider, useModal } from "../components/context/ModalContext"; // Importamos ModalProvider y useModal
 import "../GlobalStyles.css";
+import { Helmet } from 'react-helmet-async';
 
 // Componente principal Services
 function Services({}: ServicesProps) {
@@ -70,9 +71,18 @@ function Services({}: ServicesProps) {
           className="min-h-screen flex flex-col"
           style={{ backgroundColor: colors.background, color: colors.text }}
         >
+
+          <Helmet>
+            <title>Servicios y Cursos de Maquillaje Profesional | Zoily Carrero</title>
+            <meta
+              name="description"
+              content="Descubre los servicios de maquillaje (novias, social) y cursos de automaquillaje ofrecidos por Zoily Carrero. ¡Transforma tu look o aprende nuevas técnicas!"
+            />
+          </Helmet>
+
           <section
             id="services"
-            className="container mx-auto mt-12 md:mt-24 md:mb-20 px-2 md:px-4 lg:px-8 xl:px-16 2xl:px-24 py-16 md:py-32 z-10"
+            className="container mx-auto mt-12 md:mt-24 md:mb-10 md:px-4 lg:px-8 xl:px-16 2xl:px-24 py-16 md:py-32 z-10"
           >
             <SectionTitle
               title="Conoce lo que podemos hacer por ti"
@@ -98,7 +108,7 @@ function Services({}: ServicesProps) {
 
           <section
             id="cursos"
-            className="container mx-auto mt-12 md:mt-24 md:mb-20 px-2 md:px-4 lg:px-8 xl:px-16 2xl:px-24 py-16 md:py-32 z-10"
+            className="container mx-auto mt-12 md:mt-24 md:mb-10 md:px-4 lg:px-8 xl:px-16 2xl:px-24 py-16 md:py-32 z-10"
           >
             <SectionTitle
               title="NUESTROS CURSOS"

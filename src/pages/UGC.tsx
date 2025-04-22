@@ -10,6 +10,7 @@ import UGCPhoneExampleSection from "../components/ugc/UGCPhoneExampleSection";
 import UGCBrandsAlliances from "../components/ugc/UGCBrandsAlliances";
 import { useTheme } from "../components/context/useThemeHook";
 import UGCMiddleBanner from "../components/ugc/UGCMiddleBanner";
+import { Helmet } from 'react-helmet-async';
 
 
 interface UGCProps {}
@@ -48,6 +49,13 @@ const UGC: React.FC<UGCProps> = () => {
   return (
     <main className="ugc-page-container" style={{ backgroundColor: colors.background, color: colors.text }}>
  
+      <Helmet>
+        <title>Creadora Contenido UGC Belleza | Zoily Carrero | Auténtica y Creativa</title>
+        <meta
+          name="description"
+          content="Zoily Carrero: Creadora de contenido UGC especializada en belleza. Genero fotos y videos auténticos que conectan con tu audiencia. ¡Colaboremos!"
+        />
+      </Helmet>
 
       {/* Main UGC Section */}
       <UGCMainSection

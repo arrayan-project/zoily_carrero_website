@@ -6,6 +6,7 @@ import AboutMainContent from '../components/about/AboutMainContent';
 import AboutWhyUsSection from '../components/about/AboutWhyUsSection';
 import AboutImagesSection from '../components/about/AboutImagesSection';
 import ErrorComponent from '../components/common/ErrorComponent';
+import { Helmet } from 'react-helmet-async';
 
 interface AboutProps {}
 
@@ -29,6 +30,13 @@ function About({}: AboutProps) {
 
   return (
     <div className={`min-h-screen`} style={{ backgroundColor: colors.background, color: colors.text }}>
+      <Helmet>
+        <title>Sobre Zoily Carrero | Maquilladora Profesional Apasionada</title>
+        <meta
+          name="description"
+          content="Conoce a Zoily Carrero, maquilladora profesional apasionada por realzar tu belleza única. Descubre mi historia, filosofía y por qué elegirme."
+        />
+      </Helmet>
       <section id="about" className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
         <AboutMainContent />
         <AboutWhyUsSection />

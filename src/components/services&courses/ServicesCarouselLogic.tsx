@@ -48,7 +48,7 @@ const ServicesLogic = ({ initialServiceItems }: ServicesLogicProps): ServicesLog
 
     setTimeout(() => {
       isTransitioning.current = false;
-    }, 500);
+    }, 700);
   };
 
   return { mainIndex, serviceItems, handleServiceTransition, isTransitioning };

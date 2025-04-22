@@ -9,6 +9,7 @@ import Footer3 from "../components/common/Footer3";
 import ContactInfoSection from "../components/contact/ContactInfoSection";
 import ContactSocialMediaSection from "../components/contact/ContactSocialMediaSection";
 import ContactMainTitle from "../components/contact/ContactMainTitle";
+import { Helmet } from 'react-helmet-async';
 
 interface ContactProps {}
 
@@ -34,6 +35,13 @@ function Contact({}: ContactProps) {
       className={`min-h-screen`} 
       style={{ backgroundColor: colors.background, color: colors.text }}
     >
+      <Helmet>
+        <title>Contacta con Zoily Carrero MakeUp | Maquillaje Profesional</title>
+        <meta
+          name="description"
+          content="¿Lista para tu transformación? Contacta con Zoily Carrero MakeUp para agendar tu cita de maquillaje profesional, cursos o colaboraciones UGC. ¡Hablemos!"
+        />
+      </Helmet>
       <section id="contact" className="max-w-6xl mx-auto px-4 py-16 md:py-24">
         <ContactMainTitle />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">

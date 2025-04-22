@@ -28,14 +28,14 @@ interface CourseColumnsItemProps {
             >
                 <div className={`${styles.overlay} ${styles['overlay-bottom']}`}>
                     <div className={styles['overlay-inner']}>
-                        <h2 className="font-cinzel text-xl">{course.category}</h2>
+                        <h2 className="font-cinzel text-2xl">{course.category}</h2>
                         <p>{course.description}</p>
 
                         <ServicesButton
                             onClick={handleOpenModal}
-                            className={`${styles.button} px-3 py-1 bg-pink-500 text-white text-sm font-cinzel shadow hover:bg-pink-800 transition duration-200 text-center`}
+                            className={`${styles.button} px-3 py-1 bg-red-900/50 text-white text-base font-cinzel shadow hover:bg-red-800/70 transition duration-200 text-center`}
                             >
-                            Ver más...
+                            VER MÁS
                         </ServicesButton>
                     </div>
                 </div>

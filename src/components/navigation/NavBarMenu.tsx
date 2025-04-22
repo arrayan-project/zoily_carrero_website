@@ -64,7 +64,7 @@ const Navigation: React.FC<NavigationProps> = ({ className, onSmoothScroll, isMo
   }, []);
 
   return (
-    <nav className={`${className} z-50 w-full fixed ${isScrolled && !isMenuOpen && isMobileView ? 'backdrop-blur-sm bg-white/30 dark:bg-gray-800/30' : ''}`}>    
+    <nav className={`${className} z-50 w-full fixed ${isScrolled && !isMenuOpen && isMobileView ? 'backdrop-blur-sm bg-white/5' : ''}`}>    
       <div className='relative w-full flex justify-end lg:justify-center'>
         {/* Nuevo div con efecto blur para el botón hamburguesa en móvil */}
         <div className={`lg:hidden w-full h-16 top-0 right-0 p-2  ${isScrolled ? 'backdrop-blur-sm bg-white/30 dark:bg-gray-800/30' : ''} transition-all duration-300`}>
@@ -83,7 +83,7 @@ const Navigation: React.FC<NavigationProps> = ({ className, onSmoothScroll, isMo
         </div>
       </div>
 
-      <div className={`${isMenuOpen ? `fixed inset-0 bg-opacity-95 z-40 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'} flex flex-col items-center justify-center min-h-screen` : 'hidden'} lg:block lg:relative lg:inset-auto lg:bg-transparent lg:opacity-100 lg:z-auto lg:flex lg:flex-row lg:items-center lg:justify-center lg:py-4`}> 
+      <div className={`${isMenuOpen ? `fixed inset-0 bg-opacity-90 z-40 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'} flex flex-col items-center justify-center min-h-screen` : 'hidden'} lg:block lg:relative lg:inset-auto lg:bg-transparent lg:opacity-100 lg:z-auto lg:flex lg:flex-row lg:items-center lg:justify-center lg:py-4`}> 
         <div className={`absolute inset-0 transition-all duration-300 z-[-1] ${isScrolled && !isMenuOpen ? 'lg:backdrop-blur-sm lg:bg-white/30 lg:dark:bg-gray-800/30' : ''}`} />
         {isMenuOpen && (
           <button

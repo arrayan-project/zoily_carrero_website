@@ -3,6 +3,7 @@
 import { useTheme } from '../components/context/useThemeHook';
 import Footer3 from "../components/common/Footer3"; 
 import useWindowSize from "../hooks/useWindowSize";
+import { Helmet } from 'react-helmet-async';
 
 
 
@@ -12,7 +13,16 @@ const Policy = () => {
 
 
   return (
-    <div style={{ backgroundColor: colors.background }}> 
+    <div style={{ backgroundColor: colors.background }}>
+      
+      <Helmet>
+        <title>Política de Privacidad | Zoily Carrero MakeUp</title>
+        <meta
+          name="description"
+          content="Consulta nuestra Política de Privacidad. Te explicamos cómo protegemos y utilizamos tus datos personales al usar nuestros servicios. Zoily Carrero MakeUp."
+        />
+      </Helmet>
+
       <div className="max-w-3xl mx-auto p-6 text-base">
         <h1 className="text-2xl md:text-5xl font-cinzel mb-16 mt-24 md:mt-40 text-center" style={{ color: colors.accent }}>Política de Privacidad</h1>
 

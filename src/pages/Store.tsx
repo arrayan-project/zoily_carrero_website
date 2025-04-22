@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Helmet } from 'react-helmet-async';
 
 interface EventCategoryProps {
   title: string;
@@ -28,6 +29,13 @@ const Store = () => {
   try {
     return (
       <div id="store" className="min-h-screen bg-gray-50">
+        <Helmet>
+          <title>Maquillaje para Eventos Corporativos y Sociales | Zoily Carrero</title>
+          <meta
+            name="description"
+            content="Realza tu evento corporativo o social con maquillaje profesional. Zoily Carrero ofrece servicios para conferencias, lanzamientos, galas, fiestas y más."
+          />
+        </Helmet>
         <div className="max-w-6xl mx-auto px-4 py-16 md:py-24">
           <h1 className="text-4xl md:text-5xl font-montserrat text-center mb-12 tracking-wider text-gray-800">
             CORPORATE & SOCIAL EVENTS

@@ -6,7 +6,7 @@ hecho scroll hacia abajo y permite volver al inicio de la página
 
 import { useState, useEffect } from 'react';
 import './ScrollTopButton.css'; // Importa el archivo CSS para estilos
-import { throttle } from 'lodash';
+import throttle from 'lodash/throttle';
 
 const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -41,6 +41,7 @@ const ScrollToTopButton = () => {
       type="button"
       onClick={scrollToTop}
       className={` scroll-to-top-button `}
+      aria-label="Volver arriba" // Añadir un aria-label es bueno para accesibilidad
     >
       ▲
     </button>

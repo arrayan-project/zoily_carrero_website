@@ -2,9 +2,6 @@
    Global Styles
    ========================================================================== */
 
-/* Importaciones de Fuentes */
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@300;700&display=swap");
-
 @font-face {
   font-family: 'Cinzel';
   src: url('/fonts/Cinzel-Light.woff2') format('woff2'); /* Ajusta la ruta si es necesario */
@@ -375,3 +372,4 @@ body {
 .ugc-background-text span {
   line-height: 0.8; /* Adjust as needed */
 }
+

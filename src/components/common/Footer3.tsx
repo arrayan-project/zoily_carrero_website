@@ -8,7 +8,7 @@ const Footer = () => {
 
   return (
     <footer
-      className="relative bg-black text-white z-10" // Removed mt-100
+      className="relative bg-black text-white z-10"
       style={{ color: colors.bannerTitle }}
     >
       <div
@@ -25,11 +25,11 @@ const Footer = () => {
             d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,
                         250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,
                         3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
-            className="relative block h-[120px]" //Adjust the height of the svg
+            className="relative block h-[120px]"
             style={{ fill: colors.background }}
           ></path>
         </svg>
-        <div className="grid lg:grid-cols-4 gap-20 sm:grid-cols-1 px-10 py-10 md:px-20 md:py-20"> {/* Adjusted padding */}
+        <div className="grid lg:grid-cols-4 gap-20 sm:grid-cols-1 px-10 py-10 md:px-20 md:py-20">
           <div className="flex flex-col gap-5">
             <h2
               className="text-xl text-pink-500 font-cinzel"
@@ -45,38 +45,44 @@ const Footer = () => {
           </div>
 
           <div>
-            <li
-              className="text-xl list-none font-cinzel text-pink-500 py-2 uppercase"
+            <h3
+              className="text-xl font-cinzel text-pink-500 py-2 uppercase"
               style={{ color: colors.bannerTitle }}
             >
               Creatividad
-            </li>
-            <li className="my-4 list-none font-cinzel text-sm">Guías & Ideas</li>
-            <li className="my-4 list-none font-cinzel text-sm">Tips & Trucos</li>
-            <li className="my-4 list-none font-cinzel text-sm">
-                <Link to="/gallery" className="hover:text-pink-300">Galería</Link>
-            </li>
+            </h3>
+            <ul className="list-none p-0 m-0">
+              <li className="my-4 font-cinzel text-sm">Guías & Ideas</li>
+              <li className="my-4 font-cinzel text-sm">Tips & Trucos</li>
+              <li className="my-4 font-cinzel text-sm">
+                  <Link to="/gallery" className="hover:text-pink-300">Galería</Link>
+              </li>
+            </ul>
           </div>
 
           <div>
-            <li
-              className="text-xl list-none font-cinzel text-pink-500 py-2 uppercase"
+            <h3
+              className="text-xl font-cinzel text-pink-500 py-2 uppercase"
               style={{ color: colors.bannerTitle }}
             >
               Link Útiles
-            </li>
-            <li className="my-4 list-none font-cinzel text-sm">
-              <Link to="/policy" className="hover:text-pink-300">Políticas de Privacidad</Link>
-            </li>
-            <li className="my-4 list-none font-cinzel text-sm">
-              <Link to="/terms" className="hover:text-pink-300">Terminos & Condiciones</Link>
-            </li>
-            <li className="my-4 list-none font-cinzel text-sm">
-              <Link to="/faq" className="hover:text-pink-300">FAQ</Link>
-            </li>
+            </h3>
+            <ul className="list-none p-0 m-0">
+              <li className="my-4 font-cinzel text-sm">
+                <Link to="/policy" className="hover:text-pink-300">Políticas de Privacidad</Link>
+              </li>
+              <li className="my-4 font-cinzel text-sm">
+                <Link to="/terms" className="hover:text-pink-300">Terminos & Condiciones</Link>
+              </li>
+              <li className="my-4 font-cinzel text-sm">
+                <Link to="/faq" className="hover:text-pink-300">FAQ</Link>
+              </li>
+            </ul>
           </div>
+
+
           <div className="mb-4 md:mb-0">
-            <h2
+             <h2
               className="text-xl font-cinzel text-pink-500 py-2 uppercase"
               style={{ color: colors.bannerTitle }}
             >
@@ -90,30 +96,42 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4 font-cinzel">
               <a
-                className="text-white hover:text-pink-500 transform hover:scale-150 
+                className="text-white hover:text-pink-500 transform hover:scale-150
                             transition-all duration-150 ease-in-out"
-                href=""
+                href="URL_DE_TU_GITHUB"
+                aria-label="Visita nuestro perfil de Github"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <FaGithub />
               </a>
               <a
                 className="text-white hover:text-pink-500 transform hover:scale-150
                              transition-all duration-150 ease-in-out"
-                href=""
+                href="URL_DE_TU_LINKEDIN"
+                aria-label="Visita nuestro perfil de LinkedIn"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <FaLinkedinIn />
               </a>
               <a
                 className="text-white hover:text-pink-500 transform hover:scale-150
                              transition-all duration-150 ease-in-out"
-                href=""
+                href="URL_DE_TU_TWITTER"
+                aria-label="Visita nuestro perfil de Twitter"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <FaTwitter />
               </a>
               <a
                 className="text-white hover:text-pink-500 transform hover:scale-150
                              transition-all duration-150 ease-in-out"
-                href=""
+                href="URL_DE_TU_INSTAGRAM"
+                aria-label="Visita nuestro perfil de Instagram"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <FaInstagram />
               </a>
@@ -124,25 +142,30 @@ const Footer = () => {
         <div className="mt-15 mb-10">
           <div className="h-full flex items-center justify-center mb-5">
             <form className="w-96 relative">
+            <label htmlFor="footer-newsletter-email" className="sr-only">
+                Suscríbete a nuestro boletín
+            </label>
               <input
                 type="email"
+                id="footer-newsletter-email"
                 placeholder=""
                 className="w-full text-gray-800 p-4 h-10 rounded-full focus:outline-none 
                             focus:border border-pink-800"
+                aria-label="Correo electrónico para suscripción al boletín"
               />
               <button
                 type="submit"
                 className="bg-pink-400 px-8 py-2 rounded-full text-white
                                  absolute top-0 right-0 font-cinzel hover:bg-pink-800"
               >
-                Submit
+                Enviar
               </button>
             </form>
           </div>
         </div>
-        <h6 className="text-center p-6">
+        <p className="text-center p-6">
           &copy; Desarrollado con ♥ por ZoilyCarrero {Year}
-        </h6>
+        </p>
       </div>
     </footer>
   );

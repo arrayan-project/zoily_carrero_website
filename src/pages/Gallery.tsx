@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef, useEffect } from "react";
-import { useLocation } from "react-router-dom"; // Importamos useLocation
+import { useLocation } from "react-router-dom";
 import GalleryTitle from "../components/gallery/GalleryTitle";
 import GalleryCategoryMenu from "../components/navigation/GalleryCategoryMenu";
 import GalleryImageGrid from "../components/gallery/GalleryImageGrid";
@@ -11,7 +11,8 @@ import { getImagesForCategory } from "../utils/galleryUtils";
 import { galleryCategories, galleryTitle } from "../data/galleryData";
 import { useTheme } from "../components/context/useThemeHook";
 import "../GlobalStyles.css";
-import Footer3 from "../components/common/Footer3"; // Importamos el componente Footer
+import Footer3 from "../components/common/Footer3";
+import { Helmet } from 'react-helmet-async'; // <--- Importa Helmet
 
 export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -20,7 +21,7 @@ export default function Gallery() {
   const [isGalleryTransitioning, setIsGalleryTransitioning] = useState(false);
   const [isModalTransitioning, setIsModalTransitioning] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const location = useLocation(); // Obtenemos la ubicación actual
+  const location = useLocation();
 
   const modalContainerRef = useRef<HTMLDivElement>(null);
   const { isMobileView } = useWindowSize();
@@ -30,6 +31,7 @@ export default function Gallery() {
     [selectedCategory]
   );
 
+  // ... (resto de funciones y lógica) ...
   const openImage = (index: number) => {
     try {
       setCurrentIndex(index);
@@ -68,18 +70,17 @@ export default function Gallery() {
 
   useGalleryModalTouch({ prevImage, nextImage, modalContainerRef });
 
-  // Nuevo useEffect para manejar el scroll al cargar la página
   useEffect(() => {
-    const hash = location.hash; // Obtenemos el hash de la URL
+    const hash = location.hash;
     if (hash) {
-      const element = document.querySelector(hash); // Buscamos el elemento con el hash como ID
+      const element = document.querySelector(hash);
       if (element) {
-        element.scrollIntoView({ behavior: "smooth" }); // Hacemos scroll al elemento
+        element.scrollIntoView({ behavior: "smooth" });
       }
     } else {
-      window.scrollTo(0, 0); // Si no hay hash, hacemos scroll al inicio de la página
+      window.scrollTo(0, 0);
     }
-  }, [location.hash]); // Se ejecuta cada vez que cambia el hash
+  }, [location.hash]);
 
   if (error) return <p className="error-message">{error}</p>;
 
@@ -88,6 +89,14 @@ export default function Gallery() {
       className={`min-h-screen`}
       style={{ backgroundColor: colors.background, color: colors.text }}
     >
+      <Helmet>
+        <title>Galería de Maquillaje Profesional | Zoily Carrero MakeUp</title>
+        <meta
+          name="description"
+          content="Explora la galería de Zoily Carrero MakeUp. Descubre transformaciones impactantes, looks de novia, social y más. ¡Inspírate para tu próximo evento!"
+        />
+      </Helmet>
+
       <section id="gallery" className="mx-auto py-16">
         <GalleryTitle title={galleryTitle} className={HOME_LINKS_TITLE_CLASS} />
         <GalleryCategoryMenu
