@@ -1,0 +1,1 @@
+import{r as i,h as n}from"./index-BISJ_sji.js";const d=()=>{const[t,w]=i.useState({windowWidth:window.innerWidth,isMobileView:window.innerWidth<n});return i.useEffect(()=>{const e=()=>{w({windowWidth:window.innerWidth,isMobileView:window.innerWidth<n})};return window.addEventListener("resize",e),()=>{window.removeEventListener("resize",e)}},[]),t};export{d as u};
