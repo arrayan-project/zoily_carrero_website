@@ -2,6 +2,7 @@ import images from '../../assets/images';
 import { useTheme } from "../../components/context/useThemeHook";
 import "../../GlobalStyles.css"
 import AnimationWrapper from "../common/AnimationLayer";
+import RevealWrapper from "../common/RevealWrapper";
 
 
 const UGCBrandsAlliances = () => {
@@ -30,11 +31,11 @@ const UGCBrandsAlliances = () => {
 
       
       <div className="container mx-auto">
-        <AnimationWrapper animationClassName="fade-in-text">
+      <RevealWrapper animationClass="fade-in-text">
         <h2 className="text-4xl md:text-5xl font-cinzel text-center mb-24 md:mb-48" style={{ color: colors.accent }}>
           ALGUNAS COLABORACIONES
         </h2>
-        </AnimationWrapper>
+        </RevealWrapper>
         
         <AnimationWrapper animationClassName="slide-in-left">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6 md:gap-12 lg:gap-24 xl:gap-36 mx-auto">

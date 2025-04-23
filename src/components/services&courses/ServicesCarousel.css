@@ -1,41 +1,7 @@
-/* ServicesCarousel.css */
-
-#services-carousel {
-  position: relative;     
-  width: 100%;            
-  height: 85vh;           
-  margin: 2rem auto;        
-  overflow: visible;
-  border-radius: 20px;
-}
-
-#services-carousel .content {
-  position: absolute;
-  top: 50%;
-  left: 100px;
-  width: 300px;
-  transform: translateY(-50%);
-  color: #eee;
-  font-family: system-ui;
-  display: none;
-  text-align: right;   /* alineamos el texto a la derecha */
-}
-
-
+/* ServicesCarousel.css - Estilos dinámicos, animaciones y pseudo-elementos */
 #services-carousel .slide .item {
-  width: 200px;
-  height: 300px;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  border-radius: 20px;
-  background-position: 50% 50%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  display: inline-block;
   transition: .5s;
 }
-
 #services-carousel .slide .item:nth-child(1),
 #services-carousel .slide .item:nth-child(2) {
   top: 0;
@@ -45,62 +11,37 @@
   width: 100%;
   height: 100%;
 }
-
 #services-carousel .slide .item:nth-child(2) .content {
   display: block;
 }
-
 #services-carousel .slide .item:nth-child(3) {
   left: 65%;
 }
-
 #services-carousel .slide .item:nth-child(4) {
   left: calc(65% + 220px);
 }
-
 #services-carousel .slide .item:nth-child(5) {
   left: calc(65% + 440px);
 }
-
 #services-carousel .slide .item:nth-child(n + 6) {
   left: calc(65% + 440px);
   overflow: hidden;
 }
-
 #services-carousel .item .content {
-  position: absolute;
-  top: 50%;
-  left: 100px;
-  width: 300px;
-  text-align: left;
-  color: #eee;
-  transform: translateY(-50%);
-  font-family: system-ui;
   display: none;
 }
-
 #services-carousel .content .name {
-  font-size: 40px;
-  text-transform: uppercase;
-  font-weight: bold;
   opacity: 0;
   animation: animate 1s ease-in-out forwards;
 }
-
 #services-carousel .content .description {
-  margin: 10px 0 20px;
   opacity: 0;
   animation: animate 1s ease-in-out 0.3s forwards;
 }
-
 #services-carousel .content button {
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
   opacity: 0;
   animation: animate 1s ease-in-out 0.6s forwards;
 }
-
 @keyframes animate {
   from {
       opacity: 0;
@@ -113,17 +54,16 @@
       filter: blur(0);
   }
 }
-
 #services-carousel .slide .item:nth-child(2)::before {
   content: "";
   position: absolute;
-  inset: 0;                        
+  inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(0, 123, 255, 0.2),      
-    rgba(0, 0, 0, 0.5)           
+    rgba(0, 123, 255, 0.2),
+    rgba(0, 0, 0, 0.5)
   );
-  pointer-events: none;            
-  border-radius: 0;               
-  mix-blend-mode: multiply;      
+  pointer-events: none;
+  border-radius: 0;
+  mix-blend-mode: multiply;
 }

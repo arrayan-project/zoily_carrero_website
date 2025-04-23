@@ -155,8 +155,11 @@ const Footer = () => {
               />
               <button
                 type="submit"
-                className="bg-pink-400 px-8 py-2 rounded-full text-white
-                                 absolute top-0 right-0 font-cinzel hover:bg-pink-800"
+                style={{
+                  backgroundColor: colors.accent,
+                  color: colors.background,
+                }}
+                className="px-8 py-2 rounded-full absolute top-0 right-0 font-cinzel transition-opacity duration-150 ease-in-out hover:opacity-80" // Mantenemos clases de layout/fuente/posición. Añadimos transición y un hover simple con opacidad.
               >
                 Enviar
               </button>

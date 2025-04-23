@@ -1,55 +1,4 @@
 /* FloatingContactButton.css */
-
-/* Variables CSS */
-:root {
-  --floating-button-color: pink;
-  --floating-button-color-hover: #ff4081;
-  --floating-button-size: 60px;
-  --floating-button-icon-size: 30px;
-  --floating-button-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  --floating-button-border-radius: 50%;
-}
-
-.floating-button-container {
-  position: fixed;
-  bottom: 100px; /* Ahora se calcula dinámicamente */
-  right: 20px;
-  z-index: 1000; /* Asegura que esté por encima de otros elementos */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.floating-button,
-.button-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.floating-button {
-  background-color: var(--floating-button-color); /* Usa la variable */
-  border: none;
-  border-radius: var(--floating-button-border-radius); /* Usa la variable */
-  width: var(--floating-button-size); /* Usa la variable */
-  height: var(--floating-button-size); /* Usa la variable */
-  cursor: pointer;
-  box-shadow: var(--floating-button-shadow); /* Usa la variable */
-  transition: transform 0.3s ease, background-color 0.3s ease; /* Transición suave */
-  animation: pulse 2s infinite ease-in-out; /* Animación más suave */
-}
-
-.floating-button:hover {
-  background-color: var(--floating-button-color-hover);
-}
-
-.button-icon {
-  color: white;
-  width: var(--floating-button-icon-size); /* Usa la variable */
-  height: var(--floating-button-icon-size); /* Usa la variable */
-}
-
-/* Animación de pulsación */
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -59,29 +8,5 @@
   }
   100% {
     transform: scale(1);
-  }
-}
-
-/* Media queries */
-@media (max-width: 768px) {
-  .floating-button-container { /* Aplicar aquí */
-    right: 10px;
-    bottom: 90px;
-  }
-  .floating-button {
-    --floating-button-size: 50px;
-    --floating-button-icon-size: 20px;
-    /* Quitar right y bottom de aquí si no era intencional */
-  }
-}
-
-@media (max-width: 480px) {
-  .floating-button-container {
-    bottom: 75px;
-    right: 10px;
-  }
-  .floating-button {
-    --floating-button-size: 40px;
-    border-radius: 6px;
   }
 }

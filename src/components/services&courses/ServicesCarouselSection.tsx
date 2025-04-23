@@ -30,17 +30,17 @@ const ServicesCarouselSection: React.FC = () => {
   };
 
   return (
-    <div id="services-carousel" className="container">
-      <div className="slide" ref={slideRef}>
+    <div id="services-carousel" className="relative w-full h-[85vh] my-8 mx-auto overflow-visible rounded-[20px]">
+      <div className="slide relative w-full h-full" ref={slideRef}>
         {servicesData.map(item => (
           <div
             key={item.category}
-            className="item"
+            className="item absolute w-[200px] h-[300px] top-1/2 -translate-y-1/2 rounded-[20px] bg-center bg-cover bg-no-repeat inline-block"
             style={{ backgroundImage: `url(${item.modalContent.images[0]})` }}
           >
             <ServicesContent>
-              <div className="name font-cinzel">{item.category}</div>
-              <div className="description font-cinzel">
+              <div className="name text-[40px] uppercase font-bold font-cinzel">{item.category}</div>
+              <div className="description my-[10px] mb-[20px] font-cinzel">
                 {item.description}
               </div>
               <button

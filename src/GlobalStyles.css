@@ -1,375 +1,178 @@
 /* ==========================================================================
-   Global Styles
+   1. Font Definitions & Tailwind Setup
    ========================================================================== */
-
-@font-face {
-  font-family: 'Cinzel';
-  src: url('/fonts/Cinzel-Light.woff2') format('woff2'); /* Ajusta la ruta si es necesario */
-  font-weight: 300; /* 'light' es usualmente 300 */
-  font-style: normal;
-  font-display: swap; /* Agrega esta línea */
-}
-
-/* Tailwind Directives */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Variables de color */
-:root {
-  --color-primary: #e91e63; /* Ejemplo de color primario */
-  --color-secondary: #ff4081; /* Ejemplo de color secundario */
-}
-
-/* Estilos Generales */
-.bg-transition {
-  transition: opacity 1s ease-in-out;
-}
-
-/* ==========================================================================
-   Navigation Styles
-   ========================================================================== */
-
-.nav-link {
-  @apply px-4 py-2 hover:text-pink-500 transition-colors duration-300 text-sm md:text-sm;
-  letter-spacing: 2px;
-}
-
-@media (max-width: 932px) {
-  .nav-link {
-    @apply block w-full text-center py-3;
-  }
-}
-
-/* ==========================================================================
-   Social Icons Styles
-   ========================================================================== */
-
-.social-icon {
-  @apply w-8 h-8 text-white hover:text-pink-200 transition-colors duration-300 flex items-center justify-center;
-}
-
-/* ==========================================================================
-   Carousel Styles
-   ========================================================================== */
-
-/* Estilos base para los marcadores del carrusel */
-.slick-dots {
-  position: relative;
-  bottom: 0;
-  display: block;
-  width: fit-content;
-  padding: 0;
-  margin: 0 auto;
-  list-style: none;
-  text-align: center;
-}
-
-.slick-dots li {
-  position: relative;
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  margin: 0 5px;
-  padding: 0;
-  cursor: pointer;
-}
-
-.slick-dots li button {
-  font-size: 0;
-  line-height: 0;
-  display: block;
-  width: 10px;
-  height: 10px;
-  padding: 5px;
-  cursor: pointer;
-  color: transparent;
-  border: 0;
-  outline: none;
-  background: transparent;
-}
-
-.slick-dots li button:before {
-  font-family: "slick";
-  font-size: 10px;
-  line-height: 10px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 10px;
-  height: 10px;
-  content: "•";
-  text-align: center;
-  opacity: 0.5;
-  color: #000;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Estilos para el modo oscuro */
-body.dark-mode .slick-dots li button:before {
-  color: #fff; /* Color blanco en modo oscuro */
-}
-
-.slick-dots li.slick-active button:before {
-  opacity: 1;
-  color: var(--color-primary); /* Usamos la variable de color */
-}
-
-/* Estilos para los marcadores del carrusel en vista movil */
-@media (max-width: 767px) {
-  .center .slick-dots {
-    background-color: transparent;
-    padding: 5px 10px;
-    border-radius: 20px;
-    margin-top: 20px; /* Reducimos el margen superior */
-    position: absolute;
-    bottom: -60px; /* Reducimos la distancia al borde inferior */
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .slick-dots li {
-    width: 8px; /* Reducimos el ancho del punto */
-    height: 8px; /* Reducimos la altura del punto */
-    margin: 0 3px; /* Reducimos el margen entre puntos */
-  }
-
-  .slick-dots li button {
-    width: 8px; /* Reducimos el ancho del botón */
-    height: 8px; /* Reducimos la altura del botón */
-    padding: 4px; /* Reducimos el padding del botón */
-  }
-
-  .slick-dots li button:before {
-    font-size: 8px; /* Reducimos el tamaño del punto */
-    line-height: 8px; /* Reducimos el line-height del punto */
-    width: 8px; /* Reducimos el ancho del punto */
-    height: 8px; /* Reducimos la altura del punto */
-  }
-}
-
-/* Estilos para los marcadores del carrusel en vista de tablet */
-@media (min-width: 768px) and (max-width: 1024px) {
-  .tablet-carousel-container .slick-dots {
-    position: relative;
-    bottom: auto;
-    display: block;
-    width: fit-content;
-    padding: 0;
-    margin: 15px auto 0; /* Ajustamos el margen superior */
-    list-style: none;
-    text-align: center;
-    background-color: transparent;
-  }
-
-  .center .slick-dots {
-    background-color: transparent;
-    padding: 5px 10px;
-    border-radius: 20px;
-    margin-top: 30px;
-    position: absolute;
-    bottom: -70px;
-    left: 50%;
-    transform: translateX(-50%);
+   @font-face {
+    font-family: 'Cinzel';
+    src: url('/fonts/Cinzel-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
   }
   
-/* Añadimos estos estilos para los puntos en tablet */
-.slick-dots li {
-  width: 9px; /* Reducimos el ancho del punto */
-  height: 9px; /* Reducimos la altura del punto */
-  margin: 0 4px; /* Reducimos el margen entre puntos */
-}
-
-.slick-dots li button {
-  width: 9px; /* Reducimos el ancho del botón */
-  height: 9px; /* Reducimos la altura del botón */
-  padding: 4.5px; /* Reducimos el padding del botón */
-}
-
-.slick-dots li button:before {
-  font-size: 9px; /* Reducimos el tamaño del punto */
-  line-height: 9px; /* Reducimos el line-height del punto */
-  width: 9px; /* Reducimos el ancho del punto */
-  height: 9px; /* Reducimos la altura del punto */
-}
-}
-
-/* ==========================================================================
-   Animation Styles
-   ========================================================================== */
-
-/* Animacion del boton */
-@keyframes color-change {
+  /* Tailwind Directives */
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+  
+  /* ==========================================================================
+     2. Animation Keyframes Definitions
+     ========================================================================== */
+  
+  /* Animación para botones o elementos interactivos */
+  @keyframes color-change {
+      0% {
+          transform: scale(1);
+          background-color: var(--color-secondary); /* Asume que estas variables existen */
+      }
+      100% {
+          transform: scale(1.1);
+          background-color: var(--color-primary); /* Asume que estas variables existen */
+      }
+  }
+  
+  /* Animaciones de entrada deslizándose */
+  @keyframes slide-in-left {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slide-in-right {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Animación de entrada apareciendo desde abajo */
+  @keyframes fade-in-up {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Animación para aparición de modales */
+  @keyframes modal-fade-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  /* Animación para contenido de pestañas (tabs) */
+  @keyframes tab-content-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Animación de pulsación (movida desde FloatingContactButton.css) */
+  @keyframes pulse {
     0% {
-        transform: scale(1);
-        background-color: var(--color-secondary);
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1); /* Más sutil */
     }
     100% {
-        transform: scale(1.1);
-        background-color: var(--color-primary);
+      transform: scale(1);
     }
-}
-
-.animate-color-button {
-  animation: color-change 1.5s infinite alternate;
-}
-
-/* Transicion de fade-in */
-.fade-in-image {
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
-
-.fade-in-image.visible {
-  opacity: 1;
-}
-
-/* Transicion de fade-in text */
-.fade-in-text {
-  opacity: 0;
-  transition: opacity 1.5s ease-in-out;
-}
-
-.fade-in-text.visible {
-  opacity: 1;
-}
-
-/* Animaciones de entradas */
-@keyframes slide-in-left {
-  from {
-    transform: translateX(-100%);
-    opacity: 0;
   }
-  to {
-    transform: translateX(0);
+  
+  /* ==========================================================================
+     3. Animation & Transition Utility Classes
+     ========================================================================== */
+  
+  /* Clases para aplicar animaciones de keyframes */
+  .slide-in-left {
+    animation: slide-in-left 1.5s ease-out forwards;
+  }
+  .slide-in-right {
+    animation: slide-in-right 1.5s ease-out forwards;
+  }
+  .fade-in-up {
+    animation: fade-in-up 1.5s ease-out forwards;
+  }
+  .modal-animation {
+    animation: modal-fade-in 0.3s ease-in-out;
+  }
+  .tab-content-animation {
+    animation: tab-content-fade-in 0.3s ease-in-out;
+  }
+
+  /* --- Transiciones de Opacidad --- */
+  .fade-in-image,
+  .fade-in-text,
+  .fade-in-up-animation { /* Esta también incluye transform */
+    opacity: 0;
+    transition: opacity 1s ease-in-out; /* Duración base, puede variar */
+  }
+  .fade-in-image { transition-duration: 1s; }
+  .fade-in-text { transition-duration: 1.5s; }
+  .fade-in-up-animation { transition-duration: 1s; } /* Solo opacidad */
+  
+  .fade-in-image.visible,
+  .fade-in-text.visible,
+  .fade-in-up-animation.visible {
     opacity: 1;
   }
-}
-
-.slide-in-left {
-  animation: slide-in-left 1.5s ease-out forwards;
-}
-
-@keyframes slide-in-right {
-  from {
-    transform: translateX(100%);
+  
+  /* --- Transiciones de Transformación + Opacidad --- */
+  .slide-in-left-animation,
+  .slide-in-right-animation {
     opacity: 0;
+    transition: transform 1s ease-out, opacity 1s ease-out;
   }
-  to {
-    transform: translateX(0);
+  .slide-in-left-animation { transform: translateX(-100%); }
+  .slide-in-right-animation { transform: translateX(100%); }
+  .fade-in-up-animation { transform: translateY(20px); transition: transform 1s ease-out, opacity 1s ease-out; }
+  
+  
+  .slide-in-left-animation.visible,
+  .slide-in-right-animation.visible,
+  .fade-in-up-animation.visible {
+    transform: translate(0, 0); /* Resetea transform */
     opacity: 1;
   }
-}
-
-.slide-in-right {
-  animation: slide-in-right 1.5s ease-out forwards;
-}
-
-@keyframes fade-in-up {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
+  
+  /* ==========================================================================
+     4. Utility & Helper Classes
+     ========================================================================== */
+  
+  /* Para forzar visibilidad (usar con precaución) */
+  .visible-important {
+    opacity: 1 !important; /* Evita usar !important si es posible */
   }
-  to {
-    transform: translateY(0);
-    opacity: 1;
+  
+  /* ==========================================================================
+     5. Specific Component / Visual Element Styles
+     ========================================================================== */
+  
+  /* Estilo específico para texto dentro de .ugc-background-text */
+  .ugc-background-text span {
+    line-height: 0.8; /* Ajusta interlineado */
   }
-}
-
-.fade-in-up {
-  animation: fade-in-up 1.5s ease-out forwards;
-}
-
-.slide-in-left-animation {
-  transform: translateX(-100%);
-  opacity: 0;
-}
-
-.slide-in-left-animation.visible {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.slide-in-right-animation {
-  transform: translateX(100%);
-  opacity: 0;
-}
-
-.slide-in-right-animation.visible {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.fade-in-up-animation {
-  transform: translateY(20px);
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
-
-.fade-in-up-animation.visible {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-/* ==========================================================================
-   Modal Styles
-   ========================================================================== */
-
-.sr-hidden {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.modal-animation {
-  animation: modal-fade-in 0.3s ease-in-out;
-}
-
-@keyframes modal-fade-in {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.tab-content-animation {
-  animation: tab-content-fade-in 0.3s ease-in-out;
-}
-
-@keyframes tab-content-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ==========================================================================
-   Important Styles
-   ========================================================================== */
-
-.visible-important {
-  opacity: 1;
-}
-
-body {
-  overflow-x: hidden;
-}
-
-.heart-shape {
-  clip-path: path('M 150 270 C 150 270, 0 180, 0 90 C 0 30, 60 0, 75 30 C 90 0, 150 30, 150 90 C 150 30, 210 0, 225 30 C 240 0, 300 30, 300 90 C 300 180, 150 270, 150 270 Z');
-  background-color: turquoise;
-}
-
-/* GlobalStyles.css */
-.ugc-background-text span {
-  line-height: 0.8; /* Adjust as needed */
-}
-
+  

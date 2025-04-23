@@ -1,32 +1,30 @@
 // MainApp.tsx
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './components/context/themeContext';
 import { useTheme } from './components/context/useThemeHook';
-import Navigation from './components/navigation/NavBarMenu';
 import { MOBILE_BREAKPOINT } from './constants/constants';
-import FloatingContactButton from './components/buttons/FloatingContactButton';
-import ContactModal from './components/modals/ContactUsModal';
 import './GlobalStyles.css';
-import ContentDesktop from './components/layout/DesktopView';
-import LandingPageMobile from './MobileView';
-import ThemeToggleButton from './components/buttons/ThemeToggleButton';
-import ScrollToTopButton from './components/buttons/ScrollTopButton';
-import Footer3 from './components/common/Footer3';
 import { HelmetProvider } from 'react-helmet-async';
+
+// Lazy-loaded components
+const Navigation = lazy(() => import('./components/navigation/NavBarMenu'));
+const FloatingContactButton = lazy(() => import('./components/buttons/FloatingContactButton'));
+const ContactModal = lazy(() => import('./components/modals/ContactUsModal'));
+const ContentDesktop = lazy(() => import('./components/layout/DesktopView'));
+const LandingPageMobile = lazy(() => import('./MobileView'));
+const ThemeToggleButton = lazy(() => import('./components/buttons/ThemeToggleButton'));
+const ScrollToTopButton = lazy(() => import('./components/buttons/ScrollTopButton'));
+const Footer3 = lazy(() => import('./components/common/Footer3'));
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isInternalScroll = useRef(false);
   const isNavigating = useRef(false);
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
 
   const handleSmoothScroll = (sectionId: string = 'home') => {
     isInternalScroll.current = true;
@@ -41,14 +39,16 @@ function App() {
       <ThemeProvider>
         <div className='relative w-full overflow-x-hidden'>
           <Router>
-            <MainContent
-              handleSmoothScroll={handleSmoothScroll}
-              openModal={openModal}
-              closeModal={closeModal}
-              isModalOpen={isModalOpen}
-              isInternalScroll={isInternalScroll}
-              isNavigating={isNavigating}
-            />
+            <Suspense fallback={<div className="text-center py-10">Cargando...</div>}>
+              <MainContent
+                handleSmoothScroll={handleSmoothScroll}
+                openModal={openModal}
+                closeModal={closeModal}
+                isModalOpen={isModalOpen}
+                isInternalScroll={isInternalScroll}
+                isNavigating={isNavigating}
+              />
+            </Suspense>
           </Router>
         </div>
       </ThemeProvider>
@@ -68,11 +68,10 @@ interface MainContentProps {
 function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen, isInternalScroll, isNavigating }: MainContentProps) {
   const { colors, theme } = useTheme();
   const location = useLocation();
-  // Simplificamos la lógica de ocultar/mostrar
-  const showHeaderAndFooter = location.pathname !== "/"; // Es más claro decir cuándo mostrarlo
+  const showHeaderAndFooter = location.pathname !== "/";
   const themeClasses = showHeaderAndFooter
-    ? `bg-[${colors.background}] text-[${colors.accent}]` // Usa los colores del tema
-    : ''; // Sin clases extra si está oculto
+    ? `bg-[${colors.background}] text-[${colors.accent}]`
+    : '';
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const isMobileView = windowWidth < MOBILE_BREAKPOINT;
 
@@ -83,7 +82,6 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen, i
 
     window.addEventListener('resize', handleResize);
 
-    // Aplicar clase al body para modo oscuro (opcional pero útil)
     if (theme === 'dark') {
       document.body.classList.add('dark-mode');
     } else {
@@ -92,28 +90,32 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen, i
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      document.body.classList.remove('dark-mode'); // Limpiar al desmontar
+      document.body.classList.remove('dark-mode');
     };
   }, [theme]);
 
   useEffect(() => {
-    // Scroll al inicio en cambio de ruta, excepto si es scroll interno o navegación
+
     if (!isInternalScroll.current && !isNavigating.current) {
       window.scrollTo(0, 0);
     }
-    // Reiniciar flags después de que el efecto se complete
+
     isInternalScroll.current = false;
     isNavigating.current = false;
-  }, [location.pathname, isInternalScroll, isNavigating]); // Añadir refs a dependencias
+  }, [location.pathname, isInternalScroll, isNavigating]);
 
   return (
     <div className="w-full">
       <FloatingContactButton onClick={openModal} />
       <ContactModal isOpen={isModalOpen} onClose={closeModal} />
-      <ScrollToTopButton />
+      {["/", "/services", "/ugc", "/store"].includes(location.pathname) && (
+        <Suspense fallback={null}>
+          <ScrollToTopButton />
+        </Suspense>
+      )}
+
       {isMobileView ? (
         <div className="w-full relative">
-          {/* Asegúrate que Navigation reciba las props necesarias */}
           <Navigation
             className="fixed top-0 left-0 w-full z-50"
             onSmoothScroll={handleSmoothScroll}
@@ -121,14 +123,16 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen, i
             isInternalScroll={isInternalScroll}
             isNavigating={isNavigating}
           />
-          <LandingPageMobile onSmoothScroll={handleSmoothScroll} isMobileView={isMobileView} />
+          <LandingPageMobile 
+            onSmoothScroll={handleSmoothScroll} 
+            isMobileView={isMobileView} />
         </div>
       ) : (
         <div className={` ${themeClasses} w-full`}>
           <div className="fixed top-4 left-4 z-[70]">
             <ThemeToggleButton />
           </div>
-          {/* Mostrar Navigation si showHeaderAndFooter es true */}
+          
           {showHeaderAndFooter && (
             <Navigation
               className="md:mb-12"
@@ -138,8 +142,9 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen, i
               isNavigating={isNavigating}
             />
           )}
-          <ContentDesktop onSmoothScroll={handleSmoothScroll} isMobileView={isMobileView} />
-          {/* Mostrar Footer3 si showHeaderAndFooter es true */}
+          <ContentDesktop 
+            onSmoothScroll={handleSmoothScroll} 
+            isMobileView={isMobileView} />
           {showHeaderAndFooter && <Footer3 />}
         </div>
       )}

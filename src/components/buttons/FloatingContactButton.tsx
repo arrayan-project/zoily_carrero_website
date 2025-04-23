@@ -1,16 +1,3 @@
-/*
-##### Función #####
-- Este componente representa el botón flotante de contacto, que abre la modal de contacto.
-
-##### Componentes que utiliza #####
-- lucide-react: Utiliza el icono Mail de esta librería.
-- onClick: Recibe una función onClick como prop, que se ejecuta cuando se hace clic en el botón.
-Esto permite abrir la modal desde el componente padre.
-
-##### Componentes que lo usan #####
--AppWrapper.tsx: Importa y renderiza FloatingContactButton.
-*/
-
 // FloatingContactButton.tsx
 import React, { useState } from 'react';
 import { Mail } from 'lucide-react';
@@ -34,16 +21,38 @@ const FloatingContactButton: React.FC<FloatingContactButtonProps> = ({ onClick }
 
   if (error) {
     return (
-      <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-red-500 text-white">
+      <div className="fixed inset-0 flex justify-center items-center bg-red-500 text-white z-[1100]">
         <p>{error}</p>
       </div>
     );
   }
 
   return (
-    <div className="floating-button-container">
-      <button type="button" className="floating-button" onClick={handleClick} aria-label="Abrir modal de contacto">
-        <Mail className="button-icon" />
+    <div
+      className={`fixed z-[1000] flex items-center justify-center bottom-[75px] right-[10px] sm:bottom-[90px] md:bottom-[100px] md:right-[20px]
+      `}
+    >
+      <button
+        type="button"
+        onClick={handleClick}
+        aria-label="Abrir modal de contacto"
+        className={`
+          flex justify-center items-center
+          bg-[pink] text-white
+          border-none cursor-pointer
+          shadow-[0px_4px_10px_rgba(0,0,0,0.2)]
+          transition duration-300 ease-in-out
+          hover:bg-[#ff4081]
+          animate-pulse
+          w-[40px] h-[40px] rounded-[6px]
+          sm:w-[50px] sm:h-[50px] sm:rounded-full
+          md:w-[60px] md:h-[60px]
+        `}
+      >
+        <Mail
+          className={`text-white w-[20px] h-[20px] md:w-[30px] md:h-[30px]
+          `}
+        />
       </button>
     </div>
   );

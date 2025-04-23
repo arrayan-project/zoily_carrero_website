@@ -1,6 +1,6 @@
 // src/components/services&courses/ServicesSectionTitle.tsx
 import React from "react";
-import AnimationWrapper from "../common/AnimationLayer";
+import RevealWrapper from "../common/RevealWrapper";
 
 interface SectionTitleProps {
   title: string;
@@ -9,11 +9,11 @@ interface SectionTitleProps {
 
 const SectionTitle: React.FC<SectionTitleProps> = ({ title, className }) => {
   return (
-    <AnimationWrapper animationClassName="fade-in-text">
+    <RevealWrapper animationClass="fade-in-text">
     <h2 className={className}>
       {title}
     </h2>
-    </AnimationWrapper>
+    </RevealWrapper>
   );
 };
 

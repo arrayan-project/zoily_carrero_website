@@ -1,19 +1,18 @@
 import React from 'react';
-import styles from './ServicesColumn.module.css';
-import { useModal } from "../context/ModalContext"; // Importamos useModal
-import { servicesData} from '../../data/servicesData'; // Importamos servicesData y ServiceData
+import { useModal } from "../context/ModalContext";
+import { servicesData} from '../../data/servicesData';
 import ServicesColumnsItem from './ServicesColumnsItem';
-import { Service } from '../../types/ServiceInterfaces'; // Importamos Service
+import { Service } from '../../types/ServiceInterfaces';
 
 const ServicesPreviewSection: React.FC = () => {
   const { openModal } = useModal();
 
   return (
-    <div className={styles['flex-wrapper']}>
-      {servicesData.map((service: Service, index) => ( // Usamos servicesData y ServiceData
+    <div className="flex flex-col lg:flex-row lg:flex-wrap w-full justify-center gap-0 mb-8">
+      {servicesData.map((service: Service, index) => (
         <ServicesColumnsItem
           key={index}
-          service={service} // Pasamos el objeto service directamente
+          service={service}
           openModal={openModal}
         />
       ))}

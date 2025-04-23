@@ -1,7 +1,7 @@
 // src/components/common/SectionDescription.tsx
 import React from "react";
 import { useTheme } from "../context/useThemeHook";
-import AnimationWrapper from './AnimationLayer';
+import RevealWrapper from '../common/RevealWrapper';
 
 
 interface SectionDescriptionProps {
@@ -18,7 +18,7 @@ const SectionDescription: React.FC<SectionDescriptionProps> = ({
   //Verificamos si es un array o un string
   if (Array.isArray(description)) {
     return (
-     <AnimationWrapper animationClassName="fade-in-up">
+      <RevealWrapper animationClass="fade-in-up">
       <p
         className={`text-center text-sm md:text-base font-light tracking-wide ${className}`} style={{ color: colors.bannerTitle }}
       >
@@ -29,17 +29,17 @@ const SectionDescription: React.FC<SectionDescriptionProps> = ({
           </React.Fragment>
         ))}
       </p>
-      </AnimationWrapper>
+      </RevealWrapper>
     );
   } else {
     return (
-        <AnimationWrapper animationClassName="fade-in-up">
+      <RevealWrapper animationClass="fade-in-up">
       <p
         className={`text-center text-sm md:text-base font-light tracking-wide ${className}`} style={{ color: colors.bannerTitle }}
       >
         {description}
       </p>
-      </AnimationWrapper>
+      </RevealWrapper>
     );
   }
 };

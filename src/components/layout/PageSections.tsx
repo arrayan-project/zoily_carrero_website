@@ -1,5 +1,6 @@
 // src/components/layout/PageSections.tsx
 import { lazy, Suspense, useState } from 'react';
+
 // Carga diferida de los componentes
 const Home = lazy(() => import('../../pages/Home'));
 const Store = lazy(() => import('../../pages/Store'));

@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react'; // Importamos useState
+// src/components/modals/ContactUsModal.tsx
+import React, { useEffect, useRef, useState } from 'react';
 import { X } from 'lucide-react';
 import ContactForm from '../forms/ContactUsForm';
 import { useTheme } from '../context/useThemeHook';
-import './ContactUsModal.css';
-import { getTextColorClass } from "../../utils/utils"; //Importamos las funciones globales
-
+import { getTextColorClass } from "../../utils/utils";
 
 interface ContactModalProps {
     isOpen: boolean;
@@ -13,67 +12,92 @@ interface ContactModalProps {
 
 const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
     const modalContentRef = useRef<HTMLDivElement>(null);
-    const modalContainerRef = useRef<HTMLDivElement>(null); // Ref para el contenedor del modal
+    const modalContainerRef = useRef<HTMLDivElement>(null);
     const { theme } = useTheme();
-    const [isMounted, setIsMounted] = useState(false); // Nuevo estado para controlar si el modal esta montado
+    const [isMounted, setIsMounted] = useState(false);
+    const [isClosing, setIsClosing] = useState(false);
 
     useEffect(() => {
-      if (isOpen) {
-          setIsMounted(true); // El modal se ha abierto y se marca como montado
-      } else {
-        // Cuando se cierra, se quita el estado
-        modalContainerRef.current?.classList.remove('open');
-        modalContainerRef.current?.classList.remove('closing');
-        setIsMounted(false); // Se ha cerrado y se marca como desmontado
-      }
+        if (isOpen) {
+            setIsMounted(true);
+            setIsClosing(false);
+        }
     }, [isOpen]);
 
-    useEffect(() => {
-      const handleOutsideClick = (event: MouseEvent) => {
-          if (
-              modalContainerRef.current &&
-              !modalContentRef.current?.contains(event.target as Node)
-          ) {
-              modalContainerRef.current.classList.add('closing'); // Añade la clase para cerrar
-              setTimeout(onClose, 300); // Espera a que termine la animación antes de cerrar
-          }
-      };
+    const startClosing = () => {
+        if (isClosing || !isOpen) return;
+        setIsClosing(true);
+        setTimeout(() => {
+            onClose();
+            setIsClosing(false);
+        }, 300);
+    };
 
-        if (isOpen && isMounted) { // Si se ha montado
-              modalContainerRef.current?.classList.add('open');
-              document.addEventListener('mousedown', handleOutsideClick);
+    useEffect(() => {
+        const handleOutsideClick = (event: MouseEvent) => {
+            if (
+                modalContentRef.current &&
+                !modalContentRef.current.contains(event.target as Node)
+            ) {
+                startClosing();
+            }
+        };
+        if (isOpen && isMounted) {
+            document.addEventListener('mousedown', handleOutsideClick);
         }
+
         return () => {
             document.removeEventListener('mousedown', handleOutsideClick);
         };
-    }, [isOpen, onClose, isMounted]);
+    }, [isOpen, isMounted, startClosing]);
 
-    if (!isOpen) return null;
+    if (!isOpen && !isClosing) {
+         return null;
+    }
+
+    const isInteractive = isOpen && isMounted && !isClosing;
 
     return (
         <div
             ref={modalContainerRef}
-            className={`modal-container fixed top-0 left-0 w-full h-full flex justify-center items-center 
-      ${theme === 'dark' ? 'bg-black bg-opacity-50 backdrop-blur-md' : 'bg-gray-100 bg-opacity-50 backdrop-blur-sm'}`}
-
+            className={`
+                fixed inset-0 w-full h-full flex justify-center items-center z-50
+                transition-opacity duration-300 ease-out
+                ${theme === 'dark' ? 'bg-black bg-opacity-70 backdrop-blur-sm' : 'bg-gray-400 bg-opacity-50 backdrop-blur-sm'} /* Ajustado bg-opacity */
+                ${isInteractive ? 'opacity-100' : 'opacity-0'} /* Control de opacidad */
+                ${isInteractive ? 'pointer-events-auto' : 'pointer-events-none'} /* Control de interacción */
+            `}
+            role="dialog"
+            aria-modal="true"
         >
             <div
                 ref={modalContentRef}
-                className={`modal-content relative rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto mx-4 mb-4 ${theme === "dark" ? 'bg-gray-900 text-white bg-opacity-30' : 'bg-white text-gray-800 bg-opacity-50'}`}
+                className={`
+                    relative rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto mx-4 mb-4
+                    transition-transform duration-300 ease-out
+                    ${theme === "dark" ? 'bg-gray-900/80 text-white' : 'bg-white/90 text-gray-800'} /* Fondo translúcido */
+                    ${isInteractive ? 'scale-100' : 'scale-95'} /* Control de escala */
+                    ${isInteractive ? 'pointer-events-auto' : 'pointer-events-none'} /* Asegura que el contenido tampoco sea interactivo si el overlay no lo es */
+                `}
             >
                 <button
-                    className={`close-button ${theme === "dark" ? "text-white" : "text-gray-600"}`}
-                    onClick={() => {
-                        modalContainerRef.current?.classList.add('closing');
-                        setTimeout(onClose, 300); // Espera a que termine la animación antes de cerrar
-                    }}
+                    className={`
+                        absolute top-3 right-3 p-1 rounded-full
+                        transition-colors duration-200
+                        ${theme === "dark" ? "text-gray-400 hover:text-white hover:bg-gray-700" : "text-gray-500 hover:text-gray-800 hover:bg-gray-200"}
+                        ${isInteractive ? 'pointer-events-auto' : 'pointer-events-none'} /* Control de interacción */
+                    `}
+                    onClick={startClosing}
+                    aria-label="Cerrar modal"
                 >
-                    <X className="h-6 w-6 fill-current" />
+                    <X className="h-6 w-6" />
                 </button>
-                <div className="mb-8">
+                <div className={`mb-8 ${isInteractive ? 'pointer-events-auto' : 'pointer-events-none'}`}>
                     <h2 className={`text-2xl font-cinzel tracking-wide ${getTextColorClass(theme)} mb-6`}>Contáctame</h2>
                 </div>
-                <ContactForm />
+                <div className={`${isInteractive ? 'pointer-events-auto' : 'pointer-events-none'}`}>
+                    <ContactForm />
+                </div>
             </div>
         </div>
     );

@@ -1,19 +1,19 @@
 import React from 'react';
-import styles from './ServicesColumn.module.css';
-import { useModal } from "../context/ModalContext"; // Importamos useModal
-import { coursesData } from '../../data/coursesData'; // Importamos coursesData y CourseData
+import { useModal } from "../context/ModalContext";
+import { coursesData } from '../../data/coursesData';
 import CourseColumnsItem from './CourseColumnsItem';
-import { Course } from '../../types/CourseInterfaces'; // Importamos Course
+import { Course } from '../../types/CourseInterfaces';
 
 const CoursePreviewSection: React.FC = () => {
   const { openModal } = useModal();
 
   return (
-    <div className={styles['flex-wrapper']}>
-      {coursesData.map((course: Course, index) => ( // Usamos coursesData y CourseData
+    // Aplicadas las clases de Tailwind para flex-wrapper
+    <div className="flex flex-col lg:flex-row lg:flex-wrap w-full justify-center gap-0 mb-8">
+      {coursesData.map((course: Course, index) => (
         <CourseColumnsItem
           key={index}
-          course={course} // Pasamos el objeto course directamente
+          course={course}
           openModal={openModal}
         />
       ))}

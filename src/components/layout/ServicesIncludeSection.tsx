@@ -1,6 +1,6 @@
 // src/components/layout/ServicesIncludeSection.tsx
 import { useTheme } from "../context/useThemeHook";
-import AnimationWrapper from "../common/AnimationLayer";
+import RevealWrapper from "../common/RevealWrapper";
 import ServiceIncludeItem from "../common/ServiceIncludeItem";
 import { SERVICES_INCLUDE_TITLE_CLASS } from "../../constants/styles";
 
@@ -8,7 +8,7 @@ const ServicesIncludeSection = () => {
   const { colors } = useTheme();
   return (
     <div className="text-center space-y-8 px-2 py-16 md:py-8 md:px-6 lg:px-68 mb-24 md:mb-32">
-      <AnimationWrapper animationClassName="fade-in-text">
+      <RevealWrapper animationClass="fade-in-text">
         <h2
           className={`${SERVICES_INCLUDE_TITLE_CLASS}  text-lg md:text-xl lg:text-3xl`} 
           style={{ backgroundColor: colors.background, color: colors.accent }}
@@ -29,7 +29,7 @@ const ServicesIncludeSection = () => {
             description="Algo que te ayudará a recordar tu día"
           />
         </ul>
-      </AnimationWrapper>
+      </RevealWrapper>
     </div>
   );
 };

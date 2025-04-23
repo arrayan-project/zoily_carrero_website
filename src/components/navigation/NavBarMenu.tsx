@@ -19,7 +19,7 @@ const Navigation: React.FC<NavigationProps> = ({ className, onSmoothScroll, isMo
 
   const isActive = (path: string) => location.pathname === path;
 
-  const navLinkBase = `nav-link block lg:inline-block`;
+  const navLinkBase = `nav-link block lg:inline-block px-4 py-2 hover:text-pink-500 transition-colors duration-300 text-sm md:text-sm`;
   const navLinkActive = `text-pink-500`;
   const navLinkInactive = `${theme === 'dark' ? 'text-white' : 'text-gray-800'}`;
   const menuButtonBase = `lg:hidden p-2 hover:text-pink-500 transition-colors duration-300 z-50`;

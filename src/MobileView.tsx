@@ -1,10 +1,12 @@
 // src/MobileView.tsx
 import ThemeToggleButton from "./components/buttons/ThemeToggleButton";
-import ScrollToTopButton from "./components/buttons/ScrollTopButton";
 import LayoutMobile from "./components/layout/MobileFrame";
 import MyRoutes from "./Routes"; // Importa MyRoutes
 import Content from "./components/layout/PageSections"; // Importa PageSections
 import { useLocation } from 'react-router-dom'; // Importa useLocation
+import { lazy, Suspense } from 'react';
+
+const ScrollToTopButton = lazy(() => import('./components/buttons/ScrollTopButton'));
 
 interface LandingPageMobileProps {
   onSmoothScroll: (sectionId: string) => void;
@@ -26,7 +28,11 @@ function LandingPageMobile({ onSmoothScroll, isMobileView }: LandingPageMobilePr
           <MyRoutes onSmoothScroll={onSmoothScroll} isMobileView={isMobileView} /> // Renderiza MyRoutes para otras rutas
         )}
       </div>
-      <ScrollToTopButton />
+      {["/", "/services", "/ugc", "/store"].includes(location.pathname) && (
+        <Suspense fallback={null}>
+          <ScrollToTopButton />
+        </Suspense>
+      )}
     </LayoutMobile>
   );
 }

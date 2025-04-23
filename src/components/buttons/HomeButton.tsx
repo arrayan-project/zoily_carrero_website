@@ -27,7 +27,7 @@ const HomeButton: React.FC<HomeButtonProps> = ({ isMobileView, onSmoothScroll, t
         if (isMobileView && (to === "/services" || to === "/gallery" || to === "/ugc")) {
           navigate(to);
         } else if (isMobileView && to === "/contact") {
-          onSmoothScroll?.("contact"); // Aseguramos que el sectionId sea "contact"
+          onSmoothScroll?.("contact");
         } else {
           navigate(to);
         }
