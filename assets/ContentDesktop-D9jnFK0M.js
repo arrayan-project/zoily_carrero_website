@@ -1,0 +1,1 @@
+import{r,j as e}from"./index-CS0pCcsX.js";import{A as o}from"./Routes-D2873tmK.js";const i=({isMobileView:s})=>{const[t,f]=r.useState(null);return r.useEffect(()=>{},[]),t?e.jsx("div",{className:"fixed top-0 left-0 w-full h-full flex justify-center items-center bg-red-500 text-white",children:e.jsx("p",{children:t})}):e.jsx(o,{isMobileView:s})};export{i as default};
