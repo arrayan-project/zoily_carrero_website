@@ -1,43 +1,42 @@
-import React from "react";
-import SmoothImage from "../smoothImages/SmoothImage";
-import LazyLoad from "react-lazyload";
+import React, { useEffect, useState } from "react";
 
 interface GalleryImageGridProps {
-  currentGalleryImages: string[];
-  openImage: (index: number) => void;
-  isGalleryTransitioning: boolean;
+  images: string[];
+  onImageClick: (index: number) => void;
 }
 
-const GalleryImageGrid: React.FC<GalleryImageGridProps> = ({
-  currentGalleryImages,
-  openImage,
-  isGalleryTransitioning,
-}) => {
+const GalleryImageGrid: React.FC<GalleryImageGridProps> = ({ images, onImageClick }) => {
+  const [visible, setVisible] = useState(false);
+  const [mountedImages, setMountedImages] = useState(images);
+
+  // Suaviza cambio de categoría
+  useEffect(() => {
+    setVisible(false);
+    const timeout = setTimeout(() => {
+      setMountedImages(images);
+      setVisible(true);
+    }, 200);
+    return () => clearTimeout(timeout);
+  }, [images]);
+
   return (
-    <div className="mx-auto max-w-screen-2xl">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-3 sm:gap-4 md:gap-5 p-5 sm:p-6 md:p-8 lg:p-8 xl:p-8">
-        {!isGalleryTransitioning &&
-          currentGalleryImages.map((img, index) => (
-            <div
-              key={index}
-              className={'w-full aspect-square overflow-hidden rounded-sm bg-white shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer relative group'} 
-              style={{ boxShadow: '4px 4px 10px rgba(0, 0, 0, 0.3)',
-              border: '8px solid white'
-               }}
-            >
-              <LazyLoad height={200} offset={100} once>
-                <SmoothImage
-                  src={img}
-                  alt={`Galería ${index}`}
-                  className="w-full h-full cursor-pointer rounded-xs"
-                  onClick={() => openImage(index)}
-                  fallbackSrc="/img/default-image.png"
-                  isGridImage={true}
-                />
-              </LazyLoad>
-            </div>
-          ))}
-      </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 mt-10 mb-10 px-1">
+      {mountedImages.map((src, index) => (
+        <div key={index} className="overflow-hidden w-full h-[700px]">
+          <img
+            src={src}
+            alt={`Imagen ${index + 1}`}
+            loading="lazy"
+            className={`w-full h-full object-cover cursor-pointer transition-transform duration-300 fade-in-up-animation ${
+              visible ? "visible" : ""
+            }`}
+            style={{ animationDelay: `${index * 100}ms` }}
+            onClick={() => onImageClick(index)}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+          />
+        </div>
+      ))}
     </div>
   );
 };

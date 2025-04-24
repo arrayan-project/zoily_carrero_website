@@ -1,4 +1,4 @@
-import { FaGithub, FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa";
+import { Github, Instagram, Linkedin, Twitter } from "lucide-react";
 import { useTheme } from "../context/useThemeHook";
 import { Link } from "react-router-dom";
 
@@ -37,7 +37,10 @@ const Footer = () => {
             >
               SoyZoilyCarrero
             </h2>
-            <p className="font-cinzel text-sm" style={{ color: colors.bannerTitle }}>
+            <p
+              className="font-cinzel text-sm"
+              style={{ color: colors.bannerTitle }}
+            >
               Maquillaje profesional que se adapta a ti. Porque cada rostro
               tiene su historia, y yo estoy aquí para contarla con brochas y
               color. ¡Reserva tu sesión hoy!
@@ -55,7 +58,9 @@ const Footer = () => {
               <li className="my-4 font-cinzel text-sm">Guías & Ideas</li>
               <li className="my-4 font-cinzel text-sm">Tips & Trucos</li>
               <li className="my-4 font-cinzel text-sm">
-                  <Link to="/gallery" className="hover:text-pink-300">Galería</Link>
+                <Link to="/gallery" className="hover:text-pink-300">
+                  Galería
+                </Link>
               </li>
             </ul>
           </div>
@@ -69,20 +74,25 @@ const Footer = () => {
             </h3>
             <ul className="list-none p-0 m-0">
               <li className="my-4 font-cinzel text-sm">
-                <Link to="/policy" className="hover:text-pink-300">Políticas de Privacidad</Link>
+                <Link to="/policy" className="hover:text-pink-300">
+                  Políticas de Privacidad
+                </Link>
               </li>
               <li className="my-4 font-cinzel text-sm">
-                <Link to="/terms" className="hover:text-pink-300">Terminos & Condiciones</Link>
+                <Link to="/terms" className="hover:text-pink-300">
+                  Terminos & Condiciones
+                </Link>
               </li>
               <li className="my-4 font-cinzel text-sm">
-                <Link to="/faq" className="hover:text-pink-300">FAQ</Link>
+                <Link to="/faq" className="hover:text-pink-300">
+                  FAQ
+                </Link>
               </li>
             </ul>
           </div>
 
-
           <div className="mb-4 md:mb-0">
-             <h2
+            <h2
               className="text-xl font-cinzel text-pink-500 py-2 uppercase"
               style={{ color: colors.bannerTitle }}
             >
@@ -96,44 +106,52 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4 font-cinzel">
               <a
-                className="text-white hover:text-pink-500 transform hover:scale-150
-                            transition-all duration-150 ease-in-out"
                 href="URL_DE_TU_GITHUB"
-                aria-label="Visita nuestro perfil de Github"
+                aria-label="Github"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaGithub />
+                <Github
+                  size={24}
+                  strokeWidth={1.5}
+                  className="text-white hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out"
+                />
               </a>
               <a
-                className="text-white hover:text-pink-500 transform hover:scale-150
-                             transition-all duration-150 ease-in-out"
                 href="URL_DE_TU_LINKEDIN"
-                aria-label="Visita nuestro perfil de LinkedIn"
+                aria-label="LinkedIn"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaLinkedinIn />
+                <Linkedin
+                  size={24}
+                  strokeWidth={1.5}
+                  className="text-white hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out"
+                />
               </a>
               <a
-                className="text-white hover:text-pink-500 transform hover:scale-150
-                             transition-all duration-150 ease-in-out"
                 href="URL_DE_TU_TWITTER"
-                aria-label="Visita nuestro perfil de Twitter"
+                aria-label="Twitter"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaTwitter />
+                <Twitter
+                  size={24}
+                  strokeWidth={1.5}
+                  className="text-white hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out"
+                />
               </a>
               <a
-                className="text-white hover:text-pink-500 transform hover:scale-150
-                             transition-all duration-150 ease-in-out"
                 href="URL_DE_TU_INSTAGRAM"
-                aria-label="Visita nuestro perfil de Instagram"
+                aria-label="Instagram"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaInstagram />
+                <Instagram
+                  size={24}
+                  strokeWidth={1.5}
+                  className="text-white hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out"
+                />
               </a>
             </div>
           </div>
@@ -142,9 +160,9 @@ const Footer = () => {
         <div className="mt-15 mb-10">
           <div className="h-full flex items-center justify-center mb-5">
             <form className="w-96 relative">
-            <label htmlFor="footer-newsletter-email" className="sr-only">
+              <label htmlFor="footer-newsletter-email" className="sr-only">
                 Suscríbete a nuestro boletín
-            </label>
+              </label>
               <input
                 type="email"
                 id="footer-newsletter-email"

@@ -21,6 +21,7 @@ const ContactInfoSection: React.FC = () => {
             </h2>
           )}
         </RevealWrapper>
+        <RevealWrapper animationClass="fade-in-text">
         <div className="space-y-6" style={{ color: colors.text }}>
           {[
             {
@@ -65,6 +66,7 @@ const ContactInfoSection: React.FC = () => {
               )
           )}
         </div>
+        </RevealWrapper>
       </div>
     </section>
   );

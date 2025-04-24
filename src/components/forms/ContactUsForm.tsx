@@ -1,5 +1,6 @@
 import React, { useState, useRef, lazy, Suspense } from "react";
 import FormInput from "./ContactUsFormInput";
+import RevealWrapper  from "../common/RevealWrapper";
 
 // Lazy load de reCAPTCHA
 const ReCAPTCHA = lazy(() => import("react-google-recaptcha"));
@@ -106,6 +107,7 @@ const ContactForm: React.FC = () => {
   const buttonColor = "bg-pink-600";
 
   return (
+    <RevealWrapper animationClass="fade-in-animation">
     <form onSubmit={handleSubmit} className="space-y-6">
       <FormInput
         type="text"
@@ -177,6 +179,7 @@ const ContactForm: React.FC = () => {
         </p>
       )}
     </form>
+    </RevealWrapper>
   );
 };
 

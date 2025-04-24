@@ -9,7 +9,7 @@ import HomeLinksSection from "../components/home/HomeLinksSection";
 import HomeFeaturesSection from "../components/home/HomeFeaturesSection";
 import HomeBrandsSection from "../components/home/HomeBrandsSection";
 import ScrollDownArrow from "../components/common/ScrollDownArrow";
-import AnimationWrapper from "../components/common/AnimationLayer";
+import RevealWrapper from "../components/common/RevealWrapper";
 import HomeGallerySection from "../components/home/HomeGallerySection";
 import { useTheme } from "../components/context/useThemeHook";
 import Footer3 from "../components/common/Footer3";
@@ -54,6 +54,7 @@ const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => {
 
   return (
     <div
+      id="home"
       className="relative transition-colors duration-300"
       style={{ backgroundColor: colors.background, color: colors.text }}
     > 
@@ -71,7 +72,7 @@ const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => {
             {homeInfo && homeInfo.title && homeInfo.subtitle && (
               <HomeTitle title={homeInfo.title} subtitle={homeInfo.subtitle} />
             )}
-            <AnimationWrapper animationClassName="fade-in">
+            <RevealWrapper animationClass="fade-in-animation">
               <div className="flex flex-col sm:flex-row gap-4">
                 {homeInfo && homeInfo.button1Text && (
                   <HomeButton
@@ -94,7 +95,7 @@ const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => {
                   </HomeButton>
                 )}
               </div>
-            </AnimationWrapper>
+            </RevealWrapper>
           </main>
           <ScrollDownArrow />
         </div>

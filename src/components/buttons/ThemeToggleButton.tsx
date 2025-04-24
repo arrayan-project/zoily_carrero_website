@@ -7,7 +7,7 @@
 
 import { useState, useEffect } from 'react';
 import { useTheme } from '../context/useThemeHook';
-import { WiMoonAltWaningCrescent4, WiDaySunny } from 'react-icons/wi';
+import { Sun, Moon } from "lucide-react";
 
 interface ThemeToggleButtonProps {
   className?: string;
@@ -48,9 +48,9 @@ const ThemeToggleButton: React.FC<ThemeToggleButtonProps> = ({ className }) => {
       aria-label={theme === 'light' ? 'Activar modo oscuro' : 'Activar modo claro'}
     >
       {theme === 'light' ? (
-        <WiDaySunny size={iconSize} className={iconColor} />
+        <Sun size={iconSize} className={iconColor} />
       ) : (
-        <WiMoonAltWaningCrescent4 size={iconSize} className={iconColor} />
+        <Moon size={iconSize} className={iconColor} />
       )}
     </button>
   );

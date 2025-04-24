@@ -1,6 +1,6 @@
 import React from "react";
 import { useTheme } from "../../components/context/useThemeHook";
-import AnimationWrapper from "../common/AnimationLayer";
+import RevealWrapper  from "../common/RevealWrapper";
 
 type BannerProps = {
   text: string;
@@ -15,7 +15,7 @@ const UGCMiddleBanner: React.FC<BannerProps> = ({
 
   return (
     <div className="w-full py-6 px-4 text-center mt-24 relative overflow-hidden">
-      <AnimationWrapper animationClassName="fade-in">
+      <RevealWrapper animationClass="fade-in-animation">
         <div className={`mx-auto ${maxWidth}`}>
           <h1
             className="text-base md:text-xl font-cinzel italic"
@@ -24,7 +24,7 @@ const UGCMiddleBanner: React.FC<BannerProps> = ({
             {text}
           </h1>
         </div>
-      </AnimationWrapper>
+      </RevealWrapper>
     </div>
   );
 };

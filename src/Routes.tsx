@@ -1,52 +1,38 @@
-// src/Routes.tsx
-import { lazy, Suspense, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
-// Carga diferida de los componentes
-const Home = lazy(() => import('./pages/Home'));
-const Services = lazy(() => import('./pages/Services'));
-const Gallery = lazy(() => import('./pages/Gallery'));
-const UGC = lazy(() => import('./pages/UGC'));
-const Store = lazy(() => import('./pages/Store'));
-const About = lazy(() => import('./pages/About'));
-const Contact = lazy(() => import('./pages/Contact'));
-const Terms = lazy(() => import('./pages/Terms'));
-const Policy = lazy(() => import('./pages/Policy')); 
-const FAQ = lazy(() => import('./pages/FAQ'));
+import { Routes, Route, Navigate } from "react-router-dom";
+import { lazy, Suspense } from "react";
 
-interface RoutesProps {
-  onSmoothScroll: (sectionId: string) => void;
+const Services = lazy(() => import("./pages/Services"));
+const Gallery = lazy(() => import("./pages/Gallery"));
+const UGC = lazy(() => import("./pages/UGC"));
+const Home = lazy(() => import("./pages/Home"));
+const Store = lazy(() => import("./pages/Store"));
+const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
+
+interface AppRoutesProps {
   isMobileView: boolean;
 }
 
-const MyRoutes = ({ onSmoothScroll, isMobileView }: RoutesProps) => {
-  const [error] = useState<string | null>(null);
-
-  if (error) {
-    console.error("Error en MyRoutes:", error);
-    return (
-      <div className="error-container">
-        <p className="error-message">Ha ocurrido un error inesperado al cargar las rutas.</p>
-      </div>
-    );
-  }
-
+const AppRoutes: React.FC<AppRoutesProps> = ({ isMobileView }) => {
   return (
-    <Suspense fallback={<div className="loading-container">Cargando...</div>}>
+    
+    <Suspense fallback={<div className="text-pink-500 animate-pulse">Cargando...</div>}>
       <Routes>
-        <Route path="/" element={<Home onSmoothScroll={onSmoothScroll} isMobileView={isMobileView} />} />
+        <Route
+          path="/"
+          element={
+            isMobileView ? <Navigate to="/" replace /> : <Home onSmoothScroll={() => {}} isMobileView={false} />
+          }
+        />
         <Route path="/services" element={<Services />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/ugc" element={<UGC />} />
         <Route path="/store" element={<Store />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/terms" element={<Terms />} /> {/* Add Terms route */}
-        <Route path="/policy" element={<Policy />} /> {/* Add Policy route */}
-        <Route path="/faq" element={<FAQ />} /> {/* Add FAQ route */}
-        <Route path="/*" element={<Home onSmoothScroll={onSmoothScroll} isMobileView={isMobileView} />} />
       </Routes>
     </Suspense>
   );
 };
 
-export default MyRoutes;
+export default AppRoutes;

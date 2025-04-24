@@ -3,6 +3,7 @@ import React from "react";
 import SmoothImage from "../smoothImages/SmoothImage";
 import { UGCLeftSectionProps } from "./UGCLeftSection";
 import UGCLeftSection from "./UGCLeftSection";
+import RevealWrapper  from "../common/RevealWrapper";
 
 interface UGCMainSectionProps {
   imageSrc: string;
@@ -15,9 +16,7 @@ const UGCMainSection: React.FC<UGCMainSectionProps> = ({
 }) => {
   return (
     <section className="ugc-section-completa flex md:flex-row flex-col m-0 bg-gray-100 overflow-hidden shadow-md">
-      {/* Left Section */}
-      <UGCLeftSection {...leftSectionProps} />
-
+        <UGCLeftSection {...leftSectionProps} />
       {/* Right Section (Image) */}
       <div className="ugc-seccion-derecha md:w-1/2 w-full">
         <SmoothImage

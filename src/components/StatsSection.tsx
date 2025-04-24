@@ -1,16 +1,6 @@
-/*
-##### Función #####
-- Muestra una sección de estadísticas con contadores animados, iconos y etiquetas. 
-La animación de los contadores se activa cuando la sección es visible en la pantalla.
-
-#####Componentes que lo utilizan #####
-- Services.tsx: Es el componente que importa y renderiza StatsSection.
-
-*/
-
+// StatsSection.tsx
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
 import { PersonStanding, Brush, Handshake } from "lucide-react";
 import images from '../assets/images';
 
@@ -42,7 +32,7 @@ const Counter: React.FC<CounterProps> = ({ value, isVisible }) => {
   return <span>{count}</span>;
 };
 
-// Componente de estadistica
+// Componente de estadística individual
 interface StatItemProps {
   icon: React.ReactNode;
   value: number;
@@ -51,77 +41,86 @@ interface StatItemProps {
   index: number;
   isVisible: boolean;
 }
-const StatItem: React.FC<StatItemProps> = ({ icon, value, label, suffix, index, isVisible }) => {
-  //Variables para clases repetidas
-  const statItemBase = `flex flex-col items-center`;
-  const statItemMargin = `${index === 0 ? "ml-2 md:ml-4" : ""} ${index === 2 ? "mr-2 md:mr-4" : ""}`;
+const StatItem: React.FC<StatItemProps> = ({
+  icon,
+  value,
+  label,
+  suffix,
+  index,
+  isVisible,
+}) => {
+  const classes = [
+    "flex flex-col items-center fade-in-up-animation",
+    index === 0 ? "ml-2 md:ml-4" : "",
+    index === 2 ? "mr-2 md:mr-4" : "",
+    isVisible ? "visible" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{ delay: index * 0.2, duration: 0.8, ease: "easeOut" }}
-      className={`${statItemBase} ${statItemMargin}`}
-    >
+    <div className={classes} style={{ animationDelay: `${index * 200}ms` }}>
       <span className="text-5xl">{icon}</span>
       <span className="text-4xl font-bold">
         <Counter value={value} isVisible={isVisible} />
         {suffix}
       </span>
       <span className="text-sm">{label}</span>
-    </motion.div>
+    </div>
   );
 };
 
-// Componente de estadísticas
+// Componente principal de estadísticas
 const StatsSection = () => {
   const [isBannerVisible, setIsBannerVisible] = useState(false);
   const bannerRef = useRef<HTMLElement>(null);
-  const [error] = useState<string | null>(null); // Estado para el error
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsBannerVisible(true);
             observer.unobserve(entry.target);
           }
         });
       },
-      {
-        threshold: 0.1
-      }
+      { threshold: 0.1 }
     );
 
-    if (bannerRef.current) {
-      observer.observe(bannerRef.current);
-    }
+    if (bannerRef.current) observer.observe(bannerRef.current);
 
     return () => {
-      if (bannerRef.current) {
-        observer.unobserve(bannerRef.current);
-      }
+      if (bannerRef.current) observer.unobserve(bannerRef.current);
     };
   }, []);
 
   const stats = [
-    { icon: <PersonStanding size={72} />, value: 99, label: "CLIENTES SATISFECHAS", suffix: "%" },
-    { icon: <Brush size={72} />, value: 60, label: "SERVICIOS", suffix: "+" },
-    { icon: <Handshake size={72} />, value: 30, suffix: "+" , label: "CURSOS"},
+    {
+      icon: <PersonStanding size={72} />,
+      value: 99,
+      label: "CLIENTES SATISFECHAS",
+      suffix: "%",
+    },
+    {
+      icon: <Brush size={72} />,
+      value: 60,
+      label: "SERVICIOS",
+      suffix: "+",
+    },
+    {
+      icon: <Handshake size={72} />,
+      value: 30,
+      label: "CURSOS",
+      suffix: "+",
+    },
   ];
 
-  if (error) {
-    console.error("Error en StatsSection:", error);
-    return (
-      <div className="error-container">
-        <p className="error-message">Ha ocurrido un error inesperado en la sección de estadísticas.</p>
-      </div>
-    );
-  }
-
   return (
-    <section ref={bannerRef} className="relative bg-rose-200 py-16 w-full overflow-hidden">
+    <section
+      ref={bannerRef}
+      className="relative bg-rose-200 py-16 w-full overflow-hidden"
+    >
       <div className="absolute inset-0">
         <img
           src={images.zoilyblack}

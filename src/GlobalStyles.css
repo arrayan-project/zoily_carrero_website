@@ -18,19 +18,19 @@
      2. Animation Keyframes Definitions
      ========================================================================== */
   
-  /* Animación para botones o elementos interactivos */
+  /* Escala para botones interactivos */
   @keyframes color-change {
-      0% {
-          transform: scale(1);
-          background-color: var(--color-secondary); /* Asume que estas variables existen */
-      }
-      100% {
-          transform: scale(1.1);
-          background-color: var(--color-primary); /* Asume que estas variables existen */
-      }
+    0% {
+      transform: scale(1);
+      background-color: var(--color-secondary);
+    }
+    100% {
+      transform: scale(1.1);
+      background-color: var(--color-primary);
+    }
   }
   
-  /* Animaciones de entrada deslizándose */
+  /* Entrada desde los lados */
   @keyframes slide-in-left {
     from {
       transform: translateX(-100%);
@@ -53,10 +53,10 @@
     }
   }
   
-  /* Animación de entrada apareciendo desde abajo */
+  /* Fade desde abajo */
   @keyframes fade-in-up {
     from {
-      transform: translateY(20px);
+      transform: translateY(60px);
       opacity: 0;
     }
     to {
@@ -65,7 +65,17 @@
     }
   }
   
-  /* Animación para aparición de modales */
+  /* Solo opacidad (fade lento) */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Otros */
   @keyframes modal-fade-in {
     from {
       opacity: 0;
@@ -76,8 +86,18 @@
       transform: scale(1);
     }
   }
+
+  @keyframes modal-fade-out {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+  }
   
-  /* Animación para contenido de pestañas (tabs) */
   @keyframes tab-content-fade-in {
     from {
       opacity: 0;
@@ -89,13 +109,12 @@
     }
   }
   
-  /* Animación de pulsación (movida desde FloatingContactButton.css) */
   @keyframes pulse {
     0% {
       transform: scale(1);
     }
     50% {
-      transform: scale(1.1); /* Más sutil */
+      transform: scale(1.1);
     }
     100% {
       transform: scale(1);
@@ -106,7 +125,7 @@
      3. Animation & Transition Utility Classes
      ========================================================================== */
   
-  /* Clases para aplicar animaciones de keyframes */
+  /* Clases base con @keyframes (uso general) */
   .slide-in-left {
     animation: slide-in-left 1.5s ease-out forwards;
   }
@@ -114,47 +133,80 @@
     animation: slide-in-right 1.5s ease-out forwards;
   }
   .fade-in-up {
-    animation: fade-in-up 1.5s ease-out forwards;
+    animation: fade-in-up 2.5s ease-out forwards;
   }
   .modal-animation {
     animation: modal-fade-in 0.3s ease-in-out;
   }
+  .modal-fade-out {
+    animation: modal-fade-out 0.3s ease-in-out;
+  }
   .tab-content-animation {
     animation: tab-content-fade-in 0.3s ease-in-out;
   }
-
-  /* --- Transiciones de Opacidad --- */
-  .fade-in-image,
-  .fade-in-text,
-  .fade-in-up-animation { /* Esta también incluye transform */
-    opacity: 0;
-    transition: opacity 1s ease-in-out; /* Duración base, puede variar */
-  }
-  .fade-in-image { transition-duration: 1s; }
-  .fade-in-text { transition-duration: 1.5s; }
-  .fade-in-up-animation { transition-duration: 1s; } /* Solo opacidad */
   
-  .fade-in-image.visible,
-  .fade-in-text.visible,
-  .fade-in-up-animation.visible {
+  /* === RevealWrapper compatible === */
+  
+  /* Solo opacidad */
+  .fade-in-animation {
+    opacity: 0;
+    transition: opacity 3s ease-out;
+  }
+  .fade-in-animation.visible {
     opacity: 1;
   }
   
-  /* --- Transiciones de Transformación + Opacidad --- */
-  .slide-in-left-animation,
-  .slide-in-right-animation {
+  /* Fade-in desde abajo (60px) */
+  .fade-in-up-animation {
     opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+  }
+  .fade-in-up-animation.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Fade-in-text más sutil (30px) */
+  .fade-in-text {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+  }
+  .fade-in-text.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Slide desde izquierda */
+  .slide-in-left-animation {
+    opacity: 0;
+    transform: translateX(-60px);
     transition: transform 1s ease-out, opacity 1s ease-out;
   }
-  .slide-in-left-animation { transform: translateX(-100%); }
-  .slide-in-right-animation { transform: translateX(100%); }
-  .fade-in-up-animation { transform: translateY(20px); transition: transform 1s ease-out, opacity 1s ease-out; }
+  .slide-in-left-animation.visible {
+    transform: translateX(0);
+    opacity: 1;
+  }
   
+  /* Slide desde derecha */
+  .slide-in-right-animation {
+    opacity: 0;
+    transform: translateX(60px);
+    transition: transform 1s ease-out, opacity 1s ease-out;
+  }
+  .slide-in-right-animation.visible {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  /* Slide galeria */
+  .modal-image-fade {
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+  }
   
-  .slide-in-left-animation.visible,
-  .slide-in-right-animation.visible,
-  .fade-in-up-animation.visible {
-    transform: translate(0, 0); /* Resetea transform */
+  .modal-image-fade.visible {
     opacity: 1;
   }
   
@@ -162,17 +214,14 @@
      4. Utility & Helper Classes
      ========================================================================== */
   
-  /* Para forzar visibilidad (usar con precaución) */
   .visible-important {
-    opacity: 1 !important; /* Evita usar !important si es posible */
+    opacity: 1 !important;
   }
   
   /* ==========================================================================
      5. Specific Component / Visual Element Styles
      ========================================================================== */
   
-  /* Estilo específico para texto dentro de .ugc-background-text */
   .ugc-background-text span {
-    line-height: 0.8; /* Ajusta interlineado */
+    line-height: 0.8;
   }
-  

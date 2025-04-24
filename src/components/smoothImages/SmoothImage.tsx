@@ -9,6 +9,7 @@ interface SmoothImageProps {
   fallbackSrc?: string;
   imageRef?: React.RefObject<HTMLImageElement>;
   isGridImage?: boolean;
+  disableInternalTransition?: boolean;
 }
 
 const SmoothImage: React.FC<SmoothImageProps> = ({
@@ -20,6 +21,7 @@ const SmoothImage: React.FC<SmoothImageProps> = ({
   fallbackSrc = "/img/default-image.png",
   imageRef,
   isGridImage = false,
+  disableInternalTransition = false,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -46,14 +48,20 @@ const SmoothImage: React.FC<SmoothImageProps> = ({
     };
   }, [src]);
 
+  const transitionClasses = !disableInternalTransition
+  ? `${isTransitioning ? "transition-opacity duration-500" : ""} ${
+      isLoading ? "opacity-0" : "opacity-100"
+    } transition-opacity duration-500 ease-in-out`
+  : "";
+
   return (
     <img
       ref={currentImageRef}
       src={isError ? fallbackSrc : ""}
       alt={isError ? `Error loading ${alt}` : alt}
-      className={`w-full h-full ${isGridImage ? "object-cover" : "object-contain"} ${
-        isTransitioning ? "transition-opacity duration-500" : ""
-      } ${isLoading ? "opacity-0" : "opacity-100"} transition-opacity duration-500 ease-in-out ${className}`}
+      className={`w-full h-full ${
+        isGridImage ? "object-cover" : "object-contain"
+      } ${transitionClasses} ${className}`}
       onClick={onClick}
     />
   );

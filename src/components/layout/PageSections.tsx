@@ -1,64 +1,43 @@
-// src/components/layout/PageSections.tsx
-import { lazy, Suspense, useState } from 'react';
+import React, { lazy, Suspense } from "react";
 
-// Carga diferida de los componentes
-const Home = lazy(() => import('../../pages/Home'));
-const Store = lazy(() => import('../../pages/Store'));
-const About = lazy(() => import('../../pages/About'));
-const Contact = lazy(() => import('../../pages/Contact'));
-const Services = lazy(() => import('../../pages/Services'));
-const Gallery = lazy(() => import('../../pages/Gallery'));
-const UGC = lazy(() => import('../../pages/UGC'));
+const Home = lazy(() => import("../../pages/Home"));
+const Store = lazy(() => import("../../pages/Store"));
+const About = lazy(() => import("../../pages/About"));
+const Contact = lazy(() => import("../../pages/Contact"));
 
-interface ContentProps {
-  onSmoothScroll: (sectionId: string) => void;
-  className?: string;
+interface PageSectionsProps {
+  onSmoothScroll: (id: string) => void;
   isMobileView: boolean;
 }
 
-function Content({ onSmoothScroll, className, isMobileView }: ContentProps) {
-  const [error] = useState<string | null>(null);
-
-  if (error) {
-    console.error("Error en PageSections:", error);
-    return (
-      <div className="error-container">
-        <p className="error-message">Ha ocurrido un error inesperado al cargar las secciones.</p>
-      </div>
-    );
-  }
-
+const PageSections: React.FC<PageSectionsProps> = ({ onSmoothScroll, isMobileView }) => {
   return (
-    <div className={className}>
-      <Suspense fallback={<div className="loading-container">Cargando...</div>}>
-        <section id="home" className="page-section">
+    <main>
+      <Suspense fallback={<div className="text-pink-500 animate-pulse">Cargando Inicio...</div>}>
+        <section id="home">
           <Home onSmoothScroll={onSmoothScroll} isMobileView={isMobileView} />
         </section>
-        <section id="store" className="page-section">
+      </Suspense>
+
+      <Suspense fallback={<div className="text-pink-500 animate-pulse">Cargando Tienda...</div>}>
+        <section id="store">
           <Store />
         </section>
-        <section id="about" className="page-section">
+      </Suspense>
+
+      <Suspense fallback={<div className="text-pink-500 animate-pulse">Cargando Acerca de...</div>}>
+        <section id="about">
           <About />
         </section>
-        <section id="contact" className="page-section">
+      </Suspense>
+
+      <Suspense fallback={<div className="text-pink-500 animate-pulse">Cargando Contacto...</div>}>
+        <section id="contact">
           <Contact />
         </section>
-        {!isMobileView && (
-          <>
-            <section id="services" className="page-section">
-              <Services />
-            </section>
-            <section id="gallery" className="page-section">
-              <Gallery />
-            </section>
-            <section id="ugc" className="page-section">
-              <UGC />
-            </section>
-          </>
-        )}
       </Suspense>
-    </div>
+    </main>
   );
-}
+};
 
-export default Content;
+export default PageSections;

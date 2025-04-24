@@ -6,6 +6,7 @@ import { coursesData } from '../../data/coursesData';
 import { useModal } from '../context/ModalContext';
 import './CoursesCarousel.css';
 import useWindowSize from "../../hooks/useWindowSize";
+import RevealWrapper from "../common/RevealWrapper";
 
 
 const CoursesCarouselSection: React.FC = () => {
@@ -30,6 +31,7 @@ const CoursesCarouselSection: React.FC = () => {
   };
 
   return (
+    <RevealWrapper animationClass="fade-in-animation">
     <div id="courses-carousel" className="relative w-full h-[85vh] my-8 mx-auto overflow-visible rounded-[20px]">
       <div className="slide" ref={slideRef}>
         {coursesData.map(item => (
@@ -60,6 +62,7 @@ const CoursesCarouselSection: React.FC = () => {
         onPrev={handlePrev}
       />
     </div>
+    </RevealWrapper>
   );
 };
 

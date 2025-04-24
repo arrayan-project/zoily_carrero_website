@@ -25,7 +25,7 @@ function LandingPageMobile({ onSmoothScroll, isMobileView }: LandingPageMobilePr
         {location.pathname === "/" || location.pathname === "/store" || location.pathname === "/about" || location.pathname === "/contact" ? (
           <Content onSmoothScroll={onSmoothScroll} isMobileView={isMobileView} /> // Renderiza Content si la ruta es "/", "/store", "/about" o "/contact"
         ) : (
-          <MyRoutes onSmoothScroll={onSmoothScroll} isMobileView={isMobileView} /> // Renderiza MyRoutes para otras rutas
+          <MyRoutes isMobileView={isMobileView} /> // Renderiza MyRoutes para otras rutas
         )}
       </div>
       {["/", "/services", "/ugc", "/store"].includes(location.pathname) && (

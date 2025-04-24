@@ -1,18 +1,18 @@
-// MainApp.tsx
 import { useEffect, useState, useRef, lazy, Suspense } from 'react';
-import { BrowserRouter as Router, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, useLocation, useNavigate } from 'react-router-dom';
 import { ThemeProvider } from './components/context/themeContext';
 import { useTheme } from './components/context/useThemeHook';
 import { MOBILE_BREAKPOINT } from './constants/constants';
 import './GlobalStyles.css';
 import { HelmetProvider } from 'react-helmet-async';
+import ScrollToTop from './utils/ScrollToTop';
 
 // Lazy-loaded components
 const Navigation = lazy(() => import('./components/navigation/NavBarMenu'));
 const FloatingContactButton = lazy(() => import('./components/buttons/FloatingContactButton'));
 const ContactModal = lazy(() => import('./components/modals/ContactUsModal'));
-const ContentDesktop = lazy(() => import('./components/layout/DesktopView'));
-const LandingPageMobile = lazy(() => import('./MobileView'));
+const ContentDesktop = lazy(() => import('./components/layout/ContentDesktop'));
+const LandingPageMobile = lazy(() => import('./LandingPageMobile'));
 const ThemeToggleButton = lazy(() => import('./components/buttons/ThemeToggleButton'));
 const ScrollToTopButton = lazy(() => import('./components/buttons/ScrollTopButton'));
 const Footer3 = lazy(() => import('./components/common/Footer3'));
@@ -25,7 +25,6 @@ function App() {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-
   const handleSmoothScroll = (sectionId: string = 'home') => {
     isInternalScroll.current = true;
     const element = document.getElementById(sectionId);
@@ -37,8 +36,9 @@ function App() {
   return (
     <HelmetProvider>
       <ThemeProvider>
-        <div className='relative w-full overflow-x-hidden'>
+        <div className="relative w-full overflow-x-hidden">
           <Router>
+          <ScrollToTop />
             <Suspense fallback={<div className="text-center py-10">Cargando...</div>}>
               <MainContent
                 handleSmoothScroll={handleSmoothScroll}
@@ -68,18 +68,19 @@ interface MainContentProps {
 function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen, isInternalScroll, isNavigating }: MainContentProps) {
   const { colors, theme } = useTheme();
   const location = useLocation();
+  const navigate = useNavigate();
   const showHeaderAndFooter = location.pathname !== "/";
   const themeClasses = showHeaderAndFooter
     ? `bg-[${colors.background}] text-[${colors.accent}]`
     : '';
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const isMobileView = windowWidth < MOBILE_BREAKPOINT;
+  const [hasEvaluatedViewport, setHasEvaluatedViewport] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
-
     window.addEventListener('resize', handleResize);
 
     if (theme === 'dark') {
@@ -88,31 +89,69 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen, i
       document.body.classList.remove('dark-mode');
     }
 
+    setHasEvaluatedViewport(true);
     return () => {
       window.removeEventListener('resize', handleResize);
       document.body.classList.remove('dark-mode');
     };
+    
   }, [theme]);
 
   useEffect(() => {
-
     if (!isInternalScroll.current && !isNavigating.current) {
       window.scrollTo(0, 0);
     }
-
     isInternalScroll.current = false;
     isNavigating.current = false;
-  }, [location.pathname, isInternalScroll, isNavigating]);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (!isMobileView) {
+      const timer = setTimeout(() => {
+        import("./pages/Services");
+        import("./pages/Gallery");
+        import("./pages/UGC");
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [isMobileView]);
+
+  useEffect(() => {
+    const scrollTarget = sessionStorage.getItem("scrollToSection");
+    if (isMobileView && location.pathname === "/" && scrollTarget) {
+      const interval = setInterval(() => {
+        const el = document.getElementById(scrollTarget);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+          sessionStorage.removeItem("scrollToSection");
+          clearInterval(interval);
+        }
+      }, 100);
+      setTimeout(() => clearInterval(interval), 3000); // failsafe
+    }
+  }, [location.pathname, isMobileView]);
+
+  useEffect(() => {
+    const landingSections = ["/store", "/about", "/contact"];
+    const pathname = location.pathname;
+  
+    if (hasEvaluatedViewport && isMobileView && landingSections.includes(pathname)) {
+      const sectionId = pathname.replace("/", "");
+      sessionStorage.setItem("scrollToSection", sectionId);
+      navigate("/");
+    }
+  }, [location.pathname, isMobileView, hasEvaluatedViewport]);
 
   return (
     <div className="w-full">
       <FloatingContactButton onClick={openModal} />
       <ContactModal isOpen={isModalOpen} onClose={closeModal} />
-      {["/", "/services", "/ugc", "/store"].includes(location.pathname) && (
-        <Suspense fallback={null}>
-          <ScrollToTopButton />
-        </Suspense>
-      )}
+      {!isMobileView &&
+        ["/", "/services", "/ugc", "/store"].includes(location.pathname) && (
+          <Suspense fallback={null}>
+            <ScrollToTopButton />
+          </Suspense>
+        )}
 
       {isMobileView ? (
         <div className="w-full relative">
@@ -132,7 +171,6 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen, i
           <div className="fixed top-4 left-4 z-[70]">
             <ThemeToggleButton />
           </div>
-          
           {showHeaderAndFooter && (
             <Navigation
               className="md:mb-12"

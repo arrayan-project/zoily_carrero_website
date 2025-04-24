@@ -29,27 +29,35 @@ const Navigation: React.FC<NavigationProps> = ({ className, onSmoothScroll, isMo
   const handleLinkClick = (to: string, sectionId?: string, hash?: string) => {
     isInternalScroll.current = false;
     setIsMenuOpen(false);
-
+  
     if (isMobileView) {
-      if (to === "/services" || to === "/gallery" || to === "/ugc") {
+      const isLandingSection = ["/", "/store", "/about", "/contact"].includes(to);
+      const isAlreadyInHome = location.pathname === "/";
+  
+      if (isLandingSection && sectionId) {
         isNavigating.current = true;
-        navigate(hash ? `${to}${hash}` : to);
-      } else if (sectionId && (to === "/store" || to === "/about" || to === "/contact" || to === "/")) {
-        isNavigating.current = true;
-        navigate("/");
-        setTimeout(() => {
+  
+        if (isAlreadyInHome) {
           onSmoothScroll?.(sectionId);
-        }, 100);
+        } else {
+
+          sessionStorage.setItem("scrollToSection", sectionId);
+          navigate("/");
+        }
+      } else {
+
+        navigate(hash ? `${to}${hash}` : to);
       }
     } else {
       isNavigating.current = true;
-      if (sectionId && (to === "/store" || to === "/about" || to === "/contact" || to === "/")) {
+
+      if (to === "/" && sectionId) {
         navigate("/");
         setTimeout(() => {
           onSmoothScroll?.(sectionId);
-        }, 100);
+        }, 100); 
       } else {
-        navigate(hash ? `${to}${hash}` : to);
+        navigate(to);
       }
     }
   };
@@ -66,7 +74,6 @@ const Navigation: React.FC<NavigationProps> = ({ className, onSmoothScroll, isMo
   return (
     <nav className={`${className} z-50 w-full fixed ${isScrolled && !isMenuOpen && isMobileView ? 'backdrop-blur-sm bg-white/5' : ''}`}>    
       <div className='relative w-full flex justify-end lg:justify-center'>
-        {/* Nuevo div con efecto blur para el botón hamburguesa en móvil */}
         <div className={`lg:hidden w-full h-16 top-0 right-0 p-2  ${isScrolled ? 'backdrop-blur-sm bg-white/30 dark:bg-gray-800/30' : ''} transition-all duration-300`}>
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -100,13 +107,13 @@ const Navigation: React.FC<NavigationProps> = ({ className, onSmoothScroll, isMo
         )}
 
         <div className="flex flex-col lg:flex-row lg:justify-center lg:items-center space-y-6 lg:space-y-0 lg:space-x-6 font-cinzel text-xl lg:text-sm tracking-wider text-center lg:text-left mt-8 lg:mt-0 relative z-10">
-          <Link to="/" onClick={() => handleLinkClick("/", "home")} className={`${navLinkBase} ${isActive('/') ? navLinkActive : navLinkInactive}`}>INICIO</Link>
+          <button onClick={() => handleLinkClick("/", "home")} className={`${navLinkBase} ${isActive('/') ? navLinkActive : navLinkInactive}`}>INICIO</button>
           <Link to="/services" onClick={() => handleLinkClick("/services", undefined, "#services")} className={`${navLinkBase} ${isActive('/services') ? navLinkActive : navLinkInactive}`}>SERVICIOS & CURSOS</Link>
           <Link to="/gallery" onClick={() => handleLinkClick("/gallery", undefined, "#gallery")} className={`${navLinkBase} ${isActive('/gallery') ? navLinkActive : navLinkInactive}`}>GALERIA</Link>
           <Link to="/ugc" onClick={() => handleLinkClick("/ugc", undefined, "#ugc")} className={`${navLinkBase} ${isActive('/ugc') ? navLinkActive : navLinkInactive}`}>UGC</Link>
-          <Link to="/store" onClick={() => handleLinkClick("/store", "store")} className={`${navLinkBase} ${isActive('/store') ? navLinkActive : navLinkInactive}`}>TIENDA</Link>
-          <Link to="/about" onClick={() => handleLinkClick("/about", "about")} className={`${navLinkBase} ${isActive('/about') ? navLinkActive : navLinkInactive}`}>ACERCA DE</Link>
-          <Link to="/contact" onClick={() => handleLinkClick("/contact", "contact")} className={`${navLinkBase} ${isActive('/contact') ? navLinkActive : navLinkInactive}`}>CONTACTO</Link>
+          <button onClick={() => handleLinkClick("/store", "store")} className={`${navLinkBase} ${isActive('/store') ? navLinkActive : navLinkInactive}`}>TIENDA</button>
+          <button onClick={() => handleLinkClick("/about", "about")} className={`${navLinkBase} ${isActive('/about') ? navLinkActive : navLinkInactive}`}>ACERCA DE</button>
+          <button onClick={() => handleLinkClick("/contact", "contact")} className={`${navLinkBase} ${isActive('/contact') ? navLinkActive : navLinkInactive}`}>CONTACTO</button>
         </div>
       </div>
     </nav>

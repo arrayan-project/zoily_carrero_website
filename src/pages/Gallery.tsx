@@ -1,94 +1,64 @@
-import React, { useState, useMemo, useRef, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState, lazy, Suspense, useRef } from "react";
 import GalleryTitle from "../components/gallery/GalleryTitle";
 import GalleryCategoryMenu from "../components/navigation/GalleryCategoryMenu";
 import GalleryImageGrid from "../components/gallery/GalleryImageGrid";
-import GalleryModal from "../components/modals/GalleryModal";
+import { imageArrays } from "../assets/images";
 import { HOME_LINKS_TITLE_CLASS } from "../constants/styles";
-import useGalleryModalTouch from "../hooks/useGalleryModalTouch";
-import useWindowSize from "../hooks/useWindowSize";
-import { getImagesForCategory } from "../utils/galleryUtils";
-import { galleryCategories, galleryTitle } from "../data/galleryData";
+import { galleryTitle } from "../data/galleryData";
 import { useTheme } from "../components/context/useThemeHook";
-import "../GlobalStyles.css";
+import { Helmet } from "react-helmet-async";
 import Footer3 from "../components/common/Footer3";
-import { Helmet } from 'react-helmet-async'; // <--- Importa Helmet
 
-export default function Gallery() {
+const GalleryModal = lazy(() => import("../components/modals/GalleryModal"));
+
+const categoryMap: Record<string, string[]> = {
+  Novia: imageArrays.galleryBrideImages,
+  Social: imageArrays.gallerySocialImages,
+  "Peinado + Maquillaje": imageArrays.galleryHairAndMakeupImages,
+  "Piel madura": imageArrays.galleryMatureSkinImages,
+  Glam: imageArrays.galleryGlamImages,
+  Express: imageArrays.galleryExpressImages,
+};
+
+const Gallery = () => {
+  const [activeCategory, setActiveCategory] = useState("Novia");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [isGalleryTransitioning, setIsGalleryTransitioning] = useState(false);
-  const [isModalTransitioning, setIsModalTransitioning] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const location = useLocation();
-
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [isModalTransitioning] = useState(false); // por si necesitas en el futuro
   const modalContainerRef = useRef<HTMLDivElement>(null);
-  const { isMobileView } = useWindowSize();
-  const { colors, theme } = useTheme();
-  const currentGalleryImages = useMemo(
-    () => getImagesForCategory(selectedCategory),
-    [selectedCategory]
-  );
+  const isMobileView = window.innerWidth <= 768;
+  const { colors} = useTheme();
+  const galleryRef = useRef<HTMLDivElement>(null);
 
-  // ... (resto de funciones y lógica) ...
-  const openImage = (index: number) => {
-    try {
-      setCurrentIndex(index);
-      setSelectedImage(currentGalleryImages[index] ?? null);
-    } catch {
-      setError("Error al abrir la imagen.");
-    }
+
+  const currentGalleryImages = categoryMap[activeCategory] || [];
+
+  const openModal = (index: number) => {
+    setCurrentIndex(index);
+    setSelectedImage(currentGalleryImages[index] ?? null);
   };
 
-  const closeImage = () => setSelectedImage(null);
+  const closeImage = () => {
+    setSelectedImage(null);
+  };
 
   const navigateImage = (offset: number) => {
-    setIsModalTransitioning(true);
     const newIndex =
       (currentIndex + offset + currentGalleryImages.length) %
       currentGalleryImages.length;
-    setTimeout(() => {
-      setCurrentIndex(newIndex);
-      setSelectedImage(currentGalleryImages[newIndex] ?? null);
-      setIsModalTransitioning(false);
-    }, 500);
+    setCurrentIndex(newIndex);
+    setSelectedImage(currentGalleryImages[newIndex] ?? null);
   };
 
   const prevImage = () => navigateImage(-1);
   const nextImage = () => navigateImage(1);
 
-  const handleCategoryClick = (category: string) => {
-    setIsGalleryTransitioning(true);
-    setSelectedCategory(category);
-    setTimeout(() => setIsGalleryTransitioning(false), 500);
-  };
-
-  const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (event.target === modalContainerRef.current) closeImage();
-  };
-
-  useGalleryModalTouch({ prevImage, nextImage, modalContainerRef });
-
-  useEffect(() => {
-    const hash = location.hash;
-    if (hash) {
-      const element = document.querySelector(hash);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-    } else {
-      window.scrollTo(0, 0);
-    }
-  }, [location.hash]);
-
-  if (error) return <p className="error-message">{error}</p>;
 
   return (
-    <main
-      className={`min-h-screen`}
-      style={{ backgroundColor: colors.background, color: colors.text }}
-    >
+    <main>
+    <section id="gallery" 
+            className="px-1 py-12 md:px-24 md:py-24"
+    style={{ backgroundColor: colors.background, color: colors.text }}>
       <Helmet>
         <title>Galería de Maquillaje Profesional | Zoily Carrero MakeUp</title>
         <meta
@@ -97,33 +67,43 @@ export default function Gallery() {
         />
       </Helmet>
 
-      <section id="gallery" className="mx-auto py-16">
-        <GalleryTitle title={galleryTitle} className={HOME_LINKS_TITLE_CLASS} />
-        <GalleryCategoryMenu
-          {...{
-            galleryCategories,
-            selectedCategory,
-            handleCategoryClick,
-            theme,
-          }}
-        />
+      <GalleryTitle title={galleryTitle} className={HOME_LINKS_TITLE_CLASS} />
+
+      <GalleryCategoryMenu
+        categories={Object.keys(categoryMap)}
+        activeCategory={activeCategory}
+        onCategoryChange={(category) => {
+          setActiveCategory(category);
+          setTimeout(() => {
+            galleryRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 100); // delay breve para esperar el render
+        }}
+      />
+
+      <div ref={galleryRef}>
         <GalleryImageGrid
-          {...{ currentGalleryImages, openImage, isGalleryTransitioning }}
+          images={currentGalleryImages}
+          onImageClick={openModal}
         />
-        <GalleryModal
-          {...{
-            selectedImage,
-            closeImage,
-            prevImage,
-            nextImage,
-            isModalTransitioning,
-            handleModalClick,
-            modalContainerRef,
-            isMobileView,
-          }}
-        />
-      </section>
-      {isMobileView && <Footer3 />}
+      </div>
+
+      {selectedImage && (
+        <Suspense fallback={null}>
+          <GalleryModal
+            selectedImage={selectedImage}
+            closeImage={closeImage}
+            prevImage={prevImage}
+            nextImage={nextImage}
+            isModalTransitioning={isModalTransitioning}
+            modalContainerRef={modalContainerRef}
+            isMobileView={isMobileView}
+          />
+        </Suspense>
+      )}     
+    </section>
+    {isMobileView && <Footer3 />}
     </main>
   );
-}
+};
+
+export default Gallery;

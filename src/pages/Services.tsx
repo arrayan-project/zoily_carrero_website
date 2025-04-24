@@ -1,8 +1,5 @@
 // src/pages/Services.tsx
-import React, {
-  useState,
-  useEffect,
-} from "react";
+import React, {useState,useEffect} from "react";
 import { useLocation } from "react-router-dom";
 import { HOME_LINKS_TITLE_CLASS } from "../constants/styles";
 import { ServicesProps } from "../interfaces/interfaces";
@@ -10,6 +7,8 @@ import { getCoursesDescription } from "../data/coursesData";
 import { getServicesDescription } from "../data/servicesData";
 import { ErrorBoundary } from "react-error-boundary";
 import { useTheme } from "../components/context/useThemeHook";
+import { ModalProvider, useModal } from "../components/context/ModalContext";
+import { Helmet } from 'react-helmet-async';
 import Footer3 from "../components/common/Footer3";
 import useWindowSize from "../hooks/useWindowSize";
 import StatsSection from "../components/StatsSection";
@@ -22,9 +21,8 @@ import ServicesColumnSection from "../components/services&courses/ServicesColumn
 import ServicesCarouselSection from "../components/services&courses/ServicesCarouselSection";
 import CoursesColumnSection from "../components/services&courses/CourseColumnsSection";
 import CoursesCarouselSection from "../components/services&courses/CourseCarouselSection";
-import { ModalProvider, useModal } from "../components/context/ModalContext"; // Importamos ModalProvider y useModal
 import "../GlobalStyles.css";
-import { Helmet } from 'react-helmet-async';
+
 
 // Componente principal Services
 function Services({}: ServicesProps) {
@@ -71,12 +69,11 @@ function Services({}: ServicesProps) {
           className="min-h-screen flex flex-col"
           style={{ backgroundColor: colors.background, color: colors.text }}
         >
-
           <Helmet>
             <title>Servicios y Cursos de Maquillaje Profesional | Zoily Carrero</title>
             <meta
               name="description"
-              content="Descubre los servicios de maquillaje (novias, social) y cursos de automaquillaje ofrecidos por Zoily Carrero. ¡Transforma tu look o aprende nuevas técnicas!"
+              content="Descubre los servicios de maquillaje (novias, social, quinceañera, glam, basico, full, eventos, piel madura, señoras) y cursos de automaquillaje ofrecidos por Zoily Carrero. ¡Transforma tu look o aprende nuevas técnicas!"
             />
           </Helmet>
 

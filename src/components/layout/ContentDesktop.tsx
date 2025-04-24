@@ -1,6 +1,6 @@
 // src/components/layout/DesktopView.tsx
 import React, { useState, useEffect } from 'react';
-import MyRoutes from '../../Routes';
+import AppRoutes from "../../Routes";
 
 interface ContentDesktopProps {
   onSmoothScroll: (sectionId: string) => void;
@@ -8,8 +8,8 @@ interface ContentDesktopProps {
 
 }
 
-const ContentDesktop: React.FC<ContentDesktopProps> = ({ onSmoothScroll, isMobileView }: ContentDesktopProps) => {
-  const [error, setError] = useState<string | null>(null);
+const ContentDesktop: React.FC<ContentDesktopProps> = ({ isMobileView }: ContentDesktopProps) => {
+const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     try {
@@ -27,7 +27,7 @@ const ContentDesktop: React.FC<ContentDesktopProps> = ({ onSmoothScroll, isMobil
     );
   }
 
-  return <MyRoutes onSmoothScroll={onSmoothScroll} isMobileView={isMobileView}/>;
+  return <AppRoutes isMobileView={isMobileView}/>;
 };
 
 export default ContentDesktop;

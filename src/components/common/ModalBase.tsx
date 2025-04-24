@@ -6,9 +6,6 @@ Permite mostrar un título, un slider de imágenes, y dos pestañas de contenido
 
 import React, { useState, useRef, useEffect } from "react";
 import { useTheme } from "../context/useThemeHook";
-import Slider from "react-slick"; // Importa Slider desde react-slick
-import "slick-carousel/slick/slick.css"; // Importa los estilos de slick
-import "slick-carousel/slick/slick-theme.css"; // Importa los estilos del tema de slick
 import { getTextColorClass } from "../../utils/utils";
 
 interface ModalProps {
@@ -78,18 +75,6 @@ const Modal: React.FC<ModalProps> = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen, onClose]);
-
-  // Configuraciones del carrusel
-  const sliderSettings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    arrows: false,
-  };
 
   if (error) {
     console.error("Error en ModalBase:", error);
@@ -207,11 +192,9 @@ const Modal: React.FC<ModalProps> = ({
           )}
           {activeTab === "Imagenes" && (
             <div className="absolute top-0 left-0 w-full h-full tab-content-animation">
-              <Slider {...sliderSettings}>
                 {images.map((img, index) => (
                   <SlideComponent key={index} img={img} alt={title} />
                 ))}
-              </Slider>
             </div>
           )}
         </div>

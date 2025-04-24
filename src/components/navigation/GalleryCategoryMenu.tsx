@@ -1,47 +1,47 @@
-// GalleryCategoryMenu.tsx
-import React from 'react';
-import { Category } from '../../data/galleryData';
-import { getTextColorClass } from '../../utils/utils';
+import React from "react";
+import { useTheme } from "../context/useThemeHook";
 
 interface GalleryCategoryMenuProps {
-  galleryCategories: Category[];
-  selectedCategory: string;
-  handleCategoryClick: (categoryValue: string) => void;
-  theme: string;
+  categories: string[];
+  activeCategory: string;
+  onCategoryChange: (category: string) => void;
 }
 
 const GalleryCategoryMenu: React.FC<GalleryCategoryMenuProps> = ({
-  galleryCategories,
-  selectedCategory,
-  handleCategoryClick,
-  theme,
+  categories,
+  activeCategory,
+  onCategoryChange,
 }) => {
+  const { colors, theme } = useTheme();
+
   return (
     <div
-      className="flex md:justify-center justify-start space-x-4 mb-8 overflow-x-auto whitespace-nowrap px-12 text-xs font-light md:text-base md:font-normal"
-      style={{ maxWidth: "100%" }}
+      className="flex flex-nowrap md:justify-center justify-start space-x-4 mb-8 overflow-x-auto px-4 text-xs font-light md:text-base md:font-normal"
+      style={{ WebkitOverflowScrolling: "touch" }}
     >
-      {galleryCategories.map((category) => (
-        <button
-          key={category.value} // Usamos category.value como key
-          aria-label={`Seleccionar categoría ${category.name}`}
-          className={`px-4 py-2 rounded-full font-cinzel font-base whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50
-                          ${getTextColorClass(theme)}
-                          ${
-                            selectedCategory === category.value
-                              ? theme === "dark"
-                                ? "bg-pink-400"
-                                : "bg-pink-200"
-                              : theme === "dark"
-                              ? "bg-gray-700"
-                              : "bg-gray-100"
-                          }
-                        `}
-          onClick={() => handleCategoryClick(category.value)}
-        >
-          {category.name}
-        </button>
-      ))}
+      {categories.map((category) => {
+        const isActive = category === activeCategory;
+
+        return (
+          <button
+            key={category}
+            onClick={() => onCategoryChange(category)}
+            className={`px-4 py-2 rounded-full whitespace-nowrap border transition-colors duration-300 font-cinzel ${
+              isActive
+                ? "bg-pink-700 text-white border-pink-700"
+                : theme === "light"
+                ? "bg-white text-gray-800 border-gray-300 hover:bg-gray-100"
+                : "bg-gray-800 text-gray-100 border-gray-700 hover:bg-gray-700"
+            }`}
+            style={{
+              minWidth: "fit-content",
+              borderColor: isActive ? colors.accent : colors.border,
+            }}
+          >
+            {category}
+          </button>
+        );
+      })}
     </div>
   );
 };

@@ -12,7 +12,7 @@ const AboutMainContent: React.FC = () => {
   return (
     <div className="lg:flex lg:items-start lg:justify-between lg:gap-8 md:mt-24 flex-col-reverse lg:flex-row">
       <div className="lg:w-2/5 mb-8 lg:mb-0">
-        <RevealWrapper animationClass="fade-in-up">
+        <RevealWrapper animationClass="fade-in-up-animation">
           <ImageWithFallback
             src={images.zoilyblack}
             alt="Equipo trabajando"

@@ -1,7 +1,6 @@
 import images from '../../assets/images';
 import { useTheme } from "../../components/context/useThemeHook";
 import "../../GlobalStyles.css"
-import AnimationWrapper from "../common/AnimationLayer";
 import RevealWrapper from "../common/RevealWrapper";
 
 
@@ -37,7 +36,7 @@ const UGCBrandsAlliances = () => {
         </h2>
         </RevealWrapper>
         
-        <AnimationWrapper animationClassName="slide-in-left">
+        <RevealWrapper animationClass="slide-in-left">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6 md:gap-12 lg:gap-24 xl:gap-36 mx-auto">
           {brands.map((brand, index) => (
             <div key={index} className="flex items-center justify-center">
@@ -51,7 +50,7 @@ const UGCBrandsAlliances = () => {
             </div>
           ))}
         </div>
-        </AnimationWrapper>
+        </RevealWrapper>
       </div>
     </div>
   );
