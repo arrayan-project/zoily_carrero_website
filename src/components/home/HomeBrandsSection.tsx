@@ -54,7 +54,12 @@ const HomeBrandsSection: React.FC<HomeBrandsSectionProps> = ({ brands }) => {
             {/* Se duplican las marcas para efecto de desplazamiento infinito */}
             {[...brands, ...brands].map((brand, index) => (
               <div key={index} className="w-32 h-32 flex-shrink-0 flex items-center justify-center">
-                <SmoothImage src={brand.imageSrc} alt={brand.alt} className="max-w-full max-h-full object-contain" />
+                <SmoothImage 
+                  src={brand.imageSrc} 
+                  alt={brand.alt} 
+                  className="max-w-full max-h-full object-contain" 
+                  loading="lazy"
+                  />
               </div>
             ))}
           </div>

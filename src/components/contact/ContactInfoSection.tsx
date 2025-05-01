@@ -1,6 +1,6 @@
 // src/components/contact/ContactInfoSection.tsx
 import React from "react";
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { Mail, Phone, MapPin, Clock } from "../../assets/icons";
 import RevealWrapper from "../common/RevealWrapper";
 import { contactInfo } from "../../data/contactData";
 import { useTheme } from "../context/useThemeHook";
@@ -49,7 +49,7 @@ const ContactInfoSection: React.FC = () => {
                 : null,
             },
           ].map(
-            ({ icon, label, value }, index) =>
+            ({ icon, label, value }) =>
               value && (
                 <RevealWrapper animationClass="fade-in-text">
                   <div className="flex items-start space-x-4">

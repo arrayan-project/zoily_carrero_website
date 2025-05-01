@@ -3,7 +3,6 @@ import React from "react";
 import SmoothImage from "../smoothImages/SmoothImage";
 import { UGCLeftSectionProps } from "./UGCLeftSection";
 import UGCLeftSection from "./UGCLeftSection";
-import RevealWrapper  from "../common/RevealWrapper";
 
 interface UGCMainSectionProps {
   imageSrc: string;
@@ -23,6 +22,7 @@ const UGCMainSection: React.FC<UGCMainSectionProps> = ({
           src={imageSrc}
           alt="Imagen UGC"
           className="ugc-image h-full w-full object-cover block"
+          loading="lazy"
         />
       </div>
     </section>

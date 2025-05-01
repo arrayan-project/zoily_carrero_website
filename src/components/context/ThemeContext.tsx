@@ -80,20 +80,20 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       secondaryText: "#8B7355",        // Marrón medio (Contraste sobre #FFF: 5.61:1, sobre #FFE4E1: 4.53:1) - WCAG AA ¡Bien!
       accent: "#A05253",               // Palo de rosa oscuro (Contraste sobre #FFF: 4.53:1, sobre #FFE4E1: 3.66:1) - WCAG AA para texto grande. Para texto pequeño, considera usar 'text' o un color aún más oscuro si este se usa sobre 'section'.
       hover: "#F5E8E4",                // Fondo hover más claro (asegúrate que el texto sobre este tenga contraste)
-      border: "#E0D2C7",               // Borde sutil
+      border: "#C7A49E",               // Borde sutil
       bannerBackground: "#FFFFFF",     // Fondo banner blanco
       bannerTitle: "#A05253",          // Usar 'accent' para títulos de banner (asegúrate que el tamaño de fuente sea grande)
       bannerImageOverlay: "rgba(31, 41, 55, 0.4)", // Superposición imagen
     },
     dark: {
       // Revisar contraste del tema oscuro también es buena práctica
-      background: "#1A1A1A",           // Gris muy oscuro
+      background: "#151723",           // Gris muy oscuro
       text: "#EAE0D9",                 // Blanco hueso (Contraste sobre #1A1A1A: 14.01:1) - WCAG AAA
-      section: "#2B2B2B",              // Gris oscuro para secciones (Contraste #EAE0D9 sobre #2B2B2B: 10.78:1) - WCAG AAA
+      section: "#0E0F16",              // Gris oscuro para secciones (Contraste #EAE0D9 sobre #2B2B2B: 10.78:1) - WCAG AAA
       secondaryText: "#C7A49E",        // Rosa pálido (Contraste sobre #1A1A1A: 6.98:1) - WCAG AA
       accent: "#E4C9B8",               // Beige claro como acento (Contraste sobre #1A1A1A: 9.13:1) - WCAG AAA
       hover: "#3A3A3A",                // Gris medio para hover
-      border: "#4A4A4A",               // Borde oscuro
+      border: "#F5EAAA  ",               // Borde oscuro
       bannerBackground: "#2B2B2B",     // Fondo banner oscuro
       bannerTitle: "#E4C9B8",          // Usar 'accent' para títulos de banner
       bannerImageOverlay: "rgba(0, 0, 0, 0.5)", // Superposición imagen un poco más oscura

@@ -22,7 +22,7 @@ const ContactSocialMediaSection: React.FC = () => {
           { platform: "Pinterest", link: contactInfo?.socialMedia?.pinterest },
           { platform: "Facebook", link: contactInfo?.socialMedia?.facebook }
         ].map(
-          ({ platform, link }, index) =>
+          ({ platform, link }) =>
             link && (
               <RevealWrapper animationClass="fade-in-text">
                 <a href={link} target="_blank" rel="noopener noreferrer" className={`font-cinzel hover:text-pink-600 transition-colors`} style={{ backgroundColor: colors.background, color: colors.text }}>

@@ -1,6 +1,6 @@
 // src/data/servicesData.tsx
 import { ModalContent } from "../components/modals/ModalInterfaces"; // Importamos ModalContent
-import { Service, ServiceItem } from "../types/ServiceInterfaces"; // Importamos Service y ServiceItem
+import { Service} from "../types/ServiceInterfaces"; // Importamos Service y ServiceItem
 import images from "../assets/images"; // Importamos el objeto images
 
 // Funciones para las descripciones

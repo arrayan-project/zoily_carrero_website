@@ -1,6 +1,6 @@
 // src/MobileView.tsx
 import ThemeToggleButton from "./components/buttons/ThemeToggleButton";
-import LayoutMobile from "./components/layout/MobileFrame";
+import LayoutMobile from "./components/layout/LayoutMobile";
 import MyRoutes from "./Routes"; // Importa MyRoutes
 import Content from "./components/layout/PageSections"; // Importa PageSections
 import { useLocation } from 'react-router-dom'; // Importa useLocation

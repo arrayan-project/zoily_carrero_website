@@ -1,8 +1,7 @@
 // pages/Terms.tsx
 import { useTheme } from '../components/context/useThemeHook';
-import Footer3 from "../components/common/Footer3";
+import LazyFooter from "../components/common/LazyFooter";
 import useWindowSize from "../hooks/useWindowSize";
-import { Helmet } from 'react-helmet-async';
 
 const Terms = () => {
   const { colors } = useTheme();
@@ -10,13 +9,6 @@ const Terms = () => {
 
   return (
     <div style={{ backgroundColor: colors.background }}>
-      <Helmet>
-        <title>Términos y Condiciones | Zoily Carrero MakeUp</title>
-        <meta
-          name="description"
-          content="Revisa los Términos y Condiciones de los servicios de maquillaje y peinado de Zoily Carrero MakeUp. Información sobre reservas, pagos y condiciones."
-        />
-      </Helmet>
       
       <div className="max-w-3xl mx-auto p-6 text-base">
         <h1 className="text-2xl md:text-5xl font-cinzel mb-16 mt-24 md:mt-40 text-center" style={{ color: colors.accent }}>Términos y Condiciones del Servicio</h1>
@@ -70,7 +62,7 @@ const Terms = () => {
         </ul>
         <p className="mb-2 font-cinzel" style={{ color: colors.text }}>Agradecemos tu confianza y compromiso con estos términos. Nuestra prioridad es brindarte una experiencia profesional, puntual y de alta calidad.</p>
       </div>
-      {isMobileView && <Footer3 />}
+      {isMobileView && <LazyFooter />}
     </div>
   );
 };

@@ -1,7 +1,6 @@
 // src/data/coursesData.tsx
-import React from "react";
 import { ModalContent } from "../components/modals/ModalInterfaces"; // Importamos ModalContent
-import { Course, CourseItem } from "../types/CourseInterfaces"; // Importamos Course y CourseItem
+import { Course} from "../types/CourseInterfaces"; // Importamos Course y CourseItem
 import images from "../assets/images"; // Importamos el objeto images
 
 // Funciones para las descripciones

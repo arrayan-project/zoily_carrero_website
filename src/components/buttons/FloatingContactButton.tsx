@@ -1,6 +1,6 @@
 // FloatingContactButton.tsx
 import React, { useState } from 'react';
-import { Mail } from 'lucide-react';
+import { Mail } from "../../assets/icons";
 import './FloatingContactButton.css';
 
 interface FloatingContactButtonProps {

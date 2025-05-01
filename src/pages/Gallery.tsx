@@ -1,4 +1,4 @@
-import React, { useState, lazy, Suspense, useRef } from "react";
+import { useState, lazy, Suspense, useRef } from "react";
 import GalleryTitle from "../components/gallery/GalleryTitle";
 import GalleryCategoryMenu from "../components/navigation/GalleryCategoryMenu";
 import GalleryImageGrid from "../components/gallery/GalleryImageGrid";
@@ -7,7 +7,7 @@ import { HOME_LINKS_TITLE_CLASS } from "../constants/styles";
 import { galleryTitle } from "../data/galleryData";
 import { useTheme } from "../components/context/useThemeHook";
 import { Helmet } from "react-helmet-async";
-import Footer3 from "../components/common/Footer3";
+import LazyFooter from "../components/common/LazyFooter";
 
 const GalleryModal = lazy(() => import("../components/modals/GalleryModal"));
 
@@ -101,7 +101,7 @@ const Gallery = () => {
         </Suspense>
       )}     
     </section>
-    {isMobileView && <Footer3 />}
+    {isMobileView && <LazyFooter />}
     </main>
   );
 };

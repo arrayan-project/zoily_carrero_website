@@ -1,5 +1,5 @@
 // src/pages/Services.tsx
-import React, {useState,useEffect} from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { HOME_LINKS_TITLE_CLASS } from "../constants/styles";
 import { ServicesProps } from "../interfaces/interfaces";
@@ -8,8 +8,8 @@ import { getServicesDescription } from "../data/servicesData";
 import { ErrorBoundary } from "react-error-boundary";
 import { useTheme } from "../components/context/useThemeHook";
 import { ModalProvider, useModal } from "../components/context/ModalContext";
-import { Helmet } from 'react-helmet-async';
-import Footer3 from "../components/common/Footer3";
+import { Helmet } from "react-helmet-async";
+import LazyFooter from "../components/common/LazyFooter";
 import useWindowSize from "../hooks/useWindowSize";
 import StatsSection from "../components/StatsSection";
 import ModalContainer from "../components/modals/ModalRoot";
@@ -22,7 +22,6 @@ import ServicesCarouselSection from "../components/services&courses/ServicesCaro
 import CoursesColumnSection from "../components/services&courses/CourseColumnsSection";
 import CoursesCarouselSection from "../components/services&courses/CourseCarouselSection";
 import "../GlobalStyles.css";
-
 
 // Componente principal Services
 function Services({}: ServicesProps) {
@@ -70,7 +69,9 @@ function Services({}: ServicesProps) {
           style={{ backgroundColor: colors.background, color: colors.text }}
         >
           <Helmet>
-            <title>Servicios y Cursos de Maquillaje Profesional | Zoily Carrero</title>
+            <title>
+              Servicios y Cursos de Maquillaje Profesional | Zoily Carrero
+            </title>
             <meta
               name="description"
               content="Descubre los servicios de maquillaje (novias, social, quinceañera, glam, basico, full, eventos, piel madura, señoras) y cursos de automaquillaje ofrecidos por Zoily Carrero. ¡Transforma tu look o aprende nuevas técnicas!"
@@ -115,12 +116,12 @@ function Services({}: ServicesProps) {
               description={coursesDescription}
               className="mt-4 mb-16 md:mb-24 font-cinzel text-center"
             />
-            {!isMobileView && <CoursesCarouselSection />} {/* Usamos CoursesCarouselSection */}
-            {isMobileView && <CoursesColumnSection />} {/* Usamos CoursesPreviewSection */}
+            {!isMobileView && <CoursesCarouselSection />}
+            {isMobileView && <CoursesColumnSection />}
           </section>
 
           <ModalContentRender />
-          {isMobileView && <Footer3 />}
+          {isMobileView && <LazyFooter />}
         </main>
       </ModalProvider>
     </ErrorBoundary>

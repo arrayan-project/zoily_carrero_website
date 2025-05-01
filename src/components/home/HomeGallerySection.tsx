@@ -59,7 +59,11 @@ const HomeGallerySection: React.FC<HomeGallerySectionProps> = ({
                     <button
                       type="button"
                       onClick={handleViewMoreClick}
-                      className="bg-pink-700 text-white px-12 py-4 md:px-16 md:py-6 font-cinzel hover:bg-pink-900 transition-colors duration-300"
+                      className="bg-pink-700 text-white px-12 border rounded py-4 md:px-16 md:py-6 font-cinzel hover:bg-pink-900 transition-colors duration-300"
+                      style={{
+                        minWidth: "fit-content",
+                        borderColor: colors.border,
+                      }}
                     >
                       VER MÁS
                     </button>
@@ -77,6 +81,7 @@ const HomeGallerySection: React.FC<HomeGallerySectionProps> = ({
               alt={alt}
               className="w-full h-full object-cover rounded-base shadow-md transition-transform duration-500 ease-in-out hover:scale-110"
               disableInternalTransition={true}
+              loading="lazy"
             />
             </RevealWrapper>
           </div>

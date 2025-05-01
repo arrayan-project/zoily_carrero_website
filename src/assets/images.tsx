@@ -47,6 +47,7 @@ const images: Image = {
   express: "/img/services/social1.webp",
   express2: "/img/services/social7.webp",
   zoilyblack: "/img/zoilynegro.webp",
+  zoilyblackugc: "/img/zoilynegrougc.webp",
   ugc1: "/img/ugc/ugc1.webp",
   ugc2: "/img/ugc/ugc2.webp",
   ugc3: "/img/ugc/ugc3.webp",
@@ -62,6 +63,9 @@ const images: Image = {
   cintermedio: "/img/cursos/intermedio.webp",
   cavanzado: "/img/cursos/avanzado.webp",
   cprofesional: "/img/cursos/profesional.webp",
+  about1: "/img/about/about1.webp",
+  about2: "/img/about/about2.webp",
+  about3: "/img/about/about3.webp",
 };
 
 // ==============================================

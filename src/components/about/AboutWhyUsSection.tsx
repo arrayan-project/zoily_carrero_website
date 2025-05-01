@@ -1,6 +1,6 @@
 // src/components/about/AboutWhyUsSection.tsx
 import React from 'react';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle } from "../../assets/icons";
 import { whyUsPoints, aboutInfo } from '../../data/aboutData';
 import { useTheme } from '../context/useThemeHook';
 import RevealWrapper from '../common/RevealWrapper';

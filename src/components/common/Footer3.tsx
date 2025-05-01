@@ -1,6 +1,8 @@
-import { Github, Instagram, Linkedin, Twitter } from "lucide-react";
+import { lazy, Suspense } from "react";
 import { useTheme } from "../context/useThemeHook";
 import { Link } from "react-router-dom";
+import { Github, Instagram, Linkedin, Twitter } from "../../assets/icons";
+
 
 const Footer = () => {
   const { colors } = useTheme();
@@ -111,11 +113,13 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
+              <Suspense fallback={null}>
                 <Github
                   size={24}
                   strokeWidth={1.5}
                   className="text-white hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out"
                 />
+              </Suspense>
               </a>
               <a
                 href="URL_DE_TU_LINKEDIN"
@@ -123,11 +127,13 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
+                <Suspense fallback={null}>
                 <Linkedin
                   size={24}
                   strokeWidth={1.5}
                   className="text-white hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out"
                 />
+                </Suspense>
               </a>
               <a
                 href="URL_DE_TU_TWITTER"
@@ -135,11 +141,13 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
+                <Suspense fallback={null}>
                 <Twitter
                   size={24}
                   strokeWidth={1.5}
                   className="text-white hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out"
                 />
+                </Suspense>
               </a>
               <a
                 href="URL_DE_TU_INSTAGRAM"
@@ -147,11 +155,13 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
+                <Suspense fallback={null}>
                 <Instagram
                   size={24}
                   strokeWidth={1.5}
                   className="text-white hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out"
                 />
+                </Suspense>
               </a>
             </div>
           </div>

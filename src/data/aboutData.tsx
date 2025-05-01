@@ -11,15 +11,15 @@ export const whyUsPoints = [
 
 export const aboutImages = [
   {
-    src: images.equipoColaborando,
+    src: images.about1,
     alt: "Equipo colaborando",
   },
   {
-    src: images.reunionEquipo,
+    src: images.about2,
     alt: "Reunión de equipo",
   },
   {
-    src: images.espacioTrabajo,
+    src: images.about3,
     alt: "Espacio de trabajo",
   },
 ];

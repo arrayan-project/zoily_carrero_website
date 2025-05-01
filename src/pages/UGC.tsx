@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import images from "../assets/images";
-import Footer3 from "../components/common/Footer3";
+import LazyFooter from "../components/common/LazyFooter";
 import useWindowSize from "../hooks/useWindowSize";
 import UGCMainSection from "../components/ugc/UGCMainSection";
 import UGCContentTitleSection from "../components/ugc/UGCContentTitleSection";
@@ -109,7 +109,7 @@ const UGC: React.FC<UGCProps> = () => {
       <UGCMiddleBanner 
       text= "Me encanta colaborar con marcas que buscan destacar, construir confianza y dejar una impresión duradera en su comunidad."/>
 
-      {isMobileView && <Footer3 />}
+      {isMobileView && <LazyFooter />}
     </main>
   );
 };

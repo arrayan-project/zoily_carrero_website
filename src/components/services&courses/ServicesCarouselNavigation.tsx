@@ -1,6 +1,6 @@
 // ServicesCarouselNavigation.tsx
 import React from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from "../../assets/icons";
 
 interface CarouselNavigationProps {
   onNext: () => void;

@@ -10,6 +10,7 @@ interface SmoothImageProps {
   imageRef?: React.RefObject<HTMLImageElement>;
   isGridImage?: boolean;
   disableInternalTransition?: boolean;
+  loading?: "lazy" | "eager";
 }
 
 const SmoothImage: React.FC<SmoothImageProps> = ({
@@ -22,6 +23,7 @@ const SmoothImage: React.FC<SmoothImageProps> = ({
   imageRef,
   isGridImage = false,
   disableInternalTransition = false,
+  loading,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -59,10 +61,12 @@ const SmoothImage: React.FC<SmoothImageProps> = ({
       ref={currentImageRef}
       src={isError ? fallbackSrc : ""}
       alt={isError ? `Error loading ${alt}` : alt}
+      loading={loading ?? "eager"}
       className={`w-full h-full ${
         isGridImage ? "object-cover" : "object-contain"
       } ${transitionClasses} ${className}`}
       onClick={onClick}
+      
     />
   );
 };

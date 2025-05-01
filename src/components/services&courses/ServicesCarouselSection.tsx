@@ -1,32 +1,27 @@
 // ServicesCarouselSection.tsx
-import React, { useRef, useEffect } from 'react';
-import ServicesCarouselNavigation from './ServicesCarouselNavigation';
-import ServicesContent from './ServicesCarouselContent';
-import { servicesData } from '../../data/servicesData';
-import { useModal } from '../context/ModalContext';
-import './ServicesCarousel.css';
+import React, { useRef} from "react";
+import ServicesCarouselNavigation from "./ServicesCarouselNavigation";
+import ServicesContent from "./ServicesCarouselContent";
+import { servicesData } from "../../data/servicesData";
+import { useModal } from "../context/ModalContext";
+import "./ServicesCarousel.css";
 import useWindowSize from "../../hooks/useWindowSize";
 import RevealWrapper from "../common/RevealWrapper";
-
 
 const ServicesCarouselSection: React.FC = () => {
   const slideRef = useRef<HTMLDivElement>(null);
   const { openModal } = useModal();
-  const { windowWidth, isMobileView } = useWindowSize();
-
-  useEffect(() => {
-    const slide = slideRef.current!;
-  }, []);
+  const { isMobileView } = useWindowSize();
 
   const handleNext = () => {
     const slide = slideRef.current!;
-    const items = slide.querySelectorAll<HTMLDivElement>('.item');
+    const items = slide.querySelectorAll<HTMLDivElement>(".item");
     if (items.length) slide.appendChild(items[0]);
   };
 
   const handlePrev = () => {
     const slide = slideRef.current!;
-    const items = slide.querySelectorAll<HTMLDivElement>('.item');
+    const items = slide.querySelectorAll<HTMLDivElement>(".item");
     if (items.length) slide.prepend(items[items.length - 1]);
   };
 
@@ -37,7 +32,7 @@ const ServicesCarouselSection: React.FC = () => {
         className="relative w-full h-[85vh] my-8 mx-auto overflow-visible rounded-[20px]"
       >
         <div className="slide relative w-full h-full" ref={slideRef}>
-          {servicesData.map(item => (
+          {servicesData.map((item) => (
             <div
               key={item.category}
               className="item absolute w-[200px] h-[300px] top-1/2 -translate-y-1/2 rounded-[20px] bg-center bg-cover bg-no-repeat inline-block"
@@ -62,11 +57,18 @@ const ServicesCarouselSection: React.FC = () => {
             </div>
           ))}
         </div>
-  
-        <ServicesCarouselNavigation
-          onNext={handleNext}
-          onPrev={handlePrev}
-        />
+        <div className="sr-only" aria-hidden="true">
+          {servicesData.map((item) => (
+            <img
+              key={item.category}
+              src={item.modalContent.images[0]}
+              alt=""
+              loading="lazy"
+            />
+          ))}
+        </div>
+
+        <ServicesCarouselNavigation onNext={handleNext} onPrev={handlePrev} />
       </div>
     </RevealWrapper>
   );

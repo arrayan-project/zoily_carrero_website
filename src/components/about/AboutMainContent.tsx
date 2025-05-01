@@ -18,6 +18,7 @@ const AboutMainContent: React.FC = () => {
             alt="Equipo trabajando"
             fallbackSrc="/img/default-image.png"
             className="rounded-lg shadow-xl object-cover aspect-[3/4] w-full"
+            loading="lazy"
           />
         </RevealWrapper>
       </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut } from "../../assets/icons";
 
 interface GalleryModalProps {
   selectedImage: string;
@@ -168,6 +168,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
           id="modal-image"
           src={displayedImage}
           alt="Imagen seleccionada de galería"
+          loading="lazy"
           key={displayedImage}
           className={`object-contain h-auto max-h-[90vh] w-auto max-w-[95vw] transition-transform duration-300 modal-image-fade ${
             isImageVisible ? "visible" : ""

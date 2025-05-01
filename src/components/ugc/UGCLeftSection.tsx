@@ -5,8 +5,8 @@ import {
   Instagram,
   Facebook,
   MessageSquare,
-  Pointer as Pinterest,
-} from "lucide-react";
+  Pointer,
+} from "../../assets/icons";
 import RevealWrapper from "../common/RevealWrapper";
 
 export interface UGCLeftSectionProps {
@@ -33,7 +33,7 @@ const UGCLeftSection: React.FC<UGCLeftSectionProps> = ({ username }) => {
               icons={[
                 { icon: Instagram, href: "#" },
                 { icon: Facebook, href: "#" },
-                { icon: Pinterest, href: "#" },
+                { icon: Pointer, href: "#" },
                 { icon: MessageSquare, href: "#" },
               ]}
               className="ugc-social-icons flex gap-3 lg:mb-10 md:mb-20 mb-5 justify-center items-center"

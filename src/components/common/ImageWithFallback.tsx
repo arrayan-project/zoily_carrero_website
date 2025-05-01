@@ -6,6 +6,7 @@ interface ImageWithFallbackProps {
   alt: string;
   fallbackSrc: string;
   className?: string;
+  loading?: "lazy" | "eager";
 }
 
 const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
@@ -13,6 +14,7 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
   alt,
   fallbackSrc,
   className,
+  loading,
 }) => {
   const [isError, setIsError] = useState(false);
 
@@ -22,6 +24,7 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
       alt={isError ? "Imagen no disponible" : alt}
       className={className}
       onError={() => setIsError(true)}
+      loading={loading ?? "eager"}
     />
   );
 };

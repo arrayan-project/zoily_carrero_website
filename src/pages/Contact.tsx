@@ -5,7 +5,7 @@ import "../GlobalStyles.css";
 import ContactForm from "../components/forms/ContactUsForm";
 import useWindowSize from "../hooks/useWindowSize";
 import { useLocation } from "react-router-dom";
-import Footer3 from "../components/common/Footer3";
+import LazyFooter from "../components/common/LazyFooter";
 import ContactInfoSection from "../components/contact/ContactInfoSection";
 import ContactSocialMediaSection from "../components/contact/ContactSocialMediaSection";
 import ContactMainTitle from "../components/contact/ContactMainTitle";
@@ -17,6 +17,8 @@ function Contact({}: ContactProps) {
   const { colors } = useTheme();
   const { isMobileView } = useWindowSize();
   const location = useLocation();
+  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
+
 
   useEffect(() => {
     const hash = location.hash;
@@ -35,6 +37,7 @@ function Contact({}: ContactProps) {
       className={`min-h-screen`} 
       style={{ backgroundColor: colors.background, color: colors.text }}
     >
+       {!isMobile && (
       <Helmet>
         <title>Contacta con Zoily Carrero MakeUp | Maquillaje Profesional</title>
         <meta
@@ -42,6 +45,7 @@ function Contact({}: ContactProps) {
           content="¿Lista para tu transformación? Contacta con Zoily Carrero MakeUp para agendar tu cita de maquillaje profesional, cursos o colaboraciones UGC. ¡Hablemos!"
         />
       </Helmet>
+      )}
       <section id="contact" className="max-w-6xl mx-auto px-4 py-16 md:py-24">
         <ContactMainTitle />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -55,7 +59,7 @@ function Contact({}: ContactProps) {
           </section>
         </div>
       </section>
-      {isMobileView && <Footer3 />}
+      {isMobileView && <LazyFooter />}
     </div>
   );
 }

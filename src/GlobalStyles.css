@@ -150,7 +150,7 @@
   /* Solo opacidad */
   .fade-in-animation {
     opacity: 0;
-    transition: opacity 3s ease-out;
+    transition: opacity 0.3s ease-out;
   }
   .fade-in-animation.visible {
     opacity: 1;

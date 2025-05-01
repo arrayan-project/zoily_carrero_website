@@ -27,6 +27,7 @@ const HomeFeaturesSection: React.FC<HomeFeaturesSectionProps> = ({ imageSrc, alt
                   alt={alt} 
                   className="w-full h-full object-cover rounded-base shadow-md transition-transform duration-500 ease-in-out hover:scale-110"
                   disableInternalTransition={true}
+                  loading="lazy"
                 />
               </RevealWrapper>
             </div>

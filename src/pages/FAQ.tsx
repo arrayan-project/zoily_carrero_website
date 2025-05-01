@@ -1,8 +1,7 @@
 // pages/FAQ.tsx
 import { useTheme } from '../components/context/useThemeHook';
-import Footer3 from "../components/common/Footer3";
+import LazyFooter from "../components/common/LazyFooter";
 import useWindowSize from "../hooks/useWindowSize";
-import { Helmet } from 'react-helmet-async';
 
 const FAQ = () => {
   const { colors } = useTheme();
@@ -11,14 +10,6 @@ const FAQ = () => {
   return (
     <div style={{ backgroundColor: colors.background }}>
 
-      <Helmet>
-        <title>Preguntas Frecuentes (FAQ) | Zoily Carrero MakeUp</title>
-        <meta
-          name="description"
-          content="¿Tienes dudas sobre nuestros servicios de maquillaje? Encuentra respuestas rápidas en nuestras Preguntas Frecuentes (FAQ). Reservas, pagos, servicios y más."
-        />
-      </Helmet>
-      
       <div className="max-w-3xl mx-auto p-6 text-base">
         <h1 className="text-2xl md:text-5xl font-cinzel mb-16 mt-24 md:mt-40 text-center" style={{ color: colors.accent }}>Preguntas Frecuentes (FAQ)</h1>
 
@@ -72,7 +63,7 @@ const FAQ = () => {
           <p className="text-sm font-cinzel" style={{ color: colors.text }}>Las pruebas se realizan en días de semana y en el estudio. Se requiere puntualidad y llegar sin maquillaje en el rostro. También es útil traer referencias visuales del estilo que buscas.</p>
         </div>      
       </div>
-      {isMobileView && <Footer3 />}
+      {isMobileView && <LazyFooter />}
     </div>
   );
 };

@@ -17,12 +17,14 @@ interface ModalProps {
   termsContent: React.ReactNode;
   description?: string;
   children?: React.ReactNode;
+  loading?: "lazy" | "eager";
 }
 
 // Define SlideComponent directamente aquí, ya que no se importa de otro archivo
 interface SlideComponentProps {
   img: string;
   alt: string;
+  loading?: "lazy" | "eager";
 }
 
 const SlideComponent: React.FC<SlideComponentProps> = ({ img, alt }) => {
@@ -32,6 +34,7 @@ const SlideComponent: React.FC<SlideComponentProps> = ({ img, alt }) => {
         src={img}
         alt={alt}
         className="w-full h-full object-cover object-center"
+        loading="lazy"
       />
     </div>
   );
@@ -146,7 +149,7 @@ const Modal: React.FC<ModalProps> = ({
 
         {/* Tab Navigation */}
         <div
-          className={`flex mb-4 mt-12 w-full ${
+          className={`flex mb-12 mt-12 w-full ${
             theme === "dark"
               ? "bg-gray-400 bg-opacity-50"
               : "bg-gray-100 bg-opacity-50"
@@ -179,7 +182,7 @@ const Modal: React.FC<ModalProps> = ({
         </div>
 
         {/* Tab Content */}
-        <div className="relative h-96">
+        <div className="relative h-96 mb-12">
           {activeTab === "Informacion" && (
             <div className="absolute top-0 left-0 w-full h-full tab-content-animation">
               {infoContent}
@@ -193,7 +196,12 @@ const Modal: React.FC<ModalProps> = ({
           {activeTab === "Imagenes" && (
             <div className="absolute top-0 left-0 w-full h-full tab-content-animation">
                 {images.map((img, index) => (
-                  <SlideComponent key={index} img={img} alt={title} />
+                  <SlideComponent 
+                  key={index} 
+                  img={img} 
+                  alt={title} 
+                  loading="lazy"
+                  />
                 ))}
             </div>
           )}

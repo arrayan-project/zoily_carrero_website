@@ -1,7 +1,7 @@
 // StatsSection.tsx
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { PersonStanding, Brush, Handshake } from "lucide-react";
+import { PersonStanding, Brush, Handshake } from "../assets/icons";
 import images from '../assets/images';
 
 // Componente de contador animado
@@ -126,6 +126,7 @@ const StatsSection = () => {
           src={images.zoilyblack}
           alt="Fondo de estadísticas"
           className="w-full h-full object-cover opacity-20 md:object-[50%_25%]"
+          loading="lazy"
         />
       </div>
 

@@ -6,6 +6,7 @@ import { MOBILE_BREAKPOINT } from './constants/constants';
 import './GlobalStyles.css';
 import { HelmetProvider } from 'react-helmet-async';
 import ScrollToTop from './utils/ScrollToTop';
+import LazyFooter from "./components/common/LazyFooter"
 
 // Lazy-loaded components
 const Navigation = lazy(() => import('./components/navigation/NavBarMenu'));
@@ -15,7 +16,6 @@ const ContentDesktop = lazy(() => import('./components/layout/ContentDesktop'));
 const LandingPageMobile = lazy(() => import('./LandingPageMobile'));
 const ThemeToggleButton = lazy(() => import('./components/buttons/ThemeToggleButton'));
 const ScrollToTopButton = lazy(() => import('./components/buttons/ScrollTopButton'));
-const Footer3 = lazy(() => import('./components/common/Footer3'));
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -78,23 +78,30 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen, i
   const [hasEvaluatedViewport, setHasEvaluatedViewport] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-    window.addEventListener('resize', handleResize);
+    const init = () => {
+      const handleResize = () => setWindowWidth(window.innerWidth);
 
-    if (theme === 'dark') {
-      document.body.classList.add('dark-mode');
+      window.addEventListener('resize', handleResize);
+
+      if (theme === 'dark') {
+        document.body.classList.add('dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+      }
+
+      setHasEvaluatedViewport(true);
+
+      return () => {
+        window.removeEventListener('resize', handleResize);
+        document.body.classList.remove('dark-mode');
+      };
+    };
+
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(init);
     } else {
-      document.body.classList.remove('dark-mode');
+      setTimeout(init, 1);
     }
-
-    setHasEvaluatedViewport(true);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      document.body.classList.remove('dark-mode');
-    };
-    
   }, [theme]);
 
   useEffect(() => {
@@ -107,27 +114,36 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen, i
 
   useEffect(() => {
     if (!isMobileView) {
-      const timer = setTimeout(() => {
-        import("./pages/Services");
-        import("./pages/Gallery");
-        import("./pages/UGC");
-      }, 2000);
-      return () => clearTimeout(timer);
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => {
+          import("./pages/Services");
+          import("./pages/Gallery");
+          import("./pages/UGC");
+        });
+      } else {
+        setTimeout(() => {
+          import("./pages/Services");
+          import("./pages/Gallery");
+          import("./pages/UGC");
+        }, 1);
+      }
     }
   }, [isMobileView]);
 
   useEffect(() => {
-    const scrollTarget = sessionStorage.getItem("scrollToSection");
-    if (isMobileView && location.pathname === "/" && scrollTarget) {
-      const interval = setInterval(() => {
-        const el = document.getElementById(scrollTarget);
-        if (el) {
-          el.scrollIntoView({ behavior: "smooth" });
-          sessionStorage.removeItem("scrollToSection");
-          clearInterval(interval);
-        }
-      }, 100);
-      setTimeout(() => clearInterval(interval), 3000); // failsafe
+    if (isMobileView && location.pathname === "/") {
+      const scrollTarget = sessionStorage.getItem("scrollToSection");
+      if (scrollTarget) {
+        const interval = setInterval(() => {
+          const el = document.getElementById(scrollTarget);
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth" });
+            sessionStorage.removeItem("scrollToSection");
+            clearInterval(interval);
+          }
+        }, 100);
+        setTimeout(() => clearInterval(interval), 3000); // failsafe
+      }
     }
   }, [location.pathname, isMobileView]);
 
@@ -183,7 +199,7 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen, i
           <ContentDesktop 
             onSmoothScroll={handleSmoothScroll} 
             isMobileView={isMobileView} />
-          {showHeaderAndFooter && <Footer3 />}
+          {showHeaderAndFooter && <LazyFooter />}
         </div>
       )}
     </div>

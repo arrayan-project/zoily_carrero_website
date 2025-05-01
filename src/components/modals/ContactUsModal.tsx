@@ -1,6 +1,6 @@
 // src/components/modals/ContactUsModal.tsx
 import React, { useEffect, useRef, useState } from 'react';
-import { X } from 'lucide-react';
+import { X } from "../../assets/icons";
 import ContactForm from '../forms/ContactUsForm';
 import { useTheme } from '../context/useThemeHook';
 import { getTextColorClass } from "../../utils/utils";

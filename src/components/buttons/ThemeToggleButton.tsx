@@ -7,7 +7,7 @@
 
 import { useState, useEffect } from 'react';
 import { useTheme } from '../context/useThemeHook';
-import { Sun, Moon } from "lucide-react";
+import { Sun, Moon } from "../../assets/icons";
 
 interface ThemeToggleButtonProps {
   className?: string;

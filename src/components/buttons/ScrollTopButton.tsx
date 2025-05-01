@@ -31,9 +31,17 @@ const ScrollToTopButton = () => {
       const scrollTop = window.pageYOffset;
       setIsVisible(scrollTop > 300);
     }, 250);
-
-    window.addEventListener('scroll', handleScroll);
-
+  
+    const setupScrollListener = () => {
+      window.addEventListener('scroll', handleScroll);
+    };
+  
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(setupScrollListener);
+    } else {
+      setTimeout(setupScrollListener, 1);
+    }
+  
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };

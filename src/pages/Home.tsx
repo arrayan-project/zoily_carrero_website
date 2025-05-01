@@ -12,7 +12,7 @@ import ScrollDownArrow from "../components/common/ScrollDownArrow";
 import RevealWrapper from "../components/common/RevealWrapper";
 import HomeGallerySection from "../components/home/HomeGallerySection";
 import { useTheme } from "../components/context/useThemeHook";
-import Footer3 from "../components/common/Footer3";
+import LazyFooter from "../components/common/LazyFooter";
 import { Helmet } from 'react-helmet-async'; // <--- 1. Importa Helmet
 
 
@@ -25,8 +25,6 @@ const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => {
   const [, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
   const { colors } = useTheme();
-  
-
 
   useEffect(() => {
     const handleResize = () => {
@@ -65,6 +63,8 @@ const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => {
           content="Descubre el arte del maquillaje profesional con Zoily Carrero. Ofrecemos servicios personalizados, cursos de automaquillaje y contenido UGC. ¡Agenda tu cita!"
         />
     </Helmet>
+
+
       <div className="relative mb-10 md:mb-24">
         <BackgroundSliderHome />
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center w-full">
@@ -123,7 +123,7 @@ const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => {
       />
 
       {!isMobileView && (
-        <Footer3 />
+        <LazyFooter />
        )}
     </div>
   );

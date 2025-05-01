@@ -20,9 +20,9 @@ const GalleryImageGrid: React.FC<GalleryImageGridProps> = ({ images, onImageClic
   }, [images]);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 mt-10 mb-10 px-1">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-1 mt-10 mb-10 px-1">
       {mountedImages.map((src, index) => (
-        <div key={index} className="overflow-hidden w-full h-[700px]">
+        <div key={index} className="overflow-hidden aspect-[3/4]">
           <img
             src={src}
             alt={`Imagen ${index + 1}`}

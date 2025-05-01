@@ -1,9 +1,22 @@
+// Updated src/components/layout/PageSections.tsx
 import React, { lazy, Suspense } from "react";
+import HomeSkeleton from "../../components/skeletons/HomeSkeleton";
+import StoreSkeleton from "../../components/skeletons/StoreSkeleton";
+import AboutSkeleton from "../../components/skeletons/AboutSkeleton";
+import ContactSkeleton from "../../components/skeletons/ContactSkeleton";
 
 const Home = lazy(() => import("../../pages/Home"));
 const Store = lazy(() => import("../../pages/Store"));
 const About = lazy(() => import("../../pages/About"));
 const Contact = lazy(() => import("../../pages/Contact"));
+
+// Define min-height placeholders for each section to reserve space
+const placeholderHeights: Record<string, string> = {
+  home: '100vh',
+  store: '80vh',
+  about: '70vh',
+  contact: '60vh',
+};
 
 interface PageSectionsProps {
   onSmoothScroll: (id: string) => void;
@@ -13,29 +26,41 @@ interface PageSectionsProps {
 const PageSections: React.FC<PageSectionsProps> = ({ onSmoothScroll, isMobileView }) => {
   return (
     <main>
-      <Suspense fallback={<div className="text-pink-500 animate-pulse">Cargando Inicio...</div>}>
-        <section id="home">
+      <section
+        id="home"
+        style={{ minHeight: placeholderHeights.home }}
+      >
+        <Suspense fallback={<HomeSkeleton />}>  
           <Home onSmoothScroll={onSmoothScroll} isMobileView={isMobileView} />
-        </section>
-      </Suspense>
+        </Suspense>
+      </section>
 
-      <Suspense fallback={<div className="text-pink-500 animate-pulse">Cargando Tienda...</div>}>
-        <section id="store">
+      <section
+        id="store"
+        style={{ minHeight: placeholderHeights.store }}
+      >
+        <Suspense fallback={<StoreSkeleton />}>  
           <Store />
-        </section>
-      </Suspense>
+        </Suspense>
+      </section>
 
-      <Suspense fallback={<div className="text-pink-500 animate-pulse">Cargando Acerca de...</div>}>
-        <section id="about">
+      <section
+        id="about"
+        style={{ minHeight: placeholderHeights.about }}
+      >
+        <Suspense fallback={<AboutSkeleton />}>  
           <About />
-        </section>
-      </Suspense>
+        </Suspense>
+      </section>
 
-      <Suspense fallback={<div className="text-pink-500 animate-pulse">Cargando Contacto...</div>}>
-        <section id="contact">
+      <section
+        id="contact"
+        style={{ minHeight: placeholderHeights.contact }}
+      >
+        <Suspense fallback={<ContactSkeleton />}>  
           <Contact />
-        </section>
-      </Suspense>
+        </Suspense>
+      </section>
     </main>
   );
 };

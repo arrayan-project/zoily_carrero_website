@@ -1,0 +1,26 @@
+// src/assets/icons.ts
+export {
+    PersonStanding, 
+    Brush, 
+    Handshake,
+    CheckCircle,
+    Mail,
+    Sun, 
+    Moon,
+    X,
+    Github, 
+    Instagram, 
+    Linkedin, 
+    Twitter, 
+    Phone, 
+    MapPin, 
+    Clock,
+    ChevronLeft, 
+    ChevronRight, 
+    ZoomIn, 
+    ZoomOut,
+    Facebook,
+    MessageSquare,
+    Pointer,
+  } from "lucide-react";
+  

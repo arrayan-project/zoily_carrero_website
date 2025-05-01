@@ -1,5 +1,5 @@
 import React from "react";
-import { X } from "lucide-react";
+import { X } from "../../assets/icons";
 import { useTheme } from "../context/useThemeHook"; // Importamos el hook de tema
 
 interface CloseButtonProps {

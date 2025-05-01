@@ -1,9 +1,8 @@
-import React, { useState, useRef, lazy, Suspense } from "react";
+// ContactUsForm.tsx
+import React, { useState, useRef } from "react";
 import FormInput from "./ContactUsFormInput";
-import RevealWrapper  from "../common/RevealWrapper";
-
-// Lazy load de reCAPTCHA
-const ReCAPTCHA = lazy(() => import("react-google-recaptcha"));
+import RevealWrapper from "../common/RevealWrapper";
+import ReCAPTCHA from "react-google-recaptcha";
 
 interface FormData {
   name: string;
@@ -27,9 +26,39 @@ const ContactForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [submitMessage, setSubmitMessage] = useState<string>("");
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const [isRecaptchaLoaded, setIsRecaptchaLoaded] = useState<boolean>(false);
+  const [scriptInjected, setScriptInjected] = useState<boolean>(false);
   const recaptchaRef = useRef<any>(null);
 
   const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+
+  const loadRecaptchaScript = () => {
+    if (scriptInjected) return;
+
+    if (window.grecaptcha) {
+      console.log("✅ reCAPTCHA ya estaba cacheado");
+      setIsRecaptchaLoaded(true);
+      setScriptInjected(true);
+      return;
+    }
+
+    const existingScript = document.querySelector('script[src^="https://www.google.com/recaptcha/api.js"]');
+    if (!existingScript) {
+      const script = document.createElement("script");
+      script.src = "https://www.google.com/recaptcha/api.js?render=explicit";
+      script.async = true;
+      script.defer = true;
+      script.onload = () => {
+        console.log("✅ reCAPTCHA script cargado dinámicamente");
+        setIsRecaptchaLoaded(true);
+      };
+      document.body.appendChild(script);
+    } else {
+      console.log("✅ reCAPTCHA script ya estaba cargado (otra instancia)");
+      setIsRecaptchaLoaded(true);
+    }
+    setScriptInjected(true);
+  };
 
   const handleChange = (id: string, value: string) => {
     const fieldName = id as keyof FormData;
@@ -44,6 +73,10 @@ const ContactForm: React.FC = () => {
     }
 
     if (submitMessage) setSubmitMessage("");
+
+    if (!isRecaptchaLoaded) {
+      loadRecaptchaScript();
+    }
   };
 
   const handleRecaptchaChange = (token: string | null) => {
@@ -108,77 +141,81 @@ const ContactForm: React.FC = () => {
 
   return (
     <RevealWrapper animationClass="fade-in-animation">
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <FormInput
-        type="text"
-        id="name"
-        label="Nombre"
-        value={formData.name}
-        onChange={handleChange}
-        error={formErrors.name}
-      />
-      <FormInput
-        type="email"
-        id="email"
-        label="Email"
-        value={formData.email}
-        onChange={handleChange}
-        error={formErrors.email}
-      />
-      <FormInput
-        type="text"
-        id="subject"
-        label="Tema"
-        value={formData.subject}
-        onChange={handleChange}
-        error={formErrors.subject}
-      />
-      <FormInput
-        type="textarea"
-        id="message"
-        label="Mensaje"
-        rows={4}
-        value={formData.message}
-        onChange={handleChange}
-        error={formErrors.message}
-      />
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <FormInput
+          type="text"
+          id="name"
+          label="Nombre"
+          value={formData.name}
+          onChange={handleChange}
+          error={formErrors.name}
+        />
+        <FormInput
+          type="email"
+          id="email"
+          label="Email"
+          value={formData.email}
+          onChange={handleChange}
+          error={formErrors.email}
+        />
+        <FormInput
+          type="text"
+          id="subject"
+          label="Tema"
+          value={formData.subject}
+          onChange={handleChange}
+          error={formErrors.subject}
+        />
+        <FormInput
+          type="textarea"
+          id="message"
+          label="Mensaje"
+          rows={4}
+          value={formData.message}
+          onChange={handleChange}
+          error={formErrors.message}
+        />
 
-      <div className="flex justify-center my-4">
-        <Suspense fallback={<p>Cargando reCAPTCHA...</p>}>
-          <ReCAPTCHA
-            ref={recaptchaRef}
-            sitekey={RECAPTCHA_SITE_KEY}
-            onChange={handleRecaptchaChange}
-          />
-        </Suspense>
-      </div>
+        <div className="flex justify-center items-center my-4 min-h-[78px]">
+          {isRecaptchaLoaded ? (
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey={RECAPTCHA_SITE_KEY}
+              onChange={handleRecaptchaChange}
+            />
+          ) : (
+            <div className="relative w-8 h-8">
+              <div className="absolute w-full h-full border-4 border-pink-600 border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          )}
+        </div>
 
-      {formErrors.recaptcha && (
-        <p className="text-red-500 text-sm text-center -mt-2 mb-4">
-          {formErrors.recaptcha}
-        </p>
-      )}
+        {formErrors.recaptcha && (
+          <p className="text-red-500 text-sm text-center -mt-2 mb-4">
+            {formErrors.recaptcha}
+          </p>
+        )}
 
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className={`w-full px-6 py-3 ${buttonColor} text-white rounded-lg hover:bg-pink-700 transition-colors font-cinzel tracking-wider ${
-          isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-        }`}
-      >
-        {isSubmitting ? "Enviando..." : "ENVIAR MENSAJE"}
-      </button>
-
-      {submitMessage && (
-        <p
-          className={`text-sm text-center mt-4 ${
-            submitMessage.includes("error") ? "text-red-500" : "text-green-600"
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className={`w-full px-6 py-3 ${buttonColor} text-white rounded-lg hover:bg-pink-700 transition-colors font-cinzel tracking-wider ${
+            isSubmitting ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >
-          {submitMessage}
-        </p>
-      )}
-    </form>
+          {isSubmitting ? "Enviando..." : "ENVIAR MENSAJE"}
+        </button>
+
+        {submitMessage && (
+          <p
+            className={`text-sm text-center mt-4 ${
+              submitMessage.includes("error") ? "text-red-500" : "text-green-600"
+            }`}
+          >
+            {submitMessage}
+          </p>
+        )}
+      </form>
     </RevealWrapper>
   );
 };

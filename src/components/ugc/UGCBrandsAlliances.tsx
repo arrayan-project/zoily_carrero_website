@@ -44,6 +44,7 @@ const UGCBrandsAlliances = () => {
                 <img
                   src={brand.logo}
                   alt={brand.name}
+                  loading="lazy"
                   className="max-h-full max-w-full rounded-full object-contain"
                 />
               </div>
