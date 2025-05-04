@@ -1,5 +1,5 @@
 // FloatingContactButton.tsx
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Mail } from "../../assets/icons";
 import './FloatingContactButton.css';
 
@@ -10,18 +10,21 @@ interface FloatingContactButtonProps {
 const FloatingContactButton: React.FC<FloatingContactButtonProps> = ({ onClick }) => {
   const [error, setError] = useState<string | null>(null);
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     try {
       onClick();
     } catch (err) {
-      setError("Error al intentar abrir el modal de contacto.");
-      console.error("Error en FloatingContactButton:", err);
+      console.error('FloatingContactButton error:', err);
+      setError('No se pudo abrir el contacto.');
     }
-  };
+  }, [onClick]);
 
   if (error) {
     return (
-      <div className="fixed inset-0 flex justify-center items-center bg-red-500 text-white z-[1100]">
+      <div
+        role="alert"
+        className="fixed inset-0 flex items-center justify-center bg-red-600 text-white z-[1100] p-4"
+      >
         <p>{error}</p>
       </div>
     );

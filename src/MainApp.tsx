@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, useLocation, useNavigate } from 'react-router-dom';
 import { ThemeProvider } from './components/context/themeContext';
 import { useTheme } from './components/context/useThemeHook';
-import { MOBILE_BREAKPOINT } from './constants/constants';
+import { MOBILE_BREAKPOINT } from './constants/breakpoints';
 import './GlobalStyles.css';
 import { HelmetProvider } from 'react-helmet-async';
 import ScrollToTop from './utils/ScrollToTop';
@@ -119,12 +119,14 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen, i
           import("./pages/Services");
           import("./pages/Gallery");
           import("./pages/UGC");
+          import("./pages/Store");
         });
       } else {
         setTimeout(() => {
           import("./pages/Services");
           import("./pages/Gallery");
           import("./pages/UGC");
+          import("./pages/Store");
         }, 1);
       }
     }
@@ -148,7 +150,7 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen, i
   }, [location.pathname, isMobileView]);
 
   useEffect(() => {
-    const landingSections = ["/store", "/about", "/contact"];
+    const landingSections = ["/about", "/contact"];
     const pathname = location.pathname;
   
     if (hasEvaluatedViewport && isMobileView && landingSections.includes(pathname)) {
@@ -163,7 +165,7 @@ function MainContent({ handleSmoothScroll, openModal, closeModal, isModalOpen, i
       <FloatingContactButton onClick={openModal} />
       <ContactModal isOpen={isModalOpen} onClose={closeModal} />
       {!isMobileView &&
-        ["/", "/services", "/ugc", "/store"].includes(location.pathname) && (
+        ["/", "/services", "/ugc", "/store", "/gallery"].includes(location.pathname) && (
           <Suspense fallback={null}>
             <ScrollToTopButton />
           </Suspense>

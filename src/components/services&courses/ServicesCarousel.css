@@ -1,6 +1,7 @@
 /* ServicesCarousel.css - Estilos dinámicos, animaciones y pseudo-elementos */
 #services-carousel .slide .item {
   transition: .5s;
+  will-change: transform, opacity; 
 }
 #services-carousel .slide .item:nth-child(1),
 #services-carousel .slide .item:nth-child(2) {

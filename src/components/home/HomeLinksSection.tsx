@@ -77,8 +77,7 @@ const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({
               {" "}
               {/* Use the unique ID as the key */}
               <div
-                className="w-full aspect-square overflow-hidden p-1 sm:p-2 md:p-3 lg:p-3 rounded-sm bg-white shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer relative group"
-                style={{ boxShadow: "4px 0px 10px rgba(0, 0, 0, 0.3)" }}
+                className="w-full aspect-square overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer relative group"               
                 onClick={() => handleClick(link)}
               >
                 <img

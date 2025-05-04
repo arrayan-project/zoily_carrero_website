@@ -8,6 +8,9 @@ const Home = lazy(() => import("./pages/Home"));
 const Store = lazy(() => import("./pages/Store"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
+const FAQ = lazy(() => import("./pages/FAQ")); 
+const Policy = lazy(() => import("./pages/Policy")); 
+const Terms = lazy(() => import("./pages/Terms"));
 
 interface AppRoutesProps {
   isMobileView: boolean;
@@ -30,6 +33,9 @@ const AppRoutes: React.FC<AppRoutesProps> = ({ isMobileView }) => {
         <Route path="/store" element={<Store />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/policy" element={<Policy />} />
+        <Route path="/terms" element={<Terms />} />
       </Routes>
     </Suspense>
   );

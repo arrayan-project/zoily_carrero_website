@@ -1,6 +1,6 @@
 // src/hooks/useWindowSize.ts
 import { useState, useEffect } from 'react';
-import { MOBILE_BREAKPOINT } from '../constants/constants';
+import { MOBILE_BREAKPOINT } from '../constants/breakpoints';
 
 interface WindowSize {
   windowWidth: number;

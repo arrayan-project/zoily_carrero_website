@@ -29,7 +29,7 @@ const ServicesCarouselSection: React.FC = () => {
     <RevealWrapper animationClass="fade-in-animation">
       <div
         id="services-carousel"
-        className="relative w-full h-[85vh] my-8 mx-auto overflow-visible rounded-[20px]"
+        className="relative w-full h-[85vh] mx-auto overflow-visible rounded-[20px]"
       >
         <div className="slide relative w-full h-full" ref={slideRef}>
           {servicesData.map((item) => (
@@ -58,12 +58,12 @@ const ServicesCarouselSection: React.FC = () => {
           ))}
         </div>
         <div className="sr-only" aria-hidden="true">
-          {servicesData.map((item) => (
+          {servicesData.map((item, index) => (
             <img
               key={item.category}
               src={item.modalContent.images[0]}
               alt=""
-              loading="lazy"
+              loading={index === 1 ? "eager" : "lazy"}
             />
           ))}
         </div>

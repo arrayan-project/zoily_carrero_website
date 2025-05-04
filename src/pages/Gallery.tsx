@@ -57,7 +57,7 @@ const Gallery = () => {
   return (
     <main>
     <section id="gallery" 
-            className="px-1 py-12 md:px-24 md:py-24"
+            className="px-1 py-12 md:px-4 md:py-24"
     style={{ backgroundColor: colors.background, color: colors.text }}>
       <Helmet>
         <title>Galería de Maquillaje Profesional | Zoily Carrero MakeUp</title>

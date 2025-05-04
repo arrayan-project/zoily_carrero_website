@@ -6,7 +6,6 @@ import AboutSkeleton from "../../components/skeletons/AboutSkeleton";
 import ContactSkeleton from "../../components/skeletons/ContactSkeleton";
 
 const Home = lazy(() => import("../../pages/Home"));
-const Store = lazy(() => import("../../pages/Store"));
 const About = lazy(() => import("../../pages/About"));
 const Contact = lazy(() => import("../../pages/Contact"));
 
@@ -32,15 +31,6 @@ const PageSections: React.FC<PageSectionsProps> = ({ onSmoothScroll, isMobileVie
       >
         <Suspense fallback={<HomeSkeleton />}>  
           <Home onSmoothScroll={onSmoothScroll} isMobileView={isMobileView} />
-        </Suspense>
-      </section>
-
-      <section
-        id="store"
-        style={{ minHeight: placeholderHeights.store }}
-      >
-        <Suspense fallback={<StoreSkeleton />}>  
-          <Store />
         </Suspense>
       </section>
 

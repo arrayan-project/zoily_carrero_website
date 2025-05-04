@@ -116,6 +116,7 @@ function Services({}: ServicesProps) {
               description={coursesDescription}
               className="mt-4 mb-16 md:mb-24 font-cinzel text-center"
             />
+
             {!isMobileView && <CoursesCarouselSection />}
             {isMobileView && <CoursesColumnSection />}
           </section>

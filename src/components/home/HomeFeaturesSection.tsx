@@ -36,7 +36,7 @@ const HomeFeaturesSection: React.FC<HomeFeaturesSectionProps> = ({ imageSrc, alt
                 <div 
                   key={index} 
                   className="w-full group"> {/* Añadimos la clase group */}
-                    <div className="shadow-sm h-full flex flex-col items-center justify-center transition-colors duration-300 hover:bg-gray-700 px-6 text-center min-h-[200px] md:min-h-full">
+                    <div className="shadow-sm h-full flex flex-col items-center justify-center transition-colors duration-300 px-6 text-center min-h-[200px] md:min-h-full">
                     <RevealWrapper animationClass="slide-in-right-animation">
                       <h3 
                         className={`text-sm md:text-base xl:text-base font-cinzel font-medium mb-4 group-hover:text-black`} 
