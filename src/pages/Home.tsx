@@ -1,5 +1,4 @@
-// src/pages/Home.tsx
-import { useState, useEffect, memo, lazy, Suspense } from "react";
+import React, { useState, useEffect, memo, lazy, Suspense } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { homeInfo, homeLinks, homeFeatures, homeBrands, galleryFeatures } from "../data/homeData";
 import { Helmet } from 'react-helmet-async';
@@ -8,7 +7,6 @@ import BackgroundSliderHome from "../components/sliders/BackgroundSliderHome";
 import HomeButton          from "../components/buttons/HomeButton";
 import HomeTitle           from "../components/home/HomeTitle";
 import ScrollDownArrow     from "../components/common/ScrollDownArrow";
-import LazyFooter          from "../components/common/LazyFooter";
 
 // Secciones Home
 const HomeLinksSection    = lazy(() => import("../components/home/HomeLinksSection"));
@@ -19,6 +17,12 @@ const HomeGallerySection  = lazy(() => import("../components/home/HomeGallerySec
 // Secciones adicionales integradas en mobile
 const AboutSection        = lazy(() => import("../components/home/AboutSection"));
 const ContactSection      = lazy(() => import("../components/home/ContactSection"));
+
+// Mapeo estático de secciones para mobile
+const sectionLoaders: Record<string, () => Promise<any>> = {
+  about:   () => import("../components/home/AboutSection"),
+  contact: () => import("../components/home/ContactSection"),
+};
 
 interface HomeProps {
   onSmoothScroll: (sectionId: string) => void;
@@ -47,14 +51,16 @@ const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => {
     }
   }, [isMobileView, onSmoothScroll]);
 
-  // Scroll when hash changes
+  // Scroll when hash changes usando mapeo estático
   useEffect(() => {
     if (isMobileView && hash) {
-      const section = hash.slice(1);
-      import(`../components/home/${section.charAt(0).toUpperCase() + section.slice(1)}Section`)
-        .then(() => {
-          document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });
+      const key = hash.slice(1);
+      const loader = sectionLoaders[key];
+      if (loader) {
+        loader().then(() => {
+          document.getElementById(key)?.scrollIntoView({ behavior: 'smooth' });
         });
+      }
     }
   }, [hash, isMobileView]);
 
@@ -111,64 +117,39 @@ const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => {
         </div>
       </div>
 
-      {isMobileView ? (
-        <Suspense fallback={null}>
-          {/* Secciones Home en mobile */}
-          <HomeLinksSection
-            title={homeLinks.title}
-            subtitle={homeLinks.subtitle}
-            subtitle1={homeLinks.subtitle1}
-            links={homeLinks.links}
-            isMobileView={isMobileView}
-            onSmoothScroll={onSmoothScroll}
-          />
-          <HomeFeaturesSection
-            imageSrc={homeFeatures.imageSrc}
-            alt={homeFeatures.alt}
-            features={homeFeatures.features}
-          />
-          <HomeBrandsSection brands={homeBrands.brands} />
-          <HomeGallerySection
-            imageSrc={galleryFeatures.imageSrc}
-            alt={galleryFeatures.alt}
-            gallery={galleryFeatures.gallery}
-          />
+      <Suspense fallback={null}>
+        {/* Secciones Home */}
+        <HomeLinksSection
+          title={homeLinks.title}
+          subtitle={homeLinks.subtitle}
+          subtitle1={homeLinks.subtitle1}
+          links={homeLinks.links}
+          isMobileView={isMobileView}
+          onSmoothScroll={onSmoothScroll}
+        />
+        <HomeFeaturesSection
+          imageSrc={homeFeatures.imageSrc}
+          alt={homeFeatures.alt}
+          features={homeFeatures.features}
+        />
+        <HomeBrandsSection brands={homeBrands.brands} />
+        <HomeGallerySection
+          imageSrc={galleryFeatures.imageSrc}
+          alt={galleryFeatures.alt}
+          gallery={galleryFeatures.gallery}
+        />
 
-          {/* Secciones About */}
-          <div id="about">
-            <AboutSection />
-          </div>
-
-          {/* Secciones Contact */}
-          <div id="contact">
-            <ContactSection />
-          </div>
-          <LazyFooter />
-        </Suspense>
-      ) : (
-        <Suspense fallback={null}>
-          {/* Desktop: Home sections + footer */}
-          <HomeLinksSection
-            title={homeLinks.title}
-            subtitle={homeLinks.subtitle}
-            subtitle1={homeLinks.subtitle1}
-            links={homeLinks.links}
-            isMobileView={isMobileView}
-            onSmoothScroll={onSmoothScroll}
-          />
-          <HomeFeaturesSection
-            imageSrc={homeFeatures.imageSrc}
-            alt={homeFeatures.alt}
-            features={homeFeatures.features}
-          />
-          <HomeBrandsSection brands={homeBrands.brands} />
-          <HomeGallerySection
-            imageSrc={galleryFeatures.imageSrc}
-            alt={galleryFeatures.alt}
-            gallery={galleryFeatures.gallery}
-          />
-        </Suspense>
-      )}
+        {isMobileView && (
+          <>
+            <div id="about">
+              <AboutSection />
+            </div>
+            <div id="contact">
+              <ContactSection />
+            </div>
+          </>
+        )}
+      </Suspense>
     </div>
   );
 });

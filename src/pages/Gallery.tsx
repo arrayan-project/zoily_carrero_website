@@ -7,7 +7,6 @@ import { HOME_LINKS_TITLE_CLASS } from "../constants/styles";
 import { galleryTitle } from "../data/galleryData";
 import { useTheme } from "../components/context/useThemeHook";
 import { Helmet } from "react-helmet-async";
-import LazyFooter from "../components/common/LazyFooter";
 
 const GalleryModal = lazy(() => import("../components/modals/GalleryModal"));
 
@@ -101,7 +100,6 @@ const Gallery = () => {
         </Suspense>
       )}     
     </section>
-    {isMobileView && <LazyFooter />}
     </main>
   );
 };

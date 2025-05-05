@@ -10,11 +10,11 @@ const ContactInfoSection: React.FC = () => {
 
   return (
     <section className="space-y-8">
-      <div className={`rounded-lg shadow-sm p-2 md:p-8 `}>
+      <div className="rounded-lg shadow-sm p-2 md:p-8">
         <RevealWrapper animationClass="fade-in-text">
           {contactInfo?.contactTitle && (
             <h2
-              className={`text-2xl font-cinzel tracking-wide mb-6`}
+              className="text-2xl font-cinzel tracking-wide mb-6"
               style={{ color: colors.accent }}
             >
               {contactInfo.contactTitle}
@@ -22,50 +22,49 @@ const ContactInfoSection: React.FC = () => {
           )}
         </RevealWrapper>
         <RevealWrapper animationClass="fade-in-text">
-        <div className="space-y-6" style={{ color: colors.text }}>
-          {[
-            {
-              icon: <Phone className="w-6 h-6 text-pink-600" />,
-              label: "Telefono",
-              value: contactInfo?.phone,
-            },
-            {
-              icon: <Mail className="w-6 h-6 text-pink-600" />,
-              label: "Email",
-              value: contactInfo?.email,
-            },
-            {
-              icon: <MapPin className="w-6 h-6 text-pink-600" />,
-              label: "Ubicación",
-              value: contactInfo?.location
-                ? `${contactInfo.location.street} <br /> ${contactInfo.location.city}`
-                : null,
-            },
-            {
-              icon: <Clock className="w-6 h-6 text-pink-600" />,
-              label: "Horario",
-              value: contactInfo?.schedule
-                ? `${contactInfo.schedule.mondayToFriday} <br /> ${contactInfo.schedule.saturday} <br /> ${contactInfo.schedule.sunday}`
-                : null,
-            },
-          ].map(
-            ({ icon, label, value }) =>
-              value && (
-                <RevealWrapper animationClass="fade-in-text">
+          <div className="space-y-6" style={{ color: colors.text }}>
+            {[
+              {
+                icon: <Phone className="w-6 h-6 text-pink-600" />,
+                label: "Telefono",
+                value: contactInfo?.phone,
+              },
+              {
+                icon: <Mail className="w-6 h-6 text-pink-600" />,
+                label: "Email",
+                value: contactInfo?.email,
+              },
+              {
+                icon: <MapPin className="w-6 h-6 text-pink-600" />,
+                label: "Ubicación",
+                value: contactInfo?.location
+                  ? `${contactInfo.location.street} <br /> ${contactInfo.location.city}`
+                  : null,
+              },
+              {
+                icon: <Clock className="w-6 h-6 text-pink-600" />,
+                label: "Horario",
+                value: contactInfo?.schedule
+                  ? `${contactInfo.schedule.mondayToFriday} <br /> ${contactInfo.schedule.saturday} <br /> ${contactInfo.schedule.sunday}`
+                  : null,
+              },
+            ].map(({ icon, label, value }) =>
+              value ? (
+                <RevealWrapper key={label} animationClass="fade-in-text">
                   <div className="flex items-start space-x-4">
                     {icon}
                     <div>
-                      <h3 className={`font-cinzel`}>{label}</h3>
+                      <h3 className="font-cinzel">{label}</h3>
                       <p
-                        className={`font-cinzel `}
+                        className="font-cinzel"
                         dangerouslySetInnerHTML={{ __html: value }}
                       />
                     </div>
                   </div>
                 </RevealWrapper>
-              )
-          )}
-        </div>
+              ) : null
+            )}
+          </div>
         </RevealWrapper>
       </div>
     </section>

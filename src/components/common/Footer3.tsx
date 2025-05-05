@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 import { useTheme } from "../context/useThemeHook";
 import { Link } from "react-router-dom";
 import { Github, Instagram, Linkedin, Twitter } from "../../assets/icons";

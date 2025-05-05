@@ -1,7 +1,6 @@
 // pages/Policy.tsx
 
 import { useTheme } from '../components/context/useThemeHook';
-import LazyFooter from "../components/common/LazyFooter";
 import useWindowSize from "../hooks/useWindowSize";
 
 const Policy = () => {
@@ -77,7 +76,6 @@ const Policy = () => {
         <p className="text-sm mb-2 font-cinzel" style={{ color: colors.text }}>Si tienes preguntas o inquietudes sobre esta Política de Privacidad o sobre cómo manejamos tu información personal, puedes contactarnos a:</p>
         <p className="text-sm mb-2 font-cinzel" style={{ color: colors.text }}>Correo electrónico: [correo electrónico de contacto]</p>
       </div>
-      {isMobileView && <LazyFooter />}
     </div>
     
   );

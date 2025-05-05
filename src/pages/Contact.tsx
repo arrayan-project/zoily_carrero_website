@@ -59,7 +59,6 @@ function Contact({}: ContactProps) {
           </section>
         </div>
       </section>
-      {isMobileView && <LazyFooter />}
     </div>
   );
 }

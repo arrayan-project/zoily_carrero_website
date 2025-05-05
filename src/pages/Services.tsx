@@ -9,7 +9,6 @@ import { ErrorBoundary } from "react-error-boundary";
 import { useTheme } from "../components/context/useThemeHook";
 import { ModalProvider, useModal } from "../components/context/ModalContext";
 import { Helmet } from "react-helmet-async";
-import LazyFooter from "../components/common/LazyFooter";
 import useWindowSize from "../hooks/useWindowSize";
 import StatsSection from "../components/StatsSection";
 import ModalContainer from "../components/modals/ModalRoot";
@@ -122,7 +121,6 @@ function Services({}: ServicesProps) {
           </section>
 
           <ModalContentRender />
-          {isMobileView && <LazyFooter />}
         </main>
       </ModalProvider>
     </ErrorBoundary>

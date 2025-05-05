@@ -1,6 +1,5 @@
 // pages/Terms.tsx
 import { useTheme } from '../components/context/useThemeHook';
-import LazyFooter from "../components/common/LazyFooter";
 import useWindowSize from "../hooks/useWindowSize";
 
 const Terms = () => {
@@ -62,7 +61,6 @@ const Terms = () => {
         </ul>
         <p className="mb-2 font-cinzel" style={{ color: colors.text }}>Agradecemos tu confianza y compromiso con estos términos. Nuestra prioridad es brindarte una experiencia profesional, puntual y de alta calidad.</p>
       </div>
-      {isMobileView && <LazyFooter />}
     </div>
   );
 };

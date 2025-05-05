@@ -1,5 +1,4 @@
 // src/components/layout/DesktopView.tsx
-import React from 'react';
 import AppRoutes from '../../Routes';
 
 export interface DesktopViewProps {

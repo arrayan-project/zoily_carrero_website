@@ -1,6 +1,5 @@
 // pages/FAQ.tsx
 import { useTheme } from '../components/context/useThemeHook';
-import LazyFooter from "../components/common/LazyFooter";
 import useWindowSize from "../hooks/useWindowSize";
 
 const FAQ = () => {
@@ -63,7 +62,6 @@ const FAQ = () => {
           <p className="text-sm font-cinzel" style={{ color: colors.text }}>Las pruebas se realizan en días de semana y en el estudio. Se requiere puntualidad y llegar sin maquillaje en el rostro. También es útil traer referencias visuales del estilo que buscas.</p>
         </div>      
       </div>
-      {isMobileView && <LazyFooter />}
     </div>
   );
 };

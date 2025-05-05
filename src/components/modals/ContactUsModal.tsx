@@ -13,23 +13,24 @@ interface ContactModalProps {
 const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
     const modalContentRef = useRef<HTMLDivElement>(null);
     const modalContainerRef = useRef<HTMLDivElement>(null);
+    const closeButtonRef = useRef<HTMLButtonElement>(null); // Ref para el botón de cerrar
     const { theme } = useTheme();
-    const [isMounted, setIsMounted] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
+    const [shouldRender, setShouldRender] = useState(isOpen); // Para controlar la renderización y animación de salida
 
     useEffect(() => {
         if (isOpen) {
-            setIsMounted(true);
+            setShouldRender(true); // Renderiza inmediatamente si isOpen es true
             setIsClosing(false);
-        }
+        } // No necesitamos manejar !isOpen aquí directamente para la entrada
     }, [isOpen]);
-
     const startClosing = () => {
         if (isClosing || !isOpen) return;
         setIsClosing(true);
         setTimeout(() => {
             onClose();
             setIsClosing(false);
+            setShouldRender(false); // Desmonta después de la animación
         }, 300);
     };
 
@@ -42,20 +43,53 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
                 startClosing();
             }
         };
-        if (isOpen && isMounted) {
+
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                startClosing();
+            }
+            // --- INICIO: Lógica básica de Focus Trap ---
+            if (event.key === 'Tab' && modalContentRef.current) {
+                const focusableElements = modalContentRef.current.querySelectorAll<HTMLElement>(
+                    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+                );
+                if (focusableElements.length === 0) return;
+
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];
+
+                if (event.shiftKey) { // Shift + Tab
+                    if (document.activeElement === firstElement) {
+                        lastElement.focus();
+                        event.preventDefault();
+                    }
+                } else { // Tab
+                    if (document.activeElement === lastElement) {
+                        firstElement.focus();
+                        event.preventDefault();
+                    }
+                }
+            }
+            // --- FIN: Lógica básica de Focus Trap ---
+        };
+
+        if (isOpen && shouldRender) {
             document.addEventListener('mousedown', handleOutsideClick);
+            window.addEventListener('keydown', handleKeyDown);
+            // Mover foco al botón de cerrar al abrir (o al primer input)
+            closeButtonRef.current?.focus();
         }
 
         return () => {
             document.removeEventListener('mousedown', handleOutsideClick);
+            window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [isOpen, isMounted, startClosing]);
+    }, [isOpen, shouldRender, startClosing]); // Dependencias actualizadas
 
-    if (!isOpen && !isClosing) {
-         return null;
+    // No renderizar nada si no está abierto y la animación de cierre ha terminado
+    if (!shouldRender) {
+        return null;
     }
-
-    const isInteractive = isOpen && isMounted && !isClosing;
 
     return (
         <div
@@ -64,9 +98,8 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
                 fixed inset-0 w-full h-full flex justify-center items-center z-50
                 transition-opacity duration-300 ease-out
                 ${theme === 'dark' ? 'bg-black bg-opacity-70 backdrop-blur-sm' : 'bg-gray-400 bg-opacity-50 backdrop-blur-sm'} /* Ajustado bg-opacity */
-                ${isInteractive ? 'opacity-100' : 'opacity-0'} /* Control de opacidad */
-                ${isInteractive ? 'pointer-events-auto' : 'pointer-events-none'} /* Control de interacción */
-            `}
+                ${isOpen && !isClosing ? 'opacity-100' : 'opacity-0'} /* Control de opacidad basado en isOpen y isClosing */
+                ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'} /* Control de interacción basado en isOpen */            `}
             role="dialog"
             aria-modal="true"
         >
@@ -76,26 +109,26 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
                     relative rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto mx-4 mb-4
                     transition-transform duration-300 ease-out
                     ${theme === "dark" ? 'bg-gray-900/80 text-white' : 'bg-white/90 text-gray-800'} /* Fondo translúcido */
-                    ${isInteractive ? 'scale-100' : 'scale-95'} /* Control de escala */
-                    ${isInteractive ? 'pointer-events-auto' : 'pointer-events-none'} /* Asegura que el contenido tampoco sea interactivo si el overlay no lo es */
-                `}
+                    ${isOpen && !isClosing ? 'scale-100' : 'scale-95'} /* Control de escala */
+                    ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'} /* Control de interacción */                `}
             >
                 <button
+                    ref={closeButtonRef} // Añadir ref al botón
                     className={`
                         absolute top-3 right-3 p-1 rounded-full
                         transition-colors duration-200
                         ${theme === "dark" ? "text-gray-400 hover:text-white hover:bg-gray-700" : "text-gray-500 hover:text-gray-800 hover:bg-gray-200"}
-                        ${isInteractive ? 'pointer-events-auto' : 'pointer-events-none'} /* Control de interacción */
-                    `}
+                        ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'} /* Control de interacción */                    `}
                     onClick={startClosing}
                     aria-label="Cerrar modal"
+                    tabIndex={0} // Asegurar que sea enfocable
                 >
                     <X className="h-6 w-6" />
                 </button>
-                <div className={`mb-8 ${isInteractive ? 'pointer-events-auto' : 'pointer-events-none'}`}>
+                <div className={`mb-8 ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}>
                     <h2 className={`text-2xl font-cinzel tracking-wide ${getTextColorClass(theme)} mb-6`}>Contáctame</h2>
                 </div>
-                <div className={`${isInteractive ? 'pointer-events-auto' : 'pointer-events-none'}`}>
+                <div className={`${isOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}>
                     <ContactForm />
                 </div>
             </div>

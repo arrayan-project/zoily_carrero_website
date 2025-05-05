@@ -1,11 +1,13 @@
 // src/components/layout/AppShell.tsx
-import React, { Suspense, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { Suspense, useRef, useState, useCallback, lazy } from 'react'; // Importa useState y useCallback
+import { useLocation } from 'react-router-dom'; // Importa lazy
 import Navigation from '../navigation/NavBarMenu';
 import ThemeToggleButton from '../buttons/ThemeToggleButton';
 import LandingPageMobile from '../../LandingPageMobile';
 import DesktopView from './DesktopView';
 
+const ContactUsModal = React.lazy(() => import('../modals/ContactUsModal')); // Asegúrate que la ruta es correcta
+const FloatingContactButton = React.lazy(() => import('../buttons/FloatingContactButton'));
 const ScrollToTopButton = React.lazy(() => import('../buttons/ScrollTopButton'));
 const LazyFooter = React.lazy(() => import('../common/LazyFooter'));
 
@@ -24,6 +26,17 @@ export default function AppShell({ onSmoothScroll }: AppShellProps) {
   const isInternalScroll = useRef<boolean>(false);
   const isNavigating = useRef<boolean>(false);
 
+  // --- INICIO: Lógica para el modal de contacto (Ejemplo) ---
+  const [isModalOpen, setIsModalOpen] = useState(false); // Estado para controlar la visibilidad
+
+  const openModal = useCallback(() => {
+    console.log("Abriendo modal de contacto..."); // Lógica para abrir el modal
+    setIsModalOpen(true); // Actualiza el estado para mostrar el modal
+  }, []);
+  const closeModal = useCallback(() => {
+    setIsModalOpen(false); // Función para cerrar el modal
+  }, []);
+  // --- FIN: Lógica para el modal de contacto ---
   return (
     <div className="relative w-full overflow-x-hidden">
       <Suspense fallback={<div className="py-10 text-center">Cargando...</div>}>
@@ -31,6 +44,7 @@ export default function AppShell({ onSmoothScroll }: AppShellProps) {
         <div className="fixed top-4 left-4 z-50">
           <ThemeToggleButton />
         </div>
+        <FloatingContactButton onClick={openModal} />
 
         {/* Navegación principal */}
         <Navigation
@@ -53,6 +67,9 @@ export default function AppShell({ onSmoothScroll }: AppShellProps) {
           </div>
         )}
          {!isMobileView && <LazyFooter />}
+
+         {/* Renderiza el modal si isModalOpen es true */}
+         {isModalOpen && <ContactUsModal isOpen={isModalOpen} onClose={closeModal} />}
       </Suspense>
     </div>
   );

@@ -1,16 +1,17 @@
 // src/Routes.tsx
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import Home     from './pages/Home';
-import Services from './pages/Services';
-import Gallery  from './pages/Gallery';
-import UGC      from './pages/UGC';
-import Store    from './pages/Store';
-import About    from './pages/About';
-import Contact  from './pages/Contact';
-import FAQ      from './pages/FAQ';
-import Terms    from './pages/Terms';
-import Policy   from './pages/Policy';
+import { Routes, Route, Navigate, } from 'react-router-dom';
+import { lazy, Suspense  } from 'react';
+
+const Home     = lazy(() => import('./pages/Home'));
+const Services = lazy(() => import('./pages/Services'));
+const Gallery  = lazy(() => import('./pages/Gallery'));
+const UGC      = lazy(() => import('./pages/UGC'));
+const Store    = lazy(() => import('./pages/Store'));
+const About    = lazy(() => import('./pages/About'));
+const Contact  = lazy(() => import('./pages/Contact'));
+const FAQ      = lazy(() => import('./pages/FAQ'));
+const Terms    = lazy(() => import('./pages/Terms'));
+const Policy   = lazy(() => import('./pages/Policy'));
 
 interface AppRoutesProps {
   onSmoothScroll: (sectionId: string) => void;
@@ -19,6 +20,7 @@ interface AppRoutesProps {
 
 export default function AppRoutes({ onSmoothScroll, isMobileView }: AppRoutesProps) {
   return (
+    <Suspense fallback={<div>Cargando…</div>}>
     <Routes>
       <Route
         path="/home"
@@ -40,5 +42,6 @@ export default function AppRoutes({ onSmoothScroll, isMobileView }: AppRoutesPro
       {/* Redirect root to home */}
       <Route path="/" element={<Navigate to="/home" replace />} />
     </Routes>
+    </Suspense>
   );
 }
