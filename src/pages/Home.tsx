@@ -1,20 +1,24 @@
 // src/pages/Home.tsx
-import { useState, useEffect, memo } from "react";
-import { useNavigate } from "react-router-dom";
-import BackgroundSliderHome from "../components/sliders/BackgroundSliderHome";
-import HomeButton from "../components/buttons/HomeButton";
+import { useState, useEffect, memo, lazy, Suspense } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { homeInfo, homeLinks, homeFeatures, homeBrands, galleryFeatures } from "../data/homeData";
-import HomeTitle from "../components/home/HomeTitle";
-import HomeLinksSection from "../components/home/HomeLinksSection";
-import HomeFeaturesSection from "../components/home/HomeFeaturesSection";
-import HomeBrandsSection from "../components/home/HomeBrandsSection";
-import ScrollDownArrow from "../components/common/ScrollDownArrow";
-import RevealWrapper from "../components/common/RevealWrapper";
-import HomeGallerySection from "../components/home/HomeGallerySection";
+import { Helmet } from 'react-helmet-async';
 import { useTheme } from "../components/context/useThemeHook";
-import LazyFooter from "../components/common/LazyFooter";
-import { Helmet } from 'react-helmet-async'; // <--- 1. Importa Helmet
+import BackgroundSliderHome from "../components/sliders/BackgroundSliderHome";
+import HomeButton          from "../components/buttons/HomeButton";
+import HomeTitle           from "../components/home/HomeTitle";
+import ScrollDownArrow     from "../components/common/ScrollDownArrow";
+import LazyFooter          from "../components/common/LazyFooter";
 
+// Secciones Home
+const HomeLinksSection    = lazy(() => import("../components/home/HomeLinksSection"));
+const HomeFeaturesSection = lazy(() => import("../components/home/HomeFeaturesSection"));
+const HomeBrandsSection   = lazy(() => import("../components/home/HomeBrandsSection"));
+const HomeGallerySection  = lazy(() => import("../components/home/HomeGallerySection"));
+
+// Secciones adicionales integradas en mobile
+const AboutSection        = lazy(() => import("../components/home/AboutSection"));
+const ContactSection      = lazy(() => import("../components/home/ContactSection"));
 
 interface HomeProps {
   onSmoothScroll: (sectionId: string) => void;
@@ -24,30 +28,40 @@ interface HomeProps {
 const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => {
   const [, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
+  const { hash } = useLocation();
   const { colors } = useTheme();
 
+  // Handle window resize
   useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
+    const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleVerServiciosClick = () => {
-    navigate("/services#services");
-  };
-
-  const handleAgendaTuCitaClick = () => {
-    if (isMobileView) {
-      onSmoothScroll("contact");
-    } else {
-      navigate("/contact#contact");
+  // On mount, check for saved section scroll request
+  useEffect(() => {
+    const section = sessionStorage.getItem('scrollToSection');
+    if (isMobileView && section) {
+      onSmoothScroll(section);
+      sessionStorage.removeItem('scrollToSection');
     }
+  }, [isMobileView, onSmoothScroll]);
+
+  // Scroll when hash changes
+  useEffect(() => {
+    if (isMobileView && hash) {
+      const section = hash.slice(1);
+      import(`../components/home/${section.charAt(0).toUpperCase() + section.slice(1)}Section`)
+        .then(() => {
+          document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+  }, [hash, isMobileView]);
+
+  const handleVerServiciosClick = () => navigate("/services#services");
+  const handleAgendaTuCitaClick = () => {
+    if (isMobileView) onSmoothScroll("contact");
+    else navigate("/contact#contact");
   };
 
   return (
@@ -55,76 +69,106 @@ const Home = memo(({ onSmoothScroll, isMobileView }: HomeProps) => {
       id="home"
       className="relative transition-colors duration-300"
       style={{ backgroundColor: colors.background, color: colors.text }}
-    > 
-    <Helmet>
+    >
+      <Helmet>
         <title>Zoily Carrero MakeUp - Maquillaje Profesional y Cursos</title>
         <meta
           name="description"
           content="Descubre el arte del maquillaje profesional con Zoily Carrero. Ofrecemos servicios personalizados, cursos de automaquillaje y contenido UGC. ¡Agenda tu cita!"
         />
-    </Helmet>
+      </Helmet>
 
-
+      {/* Hero */}
       <div className="relative mb-10 md:mb-24">
         <BackgroundSliderHome />
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center w-full">
           <main className="flex-grow flex flex-col items-center justify-center text-center px-4">
-            {homeInfo && homeInfo.title && homeInfo.subtitle && (
+            {homeInfo?.title && homeInfo?.subtitle && (
               <HomeTitle title={homeInfo.title} subtitle={homeInfo.subtitle} />
             )}
-            <RevealWrapper animationClass="fade-in-animation">
-              <div className="flex flex-col sm:flex-row gap-4">
-                {homeInfo && homeInfo.button1Text && (
-                  <HomeButton
-                    isMobileView={isMobileView}
-                    onClick={handleVerServiciosClick}
-                    className="px-6 py-3 bg-white text-black font-normal font-cinzel rounded shadow hover:bg-gray-200 transition duration-200 text-center"
-                    aria-label={`Ir a la sección de ${homeInfo.button1Text}`}
-                  >
-                    {homeInfo.button1Text}
-                  </HomeButton>
-                )}
-                {homeInfo && homeInfo.button2Text && (
-                  <HomeButton
-                    isMobileView={isMobileView}
-                    onClick={handleAgendaTuCitaClick}
-                    className="px-6 py-3 bg-pink-700 text-white font-normal font-cinzel rounded shadow hover:bg-pink-900 transition duration-200 text-center"
-                    aria-label={`Ir a la sección de ${homeInfo.button2Text}`}
-                  >
-                    {homeInfo.button2Text}
-                  </HomeButton>
-                )}
-              </div>
-            </RevealWrapper>
+            <div className="flex flex-col sm:flex-row gap-4">
+              {homeInfo.button1Text && (
+                <HomeButton
+                  isMobileView={isMobileView}
+                  onClick={handleVerServiciosClick}
+                  className="px-6 py-3 bg-white text-black font-normal font-cinzel rounded shadow hover:bg-gray-200 transition duration-200"
+                >
+                  {homeInfo.button1Text}
+                </HomeButton>
+              )}
+              {homeInfo.button2Text && (
+                <HomeButton
+                  isMobileView={isMobileView}
+                  onClick={handleAgendaTuCitaClick}
+                  className="px-6 py-3 bg-pink-700 text-white font-normal font-cinzel rounded shadow hover:bg-pink-900 transition duration-200"
+                >
+                  {homeInfo.button2Text}
+                </HomeButton>
+              )}
+            </div>
           </main>
           <ScrollDownArrow />
         </div>
       </div>
-      <HomeLinksSection
-        title={homeLinks.title}
-        subtitle={homeLinks.subtitle}
-        subtitle1={homeLinks.subtitle1}
-        links={homeLinks.links}
-        isMobileView={isMobileView}
-        onSmoothScroll={onSmoothScroll}
-      />
-      <HomeFeaturesSection
-        imageSrc={homeFeatures.imageSrc}
-        alt={homeFeatures.alt}
-        features={homeFeatures.features}
-      />
-      <HomeBrandsSection
-        brands={homeBrands.brands}
-      />
-      <HomeGallerySection
-        imageSrc={galleryFeatures.imageSrc}
-        alt={galleryFeatures.alt}
-        gallery={galleryFeatures.gallery}
-      />
 
-      {!isMobileView && (
-        <LazyFooter />
-       )}
+      {isMobileView ? (
+        <Suspense fallback={null}>
+          {/* Secciones Home en mobile */}
+          <HomeLinksSection
+            title={homeLinks.title}
+            subtitle={homeLinks.subtitle}
+            subtitle1={homeLinks.subtitle1}
+            links={homeLinks.links}
+            isMobileView={isMobileView}
+            onSmoothScroll={onSmoothScroll}
+          />
+          <HomeFeaturesSection
+            imageSrc={homeFeatures.imageSrc}
+            alt={homeFeatures.alt}
+            features={homeFeatures.features}
+          />
+          <HomeBrandsSection brands={homeBrands.brands} />
+          <HomeGallerySection
+            imageSrc={galleryFeatures.imageSrc}
+            alt={galleryFeatures.alt}
+            gallery={galleryFeatures.gallery}
+          />
+
+          {/* Secciones About */}
+          <div id="about">
+            <AboutSection />
+          </div>
+
+          {/* Secciones Contact */}
+          <div id="contact">
+            <ContactSection />
+          </div>
+          <LazyFooter />
+        </Suspense>
+      ) : (
+        <Suspense fallback={null}>
+          {/* Desktop: Home sections + footer */}
+          <HomeLinksSection
+            title={homeLinks.title}
+            subtitle={homeLinks.subtitle}
+            subtitle1={homeLinks.subtitle1}
+            links={homeLinks.links}
+            isMobileView={isMobileView}
+            onSmoothScroll={onSmoothScroll}
+          />
+          <HomeFeaturesSection
+            imageSrc={homeFeatures.imageSrc}
+            alt={homeFeatures.alt}
+            features={homeFeatures.features}
+          />
+          <HomeBrandsSection brands={homeBrands.brands} />
+          <HomeGallerySection
+            imageSrc={galleryFeatures.imageSrc}
+            alt={galleryFeatures.alt}
+            gallery={galleryFeatures.gallery}
+          />
+        </Suspense>
+      )}
     </div>
   );
 });

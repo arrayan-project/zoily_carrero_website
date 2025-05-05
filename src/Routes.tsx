@@ -1,44 +1,44 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import { lazy, Suspense } from "react";
-
-const Services = lazy(() => import("./pages/Services"));
-const Gallery = lazy(() => import("./pages/Gallery"));
-const UGC = lazy(() => import("./pages/UGC"));
-const Home = lazy(() => import("./pages/Home"));
-const Store = lazy(() => import("./pages/Store"));
-const About = lazy(() => import("./pages/About"));
-const Contact = lazy(() => import("./pages/Contact"));
-const FAQ = lazy(() => import("./pages/FAQ")); 
-const Policy = lazy(() => import("./pages/Policy")); 
-const Terms = lazy(() => import("./pages/Terms"));
+// src/Routes.tsx
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Home     from './pages/Home';
+import Services from './pages/Services';
+import Gallery  from './pages/Gallery';
+import UGC      from './pages/UGC';
+import Store    from './pages/Store';
+import About    from './pages/About';
+import Contact  from './pages/Contact';
+import FAQ      from './pages/FAQ';
+import Terms    from './pages/Terms';
+import Policy   from './pages/Policy';
 
 interface AppRoutesProps {
+  onSmoothScroll: (sectionId: string) => void;
   isMobileView: boolean;
 }
 
-const AppRoutes: React.FC<AppRoutesProps> = ({ isMobileView }) => {
+export default function AppRoutes({ onSmoothScroll, isMobileView }: AppRoutesProps) {
   return (
-    
-    <Suspense fallback={<div className="text-pink-500 animate-pulse">Cargando...</div>}>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            isMobileView ? <Navigate to="/" replace /> : <Home onSmoothScroll={() => {}} isMobileView={false} />
-          }
-        />
-        <Route path="/services" element={<Services />} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/ugc" element={<UGC />} />
-        <Route path="/store" element={<Store />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/faq" element={<FAQ />} />
-        <Route path="/policy" element={<Policy />} />
-        <Route path="/terms" element={<Terms />} />
-      </Routes>
-    </Suspense>
-  );
-};
+    <Routes>
+      <Route
+        path="/home"
+        element={<Home onSmoothScroll={onSmoothScroll} isMobileView={isMobileView} />}
+      />
 
-export default AppRoutes;
+      <Route path="/services" element={<Services />} />
+      <Route path="/gallery"  element={<Gallery />} />
+      <Route path="/ugc"      element={<UGC />} />
+
+      {/* Desktop independent pages */}
+      <Route path="/store"   element={<Store />} />
+      <Route path="/about"   element={<About />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/faq"     element={<FAQ />} />
+      <Route path="/terms"   element={<Terms />} />
+      <Route path="/policy"  element={<Policy />} />
+
+      {/* Redirect root to home */}
+      <Route path="/" element={<Navigate to="/home" replace />} />
+    </Routes>
+  );
+}

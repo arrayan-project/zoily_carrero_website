@@ -28,6 +28,20 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
+            if (id.includes('/pages/Home'))   
+              return 'home';
+            if (id.includes('/pages/Services')) 
+              return 'services';
+            if (id.includes('/pages/Gallery')) 
+             return 'gallery';
+            if (id.includes('/pages/UGC'))   
+              return 'ugc';
+            if (id.includes('/pages/Store')) 
+              return 'store';
+            if (id.includes('/pages/About'))  
+              return 'about';
+            if (id.includes('/pages/Contact'))  
+              return 'contact';
             if (id.includes('react-router-dom') || id.includes('react-helmet-async')) {
               return 'router'; // Navegación y SEO
             }

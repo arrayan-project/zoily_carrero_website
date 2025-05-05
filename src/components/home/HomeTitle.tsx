@@ -1,6 +1,5 @@
 // src/components/HomeTitle.tsx
 import React from "react";
-import RevealWrapper from "../common/RevealWrapper";
 
 interface HomeTitleProps {
   title: string;

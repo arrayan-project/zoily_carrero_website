@@ -1,10 +1,10 @@
 /* src/components/about/AboutMainContent.tsx */
 import React from 'react';
-import ImageWithFallback from '../common/ImageWithFallback';
-import { aboutInfo } from '../../data/aboutData';
-import images from '../../assets/images';
-import { useTheme } from '../context/useThemeHook';
-import RevealWrapper from '../common/RevealWrapper';
+import ImageWithFallback from '../../common/ImageWithFallback';
+import { aboutInfo } from '../../../data/aboutData';
+import images from '../../../assets/images';
+import { useTheme } from '../../context/useThemeHook';
+import RevealWrapper from '../../common/RevealWrapper';
 
 const AboutMainContent: React.FC = React.memo(() => {
   const { colors } = useTheme();

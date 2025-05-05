@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import corporateEventImage from "../assets/images/resized2/corporate-events-992w.webp";
-import socialEventImage from "../assets/images/resized2/social-events-992w.webp";
+import corporateEventImage from "/img/store/corporate-events.webp";
+import socialEventImage from "/img/store/social-events.webp";
 
 interface EventCategoryProps {
   title: string;
