@@ -1,0 +1,15 @@
+import{r as n,k as t}from"./react-DxwSq1SJ.js";import{C as y}from"./ContactUsForm-CXiaxmb-.js";import{u as C}from"./index-BNzlG0VN.js";import{g as w}from"./utils-DQPssQXU.js";import{X as k}from"./lucide-CmUpX8ct.js";import"./RevealWrapper-CwReTT-2.js";import"./recaptcha-DA6pFzvx.js";import"./router-C-blxMXc.js";const D=({isOpen:e,onClose:p})=>{const r=n.useRef(null),v=n.useRef(null),d=n.useRef(null),{theme:a}=C(),[l,c]=n.useState(!1),[u,f]=n.useState(e);n.useEffect(()=>{e&&(f(!0),c(!1))},[e]);const s=()=>{l||!e||(c(!0),setTimeout(()=>{p(),c(!1),f(!1)},300))};return n.useEffect(()=>{var g;const m=o=>{r.current&&!r.current.contains(o.target)&&s()},x=o=>{if(o.key==="Escape"&&s(),o.key==="Tab"&&r.current){const i=r.current.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');if(i.length===0)return;const h=i[0],b=i[i.length-1];o.shiftKey?document.activeElement===h&&(b.focus(),o.preventDefault()):document.activeElement===b&&(h.focus(),o.preventDefault())}};return e&&u&&(document.addEventListener("mousedown",m),window.addEventListener("keydown",x),(g=d.current)==null||g.focus()),()=>{document.removeEventListener("mousedown",m),window.removeEventListener("keydown",x)}},[e,u,s]),u?t.jsx("div",{ref:v,className:`
+                fixed inset-0 w-full h-full flex justify-center items-center z-50
+                transition-opacity duration-300 ease-out
+                ${a==="dark"?"bg-black bg-opacity-70 backdrop-blur-sm":"bg-gray-400 bg-opacity-50 backdrop-blur-sm"} /* Ajustado bg-opacity */
+                ${e&&!l?"opacity-100":"opacity-0"} /* Control de opacidad basado en isOpen y isClosing */
+                ${e?"pointer-events-auto":"pointer-events-none"} /* Control de interacción basado en isOpen */            `,role:"dialog","aria-modal":"true",children:t.jsxs("div",{ref:r,className:`
+                    relative rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto mx-4 mb-4
+                    transition-transform duration-300 ease-out
+                    ${a==="dark"?"bg-gray-900/80 text-white":"bg-white/90 text-gray-800"} /* Fondo translúcido */
+                    ${e&&!l?"scale-100":"scale-95"} /* Control de escala */
+                    ${e?"pointer-events-auto":"pointer-events-none"} /* Control de interacción */                `,children:[t.jsx("button",{ref:d,className:`
+                        absolute top-3 right-3 p-1 rounded-full
+                        transition-colors duration-200
+                        ${a==="dark"?"text-gray-400 hover:text-white hover:bg-gray-700":"text-gray-500 hover:text-gray-800 hover:bg-gray-200"}
+                        ${e?"pointer-events-auto":"pointer-events-none"} /* Control de interacción */                    `,onClick:s,"aria-label":"Cerrar modal",tabIndex:0,children:t.jsx(k,{className:"h-6 w-6"})}),t.jsx("div",{className:`mb-8 ${e?"pointer-events-auto":"pointer-events-none"}`,children:t.jsx("h2",{className:`text-2xl font-cinzel tracking-wide ${w(a)} mb-6`,children:"Contáctame"})}),t.jsx("div",{className:`${e?"pointer-events-auto":"pointer-events-none"}`,children:t.jsx(y,{})})]})}):null};export{D as default};

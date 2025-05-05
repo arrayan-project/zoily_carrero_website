@@ -1,0 +1,1 @@
+import{r as i}from"./react-DxwSq1SJ.js";const n=932,d=()=>{const[t,o]=i.useState({windowWidth:window.innerWidth,isMobileView:window.innerWidth<n});return i.useEffect(()=>{const e=()=>{o({windowWidth:window.innerWidth,isMobileView:window.innerWidth<n})};return window.addEventListener("resize",e),()=>{window.removeEventListener("resize",e)}},[]),t};export{d as u};

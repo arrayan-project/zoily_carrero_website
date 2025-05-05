@@ -1,0 +1,1 @@
+const t="text-2xl md:text-3xl font-cinzel font-extralight text-center",e="p-6 shadow-sm p-2 md:p-8",S="font-cinzel tracking-wide mb-3 text-center",n="text-xs sm:text-sm md:text-base font-cinzel",E="text-4xl md:text-5xl font-cinzel font-extralight text-center mb-12 tracking-wider";export{E as H,e as S,S as a,n as b,t as c};
