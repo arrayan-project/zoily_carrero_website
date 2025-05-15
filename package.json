@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && critical dist/index.html --base dist/ --inline --css dist/assets/index-*.css --dimensions 375x667 --dimensions 1440x900 --target dist/index.html",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
@@ -41,6 +41,7 @@
     "@types/react-lazyload": "^3.2.3",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.18",
+    "critical": "^7.2.1",
     "eslint": "^9.9.1",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.11",

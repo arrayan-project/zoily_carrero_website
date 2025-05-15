@@ -146,6 +146,7 @@ const imageArrays: ImageArray = {
   ],
   //Array para los background
   backgrounds: [
+    "/img/background-home/background0.webp",
     "/img/background-home/background1.webp",
     "/img/background-home/background2.webp",
     "/img/background-home/background3.webp",

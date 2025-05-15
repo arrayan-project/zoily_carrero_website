@@ -1,6 +1,6 @@
 // src/Routes.tsx
-import { Routes, Route, Navigate, } from 'react-router-dom';
-import { lazy, Suspense  } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { lazy } from 'react';
 
 const Home     = lazy(() => import('./pages/Home'));
 const Services = lazy(() => import('./pages/Services'));
@@ -13,35 +13,20 @@ const FAQ      = lazy(() => import('./pages/FAQ'));
 const Terms    = lazy(() => import('./pages/Terms'));
 const Policy   = lazy(() => import('./pages/Policy'));
 
-interface AppRoutesProps {
-  onSmoothScroll: (sectionId: string) => void;
-  isMobileView: boolean;
-}
-
-export default function AppRoutes({ onSmoothScroll, isMobileView }: AppRoutesProps) {
+export default function AppRoutes() {
   return (
-    <Suspense fallback={<div>Cargando…</div>}>
     <Routes>
-      <Route
-        path="/home"
-        element={<Home onSmoothScroll={onSmoothScroll} isMobileView={isMobileView} />}
-      />
-
+      <Route path="/home"     element={<Home />} />
       <Route path="/services" element={<Services />} />
       <Route path="/gallery"  element={<Gallery />} />
       <Route path="/ugc"      element={<UGC />} />
-
-      {/* Desktop independent pages */}
-      <Route path="/store"   element={<Store />} />
-      <Route path="/about"   element={<About />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/faq"     element={<FAQ />} />
-      <Route path="/terms"   element={<Terms />} />
-      <Route path="/policy"  element={<Policy />} />
-
-      {/* Redirect root to home */}
-      <Route path="/" element={<Navigate to="/home" replace />} />
+      <Route path="/store"    element={<Store />} />
+      <Route path="/about"    element={<About />} />
+      <Route path="/contact"  element={<Contact />} />
+      <Route path="/faq"      element={<FAQ />} />
+      <Route path="/terms"    element={<Terms />} />
+      <Route path="/policy"   element={<Policy />} />
+      <Route path="*"         element={<Navigate to="/home" replace />} />
     </Routes>
-    </Suspense>
   );
 }

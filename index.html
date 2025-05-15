@@ -1,25 +1,63 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <link rel="preload" as="image" href="/img/background-home/background1.webp" />
-    <link rel="preload" href="/fonts/Cinzel-Light.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zoily Carrero</title>
+    <meta name="description" content="Servicios de belleza, maquillaje profesional y cursos en línea y presenciales." />
+
+    <!-- Preconnect y DNS-prefetch para dominios de recursos críticos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+    <!-- Preload de fuentes críticas -->
+    <link
+      rel="preload"
+      as="font"
+      href="/fonts/SemplicitaPro.woff2"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="font"
+      href="/fonts/Cinzel.woff2"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <!-- Critical CSS inline -->
     <style>
-      .font-cinzel{font-family:'Cinzel',serif}
-      .text-xl{font-size:1.25rem}
-      .text-2xl{font-size:1.5rem}
-      .text-white{color:#fff}
-      .font-light{font-weight:300}
-      .tracking-\[0\.3em\]{letter-spacing:0.3em}
-      .mb-12{margin-bottom:3rem}
-      @media (min-width:768px){.text-2xl{font-size:1.5rem}}
+      /* Reseteo mínimo y estilos críticos para FOUC */
+      html { box-sizing: border-box; }
+      *, *:before, *:after { box-sizing: inherit; margin: 0; padding: 0; }
+      body { font-family: 'SemplicitaPro', sans-serif; line-height: 1.5; }
+      header, nav, main { display: block; }
     </style>
-    <title>ZOILY CARRERO</title>
+
+    <!-- Carga diferida de CSS principal -->
+    <link
+      rel="preload"
+      as="style"
+      href="/src/index.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/src/index.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link rel="stylesheet" href="/src/index.css" />
+    </noscript>
+
+    <!-- Scripts con defer (type=module ya implica defer) -->
+    <script type="module" src="/src/main.tsx" defer></script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx" defer></script>
   </body>
 </html>

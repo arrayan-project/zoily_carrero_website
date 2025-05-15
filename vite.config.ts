@@ -15,57 +15,47 @@ export default defineConfig({
       open: false,
     }),
   ],
-  define: {
-    "process.env.NODE_ENV": '"production"',
-  },
   build: {
-    minify: "esbuild",
-    target: "es2015",
-    sourcemap: false,
-    outDir: "dist",
-    chunkSizeWarningLimit: 500,
+    cssCodeSplit: true,
     rollupOptions: {
       output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            if (id.includes('/pages/Home'))   
-              return 'home';
-            if (id.includes('/pages/Services')) 
-              return 'services';
-            if (id.includes('/pages/Gallery')) 
-             return 'gallery';
-            if (id.includes('/pages/UGC'))   
-              return 'ugc';
-            if (id.includes('/pages/Store')) 
-              return 'store';
-            if (id.includes('/pages/About'))  
-              return 'about';
-            if (id.includes('/pages/Contact'))  
-              return 'contact';
-            if (id.includes('react-router-dom') || id.includes('react-helmet-async')) {
-              return 'router'; // Navegación y SEO
+        manualChunks(id: string) {
+          if (id.includes("node_modules")) {
+            // React and scheduler
+            if (id.includes("react") && !id.includes("react-router-dom")) {
+              return "vendor-react";
             }
-            if (id.includes('lucide-react')) {
-              return 'lucide'; // Iconos
+            if (id.includes("scheduler")) {
+              return "vendor-scheduler";
             }
-            if (id.includes('react-google-recaptcha')) {	
-              return 'recaptcha'; // Google reCAPTCHA
+            // React DOM
+            if (id.includes("react-dom")) {
+              return "vendor-react-dom";
             }
-            if (id.includes('react')) {
-              return 'react'; // React + ReactDOM
+            // Routing libraries
+            if (id.includes("react-router-dom") || id.includes("@remix-run/router")) {
+              return "vendor-router";
             }
-            if (id.includes('firebase')) {
-              return 'firebase'; // Firebase si en el futuro lo usas
+            // Head management
+            if (id.includes("react-helmet-async")) {
+              return "vendor-helmet";
             }
-            if (id.includes('tailwindcss') || id.includes('autoprefixer') || id.includes('postcss')) {
-              return 'styles'; // Herramientas de CSS
+            // Firebase
+            if (id.includes("firebase")) {
+              return "vendor-firebase";
             }
-            // Todas las demás librerías se agrupan en "vendor"
-            return 'vendor';
+            // Utility libraries
+            if (id.includes("lodash") || id.includes("moment")) {
+              return "vendor-utils";
+            }
+            // Default vendor chunk
+            return "vendor";
           }
-        }
+        },
       },
     },
+    target: "es2017",
+    minify: "esbuild",
   },
   resolve: {
     alias: {

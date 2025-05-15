@@ -1,24 +1,22 @@
-// src/components/home/HomeLinksSection.tsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import RevealWrapper from "../common/RevealWrapper";
-import { useTheme } from "../../components/context/useThemeHook";
+import { useTheme } from "../context/useThemeHook";
+
+interface Link {
+  id: string;
+  to: string;
+  hash?: string;
+  imageSrc: string;
+  alt: string;
+  label: string;
+}
 
 interface HomeLinksSectionProps {
   title: string;
   subtitle: string;
   subtitle1: string;
-  links: {
-    to: string;
-    sectionId?: string;
-    imageSrc: string;
-    alt: string;
-    label: string;
-    hash?: string;
-    id: string; // Add a unique ID for each link
-  }[];
-  isMobileView: boolean;
-  onSmoothScroll: (sectionId: string) => void;
+  links: Link[];
 }
 
 const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({
@@ -30,17 +28,14 @@ const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({
   const navigate = useNavigate();
   const { colors } = useTheme();
 
-  const handleClick = (link: HomeLinksSectionProps["links"][number]) => {
-    if (link.hash) {
-      navigate(`${link.to}${link.hash}`);
-    } else {
-      navigate(link.to);
-    }
+  const handleClick = (link: Link) => {
+    const path = link.hash ? `${link.to}${link.hash}` : link.to;
+    navigate(path);
   };
 
   return (
     <section
-      className={`py-16 px-4`}
+      className="py-16 px-4"
       style={{ backgroundColor: colors.background, color: colors.text }}
     >
       <div
@@ -49,23 +44,20 @@ const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({
       >
         <RevealWrapper animationClass="fade-in-up-animation">
           <h2
-            className={`text-4xl md:text-5xl font-cinzel font-extralight mb-12 `}
+            className="text-4xl md:text-5xl font-cinzel font-extralight mb-12"
             style={{ color: colors.accent }}
           >
             {title}
           </h2>
         </RevealWrapper>
         <RevealWrapper animationClass="fade-in-up-animation">
-          <p
-            className={`text-gray-600 font-cinzel `}
-            style={{ color: colors.bannerTitle }}
-          >
+          <p className="text-gray-600 font-cinzel mb-4" style={{ color: colors.bannerTitle }}>
             {subtitle}
           </p>
         </RevealWrapper>
         <RevealWrapper animationClass="fade-in-up-animation">
           <p
-            className={`text-gray-600 mb-24 md:mb-28 font-cinzel `}
+            className="text-gray-600 mb-24 md:mb-28 font-cinzel"
             style={{ color: colors.bannerTitle }}
           >
             {subtitle1}
@@ -74,10 +66,8 @@ const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {links.map((link) => (
             <RevealWrapper key={link.id} animationClass="fade-in-up-animation">
-              {" "}
-              {/* Use the unique ID as the key */}
               <div
-                className="w-full aspect-square overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer relative group"               
+                className="relative w-full aspect-square overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer group"
                 onClick={() => handleClick(link)}
               >
                 <img
@@ -87,7 +77,7 @@ const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({
                   loading="lazy"
                 />
                 <div
-                  className={`absolute bottom-0 left-0 w-full h-1/3 flex items-center justify-center transition-opacity duration-300 group-hover:bg-opacity-70`}
+                  className="absolute bottom-0 left-0 w-full h-1/3 flex items-center justify-center transition-opacity duration-300 group-hover:bg-opacity-70"
                   style={{ backgroundColor: colors.bannerImageOverlay }}
                 >
                   <p className="text-white font-cinzel text-lg">{link.label}</p>
