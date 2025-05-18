@@ -1,7 +1,7 @@
 // src/pages/Services.tsx
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { HOME_LINKS_TITLE_CLASS } from "../constants/styles";
+import { HOME_LINKS_TITLE_CLASS, PARAGRAPH_CLASS, TEXT_CENTER } from "../constants/styles";
 import { ServicesProps } from "../interfaces/interfaces";
 import { getCoursesDescription } from "../data/coursesData";
 import { getServicesDescription } from "../data/servicesData";
@@ -13,6 +13,7 @@ import useWindowSize from "../hooks/useWindowSize";
 import StatsSection from "../components/StatsSection";
 import ModalContainer from "../components/modals/ModalRoot";
 import ErrorComponent from "../components/common/ErrorComponent";
+import ServicePromoSection from "../components/services&courses/ServicePromoSection";
 import SectionTitle from "../components/common/SectionTitle";
 import ServicesIncludeSection from "../components/layout/ServicesIncludeSection";
 import SectionDescription from "../components/common/SectionDescription";
@@ -77,18 +78,17 @@ function Services({}: ServicesProps) {
             />
           </Helmet>
 
+          <ServicePromoSection
+            title="Conoce lo que podemos hacer por ti"
+            description={servicesDescription}
+            titleClassName={`${HOME_LINKS_TITLE_CLASS} max-h-[550px]:text-xs max-h-[550px]:bg-yellow-300`} // ¡Cambio drástico para prueba!
+          />
+
           <section
             id="services"
-            className="container mx-auto mt-12 md:mt-24 md:mb-10 md:px-4 lg:px-8 xl:px-16 2xl:px-24 py-16 md:py-32 z-10"
+            className="container mx-auto mt-12 md:mt-24 md:mb-10 md:px-4 lg:px-8 xl:px-16 2xl:px-24 z-10"
+            style={{ backgroundColor: colors.background, color: colors.text }}
           >
-            <SectionTitle
-              title="Conoce lo que podemos hacer por ti"
-              className={HOME_LINKS_TITLE_CLASS}
-            />
-            <SectionDescription
-              description={servicesDescription}
-              className="mt-4 mb-16 md:mb-24 font-cinzel text-center"
-            />
             {!isMobileView && <ServicesCarouselSection />}
             {isMobileView && <ServicesColumnSection />}
           </section>
@@ -110,10 +110,12 @@ function Services({}: ServicesProps) {
             <SectionTitle
               title="NUESTROS CURSOS"
               className={HOME_LINKS_TITLE_CLASS}
+              style={{ color: colors.accent }}
             />
             <SectionDescription
               description={coursesDescription}
-              className="mt-4 mb-16 md:mb-24 font-cinzel text-center"
+              className={`${PARAGRAPH_CLASS} ${TEXT_CENTER} mt-4 mb-16 md:mb-24`}
+              style={{ color: colors.accent }}
             />
 
             {!isMobileView && <CoursesCarouselSection />}

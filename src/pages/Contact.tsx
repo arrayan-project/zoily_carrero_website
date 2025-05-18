@@ -3,11 +3,8 @@ import { useEffect } from "react";
 import { useTheme } from "../components/context/useThemeHook";
 import "../GlobalStyles.css";
 import ContactForm from "../components/forms/ContactUsForm";
-import useWindowSize from "../hooks/useWindowSize";
 import { useLocation } from "react-router-dom";
-import LazyFooter from "../components/common/LazyFooter";
 import ContactInfoSection from "../components/contact/ContactInfoSection";
-import ContactSocialMediaSection from "../components/contact/ContactSocialMediaSection";
 import ContactMainTitle from "../components/contact/ContactMainTitle";
 import { Helmet } from 'react-helmet-async';
 
@@ -15,7 +12,6 @@ interface ContactProps {}
 
 function Contact({}: ContactProps) {
   const { colors } = useTheme();
-  const { isMobileView } = useWindowSize();
   const location = useLocation();
   const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
 
@@ -55,7 +51,6 @@ function Contact({}: ContactProps) {
 
           <section className="space-y-8">
             <ContactInfoSection />
-            <ContactSocialMediaSection />
           </section>
         </div>
       </section>

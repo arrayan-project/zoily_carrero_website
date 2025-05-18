@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import RevealWrapper from "../common/RevealWrapper";
 import { useTheme } from "../context/useThemeHook";
 
+import { HEADING_1_CLASS, FONT_FAMILY_PRIMARY, COLOR_TEXT_WHITE, TEXT_CENTER } from "../../constants/styles";
 interface Link {
   id: string;
   to: string;
@@ -44,20 +45,20 @@ const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({
       >
         <RevealWrapper animationClass="fade-in-up-animation">
           <h2
-            className="text-4xl md:text-5xl font-cinzel font-extralight mb-12"
+            className={`${HEADING_1_CLASS} ${TEXT_CENTER} mb-12`}
             style={{ color: colors.accent }}
           >
             {title}
           </h2>
         </RevealWrapper>
         <RevealWrapper animationClass="fade-in-up-animation">
-          <p className="text-gray-600 font-cinzel mb-4" style={{ color: colors.bannerTitle }}>
+          <p className={`${FONT_FAMILY_PRIMARY} text-base mb-4`} style={{ color: colors.bannerTitle }}>
             {subtitle}
           </p>
         </RevealWrapper>
         <RevealWrapper animationClass="fade-in-up-animation">
           <p
-            className="text-gray-600 mb-24 md:mb-28 font-cinzel"
+            className={`${FONT_FAMILY_PRIMARY} text-base mb-24 md:mb-28`}
             style={{ color: colors.bannerTitle }}
           >
             {subtitle1}
@@ -80,7 +81,7 @@ const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({
                   className="absolute bottom-0 left-0 w-full h-1/3 flex items-center justify-center transition-opacity duration-300 group-hover:bg-opacity-70"
                   style={{ backgroundColor: colors.bannerImageOverlay }}
                 >
-                  <p className="text-white font-cinzel text-lg">{link.label}</p>
+                  <p className={`${FONT_FAMILY_PRIMARY} ${COLOR_TEXT_WHITE} text-lg`}>{link.label}</p>
                 </div>
               </div>
             </RevealWrapper>

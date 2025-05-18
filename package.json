@@ -5,6 +5,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "convert-images": "node script/convert-images.cjs",
     "dev": "vite",
     "build": "vite build && critical dist/index.html --base dist/ --inline --css dist/assets/index-*.css --dimensions 375x667 --dimensions 1440x900 --target dist/index.html",
     "lint": "eslint .",

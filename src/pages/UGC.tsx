@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import images from "../assets/images";
-import useWindowSize from "../hooks/useWindowSize";
 import UGCMainSection from "../components/ugc/UGCMainSection";
 import UGCContentTitleSection from "../components/ugc/UGCContentTitleSection";
 import UGCPhoneExampleSection from "../components/ugc/UGCPhoneExampleSection";
@@ -17,7 +16,6 @@ interface UGCProps {}
 const UGC: React.FC<UGCProps> = () => {
   const [, setWindowWidth] = useState(window.innerWidth);
   const location = useLocation();
-  const { isMobileView } = useWindowSize();
 
   useEffect(() => {
     const handleResize = () => {
@@ -58,7 +56,7 @@ const UGC: React.FC<UGCProps> = () => {
 
       {/* Main UGC Section */}
       <UGCMainSection
-        imageSrc={images.zoilyblack}
+        imageSrc={images.zoilyblackugc.webp}
         leftSectionProps={{ username: "@soyzoilycarrero" }}
       />
 
@@ -76,23 +74,23 @@ const UGC: React.FC<UGCProps> = () => {
       <UGCPhoneExampleSection
         images={[
           {
-            phoneImage: images.phone,
-            contentImage: images.ugc1,
+            phoneImage: images.phone.webp,
+            contentImage: images.ugc1.webp,
             alt: "Ejemplo UGC 1",
           },
           {
-            phoneImage: images.phone,
-            contentImage: images.ugc2,
+            phoneImage: images.phone.webp,
+            contentImage: images.ugc2.webp,
             alt: "Ejemplo UGC 2",
           },
           {
-            phoneImage: images.phone,
-            contentImage: images.ugc3,
+            phoneImage: images.phone.webp,
+            contentImage: images.ugc3.webp,
             alt: "Ejemplo UGC 3",
           },
           {
-            phoneImage: images.phone,
-            contentImage: images.ugc4,
+            phoneImage: images.phone.webp,
+            contentImage: images.ugc4.webp,
             alt: "Ejemplo UGC 4",
           },
         ]}

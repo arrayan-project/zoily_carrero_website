@@ -3,6 +3,7 @@ import { CheckCircle } from '../../assets/icons';
 import { whyUsPoints, aboutInfo } from '../../data/aboutData';
 import { useTheme } from '../context/useThemeHook';
 import RevealWrapper from '../common/RevealWrapper';
+import { FONT_FAMILY_PRIMARY, FONT_WEIGHT_NORMAL, PARAGRAPH_CLASS, TEXT_CENTER } from '../../constants/styles'; // Assuming normal weight for this title
 
 const AboutWhyUsSection: React.FC = React.memo(() => {
   const { colors } = useTheme();
@@ -16,7 +17,8 @@ const AboutWhyUsSection: React.FC = React.memo(() => {
         {title && (
           <RevealWrapper animationClass="fade-in-text">
             <h3
-              className="text-center md:text-left text-2xl font-cinzel mb-12"
+              // Using base font family, specific size, and TEXT_CENTER. Assuming normal weight.
+              className={`${FONT_FAMILY_PRIMARY} ${FONT_WEIGHT_NORMAL} text-2xl ${TEXT_CENTER} md:text-left mb-12`}
               style={{ color: colors.accent }}
             >
               {title}
@@ -30,7 +32,7 @@ const AboutWhyUsSection: React.FC = React.memo(() => {
               <li key={`why-us-${index}`} className="flex items-center space-x-6">
                 <CheckCircle className="h-6 w-6 flex-shrink-0" style={{ color: colors.accent }} />
                 <p
-                  className="leading-relaxed font-cinzel text-sm md:text-base"
+                  className={`${PARAGRAPH_CLASS} leading-relaxed`}
                   style={{ color: colors.text }}
                 >
                   {point}

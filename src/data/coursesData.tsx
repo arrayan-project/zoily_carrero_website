@@ -39,6 +39,7 @@ export const termsContent = () => {
 export const coursesData: Course[] = [
   {
     category: "Curso Básico",
+    imageKey: "cbasico", // Clave de imagen para la vista de columna/carrusel
     description: "Aprende las bases del maquillaje profesional.",
     items: [
       {
@@ -58,7 +59,7 @@ export const coursesData: Course[] = [
       },
     ],
     modalContent: {
-      images: [images.cbasico],
+      images: [images.cbasico.webp], // Usar la URL de la imagen .webp
       title: "Curso Básico",
       infoContent: (
         <div className="font-cinzel">
@@ -86,6 +87,7 @@ export const coursesData: Course[] = [
   },
   {
     category: "Curso Intermedio",
+    imageKey: "cintermedio", // Clave de imagen
     description: "Curso intermedio de maquillaje donde aprenderás técnicas de perfeccionamiento y acabados más sofisticados.",
     items: [
       {
@@ -101,7 +103,7 @@ export const coursesData: Course[] = [
       },
     ],
     modalContent: {
-      images: [images.cintermedio],
+      images: [images.cintermedio.webp], // Usar la URL de la imagen .webp
       title: "Curso Intermedio",
       infoContent: (
         <div className="font-cinzel">
@@ -125,6 +127,7 @@ export const coursesData: Course[] = [
   },
   {
     category: "Curso Avanzado",
+    imageKey: "cavanzado", // Clave de imagen
     description: "Curso avanzado de maquillaje para llevar tus habilidades a un nivel profesional con técnicas complejas.",
     items: [
       {
@@ -140,7 +143,7 @@ export const coursesData: Course[] = [
       },
     ],
     modalContent: {
-      images: [images.cavanzado],
+      images: [images.cavanzado.webp], // Usar la URL de la imagen .webp
       title: "Curso Avanzado",
       infoContent: (
         <div className="font-cinzel">
@@ -164,6 +167,7 @@ export const coursesData: Course[] = [
   },
   {
     category: "Curso Profesional",
+    imageKey: "cprofesional", // Clave de imagen
     description: "Curso profesional intensivo para especializarte en técnicas avanzadas y adaptadas a las necesidades de tus clientes.",
     items: [
       {
@@ -179,7 +183,7 @@ export const coursesData: Course[] = [
       },
     ],
     modalContent: {
-      images: [images.cprofesional],
+      images: [images.cprofesional.webp], // Usar la URL de la imagen .webp
       title: "Curso Profesional",
       infoContent: (
         <div className="font-cinzel">

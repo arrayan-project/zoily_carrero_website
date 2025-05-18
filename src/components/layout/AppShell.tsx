@@ -3,6 +3,7 @@ import { Suspense, useState, useCallback, lazy } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useTheme } from '../context/useThemeHook';
 import ThemeToggleButton from '../buttons/ThemeToggleButton';
+import LogoComponent from '../layout/LogoComponent';
 import FloatingContactButton from '../buttons/FloatingContactButton';
 import ContactUsModal from '../modals/ContactUsModal';
 
@@ -30,12 +31,20 @@ export default function AppShell() {
     ? 'bg-white text-amber-700'
     : 'bg-gray-800 text-rose-400';
 
+    // Rutas donde quieres forzar el logo oscuro (para fondos claros de página)
+  const forceDarkLogoRoutes = ['/ugc', '/store'];
+  const shouldForceDarkLogo = forceDarkLogoRoutes.includes(pathname);
+
+  // Rutas donde quieres forzar el logo claro (para fondos oscuros de página)
+  const forceLightLogoRoutes = ['/home', '/services', '/about'];
+  const shouldForceLightLogo = forceLightLogoRoutes.includes(pathname);
+
   return (
     <Suspense fallback={<div className="py-10 text-center">Cargando…</div>}>
       <div className={`${themeClasses} w-full min-h-screen overflow-x-hidden`}>
-        {/* Toggle de tema */}
-        <div className="fixed top-4 left-4 z-50">
-          <ThemeToggleButton />
+       {/* Contenedor para el Logo y el Botón de Tema */}
+        <div className="fixed top-4 left-4 z-[1001] flex flex-col items-center space-y-2">
+          <LogoComponent variant={shouldForceDarkLogo ? 'dark' : shouldForceLightLogo ? 'light' : undefined } />
         </div>
 
         {/* Menú de navegación */}
@@ -51,13 +60,17 @@ export default function AppShell() {
           </div>
         )}
 
-        {/* Footer (móvil y desktop) */}
-        <Footer />
+        <div className="fixed bottom-20 left-4 z-50">
+          <ThemeToggleButton />
+        </div>
 
         {/* Botón flotante de contacto */}
         <div className="fixed bottom-4 left-4 z-50">
           <FloatingContactButton onClick={openModal} />
         </div>
+
+        {/* Footer (móvil y desktop) */}
+        <Footer />
 
         {/* Modal de contacto */}
         {isModalOpen && (

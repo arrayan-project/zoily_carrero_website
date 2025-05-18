@@ -121,6 +121,7 @@ export const termsContent = () => {
 export const servicesData: Service[] = [
   {
     category: "Novia",
+    imageKey: "novia", // Clave de imagen para la vista de columna/carrusel
     description:
       "El servicio de maquillaje para novias incluye todo lo necesario para realzar tu belleza en el día más importante de tu vida.",
     items: [
@@ -152,7 +153,7 @@ export const servicesData: Service[] = [
       },
     ],
     modalContent: {
-      images: [images.novia],
+      images: [images.novia.webp], // Usar la URL de la imagen .webp
       title: "Maquillaje Novia",
       infoContent: (
         <div className="font-cinzel">
@@ -193,6 +194,7 @@ export const servicesData: Service[] = [
   },
   {
     category: "Quinceañera",
+    imageKey: "glam2", // Clave de imagen (usando glam2 como ejemplo, ajustar si es otra)
     description:
       "El maquillaje express es perfecto para quinceañeras que desean lucir jóvenes y frescas en su gran día.",
     items: [
@@ -223,7 +225,7 @@ export const servicesData: Service[] = [
       },
     ],
     modalContent: {
-      images: [images.glam2],
+      images: [images.glam2.webp], // Usar la URL de la imagen .webp
       title: "Maquillaje Quinceañera",
       infoContent: (
         <div className="font-cinzel">
@@ -278,6 +280,7 @@ export const servicesData: Service[] = [
   },
   {
     category: "Glam",
+    imageKey: "glam", // Clave de imagen
     description:
       "Si buscas un look impactante y sofisticado, el maquillaje Glam es ideal para ti. ",
     items: [
@@ -295,7 +298,7 @@ export const servicesData: Service[] = [
       },
     ],
     modalContent: {
-      images: [images.glam],
+      images: [images.glam.webp], // Usar la URL de la imagen .webp
       title: "Maquillaje Glam",
       infoContent: (
         <div className="font-cinzel">
@@ -320,6 +323,7 @@ export const servicesData: Service[] = [
   },
   {
     category: "Piel Madura",
+    imageKey: "pmadura", // Clave de imagen
     description:
       "El servicio de maquillaje para piel madura es especial y cuidado, diseñado para realzar la belleza natural.",
     items: [
@@ -337,7 +341,7 @@ export const servicesData: Service[] = [
       },
     ],
     modalContent: {
-      images: [images.pmadura],
+      images: [images.pmadura.webp], // Usar la URL de la imagen .webp
       title: "Maquillaje Piel Madura",
       infoContent: (
         <div className="font-cinzel">
@@ -362,6 +366,7 @@ export const servicesData: Service[] = [
   },
   {
     category: "Maquillaje & Peinado",
+    imageKey: "m_peinado2", // Clave de imagen
     description:
       "El servicio de maquillaje y peinado te ofrece una experiencia completa para realzar tu belleza.",
     items: [
@@ -380,7 +385,7 @@ export const servicesData: Service[] = [
       },
     ],
     modalContent: {
-      images: [images.m_peinado2],
+      images: [images.m_peinado2.webp], // Usar la URL de la imagen .webp
       title: "Maquillaje y Peinado",
       infoContent: (
         <div className="font-cinzel">
@@ -406,6 +411,7 @@ export const servicesData: Service[] = [
   },
   {
     category: "Social",
+    imageKey: "express", // Clave de imagen
     description:
       "El servicio de maquillaje social es ideal para cualquier evento especial, donde desees lucir radiante y destacar tu belleza natural.",
     items: [
@@ -431,7 +437,7 @@ export const servicesData: Service[] = [
       },
     ],
     modalContent: {
-      images: [images.express],
+      images: [images.express.webp], // Usar la URL de la imagen .webp
       title: "Maquillaje Social",
       infoContent: (
         <div className="font-cinzel">

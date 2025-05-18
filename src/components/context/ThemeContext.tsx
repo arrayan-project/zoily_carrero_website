@@ -88,7 +88,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     dark: {
       // Revisar contraste del tema oscuro también es buena práctica
       background: "#151723",           // Gris muy oscuro
-      text: "#EAE0D9",                 // Blanco hueso (Contraste sobre #1A1A1A: 14.01:1) - WCAG AAA
+      text: "#FFFFFF",                 // Blanco hueso (Contraste sobre #1A1A1A: 14.01:1) - WCAG AAA
       section: "#0E0F16",              // Gris oscuro para secciones (Contraste #EAE0D9 sobre #2B2B2B: 10.78:1) - WCAG AAA
       secondaryText: "#C7A49E",        // Rosa pálido (Contraste sobre #1A1A1A: 6.98:1) - WCAG AA
       accent: "#E4C9B8",               // Beige claro como acento (Contraste sobre #1A1A1A: 9.13:1) - WCAG AAA

@@ -8,6 +8,7 @@ import {
   Pointer,
 } from "../../assets/icons";
 import RevealWrapper from "../common/RevealWrapper";
+import { FONT_FAMILY_PRIMARY, FONT_WEIGHT_LIGHT } from "../../constants/styles";
 
 export interface UGCLeftSectionProps {
   username: string;
@@ -19,7 +20,8 @@ const UGCLeftSection: React.FC<UGCLeftSectionProps> = ({ username }) => {
       <section className="ugc-seccion-izquierda-superior md:h-3/4 h-[75%] bg-[rgb(242,232,225)] flex justify-center items-center">
         <div className="text-center mt-6">
           <RevealWrapper animationClass="slide-in-left-animation">
-            <h2 className="ugc-title-portafolio font-cinzel font-light text-3xl md:text-5xl lg:text-4xl text-gray-700 mb-2 tracking-normal">
+            {/* Using base font properties, keeping specific sizes and tracking as they differ from HEADING_X_CLASS */}
+            <h2 className={`ugc-title-portafolio ${FONT_FAMILY_PRIMARY} ${FONT_WEIGHT_LIGHT} text-3xl md:text-5xl lg:text-4xl text-gray-700 mb-2 tracking-normal`}>
               PORTAFOLIO
             </h2>
           </RevealWrapper>

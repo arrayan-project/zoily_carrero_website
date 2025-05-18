@@ -3,6 +3,7 @@ import React from 'react';
 import RevealWrapper from "../common/RevealWrapper";
 import { contactInfo } from '../../data/contactData';
 import { useTheme } from '../context/useThemeHook';
+import { HEADING_1_CLASS } from "../../constants/styles";
 
 const ContactMainTitle: React.FC = () => {
   const { colors} = useTheme();
@@ -10,8 +11,8 @@ const ContactMainTitle: React.FC = () => {
   return (
     <RevealWrapper animationClass="fade-in-text">
       {contactInfo?.title && (
-        <h1 className={`text-2xl md:text-5xl font-cinzel font-extralight text-center mb-24 md:py-10 tracking-wider mt-10`}
-        style={{ backgroundColor: colors.background, color: colors.accent }}>
+        <h1
+        className={`${HEADING_1_CLASS} text-center mb-24 md:py-10 mt-10`} style={{ backgroundColor: colors.background, color: colors.accent }}>
           {contactInfo.title}
         </h1>
       )}

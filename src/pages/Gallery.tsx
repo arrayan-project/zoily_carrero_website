@@ -3,7 +3,7 @@ import GalleryTitle from "../components/gallery/GalleryTitle";
 import GalleryCategoryMenu from "../components/navigation/GalleryCategoryMenu";
 import GalleryImageGrid from "../components/gallery/GalleryImageGrid";
 import { imageArrays } from "../assets/images";
-import { HOME_LINKS_TITLE_CLASS } from "../constants/styles";
+import { HOME_LINKS_TITLE_CLASS } from "../constants/styles"; // This constant already uses HEADING_1_CLASS
 import { galleryTitle } from "../data/galleryData";
 import { useTheme } from "../components/context/useThemeHook";
 import { Helmet } from "react-helmet-async";

@@ -1,21 +1,21 @@
 // src/components/common/SectionTitle.tsx
 import React from "react";
-import { useTheme } from "../context/useThemeHook";
 import RevealWrapper from "../common/RevealWrapper";
 
 interface SectionTitleProps {
   title: string;
   className?: string;
+    style?: React.CSSProperties;
+
 }
 
-const SectionTitle: React.FC<SectionTitleProps> = ({ title, className }) => {
-  const { colors } = useTheme();
+const SectionTitle: React.FC<SectionTitleProps> = ({ title, className, style }) => {
 
   return (
     <RevealWrapper animationClass="fade-in-text">
       <h1
-        className={`${className} text-xl mb-12 md:mb-18`}
-        style={{ color: colors.accent }}
+        className={`${className} text-center text-2xl md:text-xl lg:text-3xl font-light text-white tracking-wide mb-12 md:mb-2`}
+        style={style}
       >
         {title}
       </h1>

@@ -1,6 +1,7 @@
 import React from "react";
 import { useTheme } from "../../components/context/useThemeHook";
 import RevealWrapper  from "../common/RevealWrapper";
+import { FONT_FAMILY_PRIMARY } from "../../constants/styles";
 
 type BannerProps = {
   text: string;
@@ -18,7 +19,8 @@ const UGCMiddleBanner: React.FC<BannerProps> = ({
       <RevealWrapper animationClass="fade-in-animation">
         <div className={`mx-auto ${maxWidth}`}>
           <h1
-            className="text-base md:text-xl font-cinzel italic"
+            // Using FONT_FAMILY_PRIMARY, keeping specific sizes and italic style
+            className={`${FONT_FAMILY_PRIMARY} text-base md:text-xl italic`}
             style={{ color: colors.text }}
           >
             {text}

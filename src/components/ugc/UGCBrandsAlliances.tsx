@@ -1,7 +1,8 @@
 import images from '../../assets/images';
 import { useTheme } from "../../components/context/useThemeHook";
 import "../../GlobalStyles.css"
-import RevealWrapper from "../common/RevealWrapper";
+import RevealWrapper from "../common/RevealWrapper"; 
+import { HEADING_1_CLASS, TEXT_CENTER } from '../../constants/styles';
 
 
 const UGCBrandsAlliances = () => {
@@ -31,7 +32,7 @@ const UGCBrandsAlliances = () => {
       
       <div className="container mx-auto">
       <RevealWrapper animationClass="fade-in-text">
-        <h2 className="text-4xl md:text-5xl font-cinzel text-center mb-24 md:mb-48" style={{ color: colors.accent }}>
+        <h2 className={`${HEADING_1_CLASS} ${TEXT_CENTER} mb-24 md:mb-48`} style={{ color: colors.accent }}>
           ALGUNAS COLABORACIONES
         </h2>
         </RevealWrapper>
@@ -42,7 +43,7 @@ const UGCBrandsAlliances = () => {
             <div key={index} className="flex items-center justify-center">
               <div className="bg-white rounded-full flex items-center justify-center shadow-sm w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-52 xl:h-52">
                 <img
-                  src={brand.logo}
+                  src={brand.logo.webp}
                   alt={brand.name}
                   loading="lazy"
                   className="max-h-full max-w-full rounded-full object-contain"

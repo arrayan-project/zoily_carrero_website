@@ -13,7 +13,7 @@ const GalleryTitle: React.FC<GalleryTitleProps> = ({ title, className }) => {
   return (
     <RevealWrapper animationClass="fade-in-text">
       <h1
-        className={`${className} text-xl mb-12 md:mb-24 mt-12 md:mt-24`}
+        className={`${className} mb-12 md:mb-24 mt-12 md:mt-24`}
         style={{ color: colors.accent }}
       >
         {title}

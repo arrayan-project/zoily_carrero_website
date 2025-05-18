@@ -1,3 +1,4 @@
+// src/components/services&courses/CourseCarouselLogic.tsx
 import { useState, useEffect, useRef } from 'react';
 import { Course } from '../../types/CourseInterfaces';
 

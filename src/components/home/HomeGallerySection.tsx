@@ -4,6 +4,7 @@ import SmoothImage from "../smoothImages/SmoothImage";
 import RevealWrapper from "../common/RevealWrapper";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../components/context/useThemeHook";
+import { FONT_FAMILY_PRIMARY, FONT_WEIGHT_LIGHT , PARAGRAPH_CLASS, TEXT_SIZE_BASE, COLOR_TEXT_WHITE } from "../../constants/styles";
 
 interface HomeGallerySectionProps {
   imageSrc: string;
@@ -28,7 +29,7 @@ const HomeGallerySection: React.FC<HomeGallerySectionProps> = ({
 
   return (
     <section
-      className={`py-16 px-4`}
+      className={`py-4 md:py-16 md:px-4`}
       style={{ backgroundColor: colors.background, color: colors.section }}
     >
       <div className={`mx-auto w-full`}>
@@ -41,7 +42,7 @@ const HomeGallerySection: React.FC<HomeGallerySectionProps> = ({
                 <div className="px-6 py-8 flex flex-col items-center justify-center">
                   <RevealWrapper animationClass="slide-in-left-animation">
                     <h3
-                      className={`text-xl md:text-4xl font-cinzel font-medium mb-4`}
+                      className={`${FONT_FAMILY_PRIMARY} ${FONT_WEIGHT_LIGHT } text-xl md:text-4xl mb-12`}
                       style={{ color: colors.accent }}
                     >
                       {galleryItem.title}
@@ -49,7 +50,7 @@ const HomeGallerySection: React.FC<HomeGallerySectionProps> = ({
                   </RevealWrapper>
                   <RevealWrapper animationClass="slide-in-left-animation">
                     <p
-                      className={`text-sm md:text-base font-cinzel px-4 mb-12`}
+                      className={`${PARAGRAPH_CLASS} px-4 mb-12`}
                       style={{ color: colors.bannerTitle }}
                     >
                       {galleryItem.description}
@@ -59,7 +60,7 @@ const HomeGallerySection: React.FC<HomeGallerySectionProps> = ({
                     <button
                       type="button"
                       onClick={handleViewMoreClick}
-                      className="bg-pink-700 text-white px-12 border rounded py-4 md:px-16 md:py-6 font-cinzel hover:bg-pink-900 transition-colors duration-300"
+                      className={`bg-pink-700 ${COLOR_TEXT_WHITE} px-12 border rounded py-4 md:px-16 md:py-6 ${FONT_FAMILY_PRIMARY} ${TEXT_SIZE_BASE} hover:bg-pink-900 transition-colors duration-300`}
                       style={{
                         minWidth: "fit-content",
                         borderColor: colors.border,
@@ -72,8 +73,6 @@ const HomeGallerySection: React.FC<HomeGallerySectionProps> = ({
               </div>
             ))}
           </div>
-
-          {/* Image Container */}
           <div className="overflow-hidden">
             <RevealWrapper animationClass="slide-in-right-animation">  
             <SmoothImage

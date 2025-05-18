@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { X } from "../../assets/icons";
 import ContactForm from '../forms/ContactUsForm';
 import { useTheme } from '../context/useThemeHook';
-import { getTextColorClass } from "../../utils/utils";
+import { HEADING_2_CLASS } from "../../constants/styles";
 
 interface ContactModalProps {
     isOpen: boolean;
@@ -125,8 +125,9 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
                 >
                     <X className="h-6 w-6" />
                 </button>
-                <div className={`mb-8 ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}>
-                    <h2 className={`text-2xl font-cinzel tracking-wide ${getTextColorClass(theme)} mb-6`}>Contáctame</h2>
+                <div className={`mb-8 ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'}`} style={{ color: theme === "dark" ? "white" : "black" }}> {/* Apply text color based on theme */}
+                    {/* Using HEADING_2_CLASS for consistency */}
+                    <h2 className={`${HEADING_2_CLASS} mb-6`}>Contáctame</h2>
                 </div>
                 <div className={`${isOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}>
                     <ContactForm />

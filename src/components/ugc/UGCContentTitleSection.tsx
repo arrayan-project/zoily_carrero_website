@@ -2,6 +2,8 @@
 import React from "react";
 import SectionTitle from "../common/SectionTitle";
 import SectionDescription from "../common/SectionDescription";
+import { useTheme } from "../context/useThemeHook";
+import { HEADING_1_CLASS, PARAGRAPH_CLASS, TEXT_CENTER } from "../../constants/styles";;
 
 
 interface UGCContentTitleSectionProps {
@@ -13,15 +15,19 @@ const UGCContentTitleSection: React.FC<UGCContentTitleSectionProps> = ({
   title,
   description,
 }) => {
+  const { colors } = useTheme();
+  
   return (
     <section className=" mt-20 text-center md:mt-36 md:mb-36 mb-14">
       <SectionTitle
         title={title}
-        className="text-4xl md:text-5xl font-cinzel font-extralight text-center mb-12 tracking-wider"
+        className={`${HEADING_1_CLASS} ${TEXT_CENTER} mb-12`}
+        style={{ color: colors.accent }}
       />
       <SectionDescription
         description={description}
-        className="mt-4 font-cinzel text-center"
+        className={`${PARAGRAPH_CLASS} ${TEXT_CENTER} mt-4`}
+        style={{ color: colors.text }}
       />
     </section>
   );

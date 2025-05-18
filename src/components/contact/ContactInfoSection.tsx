@@ -2,11 +2,13 @@
 import React from "react";
 import { Mail, Phone, MapPin, Clock } from "../../assets/icons";
 import RevealWrapper from "../common/RevealWrapper";
-import { contactInfo } from "../../data/contactData";
+import { contactInfo } from "../../data/contactData"; 
 import { useTheme } from "../context/useThemeHook";
+import { HEADING_2_CLASS, FONT_FAMILY_PRIMARY, PARAGRAPH_CLASS } from "../../constants/styles";
+import { getTextColorClassParagraph } from "../../utils/utils";
 
 const ContactInfoSection: React.FC = () => {
-  const { colors } = useTheme();
+  const { colors, theme } = useTheme();
 
   return (
     <section className="space-y-8">
@@ -14,7 +16,8 @@ const ContactInfoSection: React.FC = () => {
         <RevealWrapper animationClass="fade-in-text">
           {contactInfo?.contactTitle && (
             <h2
-              className={`text-2xl font-cinzel tracking-wide mb-6`}
+              // Using HEADING_2_CLASS for consistency with section titles
+              className={`${HEADING_2_CLASS} mb-6`}
               style={{ color: colors.accent }}
             >
               {contactInfo.contactTitle}
@@ -57,7 +60,8 @@ const ContactInfoSection: React.FC = () => {
                     <div>
                       <h3 className={`font-cinzel`}>{label}</h3>
                       <p
-                        className={`font-cinzel `}
+                        // Using PARAGRAPH_CLASS for consistency
+                        className={`${PARAGRAPH_CLASS}`}
                         dangerouslySetInnerHTML={{ __html: value }}
                       />
                     </div>
@@ -67,6 +71,33 @@ const ContactInfoSection: React.FC = () => {
           )}
         </div>
         </RevealWrapper>
+
+        {/* Social Media Section - Moved here from its own component */}
+        <div className={`rounded-lg shadow-sm p-2 md:p-8 mt-8`} style={{ backgroundColor: colors.background, color: colors.accent }}>
+          <RevealWrapper animationClass="fade-in-text">
+            {contactInfo?.followUsTitle && (
+              <h2 className={`${HEADING_2_CLASS} mb-6`} style={{ backgroundColor: colors.background, color: colors.accent }}>
+                {contactInfo.followUsTitle}
+              </h2>
+            )}
+          </RevealWrapper>
+          <div className="flex space-x-4">
+            {[
+              { platform: "Instagram", link: contactInfo?.socialMedia?.instagram },
+              { platform: "Pinterest", link: contactInfo?.socialMedia?.pinterest },
+              { platform: "Facebook", link: contactInfo?.socialMedia?.facebook }
+            ].map(
+              ({ platform, link }) =>
+                link && (
+                  <RevealWrapper animationClass="fade-in-text">
+                    <a href={link} target="_blank" rel="noopener noreferrer" className={`${FONT_FAMILY_PRIMARY} ${getTextColorClassParagraph(theme)} hover:text-pink-600 transition-colors`} style={{ backgroundColor: colors.background }}>
+                      {platform}
+                    </a>
+                  </RevealWrapper>
+              )
+            )}
+          </div>
+        </div>
       </div>
     </section>
   );

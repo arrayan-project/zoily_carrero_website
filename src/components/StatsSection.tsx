@@ -60,12 +60,12 @@ const StatItem: React.FC<StatItemProps> = ({
 
   return (
     <div className={classes} style={{ animationDelay: `${index * 200}ms` }}>
-      <span className="text-5xl">{icon}</span>
-      <span className="text-4xl font-bold">
+      <span className="text-5xl font-cinzel">{icon}</span>
+      <span className="text-4xl font-cinzel">
         <Counter value={value} isVisible={isVisible} />
         {suffix}
       </span>
-      <span className="text-sm">{label}</span>
+      <span className="text-sm font-cinzel">{label}</span>
     </div>
   );
 };
@@ -123,7 +123,7 @@ const StatsSection = () => {
     >
       <div className="absolute inset-0">
         <img
-          src={images.zoilyblack}
+          src={images.zoilyblack.avif}
           alt="Fondo de estadísticas"
           className="w-full h-full object-cover opacity-20 md:object-[50%_25%]"
           loading="lazy"

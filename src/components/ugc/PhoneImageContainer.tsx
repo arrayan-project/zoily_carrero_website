@@ -24,7 +24,7 @@ const PhoneImageContainer: React.FC<PhoneImageContainerProps> = ({
       <SmoothImage
         src={contentImage}
         alt={alt}
-        className="ugc-image-example-png absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 w-[95%] h-[98%] rounded-[20px] md:w-[94%] md:h-[99%] md:rounded-[50px] object-cover aspect-[0.7]"
+        className="ugc-image-example-png absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 w-[92%] h-[97%] rounded-[24px] md:w-[94%] md:h-[99%] md:rounded-[50px] object-cover aspect-[0.7]"
         loading="lazy"
       />
     </div>

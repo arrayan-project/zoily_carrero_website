@@ -1,27 +1,40 @@
 // src/pages/Home.tsx
-import { lazy, Suspense } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { homeInfo, homeLinks, homeFeatures, homeBrands, galleryFeatures } from '../data/homeData';
-import { imageArrays } from '../assets/images';
-import { Helmet } from 'react-helmet-async';
-import { useTheme } from '../components/context/useThemeHook';
-import HomeButton from '../components/buttons/HomeButton';
-import HomeTitle from '../components/home/HomeTitle';
-import ScrollDownArrow from '../components/common/ScrollDownArrow';
-import LazySectionLoader from '../components/common/LazySectionLoader';
+import { lazy, Suspense } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  homeInfo,
+  homeLinks,
+  homeFeatures,
+  homeBrands,
+  galleryFeatures,
+} from "../data/homeData"; // imageArrays no se usa directamente aquí ahora
+import { Helmet } from "react-helmet-async";
+import { useTheme } from "../components/context/useThemeHook";
+import HomeButton from "../components/buttons/HomeButton";
+import HomeTitle from "../components/home/HomeTitle";
+import BackgroundImageHero from "../components/home/BackgroundImageHero"; // Importamos el componente
+import ScrollDownArrow from "../components/common/ScrollDownArrow";
+import LazySectionLoader from "../components/common/LazySectionLoader";
 
-const HomeLinksSection    = lazy(() => import('../components/home/HomeLinksSection'));
-const HomeFeaturesSection = lazy(() => import('../components/home/HomeFeaturesSection'));
-const HomeBrandsSection   = lazy(() => import('../components/home/HomeBrandsSection'));
-const HomeGallerySection  = lazy(() => import('../components/home/HomeGallerySection'));
+const HomeLinksSection = lazy(
+  () => import("../components/home/HomeLinksSection")
+);
+const HomeFeaturesSection = lazy(
+  () => import("../components/home/HomeFeaturesSection")
+);
+const HomeBrandsSection = lazy(
+  () => import("../components/home/HomeBrandsSection")
+);
+const HomeGallerySection = lazy(
+  () => import("../components/home/HomeGallerySection")
+);
 
 export default function Home() {
   const navigate = useNavigate();
   const { colors } = useTheme();
-  const bg = imageArrays.backgrounds[0]; // "/img/background-home/background0.webp"
 
-  const handleVerServiciosClick = () => navigate('/services');
-  const handleAgendaTuCitaClick  = () => navigate('/contact');
+  const handleVerServiciosClick = () => navigate("/services");
+  const handleAgendaTuCitaClick = () => navigate("/contact");
 
   return (
     <div
@@ -34,16 +47,18 @@ export default function Home() {
     >
       {/* Hero ajustado a viewport */}
       <div
-        className="relative w-full h-screen bg-cover bg-center mb-10 md:mb-24"
-        style={{ backgroundImage: `url(${bg})` }}
+        className="relative w-full h-screen mb-10 md:mb-24 flex items-center justify-center" // Quitamos bg-cover y bg-center de aquí
       >
-
-
-        <div className="relative z-10 flex flex-col items-center justify-center w-full h-full text-center px-4">
+        {/* BackgroundImageHero ahora está dentro del div del hero y es absolute */}
+        <BackgroundImageHero
+          imageKey="heroBackground" // Usamos la clave para la imagen única
+          alt="Maquillaje profesional Zoily Carrero"
+        />
+        <div className="relative z-10 flex flex-col items-center md:items-end justify-center w-full h-full text-center px-4 md:px-24"> {/* Centrado en móvil, a la derecha en md+ */}
           {homeInfo.title && homeInfo.subtitle && (
             <HomeTitle title={homeInfo.title} subtitle={homeInfo.subtitle} />
           )}
-          <div className="flex flex-col sm:flex-row gap-4 mt-6">
+          <div className="flex flex-col sm:flex-row gap-4 mt-26">
             {homeInfo.button1Text && (
               <HomeButton onClick={handleVerServiciosClick}>
                 {homeInfo.button1Text}
@@ -73,7 +88,11 @@ export default function Home() {
 
       {/* Secciones Home cargadas bajo demanda */}
       <Suspense fallback={null}>
-        <LazySectionLoader minHeight="300px" rootMargin="200px 0px" fallback={<div className="h-72" />}>
+        <LazySectionLoader
+          minHeight="300px"
+          rootMargin="200px 0px"
+          fallback={<div className="h-72" />}
+        >
           <HomeLinksSection {...homeLinks} />
         </LazySectionLoader>
 

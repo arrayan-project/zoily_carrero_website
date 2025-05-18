@@ -2,15 +2,17 @@
 import { useTheme } from "../context/useThemeHook";
 import RevealWrapper from "../common/RevealWrapper";
 import ServiceIncludeItem from "../common/ServiceIncludeItem";
-import { SERVICES_INCLUDE_TITLE_CLASS } from "../../constants/styles";
+import { HEADING_3_CLASS, TEXT_CENTER, FONT_FAMILY_PRIMARY, FONT_WEIGHT_LIGHT, TRACKING_WIDE } from "../../constants/styles"; // Using HEADING_3_CLASS as a base
 
 const ServicesIncludeSection = () => {
   const { colors } = useTheme();
   return (
     <div className="text-center space-y-8 px-2 py-16 md:py-8 md:px-6 lg:px-68 mb-24 md:mb-32">
       <RevealWrapper animationClass="fade-in-text">
+        {/* Original SERVICES_INCLUDE_TITLE_CLASS was HEADING_2_CLASS (text-2xl md:text-3xl) */}
+        {/* Component used text-lg md:text-xl lg:text-3xl. HEADING_3_CLASS is text-lg md:text-xl */}
         <h2
-          className={`${SERVICES_INCLUDE_TITLE_CLASS}  text-lg md:text-xl lg:text-3xl`} 
+          className={`${HEADING_3_CLASS} lg:text-3xl ${TEXT_CENTER}`}
           style={{ backgroundColor: colors.background, color: colors.accent }}
         >
           Nuestros servicios incluyen
