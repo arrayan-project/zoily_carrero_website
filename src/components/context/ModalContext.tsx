@@ -1,4 +1,11 @@
-// src/components/context/ModalContext.tsx
+/**
+ * Contexto y provider para manejar la apertura y cierre de modales en la aplicación.
+ * Permite abrir cualquier modal con contenido dinámico y acceder a su estado desde cualquier componente.
+ *
+ * @module ModalContext
+ * @context
+ * @returns {ModalContextProps} Provee estado y funciones para controlar el modal.
+ */
 import React, {
     useState,
     useCallback,

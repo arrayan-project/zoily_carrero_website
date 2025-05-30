@@ -1,5 +1,9 @@
-// src/interfaces/interfaces.ts
-
+/**
+ * Interfaces compartidas para props de componentes y manejo de errores.
+ * Define las props para servicios, ítems incluidos, fallback de errores y componentes de error.
+ *
+ * @module interfaces
+ */
 export interface ServicesProps {}
 
 export interface ServiceIncludeItemProps {
@@ -9,7 +13,7 @@ export interface ServiceIncludeItemProps {
 
 export interface FallbackProps {
   error: Error;
-  resetErrorBoundary: (...args: any[]) => void;
+  resetErrorBoundary: (...args: unknown[]) => void;
 }
 
 export interface ErrorComponentProps extends FallbackProps {

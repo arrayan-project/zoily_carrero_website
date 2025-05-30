@@ -1,32 +1,22 @@
-// src/components/common/LazyFooter.tsx
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+/**
+ * Componente que carga el Footer de forma diferida (lazy) cuando es visible en pantalla.
+ * Utiliza un skeleton de carga mientras el Footer real se carga.
+ *
+ * @component
+ * @returns {JSX.Element}
+ */
+import { lazy, Suspense } from "react";
+import { useRevealOnScroll } from "../../hooks/useRevealOnScroll";
 
 const Footer3 = lazy(() => import("./Footer3"));
 
 const LazyFooter = () => {
-  const [visible, setVisible] = useState(false);
-  const ref = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-        }
-      },
-      { rootMargin: "100px" }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
+  // Usa el hook con rootMargin personalizado
+  const { ref, isVisible } = useRevealOnScroll({ rootMargin: "100px" });
 
   return (
     <div ref={ref}>
-      {visible && (
+      {isVisible && (
         <Suspense
           fallback={
             <div className="bg-black text-white py-10 px-4">

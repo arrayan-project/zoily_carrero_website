@@ -1,4 +1,11 @@
-// src/components/services&courses/CourseCarouselLogic.tsx
+/**
+ * Hook de lógica para el carrusel de cursos.
+ * Gestiona el índice principal, la lista de cursos y las transiciones animadas.
+ *
+ * @module CourseCarouselLogic
+ * @param {CourseLogicProps} props - Props con el array inicial de cursos.
+ * @returns {CourseLogicReturn} Índice actual, cursos, función de transición y ref de transición.
+ */
 import { useState, useEffect, useRef } from 'react';
 import { Course } from '../../types/CourseInterfaces';
 

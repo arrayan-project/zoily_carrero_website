@@ -1,7 +1,11 @@
-// src/data/servicesData.tsx
+/**
+ * Datos y utilidades para los servicios y sus modales.
+ * Incluye descripciones, términos, estructura de servicios y contenido para los modales de detalle.
+ *
+ * @module servicesData
+ */
 import { ModalContent } from "../components/modals/ModalInterfaces"; // Importamos ModalContent
 import { Service} from "../types/ServiceInterfaces"; // Importamos Service y ServiceItem
-import images from "../assets/images"; // Importamos el objeto images
 
 // Funciones para las descripciones
 export const getServicesDescription = () => {
@@ -153,7 +157,7 @@ export const servicesData: Service[] = [
       },
     ],
     modalContent: {
-      images: [images.novia.webp], // Usar la URL de la imagen .webp
+      images: ["novia"], // Usar la URL de la imagen .webp
       title: "Maquillaje Novia",
       infoContent: (
         <div className="font-cinzel">
@@ -194,7 +198,7 @@ export const servicesData: Service[] = [
   },
   {
     category: "Quinceañera",
-    imageKey: "glam2", // Clave de imagen (usando glam2 como ejemplo, ajustar si es otra)
+    imageKey: "glam", // Clave de imagen (usando glam2 como ejemplo, ajustar si es otra)
     description:
       "El maquillaje express es perfecto para quinceañeras que desean lucir jóvenes y frescas en su gran día.",
     items: [
@@ -225,7 +229,7 @@ export const servicesData: Service[] = [
       },
     ],
     modalContent: {
-      images: [images.glam2.webp], // Usar la URL de la imagen .webp
+      images: ["glam"], // Usar la URL de la imagen .webp
       title: "Maquillaje Quinceañera",
       infoContent: (
         <div className="font-cinzel">
@@ -280,7 +284,7 @@ export const servicesData: Service[] = [
   },
   {
     category: "Glam",
-    imageKey: "glam", // Clave de imagen
+    imageKey: "glam2", // Clave de imagen
     description:
       "Si buscas un look impactante y sofisticado, el maquillaje Glam es ideal para ti. ",
     items: [
@@ -298,7 +302,7 @@ export const servicesData: Service[] = [
       },
     ],
     modalContent: {
-      images: [images.glam.webp], // Usar la URL de la imagen .webp
+      images: ["glam2"], // Usar la URL de la imagen .webp
       title: "Maquillaje Glam",
       infoContent: (
         <div className="font-cinzel">
@@ -341,7 +345,7 @@ export const servicesData: Service[] = [
       },
     ],
     modalContent: {
-      images: [images.pmadura.webp], // Usar la URL de la imagen .webp
+      images: ["pmadura"], // Usar la URL de la imagen .webp
       title: "Maquillaje Piel Madura",
       infoContent: (
         <div className="font-cinzel">
@@ -385,7 +389,7 @@ export const servicesData: Service[] = [
       },
     ],
     modalContent: {
-      images: [images.m_peinado2.webp], // Usar la URL de la imagen .webp
+      images: ["m_peinado2"], // Usar la URL de la imagen .webp
       title: "Maquillaje y Peinado",
       infoContent: (
         <div className="font-cinzel">
@@ -411,7 +415,7 @@ export const servicesData: Service[] = [
   },
   {
     category: "Social",
-    imageKey: "express", // Clave de imagen
+    imageKey: "social", // Clave de imagen
     description:
       "El servicio de maquillaje social es ideal para cualquier evento especial, donde desees lucir radiante y destacar tu belleza natural.",
     items: [
@@ -437,7 +441,7 @@ export const servicesData: Service[] = [
       },
     ],
     modalContent: {
-      images: [images.express.webp], // Usar la URL de la imagen .webp
+      images: ["social"], // Usar la URL de la imagen .webp
       title: "Maquillaje Social",
       infoContent: (
         <div className="font-cinzel">

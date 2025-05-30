@@ -1,11 +1,19 @@
-/* src/components/about/AboutMainContent.tsx */
+/**
+ * Componente principal de contenido para la página "Sobre mí".
+ * Muestra el título, descripciones y la imagen principal con animaciones y estilos adaptados al tema.
+ *
+ * @component
+ * @returns {JSX.Element}
+ */
 import React from 'react';
 import ImageWithFallback from '../common/ImageWithFallback';
 import { aboutInfo } from '../../data/aboutData';
 import images from '../../assets/images';
-import { useTheme } from '../context/useThemeHook';
+import { useTheme } from '../context/themeContext';
 import RevealWrapper from '../common/RevealWrapper';
 import { FONT_FAMILY_PRIMARY, FONT_WEIGHT_LIGHT, TRACKING_WIDE, PARAGRAPH_CLASS, TEXT_CENTER } from '../../constants/styles';
+import { getImageObject } from '../../utils/getImageObject';
+
 
 const AboutMainContent: React.FC = React.memo(() => {
   const { colors } = useTheme();
@@ -31,7 +39,7 @@ const AboutMainContent: React.FC = React.memo(() => {
       <div className="lg:w-2/5 mb-8 lg:mb-0">
         <RevealWrapper animationClass="fade-in-up-animation">
           <ImageWithFallback
-            src={images.zoilyblack.avif}
+            src={getImageObject("zoilyblack")?.avif}
             alt="Equipo trabajando"
             fallbackSrc="/img/default-image.png"
             className="w-full aspect-[3/4] object-cover rounded-lg shadow-xl"

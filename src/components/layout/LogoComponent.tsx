@@ -1,7 +1,14 @@
-// src/components/layout/LogoComponent.tsx
+/**
+ * Componente para mostrar el logo de la aplicación.
+ * Permite seleccionar variante clara u oscura, o adapta el logo automáticamente según el tema.
+ *
+ * @component
+ * @param {LogoComponentProps} props - Props del logo, incluyendo clase y variante ('light' | 'dark').
+ * @returns {JSX.Element}
+ */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useTheme } from '../context/useThemeHook';
+import { useTheme } from '../context/themeContext';
 import images from '../../assets/images'; // Asegúrate que la ruta sea correcta
 
 interface LogoComponentProps {
@@ -46,7 +53,7 @@ const LogoComponent: React.FC<LogoComponentProps> = ({ className, variant }) => 
             alt="Zoily Carrero Logo"
             className="absolute inset-0 w-full h-full object-contain"
             loading="lazy" // Añadido para carga diferida
-            onError={(e) => {
+            onError={() => {
               // Opcional: Manejar error si la imagen no carga,
               // por ejemplo, mostrando un placeholder o un texto.
               console.error("Error al cargar el logo:", logoImageObject.webp);

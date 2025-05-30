@@ -1,24 +1,17 @@
-// src/components/common/ScrollDownArrow.tsx
-import React, { useState, useEffect } from 'react';
+/**
+ * Flecha animada que indica al usuario que puede hacer scroll hacia abajo.
+ * Se oculta automáticamente cuando el usuario ha hecho scroll.
+ *
+ * @component
+ * @returns {JSX.Element}
+ */
+import React from 'react';
+import { useScrollVisibility } from '../../hooks/useScrollVisibility';
+
 
 const ScrollDownArrow: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(true);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 100) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  const isVisible = !useScrollVisibility(100);
 
   return (
     <div className={`absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 ${isVisible ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`}>

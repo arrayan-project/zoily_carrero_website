@@ -1,5 +1,10 @@
-// src/data/homeData.ts
-import { imageArrays } from "../assets/images";
+/**
+ * Datos y recursos para la página principal (Home).
+ * Incluye información de títulos, enlaces destacados, características, marcas y galería para mostrar en el Home.
+ *
+ * @module homeData
+ */
+import { brandImageKeys } from "../assets/images";
 
 export const homeInfo = {
   title: "ZOILY CARRERO",
@@ -17,7 +22,7 @@ export const homeLinks = {
       id: "link-services", // Unique ID
       to: "/services",
       hash: "#services", // Navega a /services#services
-      imageSrc: imageArrays.homeSectionsImages[0], // Usamos la nueva imagen
+      imageKey: "home-services",
       alt: "Servicios",
       label: "Servicios", // Nuevo: Agregamos el texto del recuadro
     },
@@ -25,7 +30,7 @@ export const homeLinks = {
       id: "link-curses", // Unique ID
       to: "/services",
       hash: "#cursos", // Navega a /services#cursos
-      imageSrc: imageArrays.homeSectionsImages[1], // Usamos la nueva imagen
+      imageKey: "home-courses",
       alt: "Cursos",
       label: "Cursos", // Nuevo: Agregamos el texto del recuadro
     },
@@ -33,7 +38,7 @@ export const homeLinks = {
       id: "link-contact", // Unique ID
       to: "/ugc",
       hash: "#ugc", // Navega a /ugc#ugc
-      imageSrc: imageArrays.homeSectionsImages[3], // Usamos la nueva imagen
+      imageKey: "home-ugc",
       alt: "UGC",
       label: "UGC", // Nuevo: Agregamos el texto del recuadro
     },
@@ -42,7 +47,7 @@ export const homeLinks = {
 };
 
 export const homeFeatures = {
-  imageSrc: imageArrays.homeSectionsImages[2], // Usamos la nueva imagen
+  imageKey: "home-courses2", // Usamos la nueva imagen
   alt: "Características de los servicios",
   features: [
     {
@@ -65,14 +70,14 @@ export const homeFeatures = {
 };
 
 export const homeBrands = {
-  brands: imageArrays.brandImages.map((imageSrc, index) => ({
-    imageSrc: imageSrc,
-    alt: `Marca ${index + 1}`,
+  brands: brandImageKeys.map((imageKey) => ({
+    imageKey,
+    alt: `Marca ${imageKey}`,
   })),
 };
 
 export const galleryFeatures = {
-  imageSrc: imageArrays.homeSectionsImages[4], // Usamos la nueva imagen
+  imageKey: "home-gallery", // Usamos la nueva imagen
   alt: "Una ventana a la galeria",
   gallery: [
     { 

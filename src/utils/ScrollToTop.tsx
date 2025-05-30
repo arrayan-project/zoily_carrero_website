@@ -1,3 +1,9 @@
+/**
+ * Componente utilitario para hacer scroll al inicio de la página al cambiar de ruta.
+ * Si no hay hash en la URL, realiza un scroll suave al top al navegar.
+ *
+ * @module ScrollToTop
+ */
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 

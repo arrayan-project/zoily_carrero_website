@@ -1,5 +1,13 @@
+/**
+ * Banner central para la sección UGC.
+ * Muestra un texto destacado con animación y estilos adaptados al tema.
+ *
+ * @component
+ * @param {BannerProps} props - Props del banner, incluyendo el texto y el ancho máximo opcional.
+ * @returns {JSX.Element}
+ */
 import React from "react";
-import { useTheme } from "../../components/context/useThemeHook";
+import { useTheme } from "../../components/context/themeContext";
 import RevealWrapper  from "../common/RevealWrapper";
 import { FONT_FAMILY_PRIMARY } from "../../constants/styles";
 

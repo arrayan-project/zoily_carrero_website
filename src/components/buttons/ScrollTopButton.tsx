@@ -1,51 +1,14 @@
-import { useState, useEffect } from 'react';
-
-// Función throttle personalizada
-function throttle<T extends (...args: any[]) => void>(func: T, limit: number): T {
-  let inThrottle: boolean;
-  let lastFunc: ReturnType<typeof setTimeout>;
-  let lastRan: number;
-
-  return function (this: any, ...args: any[]) {
-    if (!inThrottle) {
-      func.apply(this, args);
-      lastRan = Date.now();
-      inThrottle = true;
-    } else {
-      clearTimeout(lastFunc);
-      lastFunc = setTimeout(() => {
-        if ((Date.now() - lastRan) >= limit) {
-          func.apply(this, args);
-          lastRan = Date.now();
-        }
-      }, limit - (Date.now() - lastRan));
-    }
-  } as T;
-}
+/**
+ * Botón flotante para volver al inicio de la página.
+ * Se muestra solo cuando el usuario ha hecho scroll hacia abajo.
+ *
+ * @component
+ * @returns {JSX.Element | null}
+ */
+import { useScrollVisibility } from '../../hooks/useScrollVisibility';
 
 const ScrollToTopButton = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = throttle(() => {
-      const scrollTop = window.pageYOffset;
-      setIsVisible(scrollTop > 300);
-    }, 250);
-  
-    const setupScrollListener = () => {
-      window.addEventListener('scroll', handleScroll);
-    };
-  
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(setupScrollListener);
-    } else {
-      setTimeout(setupScrollListener, 1);
-    }
-  
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  const isVisible = useScrollVisibility(300);
 
   const scrollToTop = () => {
     window.scrollTo({

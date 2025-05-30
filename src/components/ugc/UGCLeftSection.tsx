@@ -1,4 +1,11 @@
-// src/components/ugc/UGCLeftSection.tsx
+/**
+ * Sección izquierda del portafolio UGC.
+ * Muestra el título, la palabra UGC en grande, iconos sociales y el nombre de usuario, todo con animaciones.
+ *
+ * @component
+ * @param {UGCLeftSectionProps} props - Props del componente, incluyendo el nombre de usuario.
+ * @returns {JSX.Element}
+ */
 import React from "react";
 import SocialIcons from "../common/SocialIcons";
 import {

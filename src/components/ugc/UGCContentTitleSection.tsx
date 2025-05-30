@@ -1,8 +1,15 @@
-// src/components/ugc/UGCContentTitleSection.tsx
+/**
+ * Sección de título y descripción para el contenido UGC.
+ * Muestra el título y la descripción con estilos y colores adaptados al tema.
+ *
+ * @component
+ * @param {UGCContentTitleSectionProps} props - Props del componente, incluyendo título y descripción.
+ * @returns {JSX.Element}
+ */
 import React from "react";
 import SectionTitle from "../common/SectionTitle";
 import SectionDescription from "../common/SectionDescription";
-import { useTheme } from "../context/useThemeHook";
+import { useTheme } from "../context/themeContext";;
 import { HEADING_1_CLASS, PARAGRAPH_CLASS, TEXT_CENTER } from "../../constants/styles";;
 
 

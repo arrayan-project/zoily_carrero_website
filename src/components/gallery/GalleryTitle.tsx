@@ -1,7 +1,13 @@
-// src/components/gallery/GalleryTitle.tsx
+/**
+ * Componente para mostrar el título de la galería con animación de aparición.
+ *
+ * @component
+ * @param {GalleryTitleProps} props - Props del componente, incluyendo el título y clases opcionales.
+ * @returns {JSX.Element}
+ */
 import React from "react";
 import RevealWrapper from "../common/RevealWrapper";
-import { useTheme } from "../context/useThemeHook";
+import { useTheme } from "../context/themeContext";;
 
 interface GalleryTitleProps {
   title: string;

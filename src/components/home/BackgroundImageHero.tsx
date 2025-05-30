@@ -1,6 +1,14 @@
-// src/components/BackgroundImageHero.tsx
+/**
+ * Componente para mostrar una imagen de fondo optimizada en el hero del Home.
+ * Usa placeholder, overlay y soporta diferentes posiciones para móvil y desktop.
+ *
+ * @component
+ * @param {Props} props - Props del hero, incluyendo clave de imagen, clases, overlay y posiciones.
+ * @returns {JSX.Element}
+ */
 import { FC, useState, useEffect } from "react";
 import images from "../../assets/images"; // Importamos el objeto images
+import { getImageObject } from "../../utils/getImageObject";
 
 interface Props {
   className?: string;
@@ -19,7 +27,7 @@ const BackgroundImageHero: FC<Props> = ({
   mobileObjectPositionClass = "object-center",
   desktopObjectPositionClass = "object-center",
 }) => {
-  const image = images[imageKey];
+  const image = getImageObject(imageKey);
   const [isLoaded, setIsLoaded] = useState(false);
 
   if (!image) {

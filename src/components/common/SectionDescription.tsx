@@ -1,4 +1,11 @@
-// src/components/common/SectionDescription.tsx
+/**
+ * Componente reutilizable para mostrar descripciones de sección.
+ * Permite recibir la descripción como string o array de strings y aplica animación de aparición.
+ *
+ * @component
+ * @param {SectionDescriptionProps} props - Props del componente, incluyendo la descripción, clase y estilos opcionales.
+ * @returns {JSX.Element}
+ */
 import React from "react";
 import RevealWrapper from '../common/RevealWrapper';
 

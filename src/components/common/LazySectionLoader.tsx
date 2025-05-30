@@ -1,4 +1,11 @@
-// src/components/common/LazySectionLoader.tsx
+/**
+ * Componente para cargar secciones de forma diferida (lazy) usando Intersection Observer.
+ * Renderiza el contenido solo cuando la sección entra en pantalla, mostrando un fallback mientras tanto.
+ *
+ * @component
+ * @param {LazySectionLoaderProps} props - Props del loader, incluyendo el componente hijo, fallback, altura mínima, rootMargin y triggerOnce.
+ * @returns {JSX.Element}
+ */
 import React, { Suspense, ReactNode } from 'react';
 import { useInView } from 'react-intersection-observer';
 

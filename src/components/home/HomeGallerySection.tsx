@@ -1,13 +1,22 @@
-// src/components/home/HomeGallerySection.tsx
+/**
+ * Sección de galería en el Home.
+ * Muestra información de la galería, imagen destacada y botón para ver más, con animaciones y estilos adaptados al tema.
+ *
+ * @component
+ * @param {HomeGallerySectionProps} props - Props del componente, incluyendo la imagen, alt y el array de galerías.
+ * @returns {JSX.Element}
+ */
 import React from "react";
 import SmoothImage from "../smoothImages/SmoothImage";
 import RevealWrapper from "../common/RevealWrapper";
 import { useNavigate } from "react-router-dom";
-import { useTheme } from "../../components/context/useThemeHook";
-import { FONT_FAMILY_PRIMARY, FONT_WEIGHT_LIGHT , PARAGRAPH_CLASS, TEXT_SIZE_BASE, COLOR_TEXT_WHITE } from "../../constants/styles";
+import { useTheme } from "../../components/context/themeContext";
+import { FONT_FAMILY_PRIMARY, FONT_WEIGHT_LIGHT , PARAGRAPH_CLASS, TEXT_SIZE_BASE} from "../../constants/styles";
+import { getImageObject } from "../../utils/getImageObject";
+
 
 interface HomeGallerySectionProps {
-  imageSrc: string;
+  imageKey: string;
   alt: string;
   gallery: {
     title: string;
@@ -16,12 +25,13 @@ interface HomeGallerySectionProps {
 }
 
 const HomeGallerySection: React.FC<HomeGallerySectionProps> = ({
-  imageSrc,
+  imageKey,
   alt,
   gallery,
 }) => {
   const navigate = useNavigate();
   const { colors } = useTheme();
+  const imageObject = getImageObject(imageKey);
 
   const handleViewMoreClick = () => {
     navigate("/gallery#gallery");
@@ -59,8 +69,9 @@ const HomeGallerySection: React.FC<HomeGallerySectionProps> = ({
                   <RevealWrapper animationClass="slide-in-left-animation">
                     <button
                       type="button"
+                      aria-label="Abrir Galeria de imagenes"
                       onClick={handleViewMoreClick}
-                      className={`bg-pink-700 ${COLOR_TEXT_WHITE} px-12 border rounded py-4 md:px-16 md:py-6 ${FONT_FAMILY_PRIMARY} ${TEXT_SIZE_BASE} hover:bg-pink-900 transition-colors duration-300`}
+                      className={`bg-pink-700 px-12 border rounded py-4 md:px-16 md:py-6 ${FONT_FAMILY_PRIMARY} ${TEXT_SIZE_BASE} hover:bg-pink-900 transition-colors duration-300`}
                       style={{
                         minWidth: "fit-content",
                         borderColor: colors.border,
@@ -76,7 +87,7 @@ const HomeGallerySection: React.FC<HomeGallerySectionProps> = ({
           <div className="overflow-hidden">
             <RevealWrapper animationClass="slide-in-right-animation">  
             <SmoothImage
-              src={imageSrc}
+              src={imageObject.webp}
               alt={alt}
               className="w-full h-full object-cover rounded-base shadow-md transition-transform duration-500 ease-in-out hover:scale-110"
               disableInternalTransition={true}

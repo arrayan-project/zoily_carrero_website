@@ -1,10 +1,11 @@
 // pages/Terms.tsx
-import { useTheme } from '../components/context/useThemeHook';
-import useWindowSize from "../hooks/useWindowSize";
+import { useTheme } from '../components/context/themeContext';
+import useScrollToHash from "../hooks/useScrollToHash";
 
 const Terms = () => {
   const { colors } = useTheme();
-  const { isMobileView } = useWindowSize();
+
+  useScrollToHash();
 
   return (
     <div style={{ backgroundColor: colors.background }}>

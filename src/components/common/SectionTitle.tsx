@@ -1,4 +1,10 @@
-// src/components/common/SectionTitle.tsx
+/**
+ * Componente reutilizable para mostrar títulos de sección con animación de aparición.
+ *
+ * @component
+ * @param {SectionTitleProps} props - Props del componente, incluyendo el título, clase y estilos opcionales.
+ * @returns {JSX.Element}
+ */
 import React from "react";
 import RevealWrapper from "../common/RevealWrapper";
 

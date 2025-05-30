@@ -1,4 +1,9 @@
-/* ServicesCarousel.css - Estilos dinámicos, animaciones y pseudo-elementos */
+/**
+ * Estilos para el carrusel de cursos.
+ * Incluye animaciones, transiciones y pseudo-elementos para los slides y el contenido.
+ *
+ * @file CoursesCarousel.css
+ */
   #courses-carousel .slide .item {
     transition: .5s;
     will-change: transform, opacity; 

@@ -1,4 +1,12 @@
-// HomeContainer.tsx
+/**
+ * Contenedor principal para la página de inicio (Home).
+ * Permite envolver el contenido del Home y aplicar clases adicionales.
+ * Maneja errores de renderizado y muestra un mensaje si ocurre alguno.
+ *
+ * @component
+ * @param {HomeContainerProps} props - Props del contenedor, incluyendo los hijos y clases opcionales.
+ * @returns {JSX.Element}
+ */
 import React, { useState } from 'react';
 
 

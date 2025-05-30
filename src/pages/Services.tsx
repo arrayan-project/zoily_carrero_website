@@ -1,32 +1,51 @@
 // src/pages/Services.tsx
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { HOME_LINKS_TITLE_CLASS, PARAGRAPH_CLASS, TEXT_CENTER } from "../constants/styles";
+import { useState, lazy } from "react";
+import {
+  HOME_LINKS_TITLE_CLASS,
+  PARAGRAPH_CLASS,
+  TEXT_CENTER,
+} from "../constants/styles";
 import { ServicesProps } from "../interfaces/interfaces";
 import { getCoursesDescription } from "../data/coursesData";
 import { getServicesDescription } from "../data/servicesData";
 import { ErrorBoundary } from "react-error-boundary";
-import { useTheme } from "../components/context/useThemeHook";
+import { useTheme } from "../components/context/themeContext";
 import { ModalProvider, useModal } from "../components/context/ModalContext";
 import { Helmet } from "react-helmet-async";
 import useWindowSize from "../hooks/useWindowSize";
 import StatsSection from "../components/StatsSection";
 import ModalContainer from "../components/modals/ModalRoot";
 import ErrorComponent from "../components/common/ErrorComponent";
-import ServicePromoSection from "../components/services&courses/ServicePromoSection";
+import ServicePromoSection from "../components/servicesAndCourses/ServicePromoSection";
 import SectionTitle from "../components/common/SectionTitle";
 import ServicesIncludeSection from "../components/layout/ServicesIncludeSection";
 import SectionDescription from "../components/common/SectionDescription";
-import ServicesColumnSection from "../components/services&courses/ServicesColumnsSection";
-import ServicesCarouselSection from "../components/services&courses/ServicesCarouselSection";
-import CoursesColumnSection from "../components/services&courses/CourseColumnsSection";
-import CoursesCarouselSection from "../components/services&courses/CourseCarouselSection";
 import "../GlobalStyles.css";
+import LazySectionLoader from "../components/common/LazySectionLoader";
+import ServicesCarouselSkeleton from "../components/skeletons/ServicesCarouselSkeleton";
+import ServicesColumnsSkeleton from "../components/skeletons/ServicesColumnsSkeleton";
+import CoursesCarouselSkeleton from "../components/skeletons/CoursesCarouselSkeleton";
+import CoursesColumnsSkeleton from "../components/skeletons/CoursesColumnsSkeleton";
+import useScrollToHash from "../hooks/useScrollToHash";
+
+
+// Lazy imports
+const ServicesCarouselSection = lazy(
+  () => import("../components/servicesAndCourses/ServicesCarouselSection")
+);
+const ServicesColumnSection = lazy(
+  () => import("../components/servicesAndCourses/ServicesColumnsSection")
+);
+const CoursesCarouselSection = lazy(
+  () => import("../components/servicesAndCourses/CourseCarouselSection")
+);
+const CoursesColumnSection = lazy(
+  () => import("../components/servicesAndCourses/CourseColumnsSection")
+);
 
 // Componente principal Services
 function Services({}: ServicesProps) {
   const [error, setError] = useState<string | null>(null);
-  const location = useLocation();
   const { isMobileView } = useWindowSize();
 
   //Funcion para manejar errores
@@ -44,17 +63,7 @@ function Services({}: ServicesProps) {
   const servicesDescription = getServicesDescription();
   const coursesDescription = getCoursesDescription();
 
-  useEffect(() => {
-    const hash = location.hash; // Obtenemos el hash de la URL
-    if (hash) {
-      const element = document.querySelector(hash); // Buscamos el elemento con el hash como ID
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" }); // Hacemos scroll al elemento
-      }
-    } else {
-      window.scrollTo(0, 0); // Si no hay hash, hacemos scroll al inicio de la página
-    }
-  }, [location.hash]); // Se ejecuta cada vez que cambia el hash
+  useScrollToHash();
 
   const { colors } = useTheme();
 
@@ -89,8 +98,22 @@ function Services({}: ServicesProps) {
             className="container mx-auto mt-12 md:mt-24 md:mb-10 md:px-4 lg:px-8 xl:px-16 2xl:px-24 z-10"
             style={{ backgroundColor: colors.background, color: colors.text }}
           >
-            {!isMobileView && <ServicesCarouselSection />}
-            {isMobileView && <ServicesColumnSection />}
+            {!isMobileView && (
+              <LazySectionLoader
+                minHeight="85vh"
+                fallback={<ServicesCarouselSkeleton />}
+              >
+                <ServicesCarouselSection />
+              </LazySectionLoader>
+            )}
+            {isMobileView && (
+              <LazySectionLoader
+                minHeight="300px"
+                fallback={<ServicesColumnsSkeleton />}
+              >
+                <ServicesColumnSection />
+              </LazySectionLoader>
+            )}
           </section>
 
           <section
@@ -118,8 +141,22 @@ function Services({}: ServicesProps) {
               style={{ color: colors.accent }}
             />
 
-            {!isMobileView && <CoursesCarouselSection />}
-            {isMobileView && <CoursesColumnSection />}
+            {!isMobileView && (
+              <LazySectionLoader
+                minHeight="85vh"
+                fallback={<CoursesCarouselSkeleton />}
+              >
+                <CoursesCarouselSection />
+              </LazySectionLoader>
+            )}
+            {isMobileView && (
+              <LazySectionLoader
+                minHeight="300px"
+                fallback={<CoursesColumnsSkeleton />}
+              >
+                <CoursesColumnSection />
+              </LazySectionLoader>
+            )}
           </section>
 
           <ModalContentRender />

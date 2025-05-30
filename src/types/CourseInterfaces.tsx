@@ -1,4 +1,9 @@
-// src/types/CourseInterfaces.tsx
+/**
+ * Interfaces para los cursos y sus ítems.
+ * Define la estructura de un curso, sus ítems y la relación con el contenido del modal.
+ *
+ * @module CourseInterfaces
+ */
 import { ModalContent } from "../components/modals/ModalInterfaces";
 import images from "../assets/images"; // Importar images para usar keyof typeof images
 

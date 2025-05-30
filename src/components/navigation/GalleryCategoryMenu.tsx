@@ -1,5 +1,13 @@
+/**
+ * Menú de categorías para la galería.
+ * Permite seleccionar la categoría activa y adapta estilos según el tema.
+ *
+ * @component
+ * @param {GalleryCategoryMenuProps} props - Props del menú, incluyendo categorías, categoría activa y callback de cambio.
+ * @returns {JSX.Element}
+ */
 import React from "react";
-import { useTheme } from "../context/useThemeHook";
+import { useTheme } from "../context/themeContext";;
 
 interface GalleryCategoryMenuProps {
   categories: string[];
@@ -25,6 +33,7 @@ const GalleryCategoryMenu: React.FC<GalleryCategoryMenuProps> = ({
         return (
           <button
             key={category}
+            aria-label="Boton de categoria"
             onClick={() => onCategoryChange(category)}
             className={`px-4 py-2 rounded-full whitespace-nowrap border transition-colors duration-300 font-cinzel ${
               isActive

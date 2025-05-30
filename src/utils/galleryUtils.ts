@@ -1,4 +1,9 @@
-// src/utils/galleryUtils.ts
+/**
+ * Utilidades para la galería de imágenes.
+ * Incluye funciones para obtener imágenes según la categoría seleccionada.
+ *
+ * @module galleryUtils
+ */
 import {
     noviaGalleryImages,
     socialGalleryImages,

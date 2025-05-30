@@ -1,33 +1,22 @@
 // src/pages/Home.tsx
 import { lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  homeInfo,
-  homeLinks,
-  homeFeatures,
-  homeBrands,
-  galleryFeatures,
-} from "../data/homeData"; // imageArrays no se usa directamente aquí ahora
+import {  homeInfo,  homeLinks,  homeFeatures,  homeBrands,  galleryFeatures} from "../data/homeData"; // imageArrays no se usa directamente aquí ahora
 import { Helmet } from "react-helmet-async";
-import { useTheme } from "../components/context/useThemeHook";
+import { useTheme } from "../components/context/themeContext";
 import HomeButton from "../components/buttons/HomeButton";
 import HomeTitle from "../components/home/HomeTitle";
 import BackgroundImageHero from "../components/home/BackgroundImageHero"; // Importamos el componente
 import ScrollDownArrow from "../components/common/ScrollDownArrow";
 import LazySectionLoader from "../components/common/LazySectionLoader";
+import HomeSkeleton from "../components/skeletons/HomeSkeleton";
+import useScrollToHash from "../hooks/useScrollToHash";
 
-const HomeLinksSection = lazy(
-  () => import("../components/home/HomeLinksSection")
-);
-const HomeFeaturesSection = lazy(
-  () => import("../components/home/HomeFeaturesSection")
-);
-const HomeBrandsSection = lazy(
-  () => import("../components/home/HomeBrandsSection")
-);
-const HomeGallerySection = lazy(
-  () => import("../components/home/HomeGallerySection")
-);
+
+const HomeLinksSection = lazy(() => import("../components/home/HomeLinksSection"));
+const HomeFeaturesSection = lazy(() => import("../components/home/HomeFeaturesSection"));
+const HomeBrandsSection = lazy(() => import("../components/home/HomeBrandsSection"));
+const HomeGallerySection = lazy(() => import("../components/home/HomeGallerySection"));
 
 export default function Home() {
   const navigate = useNavigate();
@@ -35,6 +24,8 @@ export default function Home() {
 
   const handleVerServiciosClick = () => navigate("/services");
   const handleAgendaTuCitaClick = () => navigate("/contact");
+
+  useScrollToHash();
 
   return (
     <div
@@ -51,7 +42,7 @@ export default function Home() {
       >
         {/* BackgroundImageHero ahora está dentro del div del hero y es absolute */}
         <BackgroundImageHero
-          imageKey="heroBackground" // Usamos la clave para la imagen única
+          imageKey="backgroundHome2" // Usamos la clave para la imagen única
           alt="Maquillaje profesional Zoily Carrero"
         />
         <div className="relative z-10 flex flex-col items-center md:items-end justify-center w-full h-full text-center px-4 md:px-24"> {/* Centrado en móvil, a la derecha en md+ */}
@@ -91,20 +82,20 @@ export default function Home() {
         <LazySectionLoader
           minHeight="300px"
           rootMargin="200px 0px"
-          fallback={<div className="h-72" />}
+          fallback={<HomeSkeleton />}
         >
           <HomeLinksSection {...homeLinks} />
         </LazySectionLoader>
 
-        <LazySectionLoader minHeight="400px" rootMargin="200px 0px">
+        <LazySectionLoader minHeight="400px" rootMargin="200px 0px" fallback={<HomeSkeleton />}>
           <HomeFeaturesSection {...homeFeatures} />
         </LazySectionLoader>
 
-        <LazySectionLoader minHeight="400px" rootMargin="200px 0px">
+        <LazySectionLoader minHeight="400px" rootMargin="200px 0px" fallback={<HomeSkeleton />}>
           <HomeBrandsSection brands={homeBrands.brands} />
         </LazySectionLoader>
 
-        <LazySectionLoader minHeight="400px" rootMargin="200px 0px">
+        <LazySectionLoader minHeight="400px" rootMargin="200px 0px" fallback={<HomeSkeleton />}>
           <HomeGallerySection {...galleryFeatures} />
         </LazySectionLoader>
       </Suspense>

@@ -1,8 +1,14 @@
-// src/components/layout/ServicesIncludeSection.tsx
-import { useTheme } from "../context/useThemeHook";
+/**
+ * Sección que muestra los servicios incluidos.
+ * Presenta una lista de ítems destacados con animación y estilos adaptados al tema.
+ *
+ * @component
+ * @returns {JSX.Element}
+ */
+import { useTheme } from "../context/themeContext";;
 import RevealWrapper from "../common/RevealWrapper";
 import ServiceIncludeItem from "../common/ServiceIncludeItem";
-import { HEADING_3_CLASS, TEXT_CENTER, FONT_FAMILY_PRIMARY, FONT_WEIGHT_LIGHT, TRACKING_WIDE } from "../../constants/styles"; // Using HEADING_3_CLASS as a base
+import { HEADING_3_CLASS, TEXT_CENTER } from "../../constants/styles"; // Using HEADING_3_CLASS as a base
 
 const ServicesIncludeSection = () => {
   const { colors } = useTheme();

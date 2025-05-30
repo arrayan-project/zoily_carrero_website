@@ -1,2 +1,26 @@
+# robots.txt
+# Indica a los motores de búsqueda cómo rastrear e indexar el sitio.
+
+# Permitir todo el sitio a todos los bots
 User-agent: *
+Disallow: /admin/
+Disallow: /login/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /*.xml$
+Disallow: /*?*  # Opcional: evita indexar URLs con parámetros
+
+# Permitir el resto del sitio
 Allow: /
+
+# Sitemap para facilitar el rastreo
+Sitemap: https://zoilycarrero.web.app/
+
+# Bloquear bots problemáticos (ejemplo)
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /

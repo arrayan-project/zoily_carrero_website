@@ -1,5 +1,13 @@
+/**
+ * Input de formulario reutilizable para el formulario de contacto.
+ * Adapta estilos y colores según el tema y muestra mensajes de error.
+ *
+ * @component
+ * @param {FormInputProps} props - Props del input, incluyendo tipo, id, label, valor, función onChange, error y filas (para textarea).
+ * @returns {JSX.Element}
+ */
 import React from "react";
-import { useTheme } from "../context/useThemeHook";
+import { useTheme } from "../context/themeContext";;
 
 type FormInputType = "text" | "email" | "textarea" | "number";
 

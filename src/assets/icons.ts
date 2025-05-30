@@ -1,4 +1,9 @@
-// src/assets/icons.ts
+/**
+ * Exporta los íconos usados en la aplicación desde lucide-react.
+ * 
+ * @module assets/icons
+ * @see https://lucide.dev/
+ */
 export {
     PersonStanding, 
     Brush, 

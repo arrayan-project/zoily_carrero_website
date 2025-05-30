@@ -1,4 +1,10 @@
-// src/components/ImageWithFallback.tsx
+/**
+ * Componente de imagen que muestra un fallback si la imagen principal falla al cargar.
+ *
+ * @component
+ * @param {ImageWithFallbackProps} props - Props de la imagen, incluyendo src, alt y fallbackSrc.
+ * @returns {JSX.Element}
+ */
 import React, { useState } from "react";
 
 interface ImageWithFallbackProps {

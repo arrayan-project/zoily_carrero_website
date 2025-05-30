@@ -1,4 +1,11 @@
-// src/components/services&courses/ServicePromoSection.tsx
+/**
+ * Sección promocional de servicios.
+ * Muestra una imagen de fondo optimizada, overlays y contenido centrado con título y descripción.
+ *
+ * @component
+ * @param {ServicePromoSectionProps} props - Props del componente, incluyendo el objeto de imagen, título, descripción y clases opcionales.
+ * @returns {JSX.Element}
+ */
 import React from 'react';
 import SectionTitle from '../common/SectionTitle';
 import SectionDescription from '../common/SectionDescription';

@@ -1,4 +1,12 @@
-// src/hooks/useGalleryModalTouch.ts
+/**
+ * Hook para manejar gestos táctiles (swipe) en el modal de galería.
+ * Permite navegar entre imágenes detectando deslizamientos horizontales en dispositivos táctiles.
+ *
+ * @module useGalleryModalTouch
+ * @param {() => void} prevImage - Callback para mostrar la imagen anterior.
+ * @param {() => void} nextImage - Callback para mostrar la siguiente imagen.
+ * @param {React.RefObject<HTMLDivElement>} modalContainerRef - Referencia al contenedor del modal.
+ */
 import { useState, useEffect } from 'react';
 
 interface UseGalleryModalTouchProps {

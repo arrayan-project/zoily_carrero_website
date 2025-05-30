@@ -1,3 +1,11 @@
+/**
+ * Componente de imagen con transición suave.
+ * Muestra una imagen con animación de opacidad al cargar, fallback en caso de error y opciones para grilla o transición interna.
+ *
+ * @component
+ * @param {SmoothImageProps} props - Props del componente, incluyendo src, alt, clases, fallback, transición y referencia.
+ * @returns {JSX.Element}
+ */
 import React, { useState, useEffect, useRef } from "react";
 
 interface SmoothImageProps {

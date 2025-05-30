@@ -1,4 +1,9 @@
-// src/main.tsx
+/**
+ * Punto de entrada principal de la aplicación React.
+ * Configura el proveedor de tema, enrutamiento, Helmet y carga asíncrona del AppShell.
+ *
+ * @file main.tsx
+ */
 import React, { lazy, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';

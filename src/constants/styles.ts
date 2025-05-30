@@ -1,4 +1,9 @@
-// src/constants/styles.ts
+/**
+ * Constantes de estilos y clases utilitarias para la aplicación.
+ * Define fuentes, pesos, tamaños de texto, estilos semánticos y clases utilitarias para títulos, párrafos y secciones.
+ *
+ * @module styles
+ */
 
 // --- Base Font Properties ---
 export const FONT_FAMILY_PRIMARY = "font-cinzel";
@@ -35,14 +40,6 @@ export const PARAGRAPH_SMALL_CLASS = `${BASE_PARAGRAPH_STYLE} ${TEXT_SIZE_SM}`;
 
 // --- Utility Text Classes (can be appended) ---
 export const TEXT_CENTER = "text-center";
-
-// --- Text Color Classes (for use with theme logic or directly) ---
-export const COLOR_TEXT_WHITE = "text-white";
-export const COLOR_TEXT_GRAY_800 = "text-gray-800"; // For general text in light mode
-export const COLOR_TEXT_GRAY_400 = "text-gray-400"; // For paragraphs in dark mode
-export const COLOR_TEXT_GRAY_600 = "text-gray-600"; // For paragraphs in light mode
-
-// --- Existing Component-Specific Styles (Refactored using new semantic classes) ---
 
 // SERVICES
 export const SERVICES_TITLE_CLASS = `${HEADING_1_CLASS} ${TEXT_CENTER} mb-24 md:py-10`;

@@ -1,4 +1,10 @@
-// script/convert-images.js
+/**
+ * Script para convertir imágenes a formato AVIF y generar placeholders LQIP en base64.
+ * Recorre recursivamente la carpeta de imágenes, genera archivos AVIF y thumbnails base64 para cada imagen.
+ * Los placeholders se guardan como archivos .txt en la carpeta de placeholders.
+ *
+ * @file convert-images.cjs
+ */
 const sharp = require('sharp');
 const fs = require('fs').promises;
 const path = require('path');

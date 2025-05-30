@@ -1,5 +1,13 @@
+/**
+ * Componente de pie de página (Footer) para toda la aplicación.
+ * Incluye enlaces, información de contacto, redes sociales y formulario de suscripción.
+ * Adapta los colores según el tema actual.
+ *
+ * @component
+ * @returns {JSX.Element}
+ */
 import { Suspense } from "react";
-import { useTheme } from "../context/useThemeHook";
+import { useTheme } from "../context/themeContext";;
 import { Link } from "react-router-dom";
 import { Github, Instagram, Linkedin, Twitter } from "../../assets/icons";
 
@@ -183,6 +191,7 @@ const Footer = () => {
               />
               <button
                 type="submit"
+                aria-label="Boton enviar"
                 style={{
                   backgroundColor: colors.accent,
                   color: colors.background,

@@ -1,6 +1,14 @@
+/**
+ * Botón reutilizable para cerrar modales u otros elementos.
+ * Cambia el color del ícono según el tema actual.
+ *
+ * @component
+ * @param {CloseButtonProps} props - Props del botón de cierre.
+ * @returns {JSX.Element}
+ */
 import React from "react";
 import { X } from "../../assets/icons";
-import { useTheme } from "../context/useThemeHook"; // Importamos el hook de tema
+import { useTheme } from "../context/themeContext";; // Importamos el hook de tema
 
 interface CloseButtonProps {
   onClick: () => void;

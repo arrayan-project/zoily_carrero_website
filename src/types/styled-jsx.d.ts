@@ -1,3 +1,9 @@
+/**
+ * Declaración de tipos para styled-jsx en React.
+ * Extiende las props de estilo para soportar los atributos jsx y global.
+ *
+ * @module styled-jsx
+ */
 import React from 'react';
 
 declare module 'react' {

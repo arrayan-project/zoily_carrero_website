@@ -1,7 +1,11 @@
-// src/data/coursesData.tsx
+/**
+ * Datos y utilidades para los cursos y sus modales.
+ * Incluye descripciones, términos, estructura de cursos y contenido para los modales de detalle.
+ *
+ * @module coursesData
+ */
 import { ModalContent } from "../components/modals/ModalInterfaces"; // Importamos ModalContent
 import { Course} from "../types/CourseInterfaces"; // Importamos Course y CourseItem
-import images from "../assets/images"; // Importamos el objeto images
 
 // Funciones para las descripciones
 export const getCoursesDescription = () => {
@@ -59,7 +63,7 @@ export const coursesData: Course[] = [
       },
     ],
     modalContent: {
-      images: [images.cbasico.webp], // Usar la URL de la imagen .webp
+      images: ["cbasico"], // Usar la URL de la imagen .webp
       title: "Curso Básico",
       infoContent: (
         <div className="font-cinzel">
@@ -103,7 +107,7 @@ export const coursesData: Course[] = [
       },
     ],
     modalContent: {
-      images: [images.cintermedio.webp], // Usar la URL de la imagen .webp
+      images: ["cintermedio"], // Usar la URL de la imagen .webp
       title: "Curso Intermedio",
       infoContent: (
         <div className="font-cinzel">
@@ -143,7 +147,7 @@ export const coursesData: Course[] = [
       },
     ],
     modalContent: {
-      images: [images.cavanzado.webp], // Usar la URL de la imagen .webp
+      images: ["cavanzado"], // Usar la URL de la imagen .webp
       title: "Curso Avanzado",
       infoContent: (
         <div className="font-cinzel">
@@ -183,7 +187,7 @@ export const coursesData: Course[] = [
       },
     ],
     modalContent: {
-      images: [images.cprofesional.webp], // Usar la URL de la imagen .webp
+      images: ["cprofesional"], // Usar la URL de la imagen .webp
       title: "Curso Profesional",
       infoContent: (
         <div className="font-cinzel">

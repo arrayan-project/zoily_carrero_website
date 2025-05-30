@@ -1,4 +1,10 @@
-// ContactUsForm.tsx
+/**
+ * Formulario de contacto con validación, integración de reCAPTCHA y feedback de envío.
+ * Muestra inputs personalizados, animaciones y mensajes de error o éxito.
+ *
+ * @component
+ * @returns {JSX.Element}
+ */
 import React, { useState, useRef } from "react";
 import FormInput from "./ContactUsFormInput";
 import RevealWrapper from "../common/RevealWrapper";
@@ -28,21 +34,16 @@ const ContactForm: React.FC = () => {
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [isRecaptchaLoaded, setIsRecaptchaLoaded] = useState<boolean>(false);
   const [scriptInjected, setScriptInjected] = useState<boolean>(false);
-  const recaptchaRef = useRef<any>(null);
+  const recaptchaRef = useRef<ReCAPTCHA | null>(null);
 
   const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
   const loadRecaptchaScript = () => {
     if (scriptInjected) return;
 
-    if (window.grecaptcha) {
-      console.log("✅ reCAPTCHA ya estaba cacheado");
-      setIsRecaptchaLoaded(true);
-      setScriptInjected(true);
-      return;
-    }
-
-    const existingScript = document.querySelector('script[src^="https://www.google.com/recaptcha/api.js"]');
+    const existingScript = document.querySelector(
+      'script[src^="https://www.google.com/recaptcha/api.js"]'
+    );
     if (!existingScript) {
       const script = document.createElement("script");
       script.src = "https://www.google.com/recaptcha/api.js?render=explicit";
@@ -103,7 +104,8 @@ const ContactForm: React.FC = () => {
     }
     if (!formData.subject) errors.subject = "El tema es requerido";
     if (!formData.message) errors.message = "El mensaje es requerido";
-    if (!recaptchaToken) errors.recaptcha = "Por favor, verifica que no eres un robot.";
+    if (!recaptchaToken)
+      errors.recaptcha = "Por favor, verifica que no eres un robot.";
 
     setFormErrors(errors);
     if (Object.keys(errors).length > 0) return;
@@ -112,11 +114,14 @@ const ContactForm: React.FC = () => {
 
     try {
       const payload = { ...formData, recaptchaToken };
-      const response = await fetch("https://sendcontactform-tca7mefsba-uc.a.run.app", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const response = await fetch(
+        "https://sendcontactform-tca7mefsba-uc.a.run.app",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
 
       const data = await response.json();
       setSubmitMessage(data?.message || "¡Mensaje enviado con éxito!");
@@ -124,10 +129,11 @@ const ContactForm: React.FC = () => {
       setFormErrors({});
       recaptchaRef.current?.reset();
       setRecaptchaToken(null);
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error al enviar el formulario: ", error);
+      const err = error as { response?: { data?: { message?: string } } };
       setSubmitMessage(
-        error?.response?.data?.message ||
+        err?.response?.data?.message ||
           "Hubo un error al enviar el formulario. Intenta de nuevo."
       );
       recaptchaRef.current?.reset();
@@ -198,6 +204,7 @@ const ContactForm: React.FC = () => {
 
         <button
           type="submit"
+          aria-label="Boton Enviar mensaje"
           disabled={isSubmitting}
           className={`w-full px-6 py-3 ${buttonColor} text-white rounded-lg hover:bg-pink-700 transition-colors font-cinzel tracking-wider ${
             isSubmitting ? "opacity-50 cursor-not-allowed" : ""
@@ -209,7 +216,9 @@ const ContactForm: React.FC = () => {
         {submitMessage && (
           <p
             className={`text-sm text-center mt-4 ${
-              submitMessage.includes("error") ? "text-red-500" : "text-green-600"
+              submitMessage.includes("error")
+                ? "text-red-500"
+                : "text-green-600"
             }`}
           >
             {submitMessage}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import corporateEventImage from "/img/store/corporate-events.webp";
 import socialEventImage from "/img/store/social-events.webp";
+import useScrollToHash from "../hooks/useScrollToHash";
 
 interface EventCategoryProps {
   title: string;
@@ -27,6 +28,8 @@ const EventCategory: React.FC<EventCategoryProps> = ({ title, imageUrl, items })
 
 const Store = () => {
   const [error, setError] = useState<string | null>(null);
+
+useScrollToHash();
 
   try {
     return (

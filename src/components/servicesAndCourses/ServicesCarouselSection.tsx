@@ -1,5 +1,11 @@
-// ServicesCarouselSection.tsx
-import React, { useRef} from "react";
+/**
+ * Sección de carrusel de servicios.
+ * Muestra los cursos disponibles en un carrusel interactivo con animaciones, imágenes y botón para ver más detalles en un modal.
+ *
+ * @component
+ * @returns {JSX.Element}
+ */
+import React, { useRef } from "react";
 import ServicesCarouselNavigation from "./ServicesCarouselNavigation";
 import ServicesContent from "./ServicesCarouselContent";
 import { servicesData } from "../../data/servicesData"; // Asumimos que Service tiene imageKey
@@ -7,13 +13,19 @@ import { useModal } from "../context/ModalContext";
 import "./ServicesCarousel.css";
 import useWindowSize from "../../hooks/useWindowSize";
 import RevealWrapper from "../common/RevealWrapper";
-import { FONT_FAMILY_PRIMARY, PARAGRAPH_CLASS, COLOR_TEXT_GRAY_800 } from "../../constants/styles";
-import images from "../../assets/images"; // Importar images
+import {
+  FONT_FAMILY_PRIMARY,
+  PARAGRAPH_CLASS,
+} from "../../constants/styles";
+import { getImageObject } from "../../utils/getImageObject";
+import { ModalContent } from "../modals/ModalInterfaces";
+
 
 const ServicesCarouselSection: React.FC = () => {
   const slideRef = useRef<HTMLDivElement>(null);
-  const { openModal } = useModal();
+  const { openModal, closeModal } = useModal();
   const { isMobileView } = useWindowSize();
+  const openerRef = useRef<HTMLButtonElement | null>(null);
 
   const handleNext = () => {
     const slide = slideRef.current!;
@@ -27,6 +39,16 @@ const ServicesCarouselSection: React.FC = () => {
     if (items.length) slide.prepend(items[items.length - 1]);
   };
 
+    const handleOpenModal = (modalContent: ModalContent, e: React.MouseEvent<HTMLButtonElement>) => {
+      openerRef.current = e.currentTarget;
+      openModal({ ...modalContent, showTabs: true, onClose: handleCloseModal });
+    };
+  
+    const handleCloseModal = () => {
+      closeModal();
+      openerRef.current?.focus();
+    };
+
   return (
     <RevealWrapper animationClass="fade-in-animation">
       <div
@@ -35,9 +57,8 @@ const ServicesCarouselSection: React.FC = () => {
       >
         <div className="slide relative w-full h-full" ref={slideRef}>
           {servicesData.map((item) => {
-            const imageObject = images[item.imageKey]; // Obtener el objeto de imagen
+            const imageObject = getImageObject(item.imageKey);
             if (!imageObject) {
-              console.error(`Image not found for key: ${item.imageKey} in ServicesCarouselSection`);
               return (
                 <div
                   key={item.category}
@@ -47,7 +68,9 @@ const ServicesCarouselSection: React.FC = () => {
                 </div>
               );
             }
-            const placeholderBgStyle = imageObject.placeholder ? { backgroundImage: `url("${imageObject.placeholder}")` } : {};
+            const placeholderBgStyle = imageObject.placeholder
+              ? { backgroundImage: `url("${imageObject.placeholder}")` }
+              : {};
 
             return (
               <div
@@ -67,15 +90,20 @@ const ServicesCarouselSection: React.FC = () => {
                   />
                 </picture>
                 <ServicesContent>
-                  <div className={`name text-[40px] uppercase font-bold ${FONT_FAMILY_PRIMARY}`}>
+                  <div
+                    className={`name text-[40px] uppercase font-bold ${FONT_FAMILY_PRIMARY}`}
+                  >
                     {item.category}
                   </div>
-                  <div className={`description ${PARAGRAPH_CLASS} my-[10px] mb-[20px]`}>
+                  <div
+                    className={`description ${PARAGRAPH_CLASS} my-[10px] mb-[20px]`}
+                  >
                     {item.description}
                   </div>
                   <button
-                    onClick={() => openModal(item.modalContent)}
-                    className={`p-2 border-none bg-white ${FONT_FAMILY_PRIMARY} ${COLOR_TEXT_GRAY_800} rounded-none cursor-pointer absolute left-center top-[110%] -translate-y-1/2 opacity-100 transition-opacity duration-500 ${
+                    aria-label="Boton ver mas"
+                    onClick={e => handleOpenModal(item.modalContent, e)}
+                    className={`p-2 border-none bg-white ${FONT_FAMILY_PRIMARY} rounded-none cursor-pointer absolute left-center top-[110%] -translate-y-1/2 opacity-100 transition-opacity duration-500 ${
                       isMobileView ? "text-sm" : "text-base"
                     }`}
                   >
@@ -88,7 +116,7 @@ const ServicesCarouselSection: React.FC = () => {
         </div>
         <div className="sr-only" aria-hidden="true">
           {servicesData.map((item, index) => {
-            const imageObject = images[item.imageKey];
+            const imageObject = getImageObject(item.imageKey);
             if (!imageObject) return null; // Omitir si no hay imagen
             return (
               <img

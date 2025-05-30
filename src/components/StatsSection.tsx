@@ -1,8 +1,16 @@
-// StatsSection.tsx
+/**
+ * Sección de estadísticas animadas.
+ * Muestra contadores animados con iconos y fondo decorativo, revelando los valores al hacer scroll.
+ *
+ * @component
+ * @returns {JSX.Element}
+ */
 "use client";
-import { useState, useEffect, useRef } from "react";
 import { PersonStanding, Brush, Handshake } from "../assets/icons";
 import images from '../assets/images';
+import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
+import { useCounterAnimation } from "../hooks/useCounterAnimation";
+
 
 // Componente de contador animado
 interface CounterProps {
@@ -10,25 +18,7 @@ interface CounterProps {
   isVisible: boolean;
 }
 const Counter: React.FC<CounterProps> = ({ value, isVisible }) => {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (isVisible) {
-      let start = 0;
-      const duration = 4000;
-      const interval = Math.max(10, duration / value);
-
-      const timer = setInterval(() => {
-        start += 1;
-        setCount(start);
-        if (start >= value) clearInterval(timer);
-      }, interval);
-
-      return () => clearInterval(timer);
-    }
-    return;
-  }, [value, isVisible]);
-
+  const count = useCounterAnimation(value, isVisible, 4000);
   return <span>{count}</span>;
 };
 
@@ -70,30 +60,10 @@ const StatItem: React.FC<StatItemProps> = ({
   );
 };
 
-// Componente principal de estadísticas
 const StatsSection = () => {
-  const [isBannerVisible, setIsBannerVisible] = useState(false);
-  const bannerRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsBannerVisible(true);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    if (bannerRef.current) observer.observe(bannerRef.current);
-
-    return () => {
-      if (bannerRef.current) observer.unobserve(bannerRef.current);
-    };
-  }, []);
+const { ref, isVisible } = useRevealOnScroll({ threshold: 0.1 });
+  const bannerRef = ref;
+  const isBannerVisible = isVisible;
 
   const stats = [
     {

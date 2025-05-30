@@ -1,4 +1,10 @@
-// StoreSkeleton.tsx
+/**
+ * Skeleton de carga para la sección "Tienda".
+ * Muestra placeholders animados mientras se carga el contenido real.
+ *
+ * @component
+ * @returns {JSX.Element}
+ */
 const StoreSkeleton = () => (
     <section id="store" className="min-h-[900px] bg-gray-50">
       <div className="max-w-6xl mx-auto px-4 py-16 space-y-8">

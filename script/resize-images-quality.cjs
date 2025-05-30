@@ -1,5 +1,9 @@
-// frontend/script/resize-images-quality.cjs
-
+/**
+ * Script para redimensionar imágenes a diferentes anchos y calidad alta usando Sharp.
+ * Lee rutas y anchos desde un archivo Excel y genera versiones webp optimizadas en la carpeta de salida.
+ *
+ * @file resize-images-quality.cjs
+ */
 const fs    = require("fs");
 const path  = require("path");
 const sharp = require("sharp");

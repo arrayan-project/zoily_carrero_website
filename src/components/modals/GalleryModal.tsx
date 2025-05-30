@@ -1,5 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut } from "../../assets/icons";
+/**
+ * Modal para visualizar imágenes de la galería en pantalla completa.
+ * Permite navegar, hacer zoom y cerrar con accesibilidad y animaciones.
+ *
+ * @component
+ * @param {GalleryModalProps} props - Props del modal de galería, incluyendo la imagen seleccionada, callbacks de navegación y referencia del contenedor.
+ * @returns {JSX.Element}
+ */
+import React, { useEffect, useState, useRef } from "react";
+import {
+  X,
+  ChevronLeft,
+  ChevronRight,
+  ZoomIn,
+  ZoomOut,
+} from "../../assets/icons";
+import { getImageObject } from "../../utils/getImageObject";
+import { useModalAccessibility } from "../../hooks/useModalAccessibility";
+import { useBodyScrollLock } from "../../hooks/useBodyScrollLock";
 
 interface GalleryModalProps {
   selectedImage: string;
@@ -22,6 +39,20 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
   const [zoom, setZoom] = useState(1);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
   const [isClosing, setIsClosing] = useState(false);
+
+  // NUEVO: refs para accesibilidad
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const openerRef = useRef<HTMLElement | null>(null);
+
+  // NUEVO: guardar el opener y restaurar foco al cerrar
+  useEffect(() => {
+    openerRef.current = document.activeElement as HTMLElement;
+    // Foco inicial en el botón de cerrar
+    closeButtonRef.current?.focus();
+    return () => {
+      openerRef.current?.focus();
+    };
+  }, []);
 
   // NUEVO: para transición entre imágenes
   const [displayedImage, setDisplayedImage] = useState(selectedImage);
@@ -46,16 +77,10 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
     return () => clearTimeout(timeout);
   }, [selectedImage, displayedImage]);
 
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, []);
+  useBodyScrollLock(true);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") triggerClose();
       if (e.key === "ArrowLeft") prevImage();
       if (e.key === "ArrowRight") nextImage();
     };
@@ -86,7 +111,9 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keydown", handleTabTrap);
     };
-  }, [triggerClose, prevImage, nextImage]);
+  }, [prevImage, nextImage, modalContainerRef]);
+
+  useModalAccessibility(true, triggerClose, modalContainerRef);
 
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     setTouchStartX(e.touches[0].clientX);
@@ -122,6 +149,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
       aria-describedby="modal-image"
     >
       <button
+        ref={closeButtonRef}
         onClick={(e) => {
           e.stopPropagation();
           triggerClose();
@@ -166,7 +194,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
         </h2>
         <img
           id="modal-image"
-          src={displayedImage}
+          src={getImageObject(displayedImage)?.webp}
           alt="Imagen seleccionada de galería"
           loading="lazy"
           key={displayedImage}

@@ -1,25 +1,35 @@
-// src/components/ugc/UGCMainSection.tsx
+/**
+ * Sección principal UGC.
+ * Divide la pantalla en dos: izquierda con datos de usuario y derecha con imagen principal.
+ *
+ * @component
+ * @param {UGCMainSectionProps} props - Props del componente, incluyendo la clave de imagen y las props para la sección izquierda.
+ * @returns {JSX.Element}
+ */
 import React from "react";
 import SmoothImage from "../smoothImages/SmoothImage";
 import { UGCLeftSectionProps } from "./UGCLeftSection";
 import UGCLeftSection from "./UGCLeftSection";
+import { getImageObject } from "../../utils/getImageObject";
 
 interface UGCMainSectionProps {
-  imageSrc: string;
+  imageKey: string;
   leftSectionProps: UGCLeftSectionProps;
 }
 
 const UGCMainSection: React.FC<UGCMainSectionProps> = ({
-  imageSrc,
+  imageKey,
   leftSectionProps,
 }) => {
+  const imageObject = getImageObject(imageKey);
+
   return (
     <section className="ugc-section-completa flex md:flex-row flex-col m-0 bg-gray-100 overflow-hidden shadow-md">
-        <UGCLeftSection {...leftSectionProps} />
+      <UGCLeftSection {...leftSectionProps} />
       {/* Right Section (Image) */}
       <div className="ugc-seccion-derecha md:w-1/2 w-full">
         <SmoothImage
-          src={imageSrc}
+          src={imageObject?.webp}
           alt="Imagen UGC"
           className="ugc-image h-full w-full object-cover block"
           loading="lazy"

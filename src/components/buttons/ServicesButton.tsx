@@ -1,4 +1,10 @@
-// src/components/buttons/ServicesButton.tsx
+/**
+ * Botón reutilizable para acciones relacionadas con servicios.
+ *
+ * @component
+ * @param {ServicesButtonProps} props - Props del botón de servicios.
+ * @returns {JSX.Element}
+ */
 import React from 'react';
 
 interface ServicesButtonProps {

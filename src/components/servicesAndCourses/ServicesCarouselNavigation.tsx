@@ -1,4 +1,11 @@
-// ServicesCarouselNavigation.tsx
+/**
+ * Navegación para el carrusel de servicios.
+ * Incluye botones para avanzar y retroceder entre los slides del carrusel.
+ *
+ * @component
+ * @param {CarouselNavigationProps} props - Props del componente, incluyendo callbacks para siguiente y anterior.
+ * @returns {JSX.Element}
+ */
 import React from 'react';
 import { ChevronLeft, ChevronRight } from "../../assets/icons";
 
@@ -9,7 +16,7 @@ interface CarouselNavigationProps {
 
 const buttonStyle = `bg-black/10 text-white p-2 rounded-full hover:bg-black/50 transition-colors duration-200`;
 
-const CoursesCarouselNavigation: React.FC<CarouselNavigationProps> = ({
+const ServicesCarouselNavigation: React.FC<CarouselNavigationProps> = ({
   onPrev,
   onNext,
 }) => (
@@ -23,4 +30,4 @@ const CoursesCarouselNavigation: React.FC<CarouselNavigationProps> = ({
   </div>
 );
 
-export default CoursesCarouselNavigation;
+export default ServicesCarouselNavigation;

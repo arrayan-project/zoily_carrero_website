@@ -1,4 +1,9 @@
-// src/data/galleryData.ts
+/**
+ * Datos y categorías para la galería de imágenes.
+ * Define las categorías disponibles y el título principal de la sección de galería.
+ *
+ * @module galleryData
+ */
 export interface Category {
     name: string;
     value: string;

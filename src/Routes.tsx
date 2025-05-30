@@ -1,4 +1,9 @@
-// src/Routes.tsx
+/**
+ * Definición de rutas principales de la aplicación.
+ * Utiliza React Router para el enrutamiento y carga perezosa de las páginas.
+ *
+ * @file Routes.tsx
+ */
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { lazy } from 'react';
 

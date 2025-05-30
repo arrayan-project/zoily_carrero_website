@@ -1,12 +1,20 @@
-// ModalRoot manages the state and content of the modal and connects it to the ModalContext.
-import React, { useEffect, useRef } from 'react';
-import Modal from '../common/ModalBase';
-import { ModalContent } from "../modals/ModalInterfaces"; // Importamos ModalContent
+/**
+ * Contenedor raíz para renderizar cualquier modal dinámico.
+ * Recibe el contenido y estado desde el contexto y gestiona accesibilidad y cierre.
+ *
+ * @component
+ * @param {ModalContainerProps} props - Props del contenedor, incluyendo estado de apertura, función de cierre y contenido del modal.
+ * @returns {JSX.Element | null}
+ */
+import React, { useRef} from "react";
+import Modal from "../common/ModalBase";
+import { ModalContent } from "../modals/ModalInterfaces";
+import { useModalAccessibility } from "../../hooks/useModalAccessibility";
 
 interface ModalContainerProps {
   isModalOpen: boolean;
   closeModal: () => void;
-  modalContent: ModalContent | null; // Usamos ModalContent
+  modalContent: ModalContent | null;
 }
 
 const ModalContainer: React.FC<ModalContainerProps> = ({
@@ -15,41 +23,31 @@ const ModalContainer: React.FC<ModalContainerProps> = ({
   modalContent,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
+  const openerRef = useRef<HTMLElement | null>(null);
 
-  useEffect(() => {
-    const modalElement = modalRef.current;
-    if (!modalElement) return;
+  useModalAccessibility(isModalOpen, closeModal, modalRef);
 
-    if (isModalOpen) {
-      // Mover el foco al modal cuando se abre
-      const focusableElement = modalElement.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-      if (focusableElement instanceof HTMLElement) {
-        focusableElement.focus();
-      }
-      // Remove inert when the modal is open
-      modalElement.inert = false;
-    } else {
-      // Add inert when the modal is closed
-      modalElement.inert = true;
-    }
-  }, [isModalOpen]);
+  const handleClose = () => {
+    closeModal();
+    openerRef.current?.focus();
+  };
 
   if (!modalContent) return null;
 
   return (
-    <div
-      ref={modalRef}
-      data-inert={!isModalOpen} // Use data-inert instead of inert
-    >
+    <div ref={modalRef} data-inert={!isModalOpen}>
       <Modal
         isOpen={isModalOpen}
-        onClose={closeModal}
+        onClose={handleClose}
         images={modalContent.images}
         title={modalContent.title}
         infoContent={modalContent.infoContent}
         termsContent={modalContent.termsContent}
         description={modalContent.description}
-      />
+        showTabs={modalContent.showTabs}
+      >
+        {modalContent.children}
+      </Modal>
     </div>
   );
 };

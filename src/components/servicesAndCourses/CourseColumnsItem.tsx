@@ -1,31 +1,28 @@
-import React, { useState } from "react";
-// Eliminado: import styles from './CoursesColumn.module.css';
+/**
+ * Componente para mostrar un item de curso en formato columna.
+ * Presenta la imagen, categoría, descripción y botón para ver más detalles en un modal.
+ *
+ * @component
+ * @param {CourseColumnsItemProps} props - Props del componente, incluyendo el curso y el callback para abrir el modal.
+ * @returns {JSX.Element}
+ */
+import React from "react";
 import { Course } from "../../types/CourseInterfaces";
 import ServicesButton from "../buttons/ServicesButton";
-import { ModalContent } from "../modals/ModalInterfaces";
-import { FONT_FAMILY_PRIMARY, TEXT_SIZE_LG, TEXT_SIZE_BASE, COLOR_TEXT_WHITE } from "../../constants/styles";
-import images from "../../assets/images"; // Importar images
+import { FONT_FAMILY_PRIMARY, TEXT_SIZE_LG, TEXT_SIZE_BASE} from "../../constants/styles";
+import { getImageObject } from "../../utils/getImageObject";
+
 
 interface CourseColumnsItemProps {
-  course: Course; // Asumimos que Course ahora tiene imageKey: keyof typeof images;
-  openModal: (content: ModalContent) => void;
+  course: Course;
+  openModal: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const CourseColumnItem: React.FC<CourseColumnsItemProps> = ({
   course,
   openModal,
 }) => {
-  const [, setError] = useState<string | null>(null);
-  const imageObject = images[course.imageKey]; // Obtener el objeto de imagen
-
-  const handleOpenModal = () => {
-    try {
-      openModal(course.modalContent);
-    } catch (err) {
-      setError("Error al abrir el modal.");
-      console.error("Error en handleOpenModal:", err);
-    }
-  };
+  const imageObject = getImageObject(course.imageKey);// Obtener el objeto de imagen
 
   // Manejar si la imagen no se encuentra
   if (!imageObject) {
@@ -74,8 +71,8 @@ const CourseColumnItem: React.FC<CourseColumnsItemProps> = ({
             <p className="hidden">{course.description}</p>
 
             <ServicesButton
-              onClick={handleOpenModal}
-              className={`relative mt-2.5 px-3 py-1 bg-red-900/50 ${COLOR_TEXT_WHITE} ${TEXT_SIZE_BASE} ${FONT_FAMILY_PRIMARY} shadow hover:bg-red-800/70 transition duration-200 text-center opacity-100 visible lg:opacity-0 lg:invisible group-hover:lg:opacity-100 group-hover:lg:visible lg:transition-opacity`}
+              onClick={openModal}
+              className={`relative mt-2.5 px-3 py-1 bg-red-900/50 ${TEXT_SIZE_BASE} ${FONT_FAMILY_PRIMARY} shadow hover:bg-red-800/70 transition duration-200 text-center opacity-100 visible lg:opacity-0 lg:invisible group-hover:lg:opacity-100 group-hover:lg:visible lg:transition-opacity`}
             >
               VER MÁS
             </ServicesButton>

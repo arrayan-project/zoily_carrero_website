@@ -1,8 +1,14 @@
-// src/components/common/SocialIcons.tsx
+/**
+ * Componente reutilizable para mostrar un grupo de iconos sociales con enlaces.
+ *
+ * @component
+ * @param {SocialIconsProps} props - Props del componente, incluyendo el array de iconos, clases opcionales y clases para los iconos.
+ * @returns {JSX.Element}
+ */
 import React from "react";
 
 interface SocialIcon {
-  icon: React.ComponentType<any>; // Type for Lucide icons
+  icon: React.ComponentType<{ className?: string }>;
   href: string;
 }
 
@@ -16,7 +22,7 @@ const SocialIcons: React.FC<SocialIconsProps> = ({ icons, className, iconClassNa
   return (
     <div className={className}>
       {icons.map((item, index) => (
-        <a key={index} href={item.href} className={iconClassName}>
+        <a key={index} href={item.href} className={iconClassName} aria-label="Iconos redes sociales">
           {React.createElement(item.icon)}
         </a>
       ))}

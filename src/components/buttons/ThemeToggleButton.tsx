@@ -1,13 +1,17 @@
-/*
-#### Responsabilidad ####
-- Componente que permite cambiar el tema entre claro y oscuro.
-- className: Se utiliza esta propiedad.
-- fixed: Se utiliza para posicionar al boton.
-*/
+/**
+ * Componente que permite cambiar el tema entre claro y oscuro.
+ * Admite clase personalizada y puede ser posicionado de forma fija.
+ *
+ * @component
+ * @param {ThemeToggleButtonProps} props - Props del botón de cambio de tema.
+ * @returns {JSX.Element}
+ */
 
-import { useState, useEffect } from 'react';
-import { useTheme } from '../context/useThemeHook';
+import { useState } from 'react';
+import { useTheme } from '../context/themeContext';
 import { Sun, Moon } from "../../assets/icons";
+import useWindowSize from '../../hooks/useWindowSize';
+
 
 interface ThemeToggleButtonProps {
   className?: string;
@@ -15,21 +19,15 @@ interface ThemeToggleButtonProps {
 
 const ThemeToggleButton: React.FC<ThemeToggleButtonProps> = ({ className }) => {
   const { theme, toggleTheme } = useTheme();
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth); // Estado para el ancho de pantalla
   const [error] = useState<string | null>(null); // Estado para el error
+  const { windowWidth } = useWindowSize();
 
-
-  useEffect(() => {
-    const handleResize = () => setScreenWidth(window.innerWidth); // Función para actualizar el estado
-    window.addEventListener('resize', handleResize); // Escucha el evento resize
-    return () => window.removeEventListener('resize', handleResize); // Limpieza del evento
-  }, []);
 
   // Variables para las clases condicionales
   const buttonBase = `relative p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500 transition-colors duration-300 z-[9999] hover:bg-rose-200`;
   const buttonTheme = theme === 'light' ? 'bg-amber-200' : 'bg-gray-600';
   const iconColor = theme === 'light' ? 'text-amber-700' : 'text-rose-400';
-  const iconSize = screenWidth < 768 ? 24 : 32;
+  const iconSize = windowWidth < 768 ? 24 : 32;
 
   if (error) {
     console.error("Error en ThemeToggleButton:", error);

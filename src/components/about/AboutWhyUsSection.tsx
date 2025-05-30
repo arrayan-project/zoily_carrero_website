@@ -1,7 +1,14 @@
+/**
+ * Sección "Por qué elegirnos" para la página "Sobre mí".
+ * Muestra una lista de puntos destacados con íconos y animaciones, usando estilos adaptados al tema.
+ *
+ * @component
+ * @returns {JSX.Element | null}
+ */
 import React from 'react';
 import { CheckCircle } from '../../assets/icons';
 import { whyUsPoints, aboutInfo } from '../../data/aboutData';
-import { useTheme } from '../context/useThemeHook';
+import { useTheme } from '../context/themeContext';
 import RevealWrapper from '../common/RevealWrapper';
 import { FONT_FAMILY_PRIMARY, FONT_WEIGHT_NORMAL, PARAGRAPH_CLASS, TEXT_CENTER } from '../../constants/styles'; // Assuming normal weight for this title
 

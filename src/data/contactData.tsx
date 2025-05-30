@@ -1,4 +1,9 @@
-// src/data/contactData.ts
+/**
+ * Datos de contacto y redes sociales para la sección de contacto.
+ * Incluye teléfono, email, dirección, horario y enlaces a redes sociales.
+ *
+ * @module contactData
+ */
 export const contactInfo = {
     phone: "(XXX) XX XXX XXX",
     email: "info@zoilycarrero.com",

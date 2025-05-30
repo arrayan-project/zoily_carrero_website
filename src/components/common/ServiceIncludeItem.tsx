@@ -1,4 +1,10 @@
-// src/components/common/ServiceIncludeItem.tsx
+/**
+ * Componente para mostrar un item de la sección "Nuestros servicios incluyen".
+ *
+ * @component
+ * @param {ServiceIncludeItemProps} props - Propiedades del componente.
+ * @returns {JSX.Element}
+ */
 import React from 'react';
 import { SERVICES_INCLUDE_ITEM_CLASS, SERVICES_INCLUDE_ITEM_TITLE_CLASS, SERVICES_INCLUDE_ITEM_DESCRIPTION_CLASS } from '../../constants/styles';
 import { ServiceIncludeItemProps } from '../../interfaces/interfaces';

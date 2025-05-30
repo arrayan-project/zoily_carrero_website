@@ -1,6 +1,9 @@
-// src/data/aboutData.ts
-import images from "../assets/images";
-
+/**
+ * Datos y recursos para la sección "Acerca de mí".
+ * Incluye puntos de valor, imágenes y descripciones para mostrar en la página de About.
+ *
+ * @module aboutData
+ */
 export const whyUsPoints = [
   "Experiencia comprobada en el sector",
   "Atención personalizada y dedicada",
@@ -10,18 +13,9 @@ export const whyUsPoints = [
 ];
 
 export const aboutImages = [
-  {
-    src: images.about1,
-    alt: "Equipo colaborando",
-  },
-  {
-    src: images.about2,
-    alt: "Reunión de equipo",
-  },
-  {
-    src: images.about3,
-    alt: "Espacio de trabajo",
-  },
+  { key: "about1", alt: "Zoily Carrero trabajando" },
+  { key: "zoilywhite2", alt: "Detalle de maquillaje" },
+  { key: "about2", alt: "Equipo de trabajo" },
 ];
 
 export const aboutInfo = {

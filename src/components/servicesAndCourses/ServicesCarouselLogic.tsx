@@ -1,4 +1,11 @@
-// src/components/services&courses/ServicesCarouselLogic.tsx
+/**
+ * Hook de lógica para el carrusel de servicios.
+ * Gestiona el índice principal, la lista de servicios y las transiciones animadas.
+ *
+ * @module ServicesCarouselLogic
+ * @param {ServicesLogicProps} props - Props con el array inicial de servicios.
+ * @returns {ServicesLogicReturn} Índice actual, servicios, función de transición y ref de transición.
+ */
 import { useState, useEffect, useRef } from 'react';
 import { Service } from '../../types/ServiceInterfaces'; // Importamos Service
 

@@ -1,14 +1,23 @@
+/**
+ * Sección de enlaces destacados en el Home.
+ * Muestra un título, subtítulos y una grilla de enlaces con imágenes y animaciones.
+ *
+ * @component
+ * @param {HomeLinksSectionProps} props - Props del componente, incluyendo título, subtítulos y array de enlaces.
+ * @returns {JSX.Element}
+ */
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import RevealWrapper from "../common/RevealWrapper";
-import { useTheme } from "../context/useThemeHook";
+import { useTheme } from "../context/themeContext";;
+import { HEADING_1_CLASS, FONT_FAMILY_PRIMARY, TEXT_CENTER } from "../../constants/styles";
+import { getImageObject } from "../../utils/getImageObject";
 
-import { HEADING_1_CLASS, FONT_FAMILY_PRIMARY, COLOR_TEXT_WHITE, TEXT_CENTER } from "../../constants/styles";
 interface Link {
   id: string;
   to: string;
   hash?: string;
-  imageSrc: string;
+  imageKey: string;
   alt: string;
   label: string;
 }
@@ -52,7 +61,10 @@ const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({
           </h2>
         </RevealWrapper>
         <RevealWrapper animationClass="fade-in-up-animation">
-          <p className={`${FONT_FAMILY_PRIMARY} text-base mb-4`} style={{ color: colors.bannerTitle }}>
+          <p
+            className={`${FONT_FAMILY_PRIMARY} text-base mb-4`}
+            style={{ color: colors.bannerTitle }}
+          >
             {subtitle}
           </p>
         </RevealWrapper>
@@ -65,27 +77,37 @@ const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({
           </p>
         </RevealWrapper>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {links.map((link) => (
-            <RevealWrapper key={link.id} animationClass="fade-in-up-animation">
-              <div
-                className="relative w-full aspect-square overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer group"
-                onClick={() => handleClick(link)}
+          {links.map((link) => {
+            const imageObject = getImageObject(link.imageKey);
+            return (
+              <RevealWrapper
+                key={link.id}
+                animationClass="fade-in-up-animation"
               >
-                <img
-                  src={link.imageSrc}
-                  alt={link.alt}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  loading="lazy"
-                />
                 <div
-                  className="absolute bottom-0 left-0 w-full h-1/3 flex items-center justify-center transition-opacity duration-300 group-hover:bg-opacity-70"
-                  style={{ backgroundColor: colors.bannerImageOverlay }}
+                  className="relative w-full aspect-square overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer group"
+                  onClick={() => handleClick(link)}
                 >
-                  <p className={`${FONT_FAMILY_PRIMARY} ${COLOR_TEXT_WHITE} text-lg`}>{link.label}</p>
+                  <img
+                    src={imageObject.webp}
+                    alt={link.alt}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                  <div
+                    className="absolute bottom-0 left-0 w-full h-1/3 flex items-center justify-center transition-opacity duration-300 group-hover:bg-opacity-70"
+                    style={{ backgroundColor: colors.bannerImageOverlay }}
+                  >
+                    <p
+                      className={`${FONT_FAMILY_PRIMARY} text-lg`}
+                    >
+                      {link.label}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </RevealWrapper>
-          ))}
+              </RevealWrapper>
+            );
+          })}
         </div>
       </div>
     </section>

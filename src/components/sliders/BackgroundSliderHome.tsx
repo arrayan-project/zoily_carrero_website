@@ -1,5 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+/**
+ * Carrusel de fondo para el Home.
+ * Cambia automáticamente entre imágenes de fondo con transición y permite pausar al pasar el mouse.
+ *
+ * @component
+ * @param {BackgroundCarouselProps} props - Props del carrusel, incluyendo duración de transición, intervalo y pausa al hacer hover.
+ * @returns {JSX.Element}
+ */
+import React, { useState, useRef } from "react";
 import { imageArrays } from "../../assets/images";
+import { useInterval } from "../../hooks/useInterval";
 
 interface BackgroundCarouselProps {
   transitionDuration?: number;
@@ -19,33 +28,15 @@ const BackgroundCarousel: React.FC<BackgroundCarouselProps> = ({
   const [fadeOut, setFadeOut] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
-  let interval: NodeJS.Timeout;
-  let timeout: NodeJS.Timeout;
 
-  useEffect(() => {
-    const startInterval = () => {
-      interval = setInterval(() => {
-        setFadeOut(true);
-        timeout = setTimeout(() => {
-          setCurrentBg((prev) => (prev + 1) % backgroundsLength);
-          setFadeOut(false);
-        }, transitionDuration);
-      }, intervalDuration);
-    };
-
-    const stopInterval = () => {
-      clearInterval(interval);
-      clearTimeout(timeout);
-    };
-
-    if (!isPaused) {
-      startInterval();
-    }
-
-    return () => {
-      stopInterval();
-    };
-  }, [transitionDuration, intervalDuration, isPaused]);
+  // Usar useInterval para el cambio automático de fondo
+  useInterval(() => {
+    setFadeOut(true);
+    setTimeout(() => {
+      setCurrentBg((prev) => (prev + 1) % backgroundsLength);
+      setFadeOut(false);
+    }, transitionDuration);
+  }, intervalDuration, isPaused);
 
   const handleMouseEnter = () => {
     if (pauseOnHover) {

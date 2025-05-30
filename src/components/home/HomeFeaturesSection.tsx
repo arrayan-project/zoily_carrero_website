@@ -1,12 +1,20 @@
-// src/components/home/HomeFeaturesSection.tsx
+/**
+ * Sección de características destacadas en el Home.
+ * Muestra una imagen y una lista de features con animaciones y estilos adaptados al tema.
+ *
+ * @component
+ * @param {HomeFeaturesSectionProps} props - Props del componente, incluyendo la imagen y el array de features.
+ * @returns {JSX.Element}
+ */
 import React from 'react';
 import SmoothImage from '../smoothImages/SmoothImage';
 import RevealWrapper from "../common/RevealWrapper";
-import { useTheme } from "../../components/context/useThemeHook";
+import { useTheme } from "../../components/context/themeContext";
 import { FONT_FAMILY_PRIMARY, FONT_WEIGHT_LIGHT , PARAGRAPH_CLASS } from "../../constants/styles";
+import { getImageObject } from "../../utils/getImageObject";
 
 interface HomeFeaturesSectionProps {
-  imageSrc: string;
+  imageKey: string;
   alt: string;
   features: {
     title: string;
@@ -14,8 +22,9 @@ interface HomeFeaturesSectionProps {
   }[];
 }
 
-const HomeFeaturesSection: React.FC<HomeFeaturesSectionProps> = ({ imageSrc, alt, features }) => {
+const HomeFeaturesSection: React.FC<HomeFeaturesSectionProps> = ({ imageKey, alt, features }) => {
   const { colors } = useTheme();
+  const imageObject = getImageObject(imageKey);
 
   return (
     <section className={`py-20 md:px-12 md:mb-0`} style={{ backgroundColor: colors.background, color: colors.text  }}>
@@ -24,7 +33,7 @@ const HomeFeaturesSection: React.FC<HomeFeaturesSectionProps> = ({ imageSrc, alt
             <div className="md:order-1 overflow-hidden">    
              <RevealWrapper animationClass="slide-in-left-animation">       
                <SmoothImage 
-                  src={imageSrc} 
+                  src={imageObject.webp}
                   alt={alt} 
                   className="w-full h-full object-cover rounded-base shadow-md transition-transform duration-500 ease-in-out hover:scale-110"
                   disableInternalTransition={true}

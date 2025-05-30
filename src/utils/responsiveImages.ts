@@ -1,4 +1,10 @@
-// src/utils/responsiveImages.ts
+/**
+ * Utilidad para generar datos de imágenes responsivas.
+ * Agrupa imágenes WebP por nombre base y construye src, srcSet y sizes para uso en <img srcSet>.
+ *
+ * @module responsiveImages
+ * @typedef {ResponsiveImageData} ResponsiveImageData - Estructura de datos para una imagen responsiva.
+ */
 export interface ResponsiveImageData {
   src:    string;
   srcSet: string;
