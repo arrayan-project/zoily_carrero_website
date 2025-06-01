@@ -232,3 +232,14 @@
   .ugc-background-text span {
     line-height: 0.8;
   }
+
+  /* Ocultar scrollbar para navegadores WebKit (Chrome, Safari, Edge nuevo) */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ocultar scrollbar para IE, Edge (versión antigua) y Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE y Edge (versión antigua) */
+  scrollbar-width: none;  /* Firefox */
+}

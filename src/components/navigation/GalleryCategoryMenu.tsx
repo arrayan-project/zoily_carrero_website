@@ -8,6 +8,7 @@
  */
 import React from "react";
 import { useTheme } from "../context/themeContext";;
+import { GALLERY_CATEGORY_MENU_BUTTON_CLASS } from "../../constants/styles";
 
 interface GalleryCategoryMenuProps {
   categories: string[];
@@ -24,7 +25,7 @@ const GalleryCategoryMenu: React.FC<GalleryCategoryMenuProps> = ({
 
   return (
     <div
-      className="flex flex-nowrap md:justify-center justify-start space-x-4 mb-8 overflow-x-auto px-4 text-xs font-light md:text-base md:font-normal"
+      className="flex flex-nowrap md:justify-center justify-start space-x-4 mb-8 overflow-x-auto px-4"
       style={{ WebkitOverflowScrolling: "touch" }}
     >
       {categories.map((category) => {
@@ -35,7 +36,7 @@ const GalleryCategoryMenu: React.FC<GalleryCategoryMenuProps> = ({
             key={category}
             aria-label="Boton de categoria"
             onClick={() => onCategoryChange(category)}
-            className={`px-4 py-2 rounded-full whitespace-nowrap border transition-colors duration-300 font-cinzel ${
+            className={`px-4 py-2 rounded-full whitespace-nowrap border transition-colors duration-300 ${GALLERY_CATEGORY_MENU_BUTTON_CLASS} ${
               isActive
                 ? "bg-pink-700 text-white border-pink-700"
                 : theme === "light"

@@ -9,7 +9,7 @@ import React from 'react';
 import RevealWrapper from "../common/RevealWrapper";
 import { contactInfo } from '../../data/contactData';
 import { useTheme } from '../context/themeContext';
-import { HEADING_1_CLASS } from "../../constants/styles";
+import { CONTACT_PAGE_MAIN_TITLE_CLASS } from "../../constants/styles";
 
 const ContactMainTitle: React.FC = () => {
   const { colors} = useTheme();
@@ -18,7 +18,7 @@ const ContactMainTitle: React.FC = () => {
     <RevealWrapper animationClass="fade-in-text">
       {contactInfo?.title && (
         <h1
-        className={`${HEADING_1_CLASS} text-center mb-24 md:py-10 mt-10`} style={{ backgroundColor: colors.background, color: colors.accent }}>
+        className={CONTACT_PAGE_MAIN_TITLE_CLASS} style={{ backgroundColor: colors.background, color: colors.accent }}>
           {contactInfo.title}
         </h1>
       )}

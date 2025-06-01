@@ -10,7 +10,6 @@ import React from 'react';
 import { HEADING_2_CLASS } from "../../constants/styles";
 import ContactForm from '../forms/ContactUsForm';
 import ModalBase from '../common/ModalBase';
-import { useBodyScrollLock } from "../../hooks/useBodyScrollLock";
 
 
 interface ContactModalProps {
@@ -19,7 +18,6 @@ interface ContactModalProps {
 }
 
 const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
-    useBodyScrollLock(true);
     return(
     <ModalBase isOpen={isOpen} onClose={onClose} >
         <div className="mb-8">

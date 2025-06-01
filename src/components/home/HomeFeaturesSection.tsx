@@ -10,7 +10,7 @@ import React from 'react';
 import SmoothImage from '../smoothImages/SmoothImage';
 import RevealWrapper from "../common/RevealWrapper";
 import { useTheme } from "../../components/context/themeContext";
-import { FONT_FAMILY_PRIMARY, FONT_WEIGHT_LIGHT , PARAGRAPH_CLASS } from "../../constants/styles";
+import { HOME_FEATURES_ITEM_TITLE_CLASS, HOME_FEATURES_ITEM_DESCRIPTION_CLASS } from "../../constants/styles";
 import { getImageObject } from "../../utils/getImageObject";
 
 interface HomeFeaturesSectionProps {
@@ -46,16 +46,16 @@ const HomeFeaturesSection: React.FC<HomeFeaturesSectionProps> = ({ imageKey, alt
                 <div 
                   key={index} 
                   className="w-full group">
-                    <div className="shadow-sm h-full flex flex-col items-center justify-center transition-colors duration-300 px-6 text-center min-h-[200px] md:min-h-full">
+                    <div className="h-full flex flex-col items-center justify-center duration-300 px-6 text-center min-h-[200px] md:min-h-full">
                     <RevealWrapper animationClass="slide-in-right-animation">
                       <h3
-                        className={`${PARAGRAPH_CLASS} ${FONT_WEIGHT_LIGHT} mb-4 group-hover:text-black`}
+                        className={`${HOME_FEATURES_ITEM_TITLE_CLASS}`}
                         style={{ color: colors.bannerTitle }} >
                         {feature.title}</h3>
                     </RevealWrapper>
                     <RevealWrapper animationClass="slide-in-right-animation">
                       <p
-                        className={`${FONT_FAMILY_PRIMARY} text-sm md:text-xs xl:text-sm group-hover:text-black`}
+                        className={`${HOME_FEATURES_ITEM_DESCRIPTION_CLASS}`}
                         style={{ color: colors.bannerTitle }} >
                         {feature.description}</p>
                     </RevealWrapper> 

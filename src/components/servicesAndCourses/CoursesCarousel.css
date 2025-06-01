@@ -21,16 +21,16 @@
     display: block;
   }
   #courses-carousel .slide .item:nth-child(3) {
-    left: 30%;
+    left: 20%;
   }
   #courses-carousel .slide .item:nth-child(4) {
-    left: calc(30% - 220px);
+    left: calc(20% - 220px);
   }
   #courses-carousel .slide .item:nth-child(5) {
-    left: calc(30% - 440px);
+    left: calc(20% - 440px);
   }
   #courses-carousel .slide .item:nth-child(n + 6) {
-    left: calc(30% - 440px);
+    left: calc(20% - 440px);
     overflow: hidden;
   }
   #courses-carousel .item .content {

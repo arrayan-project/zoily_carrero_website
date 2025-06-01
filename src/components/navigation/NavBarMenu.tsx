@@ -50,79 +50,94 @@ export default function NavBarMenu({ className, currentPathname }: NavigationPro
   const openMenuActiveLink = `${openMenuBaseTextColor} underline`;
   const openMenuInactiveLink = openMenuBaseTextColor;
 
-  const baseLink = 'px-5 py-2 text-base font-cinzel transition-colors';
-  // Los colores de activeLink e inactiveLink se determinarán dinámicamente abajo
+  const baseLink = 'px-5 py-2 text-base text-center font-cinzel transition-colors';
   const menuButtonSpanBase = `block w-8 h-0.5 bg-current transition-transform duration-300`;
 
   // Determinar la clase de fondo para cuando se hace scroll
-  let scrolledBackgroundClass = 'bg-transparent';
+  let scrolledBackgroundClass = '';
   if (scrolled) {
     if (isWhiteMenuRoute || theme === 'dark') {
       // Para texto blanco (en rutas especiales o tema oscuro), usar un fondo oscuro semi-transparente
-      scrolledBackgroundClass = 'bg-black/20 backdrop-blur-sm'; // Negro con 20% de opacidad y blur
+      scrolledBackgroundClass = 'bg-black/5 backdrop-blur-sm'; // Negro con 20% de opacidad y blur
     } else {
       // Para texto negro (en tema claro, rutas no especiales), usar un fondo claro semi-transparente
-      scrolledBackgroundClass = 'bg-white/30 backdrop-blur-sm'; // Blanco con 30% de opacidad y blur
+      scrolledBackgroundClass = 'bg-white/5 backdrop-blur-sm'; // Blanco con 30% de opacidad y blur
     }
   }
 
   useBodyScrollLock(isOpen);
 
-  return (
-    <nav className={`${className} fixed w-full z-40 flex items-center justify-end min-h-[64px] px-24 ${scrolledBackgroundClass}`}>
-      <div className="lg:hidden">
-        <button
-          onClick={() => setIsOpen(o => !o)}
-          className={`p-4 absolute top-1/2 right-4 -translate-y-1/2 z-50 hover:text-pink-500 transition-colors duration-300 ${navBarMenuButtonColor}`}
-          aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
-          aria-expanded={isOpen}
-        >
-          <div className="space-y-2">
-            <span className={`${menuButtonSpanBase} ${isOpen ? 'rotate-45 translate-y-[0.625rem]' : ''}`}></span>
-            <span className={`${menuButtonSpanBase} transition-opacity duration-300 ${isOpen ? 'opacity-0' : ''}`}></span>
-            <span className={`${menuButtonSpanBase} ${isOpen ? '-rotate-45 -translate-y-[0.625rem]' : ''}`}></span>
-          </div>
-        </button>
-      </div>
+  const logoLeftOffsetClasses = "left-[102px] sm:left-[92px] md:left-[132px]";
 
-      <div className={`
-        ${isOpen 
-          ? `fixed inset-0 z-40 flex flex-col items-center justify-center min-h-screen bg-opacity-90 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}` 
-          : 'hidden'} 
-        lg:flex lg:relative lg:bg-transparent lg:flex-row lg:items-center lg:min-h-0 lg:z-auto lg:bg-opacity-100
-      `}>
-        {isOpen && (
+
+  return (
+
+    <nav className={`${className} fixed w-full z-40 min-h-[64px] pr-24`}>
+      {!isOpen && scrolledBackgroundClass && (
+        <div
+          className={`absolute top-0 bottom-0 right-0 h-full ${logoLeftOffsetClasses} ${scrolledBackgroundClass}`}
+          aria-hidden="true"
+        />
+      )}
+      <div
+        className={`
+          absolute top-0 bottom-0 right-0
+          ${logoLeftOffsetClasses}
+          flex items-center justify-end
+          h-full
+          ${isOpen ? '' : scrolledBackgroundClass}
+        `}
+      >
+        <div className="lg:hidden"> 
           <button
-            onClick={() => setIsOpen(false)}
-            className={`lg:hidden absolute top-4 right-4 p-4 z-50 hover:text-pink-500 transition-colors duration-300 ${openMenuBaseTextColor}`} // Color para el botón de cerrar (X)
-            aria-label="Cerrar menú"
+            onClick={() => setIsOpen(o => !o)}
+            className={`p-4 z-[50] hover:text-pink-500 transition-colors duration-300 
+                        ${isOpen ? openMenuBaseTextColor : navBarMenuButtonColor}`}
+            aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={isOpen}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            <div className="space-y-2">
+              <span className={`${menuButtonSpanBase} ${isOpen ? 'rotate-45 translate-y-[0.625rem]' : ''}`}></span>
+              <span className={`${menuButtonSpanBase} transition-opacity duration-300 ${isOpen ? 'opacity-0' : ''}`}></span>
+              <span className={`${menuButtonSpanBase} ${isOpen ? '-rotate-45 -translate-y-[0.625rem]' : ''}`}></span>
+            </div>
           </button>
-        )}
-        <div className="flex flex-col lg:flex-row lg:items-center space-y-6 lg:space-y-0 lg:space-x-2 mt-8 lg:mt-0">
-          {navItems.map(({ label, path, prefetch }) => (
-            <NavLink
-              key={label}
-              to={path}
-              onMouseEnter={prefetch}
-              onClick={() => setIsOpen(false)}
-              className={({ isActive }) => {
-                let linkStyle = baseLink;
-                // Determinar si estamos en el menú móvil abierto o en la barra de navegación
-                if (isOpen && window.innerWidth < 1024) { // Asumiendo lg breakpoint es 1024px
-                  linkStyle += isActive ? ` ${openMenuActiveLink}` : ` ${openMenuInactiveLink}`;
-                } else {
-                  linkStyle += isActive ? ` ${navBarActiveLink}` : ` ${navBarInactiveLink}`;
-                }
-                return `${linkStyle} ${isOpen ? 'text-base' : 'lg:text-base'}`;
-              }}
-            >
-              {label}
-            </NavLink>
-          ))}
+        </div>
+
+        <div className={`
+          ${isOpen 
+            ? `fixed inset-0 z-40 flex flex-col items-center justify-center min-h-screen bg-opacity-90 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}` 
+            : 'hidden'} 
+          lg:flex lg:relative lg:inset-auto lg:z-auto lg:min-h-0 lg:flex-row lg:items-center lg:bg-transparent lg:bg-opacity-100
+        `}>
+          <div className="flex flex-col lg:flex-row lg:items-center space-y-6 lg:space-y-0 lg:space-x-2 mt-8 lg:mt-0">
+            {navItems.map(({ label, path, prefetch }) => (
+              <NavLink
+                key={label}
+                to={path}
+                onMouseEnter={prefetch}
+                onClick={() => setIsOpen(false)}
+                className={({ isActive }) => {
+                  let linkStyle = baseLink;
+                  if (isOpen && window.innerWidth < 1024) {
+                    linkStyle += isActive ? ` ${openMenuActiveLink}` : ` ${openMenuInactiveLink}`;
+                  } else {
+                    linkStyle += isActive ? ` ${navBarActiveLink}` : ` ${navBarInactiveLink}`;
+                  }
+                  return `${linkStyle} ${isOpen ? 'text-base' : 'lg:text-xs'}`;
+                }}
+              >
+                {label}
+              </NavLink>
+            ))}
+          </div>
+
         </div>
       </div>
+
+      {!isOpen && (
+         <div className={`absolute bottom-0 right-0 h-px bg-white ${logoLeftOffsetClasses}`} aria-hidden="true"></div>
+      )}
     </nav>
   );
 }

@@ -17,7 +17,7 @@ const ServiceIncludeItem: React.FC<ServiceIncludeItemProps> = ({ title, descript
 
   return (
     <li className={`${SERVICES_INCLUDE_ITEM_CLASS}`} > 
-      <h4 className={`${SERVICES_INCLUDE_ITEM_TITLE_CLASS}`}>
+      <h4 className={`${SERVICES_INCLUDE_ITEM_TITLE_CLASS} md:mt-15`} >
         {title}
       </h4>
       <p className={`${SERVICES_INCLUDE_ITEM_DESCRIPTION_CLASS}`} >

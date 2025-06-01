@@ -4,26 +4,28 @@
  *
  * @module useModalAccessibility
  * @param {boolean} isOpen - Indica si el modal está abierto.
- * @param {() => void} onClose - Callback para cerrar el modal.
+ * @param {(event?: MouseEvent | KeyboardEvent) => void} onClose - Callback para cerrar el modal, puede recibir el evento.
  * @param {React.RefObject<HTMLElement>} modalRef - Referencia al contenedor del modal.
  */
 import { useEffect } from "react";
 
 export function useModalAccessibility(
   isOpen: boolean,
-  onClose: () => void,
+  onClose: (event?: MouseEvent | KeyboardEvent) => void,
   modalRef: React.RefObject<HTMLElement>
 ) {
   useEffect(() => {
     if (!isOpen) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+            if (e.key === "Escape") {
+        onClose(e); // Pasar el evento del teclado
+      }
     };
 
     const handleClickOutside = (e: MouseEvent) => {
       if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-        onClose();
+        onClose(e);
       }
     };
 

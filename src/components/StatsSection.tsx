@@ -10,6 +10,7 @@ import { PersonStanding, Brush, Handshake } from "../assets/icons";
 import images from '../assets/images';
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 import { useCounterAnimation } from "../hooks/useCounterAnimation";
+import { STATS_SECTION_ICON_CLASS, STATS_SECTION_COUNTER_VALUE_CLASS, STATS_SECTION_LABEL_CLASS } from "../constants/styles";
 
 
 // Componente de contador animado
@@ -50,12 +51,12 @@ const StatItem: React.FC<StatItemProps> = ({
 
   return (
     <div className={classes} style={{ animationDelay: `${index * 200}ms` }}>
-      <span className="text-5xl font-cinzel">{icon}</span>
-      <span className="text-4xl font-cinzel">
+      <span className={STATS_SECTION_ICON_CLASS}>{icon}</span>
+      <span className={STATS_SECTION_COUNTER_VALUE_CLASS}>
         <Counter value={value} isVisible={isVisible} />
         {suffix}
       </span>
-      <span className="text-sm font-cinzel">{label}</span>
+      <span className={STATS_SECTION_LABEL_CLASS}>{label}</span>
     </div>
   );
 };

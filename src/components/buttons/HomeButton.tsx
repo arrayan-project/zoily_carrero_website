@@ -7,24 +7,22 @@
  * @returns {JSX.Element}
  */
 import React from 'react';
+import { HOME_BUTTON_BASE_CLASS, HOME_BUTTON_PRIMARY_VARIANT_CLASS, HOME_BUTTON_SECONDARY_VARIANT_CLASS } from '../../constants/styles';
 
 interface HomeButtonProps {
   onClick: () => void;
   primary?: boolean;
   children: React.ReactNode;
+  className?: string; // Allow additional classes
 }
 
-const HomeButton: React.FC<HomeButtonProps> = ({ onClick, primary = false, children }) => {
-  const baseClasses = 'px-6 py-3 font-normal font-cinzel rounded shadow transition duration-200';
-  const primaryClasses = 'bg-white/20 backdrop-blur-sm text-white hover:bg-gray-200/80 hover:backdrop-blur-sm';
-  const secondaryClasses = 'bg-transparent text-white border border-white hover:bg-white hover:text-black';
-
+const HomeButton: React.FC<HomeButtonProps> = ({ onClick, primary = false, children, className = "" }) => {
   return (
     <button
       type="button"
       aria-label="Boton de home"
       onClick={onClick}
-      className={`${baseClasses} ${primary ? primaryClasses : secondaryClasses}`}
+      className={`${HOME_BUTTON_BASE_CLASS} ${primary ? HOME_BUTTON_PRIMARY_VARIANT_CLASS : HOME_BUTTON_SECONDARY_VARIANT_CLASS} ${className}`}
     >
       {children}
     </button>

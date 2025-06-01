@@ -11,7 +11,7 @@ import { Course} from "../types/CourseInterfaces"; // Importamos Course y Course
 export const getCoursesDescription = () => {
   return [
     "Aprende a maquillarte como un profesional con nuestros cursos!",
-    "Desde técnicas básicas hasta avanzadas, resalta tu belleza y domina el arte del maquillaje.",
+    "Resalta tu belleza y domina el arte del maquillaje.",
   ];
 };
 

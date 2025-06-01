@@ -10,7 +10,7 @@ import { Service} from "../types/ServiceInterfaces"; // Importamos Service y Ser
 // Funciones para las descripciones
 export const getServicesDescription = () => {
   return [
-    "Realza tu belleza con nuestros servicios de maquillaje profesional.",
+    "Realza tu belleza con nuestros servicios de maquillaje.",
     "Reserva tu sesión y luce espectacular en tu evento especial.",
   ];
 };

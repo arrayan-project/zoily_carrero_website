@@ -1,6 +1,5 @@
 import { useState, lazy, Suspense, useRef } from "react";
 import { imageArrays } from "../assets/images";
-import { HOME_LINKS_TITLE_CLASS } from "../constants/styles"; // This constant already uses HEADING_1_CLASS
 import { galleryTitle } from "../data/galleryData";
 import { useTheme } from "../components/context/themeContext";
 import { Helmet } from "react-helmet-async";
@@ -9,12 +8,17 @@ import GalleryGridSkeleton from "../components/skeletons/GalleryGridSkeleton";
 import GalleryTitleSkeleton from "../components/skeletons/GalleryTitleSkeleton";
 import GalleryCategoryMenuSkeleton from "../components/skeletons/GalleryCategoryMenuSkeleton";
 import useScrollToHash from "../hooks/useScrollToHash";
-
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorComponent from "../components/common/ErrorComponent";
 
 const GalleryModal = lazy(() => import("../components/modals/GalleryModal"));
-const GalleryImageGrid = lazy(() => import("../components/gallery/GalleryImageGrid"));
+const GalleryImageGrid = lazy(
+  () => import("../components/gallery/GalleryImageGrid")
+);
 const GalleryTitle = lazy(() => import("../components/gallery/GalleryTitle"));
-const GalleryCategoryMenu = lazy(() => import("../components/navigation/GalleryCategoryMenu"));
+const GalleryCategoryMenu = lazy(
+  () => import("../components/navigation/GalleryCategoryMenu")
+);
 
 const categoryMap: Record<string, string[]> = {
   Novia: imageArrays.galleryBrideImages,
@@ -34,7 +38,6 @@ const Gallery = () => {
   const isMobileView = window.innerWidth <= 768;
   const { colors } = useTheme();
   const galleryRef = useRef<HTMLDivElement>(null);
-  
 
   const currentGalleryImages = categoryMap[activeCategory] || [];
 
@@ -60,81 +63,88 @@ const Gallery = () => {
 
   useScrollToHash();
 
+  const handleResetBoundary = () => {
+    // Intenta recargar la página.
+    window.location.reload();
+  };
+
   return (
-    <main>
-      <section
-        id="gallery"
-        className="px-1 py-12 md:px-4 md:py-24"
-        style={{ backgroundColor: colors.background, color: colors.text }}
-      >
-        <Helmet>
-          <title>
-            Galería de Maquillaje Profesional | Zoily Carrero MakeUp
-          </title>
-          <meta
-            name="description"
-            content="Explora la galería de Zoily Carrero MakeUp. Descubre transformaciones impactantes, looks de novia, social y más. ¡Inspírate para tu próximo evento!"
-          />
-        </Helmet>
+    <ErrorBoundary
+      FallbackComponent={ErrorComponent}
+      onReset={handleResetBoundary}
+    >
+      <main>
+        <section
+          id="gallery"
+          className="px-1 py-12 md:px-4 md:py-24"
+          style={{ backgroundColor: colors.background, color: colors.text }}
+        >
+          <Helmet>
+            <title>
+              Galería de Maquillaje Profesional | Zoily Carrero MakeUp
+            </title>
+            <meta
+              name="description"
+              content="Explora la galería de Zoily Carrero MakeUp. Descubre transformaciones impactantes, looks de novia, social y más. ¡Inspírate para tu próximo evento!"
+            />
+          </Helmet>
 
-        <Suspense fallback={<GalleryTitleSkeleton />}>
-          <GalleryTitle
-            title={galleryTitle}
-            className={HOME_LINKS_TITLE_CLASS}
-          />
-        </Suspense>
+          <Suspense fallback={<GalleryTitleSkeleton />}>
+            <GalleryTitle title={galleryTitle} />
+          </Suspense>
 
-        <Suspense fallback={<GalleryCategoryMenuSkeleton />}>
-          <GalleryCategoryMenu
-            categories={Object.keys(categoryMap)}
-            activeCategory={activeCategory}
-            onCategoryChange={(category) => {
-              setActiveCategory(category);
-              setTimeout(() => {
-                galleryRef.current?.scrollIntoView({
-                  behavior: "smooth",
-                  block: "start",
-                });
-              }, 100);
-            }}
-          />
-        </Suspense>
-
-        <div ref={galleryRef}>
-          <LazySectionLoader
-            minHeight="400px"
-            fallback={<GalleryGridSkeleton />}
-          >
-            <Suspense fallback={<GalleryGridSkeleton />}>
-              <GalleryImageGrid
-                images={currentGalleryImages}
-                onImageClick={openModal}
-              />
-            </Suspense>
-          </LazySectionLoader>
-        </div>
-
-        {selectedImage && (
-          <Suspense
-            fallback={
-              <div className="min-h-[400px] flex items-center justify-center">
-                Cargando imagen...
-              </div>
-            }
-          >
-            <GalleryModal
-              selectedImage={selectedImage}
-              closeImage={closeImage}
-              prevImage={prevImage}
-              nextImage={nextImage}
-              isModalTransitioning={isModalTransitioning}
-              modalContainerRef={modalContainerRef}
-              isMobileView={isMobileView}
+          <Suspense fallback={<GalleryCategoryMenuSkeleton />}>
+            <GalleryCategoryMenu
+              categories={Object.keys(categoryMap)}
+              activeCategory={activeCategory}
+              onCategoryChange={(category) => {
+                setActiveCategory(category);
+                setTimeout(() => {
+                  galleryRef.current?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                  });
+                }, 100);
+              }}
             />
           </Suspense>
-        )}
-      </section>
-    </main>
+
+          <div ref={galleryRef}>
+            <LazySectionLoader
+              minHeight="400px"
+              fallback={<GalleryGridSkeleton />}
+            >
+              <Suspense fallback={<GalleryGridSkeleton />}>
+                <GalleryImageGrid
+                  images={currentGalleryImages}
+                  onImageClick={openModal}
+                />
+              </Suspense>
+            </LazySectionLoader>
+          </div>
+
+          {selectedImage && (
+            <Suspense
+              fallback={
+                <div className="min-h-[400px] flex items-center justify-center">
+                  Cargando imagen...
+                </div>
+              }
+            >
+              <GalleryModal
+                selectedImage={selectedImage}
+                closeImage={closeImage}
+                prevImage={prevImage}
+                nextImage={nextImage}
+                isModalTransitioning={isModalTransitioning}
+                modalContainerRef={modalContainerRef}
+                isMobileView={isMobileView}
+              />
+            </Suspense>
+          )}
+        </section>
+      </main>
+    </ErrorBoundary>
   );
 };
 

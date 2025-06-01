@@ -1,9 +1,8 @@
 // src/pages/Services.tsx
 import { useState, lazy } from "react";
 import {
-  HOME_LINKS_TITLE_CLASS,
-  PARAGRAPH_CLASS,
-  TEXT_CENTER,
+  COURSES_PAGE_TITLE_CLASS,
+  COURSES_SUBTITLE_CLASS
 } from "../constants/styles";
 import { ServicesProps } from "../interfaces/interfaces";
 import { getCoursesDescription } from "../data/coursesData";
@@ -18,7 +17,7 @@ import ModalContainer from "../components/modals/ModalRoot";
 import ErrorComponent from "../components/common/ErrorComponent";
 import ServicePromoSection from "../components/servicesAndCourses/ServicePromoSection";
 import SectionTitle from "../components/common/SectionTitle";
-import ServicesIncludeSection from "../components/layout/ServicesIncludeSection";
+import ServicesIncludeSection from "../components/servicesAndCourses/ServicesIncludeSection";
 import SectionDescription from "../components/common/SectionDescription";
 import "../GlobalStyles.css";
 import LazySectionLoader from "../components/common/LazySectionLoader";
@@ -90,7 +89,6 @@ function Services({}: ServicesProps) {
           <ServicePromoSection
             title="Conoce lo que podemos hacer por ti"
             description={servicesDescription}
-            titleClassName={`${HOME_LINKS_TITLE_CLASS} max-h-[550px]:text-xs max-h-[550px]:bg-yellow-300`} // ¡Cambio drástico para prueba!
           />
 
           <section
@@ -128,16 +126,16 @@ function Services({}: ServicesProps) {
 
           <section
             id="cursos"
-            className="container mx-auto mt-12 md:mt-24 md:mb-10 md:px-4 lg:px-8 xl:px-16 2xl:px-24 py-16 md:py-32 z-10"
+            className="container mx-auto md:mb-10 md:px-4 lg:px-8 xl:px-16 2xl:px-24 py-16 md:py-32 z-10"
           >
             <SectionTitle
               title="NUESTROS CURSOS"
-              className={HOME_LINKS_TITLE_CLASS}
+              className={COURSES_PAGE_TITLE_CLASS}
               style={{ color: colors.accent }}
             />
             <SectionDescription
               description={coursesDescription}
-              className={`${PARAGRAPH_CLASS} ${TEXT_CENTER} mt-4 mb-16 md:mb-24`}
+              className={COURSES_SUBTITLE_CLASS}
               style={{ color: colors.accent }}
             />
 

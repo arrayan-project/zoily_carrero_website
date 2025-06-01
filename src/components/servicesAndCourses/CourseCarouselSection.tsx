@@ -101,7 +101,7 @@ const CoursesCarouselSection: React.FC = () => {
                   <button
                     aria-label="Boton ver mas"
                     onClick={e => handleOpenModal(item.modalContent, e)}
-                    className={`p-2 border-none bg-white ${FONT_FAMILY_PRIMARY} rounded-none cursor-pointer absolute left-center top-[110%] -translate-y-1/2 opacity-100 transition-opacity duration-500 ${
+                    className={`p-2 border-none text-black bg-white ${FONT_FAMILY_PRIMARY} rounded-none cursor-pointer absolute left-center top-[100%] right-[30px] -translate-y-1/2 opacity-100 transition-opacity duration-500 ${
                       isMobileView ? "text-sm" : "text-base"
                     }`}
                   >

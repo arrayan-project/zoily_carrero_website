@@ -10,7 +10,7 @@ import { Mail, Phone, MapPin, Clock } from "../../assets/icons";
 import RevealWrapper from "../common/RevealWrapper";
 import { contactInfo } from "../../data/contactData"; 
 import { useTheme } from "../context/themeContext";
-import { HEADING_2_CLASS, FONT_FAMILY_PRIMARY, PARAGRAPH_CLASS } from "../../constants/styles";
+import { HEADING_4_CLASS, FONT_FAMILY_PRIMARY, PARAGRAPH_CLASS } from "../../constants/styles";
 
 const ContactInfoSection: React.FC = () => {
   const { colors } = useTheme();
@@ -21,7 +21,7 @@ const ContactInfoSection: React.FC = () => {
         <RevealWrapper animationClass="fade-in-text">
           {contactInfo?.contactTitle && (
             <h2
-              className={`${HEADING_2_CLASS} mb-6`}
+              className={`${HEADING_4_CLASS} mb-6`}
               style={{ color: colors.accent }}
             >
               {contactInfo.contactTitle}
@@ -84,7 +84,7 @@ const ContactInfoSection: React.FC = () => {
           <RevealWrapper animationClass="fade-in-text">
             {contactInfo?.followUsTitle && (
               <h2
-                className={`${HEADING_2_CLASS} mb-6`}
+                className={`${HEADING_4_CLASS} mb-6`}
                 style={{ color: colors.accent, background: colors.background }}
               >
                 {contactInfo.followUsTitle}

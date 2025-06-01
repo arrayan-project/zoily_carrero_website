@@ -41,7 +41,7 @@ const themeColors: Record<Theme, ThemeColors> = {
     accent: "#A05253",
     hover: "#F5E8E4",
     border: "#C7A49E",
-    bannerBackground: "#FFFFFF",
+    bannerBackground: "rgba(255, 255, 255, 0.5)",
     bannerTitle: "#A05253",
     bannerImageOverlay: "rgba(31, 41, 55, 0.4)",
   },
@@ -53,9 +53,9 @@ const themeColors: Record<Theme, ThemeColors> = {
     accent: "#E4C9B8",
     hover: "#3A3A3A",
     border: "#F5EAAA",
-    bannerBackground: "#2B2B2B",
+    bannerBackground: "rgba(21, 23, 35, 0.5)",
     bannerTitle: "#E4C9B8",
-    bannerImageOverlay: "rgba(0, 0, 0, 0.5)",
+    bannerImageOverlay: "rgba(0, 0, 0, 0.4)",
   },
 };
 

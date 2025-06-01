@@ -20,11 +20,15 @@ export default {
         '3xl': '30px',// Desenfoque máximo
       },
       screens: {
+        'xs': '375px',
         'sm': '640px', // <-- Verifica la definición del breakpoint 'sm'
         'md': '768px',
         'lg': '1024px',
         'xl': '1280px',
         '2xl': '1536px',
+        'fhd': '1920px', // Full HD
+        'qhd': '2560px', // QHD
+        'uhd': '3840px', // 4K
       },
     },
   },

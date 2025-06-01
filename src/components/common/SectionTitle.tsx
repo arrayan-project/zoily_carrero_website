@@ -20,7 +20,7 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ title, className, style }) 
   return (
     <RevealWrapper animationClass="fade-in-text">
       <h1
-        className={`${className} text-center text-2xl md:text-xl lg:text-3xl font-light text-white tracking-wide mb-12 md:mb-2`}
+        className={`${className} text-center text-xl md:text-xl lg:text-xl font-light text-white tracking-wide mb-12 md:mb-2`}
         style={style}
       >
         {title}

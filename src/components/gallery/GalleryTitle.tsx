@@ -7,19 +7,20 @@
  */
 import React from "react";
 import RevealWrapper from "../common/RevealWrapper";
-import { useTheme } from "../context/themeContext";;
+import { useTheme } from "../context/themeContext";
+import {GALLERY_PAGE_TITLE_CLASS} from "../../constants/styles";
 
 interface GalleryTitleProps {
   title: string;
   className?: string;
 }
 
-const GalleryTitle: React.FC<GalleryTitleProps> = ({ title, className }) => {
+const GalleryTitle: React.FC<GalleryTitleProps> = ({ title }) => {
   const { colors } = useTheme();
   return (
     <RevealWrapper animationClass="fade-in-text">
       <h1
-        className={`${className} mb-12 md:mb-24 mt-12 md:mt-24`}
+        className={GALLERY_PAGE_TITLE_CLASS}
         style={{ color: colors.accent }}
       >
         {title}

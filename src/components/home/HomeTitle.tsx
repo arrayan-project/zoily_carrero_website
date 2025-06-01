@@ -7,7 +7,7 @@
  * @returns {JSX.Element}
  */
 import React from "react";
-import { FONT_FAMILY_PRIMARY,  } from "../../constants/styles";
+import { HOME_HERO_TITLE_CLASS, HOME_HERO_SUBTITLE_CLASS } from "../../constants/styles";
 
 interface HomeTitleProps {
   title: string;
@@ -19,26 +19,18 @@ interface HomeTitleProps {
     const HomeTitle: React.FC<HomeTitleProps> = ({
       title,
       subtitle,
-      titleSizeClass = "text-3xl md:text-4xl", // Tamaño por defecto
-      subtitleSizeClass = "text-lg md:text-xl", // Tamaño por defecto
+      titleSizeClass = HOME_HERO_TITLE_CLASS, // Default from styles.ts
+      subtitleSizeClass = HOME_HERO_SUBTITLE_CLASS, // Default from styles.ts
     }) => {
   return (
     <>
-{/* Contenedor para el título.
-          Puedes añadir un margen superior específico para móvil aquí (ej. "mt-4") si el título necesita
-          moverse hacia abajo dentro de este bloque HomeTitle en móviles.
-          Por defecto, no añade margen extra, permitiendo que el contenedor padre (en About.tsx) controle su inicio. */}
           <div className="md:mt-0">
-            <h1 className={`${FONT_FAMILY_PRIMARY} ${titleSizeClass} text-white font-light tracking-[0.2em] mb-12 md:mb-6`}>          
+            <h1 className={titleSizeClass}>
               {title}
         </h1>
 </div>
-      {/* Contenedor para el subtítulo.
-          Añade un margen superior específico para móvil aquí para empujar el subtítulo más abajo del título.
-          Por ejemplo, "mt-8" (2rem) añade espacio extra en móviles. Ajusta este valor según necesites.
-          Este margen es adicional al margen inferior del título (h1). */}
       <div className="mt-36 md:mt-0"> {/* Ejemplo: empuja el subtítulo 2rem hacia abajo en móvil, se resetea en md */}
-            <h2 className={`${FONT_FAMILY_PRIMARY} ${subtitleSizeClass} text-white font-light tracking-[0.3em] mb-12`}>          
+            <h2 className={subtitleSizeClass}>
               {subtitle}
         </h2>
       </div>

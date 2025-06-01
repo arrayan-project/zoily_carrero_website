@@ -8,7 +8,7 @@
 import { useTheme } from "../context/themeContext";;
 import RevealWrapper from "../common/RevealWrapper";
 import ServiceIncludeItem from "../common/ServiceIncludeItem";
-import { HEADING_3_CLASS, TEXT_CENTER } from "../../constants/styles"; // Using HEADING_3_CLASS as a base
+import { HEADING_1_CLASS, TEXT_CENTER } from "../../constants/styles"; // Using HEADING_3_CLASS as a base
 
 const ServicesIncludeSection = () => {
   const { colors } = useTheme();
@@ -18,12 +18,12 @@ const ServicesIncludeSection = () => {
         {/* Original SERVICES_INCLUDE_TITLE_CLASS was HEADING_2_CLASS (text-2xl md:text-3xl) */}
         {/* Component used text-lg md:text-xl lg:text-3xl. HEADING_3_CLASS is text-lg md:text-xl */}
         <h2
-          className={`${HEADING_3_CLASS} lg:text-3xl ${TEXT_CENTER}`}
+          className={`${HEADING_1_CLASS} mt-20 lg:text-3xl ${TEXT_CENTER}`}
           style={{ backgroundColor: colors.background, color: colors.accent }}
         >
           Nuestros servicios incluyen
         </h2>
-        <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-600" style={{ color: colors.bannerTitle }}>
+        <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-600 mt-16" style={{ color: colors.bannerTitle }}>
           <ServiceIncludeItem
             title="Asesoría para cuidado de la piel"
             description="Hidratación, limpieza y productos"

@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import corporateEventImage from "/img/store/corporate-events.webp";
 import socialEventImage from "/img/store/social-events.webp";
 import useScrollToHash from "../hooks/useScrollToHash";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorComponent from "../components/common/ErrorComponent"; 
 
 interface EventCategoryProps {
   title: string;
@@ -27,12 +29,15 @@ const EventCategory: React.FC<EventCategoryProps> = ({ title, imageUrl, items })
 );
 
 const Store = () => {
-  const [error, setError] = useState<string | null>(null);
+  useScrollToHash();
 
-useScrollToHash();
 
-  try {
-    return (
+const handleResetBoundary = () => {
+    window.location.reload();
+  };
+
+  return (
+    <ErrorBoundary FallbackComponent={ErrorComponent} onReset={handleResetBoundary}>
       <div id="store" className="min-h-[900px] bg-gray-50">
         <div className="max-w-6xl mx-auto px-4 py-16 md:py-24">
           <h1 className="text-4xl md:text-5xl font-montserrat text-center mb-12 tracking-wider text-gray-800">
@@ -89,12 +94,8 @@ useScrollToHash();
           </div>
         </div>
       </div>
-    );
-  } catch (err) {
-    setError("An error occurred while loading the store.");
-    console.error("Error in Store component:", err);
-    return <div className="text-center text-red-500">{error}</div>;
-  }
+    </ErrorBoundary>
+  );
 };
 
 export default Store;

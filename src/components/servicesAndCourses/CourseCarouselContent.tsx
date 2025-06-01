@@ -14,7 +14,7 @@ interface CoursesContentProps {
 }
 
 const CoursesContent: React.FC<CoursesContentProps> = ({ children }) => (
-  <div className={`content absolute top-1/2 right-[100px] w-[300px] text-left -translate-y-1/2 ${FONT_FAMILY_PRIMARY} hidden z-20`}>
+  <div className={`content absolute top-1/2 right-[30px] w-[300px] text-left -translate-y-1/2 ${FONT_FAMILY_PRIMARY} text-white hidden z-20`}>
     {children}
   </div>
 );

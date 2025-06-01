@@ -11,7 +11,7 @@ import SmoothImage from "../smoothImages/SmoothImage";
 import RevealWrapper from "../common/RevealWrapper";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../components/context/themeContext";
-import { FONT_FAMILY_PRIMARY, FONT_WEIGHT_LIGHT , PARAGRAPH_CLASS, TEXT_SIZE_BASE} from "../../constants/styles";
+import { HOME_GALLERY_SECTION_ITEM_TITLE_CLASS, HOME_GALLERY_SECTION_ITEM_DESCRIPTION_CLASS, HOME_GALLERY_SECTION_BUTTON_CLASS } from "../../constants/styles";
 import { getImageObject } from "../../utils/getImageObject";
 
 
@@ -52,7 +52,7 @@ const HomeGallerySection: React.FC<HomeGallerySectionProps> = ({
                 <div className="px-6 py-8 flex flex-col items-center justify-center">
                   <RevealWrapper animationClass="slide-in-left-animation">
                     <h3
-                      className={`${FONT_FAMILY_PRIMARY} ${FONT_WEIGHT_LIGHT } text-xl md:text-4xl mb-12`}
+                      className={HOME_GALLERY_SECTION_ITEM_TITLE_CLASS}
                       style={{ color: colors.accent }}
                     >
                       {galleryItem.title}
@@ -60,7 +60,7 @@ const HomeGallerySection: React.FC<HomeGallerySectionProps> = ({
                   </RevealWrapper>
                   <RevealWrapper animationClass="slide-in-left-animation">
                     <p
-                      className={`${PARAGRAPH_CLASS} px-4 mb-12`}
+                      className={HOME_GALLERY_SECTION_ITEM_DESCRIPTION_CLASS}
                       style={{ color: colors.bannerTitle }}
                     >
                       {galleryItem.description}
@@ -71,7 +71,7 @@ const HomeGallerySection: React.FC<HomeGallerySectionProps> = ({
                       type="button"
                       aria-label="Abrir Galeria de imagenes"
                       onClick={handleViewMoreClick}
-                      className={`bg-pink-700 px-12 border rounded py-4 md:px-16 md:py-6 ${FONT_FAMILY_PRIMARY} ${TEXT_SIZE_BASE} hover:bg-pink-900 transition-colors duration-300`}
+                      className={`${HOME_GALLERY_SECTION_BUTTON_CLASS}`}
                       style={{
                         minWidth: "fit-content",
                         borderColor: colors.border,

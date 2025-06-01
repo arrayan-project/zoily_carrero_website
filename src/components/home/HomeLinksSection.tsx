@@ -10,7 +10,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import RevealWrapper from "../common/RevealWrapper";
 import { useTheme } from "../context/themeContext";;
-import { HEADING_1_CLASS, FONT_FAMILY_PRIMARY, TEXT_CENTER } from "../../constants/styles";
+import { HOME_LINKS_SECTION_TITLE_CLASS, HOME_LINKS_SECTION_SUBTITLE_CLASS, HOME_LINKS_SECTION_SUBTITLE_DETAIL_CLASS, HOME_LINKS_CARD_LABEL_CLASS } from "../../constants/styles";
 import { getImageObject } from "../../utils/getImageObject";
 
 interface Link {
@@ -54,7 +54,7 @@ const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({
       >
         <RevealWrapper animationClass="fade-in-up-animation">
           <h2
-            className={`${HEADING_1_CLASS} ${TEXT_CENTER} mb-12`}
+            className={HOME_LINKS_SECTION_TITLE_CLASS}
             style={{ color: colors.accent }}
           >
             {title}
@@ -62,7 +62,7 @@ const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({
         </RevealWrapper>
         <RevealWrapper animationClass="fade-in-up-animation">
           <p
-            className={`${FONT_FAMILY_PRIMARY} text-base mb-4`}
+            className={HOME_LINKS_SECTION_SUBTITLE_CLASS}
             style={{ color: colors.bannerTitle }}
           >
             {subtitle}
@@ -70,13 +70,13 @@ const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({
         </RevealWrapper>
         <RevealWrapper animationClass="fade-in-up-animation">
           <p
-            className={`${FONT_FAMILY_PRIMARY} text-base mb-24 md:mb-28`}
+            className={HOME_LINKS_SECTION_SUBTITLE_DETAIL_CLASS}
             style={{ color: colors.bannerTitle }}
           >
             {subtitle1}
           </p>
         </RevealWrapper>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
           {links.map((link) => {
             const imageObject = getImageObject(link.imageKey);
             return (
@@ -99,7 +99,7 @@ const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({
                     style={{ backgroundColor: colors.bannerImageOverlay }}
                   >
                     <p
-                      className={`${FONT_FAMILY_PRIMARY} text-lg`}
+                    className={HOME_LINKS_CARD_LABEL_CLASS}
                     >
                       {link.label}
                     </p>

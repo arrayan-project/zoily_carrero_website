@@ -7,7 +7,8 @@
  * @returns {JSX.Element}
  */
 import React from "react";
-import RevealWrapper from '../common/RevealWrapper';
+import RevealWrapper from "../common/RevealWrapper";
+import { GENERAL_SECTION_PARAGRAPH_DESCRIPTION_CLASS } from "../../constants/styles";
 
 
 interface SectionDescriptionProps {
@@ -28,7 +29,7 @@ const SectionDescription: React.FC<SectionDescriptionProps> = ({
     return (
       <RevealWrapper animationClass="fade-in-up">
       <p
-        className={`text-center text-sm md:text-sm font-light text-white tracking-wide ${className}`}
+        className={`${GENERAL_SECTION_PARAGRAPH_DESCRIPTION_CLASS} text-white ${className || ''}`}
         style={style}
       >
         {description.map((line, index) => (
@@ -44,7 +45,7 @@ const SectionDescription: React.FC<SectionDescriptionProps> = ({
     return (
       <RevealWrapper animationClass="fade-in-up">
       <p
-        className={`text-center text-sm md:text-sm font-light text-white tracking-wide ${className}`} 
+        className={`${GENERAL_SECTION_PARAGRAPH_DESCRIPTION_CLASS} text-white ${className || ''}`}
       >
         {description}
       </p>

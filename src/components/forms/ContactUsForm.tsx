@@ -9,6 +9,8 @@ import React, { useState, useRef } from "react";
 import FormInput from "./ContactUsFormInput";
 import RevealWrapper from "../common/RevealWrapper";
 import ReCAPTCHA from "react-google-recaptcha";
+import { CONTACT_FORM_SUBMIT_BUTTON_CLASS } from "../../constants/styles";
+
 
 interface FormData {
   name: string;
@@ -206,7 +208,7 @@ const ContactForm: React.FC = () => {
           type="submit"
           aria-label="Boton Enviar mensaje"
           disabled={isSubmitting}
-          className={`w-full px-6 py-3 ${buttonColor} text-white rounded-lg hover:bg-pink-700 transition-colors font-cinzel tracking-wider ${
+          className={`w-fit mx-auto block ${CONTACT_FORM_SUBMIT_BUTTON_CLASS} ${buttonColor} ${
             isSubmitting ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >

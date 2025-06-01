@@ -11,7 +11,7 @@ import { X } from "../../assets/icons";
 import { useTheme } from "../context/themeContext";; // Importamos el hook de tema
 
 interface CloseButtonProps {
-  onClick: () => void;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void; // Actualizado para aceptar el evento
 }
 
 const CloseButton: React.FC<CloseButtonProps> = ({ onClick }) => {
