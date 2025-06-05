@@ -45,7 +45,7 @@ const HomeBrandsSection: React.FC<HomeBrandsSectionProps> = ({ brands }) => {
   }, totalWidth > 0);
 
   return (
-    <section className="py-16 px-4 bg-gray-100">
+    <section className="py-16 px-1 bg-gray-100">
       <div className="container mx-auto">
         <h2
           className={HOME_BRANDS_SECTION_TITLE_CLASS}

@@ -9,8 +9,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import RevealWrapper from "../common/RevealWrapper";
-import { useTheme } from "../context/themeContext";;
-import { HOME_LINKS_SECTION_TITLE_CLASS, HOME_LINKS_SECTION_SUBTITLE_CLASS, HOME_LINKS_SECTION_SUBTITLE_DETAIL_CLASS, HOME_LINKS_CARD_LABEL_CLASS } from "../../constants/styles";
+import { useTheme } from "../context/themeContext";
+import {
+  HOME_LINKS_SECTION_TITLE_CLASS,
+  HOME_LINKS_SECTION_SUBTITLE_CLASS,
+  HOME_LINKS_SECTION_SUBTITLE_DETAIL_CLASS,
+  HOME_LINKS_CARD_LABEL_CLASS,
+} from "../../constants/styles";
 import { getImageObject } from "../../utils/getImageObject";
 
 interface Link {
@@ -45,9 +50,10 @@ const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({
 
   return (
     <section
-      className="py-16 px-4"
+      className=" mb-16 md:mb-1" // Reducido el margen inferior
       style={{ backgroundColor: colors.background, color: colors.text }}
     >
+      {/* Títulos y subtítulos */}
       <div
         className="container mx-auto text-center mb-8 md:mb-18"
         style={{ color: colors.text }}
@@ -76,36 +82,137 @@ const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({
             {subtitle1}
           </p>
         </RevealWrapper>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
-          {links.map((link) => {
+      </div>
+
+      <div className="w-full"> {/* Aseguramos que ocupe todo el ancho, margen inferior se maneja en la section */}
+        {/* --- DESKTOP LAYOUT (md and up) --- */}
+        <div className="hidden md:grid md:grid-cols-2 md:h-[600px] lg:h-[1000px]">
+          {/* Columna Izquierda: Servicios (asumiendo links[0]) */}
+          {links[0] && (() => {
+            const link = links[0];
             const imageObject = getImageObject(link.imageKey);
+            if (!imageObject) return null;
             return (
-              <RevealWrapper
-                key={link.id}
-                animationClass="fade-in-up-animation"
+              <div
+                key={link.id + "-desktop"}
+                onClick={() => handleClick(link)}
+                className="cursor-pointer group relative w-full h-full overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-center justify-center"
               >
+                <img
+                  src={imageObject.webp}
+                  alt={link.alt}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  loading="lazy"
+                />
                 <div
-                  className="relative w-full aspect-square overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer group"
-                  onClick={() => handleClick(link)}
+                  className="absolute inset-0 bg-black opacity-20 group-hover:opacity-50 transition-opacity duration-300"
+                />
+                <p className={`${HOME_LINKS_CARD_LABEL_CLASS} text-center !text-2xl md:!text-5xl text-white relative z-10 transition-transform duration-300 group-hover:scale-110`}
+                   style={{ textShadow: '0px 2px 4px rgba(0,0,0,0.7)' }}
                 >
-                  <img
-                    src={imageObject.webp}
-                    alt={link.alt}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                    loading="lazy"
-                  />
+                  {link.label}
+                </p>
+              </div>
+            );
+          })()}
+
+          {/* Columna Derecha: Cursos y UGC (asumiendo links[1] y links[2]) */}
+          {links.length > 2 && (
+            <div className="flex flex-col h-full">
+              {/* Fila Superior Derecha: Cursos */}
+              {links[1] && (() => {
+                const link = links[1];
+                const imageObject = getImageObject(link.imageKey);
+                if (!imageObject) return null;
+                return (
                   <div
-                    className="absolute bottom-0 left-0 w-full h-1/3 flex items-center justify-center transition-opacity duration-300 group-hover:bg-opacity-70"
-                    style={{ backgroundColor: colors.bannerImageOverlay }}
+                    key={link.id + "-desktop"}
+                    onClick={() => handleClick(link)}
+                    className="cursor-pointer group relative w-full h-1/2 overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-center justify-center"
                   >
-                    <p
-                    className={HOME_LINKS_CARD_LABEL_CLASS}
+                    <img
+                      src={imageObject.webp}
+                      alt={link.alt}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div
+                      className="absolute inset-0 bg-black opacity-20 group-hover:opacity-50 transition-opacity duration-300"
+                    />
+                    <p className={`${HOME_LINKS_CARD_LABEL_CLASS} text-center !text-xl md:!text-3xl text-white relative z-10 transition-transform duration-300 group-hover:scale-110`}
+                       style={{ textShadow: '0px 2px 4px rgba(0,0,0,0.7)' }}
                     >
                       {link.label}
                     </p>
                   </div>
-                </div>
-              </RevealWrapper>
+                );
+              })()}
+
+              {/* Fila Inferior Derecha: UGC */}
+              {links[2] && (() => {
+                const link = links[2];
+                const imageObject = getImageObject(link.imageKey);
+                if (!imageObject) return null;
+                return (
+                  <div
+                    key={link.id + "-desktop"}
+                    onClick={() => handleClick(link)}
+                    className="cursor-pointer group relative w-full h-1/2 overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-center justify-center"
+                  >
+                    <img
+                      src={imageObject.webp}
+                      alt={link.alt}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div
+                      className="absolute inset-0 bg-black opacity-20 group-hover:opacity-50 transition-opacity duration-300"
+                    />
+                    <p className={`${HOME_LINKS_CARD_LABEL_CLASS} text-center !text-xl md:!text-3xl text-white relative z-10 transition-transform duration-300 group-hover:scale-110`}
+                       style={{ textShadow: '0px 2px 4px rgba(0,0,0,0.7)' }}
+                    >
+                      {link.label}
+                    </p>
+                  </div>
+                );
+              })()}
+            </div>
+          )}
+        </div>
+
+        {/* --- MOBILE LAYOUT (sm and down) --- */}
+        {/* Se mantiene el layout móvil original ya que la solicitud se centró en el de escritorio 
+            y el móvil ya tiene un diseño diferente que podría ser intencional.
+            Si deseas cambiar el móvil también para que el texto esté centrado en la imagen,
+            se necesitarían ajustes similares a los del escritorio.
+        */}
+        <div className="md:hidden grid grid-cols-1"> {/* Aumentado el gap para móvil */}
+          {links.map((link, ) => {
+            const imageObject = getImageObject(link.imageKey);
+            if (!imageObject) return null;
+
+            return (
+              <div
+                key={link.id + "-mobile"}
+                onClick={() => handleClick(link)}
+                className="cursor-pointer group relative w-full h-[60vw] sm:h-[50vw] overflow-hidden shadow-lg flex items-center justify-center"
+              >
+                <img
+                  src={imageObject.webp}
+                  alt={link.alt}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div
+                  className="absolute inset-0 bg-black opacity-20 group-hover:opacity-50 transition-opacity duration-300"
+                />
+                <p
+                  className={`${HOME_LINKS_CARD_LABEL_CLASS} !text-xl text-white relative z-10 transition-transform duration-300 group-hover:scale-110 text-center px-4`}
+                  style={{ textShadow: '0px 1px 3px rgba(0,0,0,0.7)' }}
+                >
+                  {link.label}
+                </p>
+              </div>
             );
           })}
         </div>

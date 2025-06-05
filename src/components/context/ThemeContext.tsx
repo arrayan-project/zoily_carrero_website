@@ -1,14 +1,8 @@
 /**
- * Contexto y provider para manejar el tema (claro/oscuro) y los colores asociados en la aplicación.
- * Permite alternar el tema y acceder a la paleta de colores desde cualquier componente.
- *
- * @module themeContext
- * @context
- * @returns {ThemeContextType} Provee el tema actual, función para alternar y los colores.
+ * 🌸 PALETA ROSA DORADO - Elegancia Moderna y Sofisticación Cálida
  */
 import React, { createContext, useState, useEffect, useContext } from "react";
 
-// Tipos para el tema y los colores
 type Theme = "light" | "dark";
 
 interface ThemeColors {
@@ -24,45 +18,80 @@ interface ThemeColors {
   border: string;
 }
 
-// Interfaz del contexto
 interface ThemeContextType {
   theme: Theme;
   toggleTheme: () => void;
   colors: ThemeColors;
 }
 
-// Paletas de colores para cada tema
 const themeColors: Record<Theme, ThemeColors> = {
   light: {
-    background: "#FFFFFF",
-    text: "#5C3C2E",
-    section: "#FFE4E1",
-    secondaryText: "#8B7355",
-    accent: "#A05253",
-    hover: "#F5E8E4",
-    border: "#C7A49E",
-    bannerBackground: "rgba(255, 255, 255, 0.5)",
-    bannerTitle: "#A05253",
-    bannerImageOverlay: "rgba(31, 41, 55, 0.4)",
+    // Fondo principal - Blanco rosado muy suave, cálido y premium
+    background: "#FFFBFC",
+    
+    // Texto principal - Carbón suave con matices cálidos
+    text: "#2D2A2E",
+    
+    // Secciones - Rosa empolvado muy suave, elegante
+    section: "#FDF2F8",
+    
+    // Texto secundario - Gris rosado, sofisticado y cálido
+    secondaryText: "#78716C",
+    
+    // Color de acento - Rosa dorado, moderno y distintivo
+    accent: "#E11D48",
+    
+    // Hover - Rosa muy claro para interacciones delicadas
+    hover: "#FCE7F3",
+    
+    // Bordes - Rosa gris suave, delicado y refinado
+    border: "#F3D4DA",
+    
+    // Banner background - Overlay rosa muy sutil
+    bannerBackground: "rgba(253, 242, 248, 0.95)",
+    
+    // Título del banner - Rosa vibrante para impacto
+    bannerTitle: "#E11D48",
+    
+    // Overlay de imagen - Gris cálido para contraste suave
+    bannerImageOverlay: "rgba(45, 42, 46, 0.4)",
   },
+  
   dark: {
-    background: "#151723",
-    text: "#FFFFFF",
-    section: "#0E0F16",
-    secondaryText: "#C7A49E",
-    accent: "#E4C9B8",
-    hover: "#3A3A3A",
-    border: "#F5EAAA",
-    bannerBackground: "rgba(21, 23, 35, 0.5)",
-    bannerTitle: "#E4C9B8",
-    bannerImageOverlay: "rgba(0, 0, 0, 0.4)",
+    // Fondo principal - Gris muy oscuro con matices cálidos
+    background: "#161618",
+    
+    // Texto principal - Blanco rosado suave para calidez
+    text: "#FAF7F8",
+    
+    // Secciones - Gris oscuro con tinte rosado
+    section: "#2A2A2C",
+    
+    // Texto secundario - Rosa suave, cálido en oscuro
+    secondaryText: "#F9A8D4",
+    
+    // Color de acento - Rosa brillante, vibrante y moderno
+    accent: "#F472B6",
+    
+    // Hover - Gris medio con tinte rosado
+    hover: "#3F3F41",
+    
+    // Bordes - Gris rosado medio
+    border: "#57534E",
+    
+    // Banner background - Overlay gris oscuro cálido
+    bannerBackground: "rgba(22, 22, 24, 0.95)",
+    
+    // Título del banner - Rosa brillante
+    bannerTitle: "#FBCFE8",
+    
+    // Overlay de imagen - Negro cálido con tinte rosado
+    bannerImageOverlay: "rgba(22, 22, 24, 0.6)",
   },
 };
 
-// Crea el contexto
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-// Provider del contexto
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window !== "undefined") {
@@ -107,7 +136,6 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 };
 
-// Hook para usar el contexto
 export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (!context) throw new Error("useTheme debe usarse dentro de ThemeProvider");

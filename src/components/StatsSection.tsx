@@ -90,7 +90,7 @@ const { ref, isVisible } = useRevealOnScroll({ threshold: 0.1 });
   return (
     <section
       ref={bannerRef}
-      className="relative bg-rose-200 py-16 w-full overflow-hidden"
+      className="relative bg-rose-200 py-48 w-full overflow-hidden"
     >
       <div className="absolute inset-0">
         <img

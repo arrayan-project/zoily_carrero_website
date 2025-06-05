@@ -27,7 +27,7 @@ const HomeFeaturesSection: React.FC<HomeFeaturesSectionProps> = ({ imageKey, alt
   const imageObject = getImageObject(imageKey);
 
   return (
-    <section className={`py-20 md:px-12 md:mb-0`} style={{ backgroundColor: colors.background, color: colors.text  }}>
+    <section className={`pt-1 md:px-1 md:mb-1`} style={{ backgroundColor: colors.background, color: colors.text  }}> {/* Reducido el padding superior, mantenido el inferior */}
       <div className={`mx-auto w-full`} style={{ color: colors.text }}>
       <div className="grid grid-cols-1 md:grid-cols-2 items-stretch gap-0 h-full">       
             <div className="md:order-1 overflow-hidden">    

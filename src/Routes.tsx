@@ -8,7 +8,8 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { lazy } from 'react';
 
 const Home     = lazy(() => import('./pages/Home'));
-const Services = lazy(() => import('./pages/Services'));
+const MakeUp = lazy(() => import('./pages/MakeUp'));
+const Courses = lazy(() => import('./pages/Courses'));
 const Gallery  = lazy(() => import('./pages/Gallery'));
 const UGC      = lazy(() => import('./pages/UGC'));
 const Store    = lazy(() => import('./pages/Store'));
@@ -22,7 +23,8 @@ export default function AppRoutes() {
   return (
     <Routes>
       <Route path="/home"     element={<Home />} />
-      <Route path="/services" element={<Services />} />
+      <Route path="/makeup"   element={<MakeUp />} />
+      <Route path="/courses"  element={<Courses />} />
       <Route path="/gallery"  element={<Gallery />} />
       <Route path="/ugc"      element={<UGC />} />
       <Route path="/store"    element={<Store />} />

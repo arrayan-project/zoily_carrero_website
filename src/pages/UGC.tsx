@@ -2,8 +2,8 @@
 import React, { lazy, Suspense } from "react";
 import { useTheme } from "../components/context/themeContext";
 import { Helmet } from "react-helmet-async";
-import UGCMainSectionSkeleton from "../components/skeletons/UGCMainSectionSkeleton";
-import UGCPhoneExampleSectionSkeleton from "../components/skeletons/UGCPhoneExampleSectionSkeleton";
+import UGCMainSectionSkeleton from "../components/skeletons/UGC/UGCMainSectionSkeleton";
+import UGCPhoneExampleSectionSkeleton from "../components/skeletons/UGC/UGCPhoneExampleSectionSkeleton";
 import useScrollToHash from "../hooks/useScrollToHash";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorComponent from "../components/common/ErrorComponent";

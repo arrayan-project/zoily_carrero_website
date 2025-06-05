@@ -1,13 +1,14 @@
 /**
  * Menú de navegación principal de la aplicación.
  * Incluye enlaces a las rutas principales, menú hamburguesa para móvil, prefetch de páginas y estilos adaptados al tema y ruta.
- *
+ * Gestiona submenús para "SERVICIOS".
+ * 
  * @component
  * @param {NavigationProps} props - Props del menú, incluyendo clase opcional y ruta actual.
  * @returns {JSX.Element}
  */
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useTheme } from '../context/themeContext';
 import { useScrollVisibility } from "../../hooks/useScrollVisibility";
 import { useBodyScrollLock } from "../../hooks/useBodyScrollLock";
@@ -18,23 +19,48 @@ interface NavigationProps {
   currentPathname?: string; // Nueva prop para la ruta actual
 }
 
-const navItems = [
-  { label: 'INICIO',     path: '/home',     prefetch: () => import('../../pages/Home') },
-  { label: 'SERVICIOS',  path: '/services', prefetch: () => import('../../pages/Services') },
-  { label: 'GALERÍA',    path: '/gallery',  prefetch: () => import('../../pages/Gallery') },
-  { label: 'UGC',        path: '/ugc',      prefetch: () => import('../../pages/UGC') },
-  { label: 'TIENDA',     path: '/store',    prefetch: () => import('../../pages/Store') },
-  { label: 'ACERCA DE',  path: '/about',    prefetch: () => import('../../pages/About') },
-  { label: 'CONTACTO',   path: '/contact',  prefetch: () => import('../../pages/Contact') },
+interface NavSubItem {
+  label: string;
+  path: string;
+  prefetch: () => Promise<any>;
+}
+
+interface NavItem {
+  id: string; // Identificador único para el item
+  label: string;
+  path?: string; // Opcional si tiene subItems y no es un enlace directo
+  prefetch?: () => Promise<any>;
+  subItems?: NavSubItem[];
+}
+
+const navItems: NavItem[] = [
+  { id: 'home',    label: 'INICIO',     path: '/home',     prefetch: () => import('../../pages/Home') },
+  { 
+    id: 'services', label: 'SERVICIOS',  
+    // path: '/services', // Ya no apunta a una página general de servicios
+    subItems: [
+      { label: 'Maquillaje', path: '/makeup',  prefetch: () => import('../../pages/MakeUp') },
+      { label: 'Cursos',     path: '/courses', prefetch: () => import('../../pages/Courses') },
+    ]
+  },
+  { id: 'gallery', label: 'GALERÍA',    path: '/gallery',  prefetch: () => import('../../pages/Gallery') },
+  { id: 'ugc',     label: 'UGC',        path: '/ugc',      prefetch: () => import('../../pages/UGC') },
+  { id: 'store',   label: 'TIENDA',     path: '/store',    prefetch: () => import('../../pages/Store') },
+  { id: 'about',   label: 'ACERCA DE',  path: '/about',    prefetch: () => import('../../pages/About') },
+  { id: 'contact', label: 'CONTACTO',   path: '/contact',  prefetch: () => import('../../pages/Contact') },
 ];
 
 export default function NavBarMenu({ className, currentPathname }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null); // Para el dropdown de escritorio
+  const [mobileSubMenuOpen, setMobileSubMenuOpen] = useState<string | null>(null); // Para el submenú móvil
   const { theme } = useTheme();
   const scrolled = useScrollVisibility(0);
+  const location = useLocation();
+  const navRef = useRef<HTMLElement>(null);
 
   // Rutas donde el menú siempre será blanco
-  const whiteMenuRoutes = ['/home', '/services', '/about'];
+  const whiteMenuRoutes = ['/home', '/makeup', '/courses', '/about'];
   const isWhiteMenuRoute = currentPathname ? whiteMenuRoutes.includes(currentPathname) : false;
   
   // --- Estilos para la barra de navegación (menú cerrado o vista lg) ---
@@ -67,12 +93,32 @@ export default function NavBarMenu({ className, currentPathname }: NavigationPro
 
   useBodyScrollLock(isOpen);
 
+    // Cerrar dropdown si se hace clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Resetear submenú móvil y dropdown al cambiar de ruta
+  useEffect(() => {
+    setIsOpen(false);
+    setMobileSubMenuOpen(null);
+    setOpenDropdown(null);
+  }, [location.pathname]);
+
   const logoLeftOffsetClasses = "left-[102px] sm:left-[92px] md:left-[132px]";
 
 
   return (
 
-    <nav className={`${className} fixed w-full z-40 min-h-[64px] pr-24`}>
+    <nav ref={navRef} className={`${className} fixed w-full z-40 min-h-[64px] pr-24`}>
       {!isOpen && scrolledBackgroundClass && (
         <div
           className={`absolute top-0 bottom-0 right-0 h-full ${logoLeftOffsetClasses} ${scrolledBackgroundClass}`}
@@ -90,8 +136,11 @@ export default function NavBarMenu({ className, currentPathname }: NavigationPro
       >
         <div className="lg:hidden"> 
           <button
-            onClick={() => setIsOpen(o => !o)}
-            className={`p-4 z-[50] hover:text-pink-500 transition-colors duration-300 
+            onClick={() => {
+              setIsOpen(o => !o);
+              if (isOpen) setMobileSubMenuOpen(null); // Si se está cerrando, resetear submenú
+            }}
+            className={`relative  p-4 z-[50] hover:text-pink-500 transition-colors duration-300 
                         ${isOpen ? openMenuBaseTextColor : navBarMenuButtonColor}`}
             aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
             aria-expanded={isOpen}
@@ -110,27 +159,119 @@ export default function NavBarMenu({ className, currentPathname }: NavigationPro
             : 'hidden'} 
           lg:flex lg:relative lg:inset-auto lg:z-auto lg:min-h-0 lg:flex-row lg:items-center lg:bg-transparent lg:bg-opacity-100
         `}>
-          <div className="flex flex-col lg:flex-row lg:items-center space-y-6 lg:space-y-0 lg:space-x-2 mt-8 lg:mt-0">
-            {navItems.map(({ label, path, prefetch }) => (
-              <NavLink
-                key={label}
-                to={path}
-                onMouseEnter={prefetch}
-                onClick={() => setIsOpen(false)}
-                className={({ isActive }) => {
-                  let linkStyle = baseLink;
-                  if (isOpen && window.innerWidth < 1024) {
-                    linkStyle += isActive ? ` ${openMenuActiveLink}` : ` ${openMenuInactiveLink}`;
-                  } else {
-                    linkStyle += isActive ? ` ${navBarActiveLink}` : ` ${navBarInactiveLink}`;
-                  }
-                  return `${linkStyle} ${isOpen ? 'text-base' : 'lg:text-xs'}`;
-                }}
+          
+          {/* Lógica para el menú móvil */}
+          {isOpen && mobileSubMenuOpen === 'services' && (
+            <div className="flex flex-col items-center justify-center w-full">
+              <button
+                onClick={() => setMobileSubMenuOpen(null)}
+                className={`absolute top-20 left-1/2 -translate-x-1/2 p-2 ${openMenuBaseTextColor} hover:text-pink-500`}
+                aria-label="Volver al menú principal"
               >
-                {label}
-              </NavLink>
-            ))}
-          </div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 transform rotate-180">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+              </button>
+              <div className="flex flex-col items-center space-y-6 mt-24">
+                {navItems.find(item => item.id === 'services')?.subItems?.map(subItem => (
+                  <NavLink
+                    key={subItem.label}
+                    to={subItem.path}
+                    onMouseEnter={subItem.prefetch}
+                    onClick={() => {
+                      setIsOpen(false); // Cierra todo el menú móvil
+                      setMobileSubMenuOpen(null); // Asegura que el submenú se cierre
+                    }}
+                    className={({ isActive }) =>
+                      `${baseLink} text-base ${
+                        isActive
+                          ? `${openMenuBaseTextColor} underline hover:text-pink-500` // Activo también con hover rosa
+                          : `${openMenuBaseTextColor} hover:text-pink-500`
+                      }`
+                    }
+                  >
+                    {subItem.label}
+                  </NavLink>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Menú principal (móvil o escritorio) */}
+          {(!isOpen || (isOpen && !mobileSubMenuOpen)) && (
+            <div className="flex flex-col lg:flex-row lg:items-center space-y-6 lg:space-y-0 lg:space-x-1 mt-8 lg:mt-0">
+              {navItems.map((item) => (
+                <div key={item.id} className="relative group">
+                  {item.subItems ? (
+                    // Elemento con submenú
+                    <>
+                      {/* Botón para móvil y etiqueta para escritorio */}
+                      <button
+                        onClick={() => {
+                          if (window.innerWidth < 1024) { // Móvil
+                            setMobileSubMenuOpen(item.id);
+                          } else { // Escritorio (toggle dropdown)
+                            setOpenDropdown(openDropdown === item.id ? null : item.id);
+                          }
+                        }}
+                        onMouseEnter={() => window.innerWidth >= 1024 && setOpenDropdown(item.id)}
+                        // onMouseLeave={() => window.innerWidth >= 1024 && setOpenDropdown(null)} // Se maneja con clic fuera
+                        className={`${baseLink} ${isOpen ? `text-base ${openMenuInactiveLink}` : `lg:text-xs ${navBarInactiveLink}`} hover:text-pink-500 flex items-center justify-center lg:justify-start w-full`}
+                        aria-haspopup="true"
+                        aria-expanded={openDropdown === item.id || mobileSubMenuOpen === item.id}
+                      >
+                        {item.label}
+                        <svg className={`w-3 h-3 ml-1 transition-transform duration-200 ${openDropdown === item.id ? 'rotate-180' : ''} hidden lg:inline-block`} fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+                      </button>
+                      {/* Dropdown para escritorio */}
+                      {openDropdown === item.id && window.innerWidth >= 1024 && (
+                        <div 
+                          className="absolute left-1/2 -translate-x-1/2 lg:left-0 lg:translate-x-0 top-full mt-1 py-2 w-36 rounded-md focus:outline-none"
+                          onMouseLeave={() => setOpenDropdown(null)} // Cerrar al salir del área del dropdown
+                        >
+                          {item.subItems.map(subItem => (
+                            <NavLink
+                              key={subItem.label}
+                              to={subItem.path}
+                              onMouseEnter={subItem.prefetch}
+                              onClick={() => { setIsOpen(false); setOpenDropdown(null); }}
+                              className={({ isActive }) =>
+                                `block px-4 py-2 text-sm whitespace-nowrap font-cinzel 
+                                 ${isActive 
+                                   ? `${navBarBaseTextColor} underline hover:text-pink-500` // Activo con color base, subrayado y hover rosa
+                                   : `${navBarBaseTextColor} hover:text-pink-500` // Normal con color base y hover rosa
+                                 }`
+                              }
+                            >
+                              {subItem.label}
+                            </NavLink>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    // Elemento de menú normal
+                    <NavLink
+                      to={item.path!}
+                      onMouseEnter={item.prefetch}
+                      onClick={() => setIsOpen(false)}
+                      className={({ isActive }) => {
+                        let linkColorClass = '';
+                        if (isOpen && window.innerWidth < 1024) { // Menú móvil abierto
+                          linkColorClass = isActive ? `${openMenuBaseTextColor} underline hover:text-pink-500` : `${openMenuBaseTextColor} hover:text-pink-500`;
+                        } else { // Menú cerrado o escritorio
+                          linkColorClass = isActive ? `${navBarBaseTextColor} underline hover:text-pink-500` : `${navBarBaseTextColor} hover:text-pink-500`;
+                        }
+                        return `${baseLink} ${linkColorClass} ${isOpen ? 'text-base' : 'lg:text-xs'}`;
+                      }}
+                    >
+                      {item.label}
+                    </NavLink>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
 
         </div>
       </div>

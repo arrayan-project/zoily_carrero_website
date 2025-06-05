@@ -20,7 +20,7 @@ interface LazySectionLoaderProps {
 const LazySectionLoader: React.FC<LazySectionLoaderProps> = ({
   children,
   fallback = <div className="min-h-screen w-full flex items-center justify-center">Cargando...</div>, // Fallback por defecto
-  minHeight = '100vh', // Una altura mínima razonable por defecto
+  minHeight = '10vh', // Una altura mínima razonable por defecto
   rootMargin = '200px 0px', // Empieza a cargar 200px antes de entrar en pantalla
   triggerOnce = true, // Carga solo una vez
 }) => {

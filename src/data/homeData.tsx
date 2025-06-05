@@ -20,7 +20,7 @@ export const homeLinks = {
   links: [
     {
       id: "link-services", // Unique ID
-      to: "/services",
+      to: "/makeup",
       hash: "#services", // Navega a /services#services
       imageKey: "home-services",
       alt: "Servicios",
@@ -28,7 +28,7 @@ export const homeLinks = {
     },
     {
       id: "link-curses", // Unique ID
-      to: "/services",
+      to: "/courses",
       hash: "#cursos", // Navega a /services#cursos
       imageKey: "home-courses",
       alt: "Cursos",

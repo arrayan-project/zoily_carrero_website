@@ -6,12 +6,12 @@
  * @returns {JSX.Element}
  */
 const ServicesCarouselSkeleton = () => (
-  <div className="w-full h-[85vh] flex items-center justify-center">
-    <div className="flex gap-8">
+  <div className="relative w-full h-[85vh] flex items-center justify-center animate-pulse bg-white dark:bg-black overflow-hidden">
+    <div className="flex gap-6">
       {[...Array(4)].map((_, i) => (
         <div
           key={i}
-          className="w-[200px] h-[300px] bg-gray-200 rounded-[20px] animate-pulse"
+          className="w-[200px] h-[300px] bg-gray-200 rounded-[20px]"
         />
       ))}
     </div>

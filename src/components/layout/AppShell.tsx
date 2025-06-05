@@ -13,6 +13,8 @@ import ThemeToggleButton from "../buttons/ThemeToggleButton";
 import LogoComponent from "../layout/LogoComponent";
 import FloatingContactButton from "../buttons/FloatingContactButton";
 import ContactUsModal from "../modals/ContactUsModal";
+import AppLoader from "../../components/loader/AppLoader";
+
 
 const Navigation = lazy(() => import("../navigation/NavBarMenu"));
 const AppRoutes = lazy(() => import("../../Routes"));
@@ -24,8 +26,9 @@ export default function AppShell() {
 
   const scrollRoutes = [
     "/home",
-    "/services",
     "/gallery",
+    "/makeup",
+    "/courses",
     "/ugc",
     "/store",
     "/about",
@@ -41,14 +44,14 @@ export default function AppShell() {
   const forceDarkLogoRoutes = ["/ugc", "/store"];
   const shouldForceDarkLogo = forceDarkLogoRoutes.includes(pathname);
 
-  const forceLightLogoRoutes = ["/home", "/services", "/about"];
+  const forceLightLogoRoutes = ["/home", "/makeup", "/courses", "/about"]; // Actualizado
   const shouldForceLightLogo = forceLightLogoRoutes.includes(pathname);
 
   // Ref para restaurar el foco al cerrar el modal
   const floatingBtnRef = useRef<HTMLButtonElement>(null);
 
   return (
-    <Suspense fallback={<div className="py-10 text-center">Cargando…</div>}>
+    <Suspense fallback={<AppLoader />}>
       <div
         style={{
           background: colors.background,

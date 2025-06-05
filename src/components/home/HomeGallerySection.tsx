@@ -39,7 +39,7 @@ const HomeGallerySection: React.FC<HomeGallerySectionProps> = ({
 
   return (
     <section
-      className={`py-4 md:py-16 md:px-4`}
+      className={`py-1 md:py-1 md:px-1`}
       style={{ backgroundColor: colors.background, color: colors.section }}
     >
       <div className={`mx-auto w-full`}>

@@ -17,8 +17,10 @@ export const TRACKING_NORMAL = "tracking-normal"; // Default tracking for paragr
 // Breakpoints (asegúrate que estén definidos en tailwind.config.js):
 // default -> xs (375px) -> sm (640px) -> md (768px) -> lg (1024px) -> xl (1280px) -> 2xl (1536px) -> fhd (1920px) -> qhd (2560px) -> uhd (3840px)
 
+export const TEXT_SIZE_XXL = "text-4xl xs:text-4xl sm:text-4xl md:text-4xl lg:text-4xl xl:text-6xl 2xl:text-6xl fhd:text-6xl qhd:text-6xl uhd:text-6xl";
+
 // Para H1 (Títulos Principales)
-export const TEXT_SIZE_XL = "text-2xl xs:text-2xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl 2xl:text-4xl fhd:text-4xl qhd:text-5xl uhd:text-58xl";
+export const TEXT_SIZE_XL = "text-2xl xs:text-2xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-3xl 2xl:text-4xl fhd:text-4xl qhd:text-5xl uhd:text-5xl";
 
 // Para H2 (Títulos de Sección)
 export const TEXT_SIZE_LG = "text-xl xs:text-2xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl fhd:text-6xl qhd:text-7xl uhd:text-7xl";
@@ -37,6 +39,7 @@ export const TEXT_SIZE_SM = "text-xs xs:text-xs sm:text-xs md:text-xs lg:text-xs
 
 // Base style for all titles (H1, H2, H3)
 const BASE_TITLE_STYLE = `${FONT_FAMILY_PRIMARY} ${FONT_WEIGHT_LIGHT} ${TRACKING_WIDE}`;
+export const HEADING_0_CLASS = `${BASE_TITLE_STYLE} ${TEXT_SIZE_XXL}`;
 // Heading Level 1 (e.g., Main Page Titles)
 export const HEADING_1_CLASS = `${BASE_TITLE_STYLE} ${TEXT_SIZE_XL}`;
 // Heading Level 2 (e.g., Section Titles)
@@ -58,6 +61,8 @@ export const PARAGRAPH_SMALL_CLASS = `${BASE_PARAGRAPH_STYLE} ${TEXT_SIZE_SM}`;
 export const TEXT_CENTER = "text-center";
 
 // --- ESTILOS GENERALES DE PÁGINA Y SECCIÓN (Plantillas para usar y adaptar) ---
+export const GENERAL_PAGE_SUPERMAIN_TITLE_CLASS = `${HEADING_0_CLASS}`;
+export const GENERAL_SECTION_SUPER_TITLE_CLASS = `${HEADING_4_CLASS}`;
 export const GENERAL_PAGE_MAIN_TITLE_CLASS = `${HEADING_1_CLASS} ${TEXT_CENTER} pt-16 mb-12 md:pt-24 md:mb-16`;
 export const GENERAL_SECTION_TITLE_CLASS = `${HEADING_2_CLASS} ${TEXT_CENTER} mb-8 md:mb-12`;
 export const GENERAL_SUBSECTION_TITLE_CLASS = `${HEADING_3_CLASS} ${TEXT_CENTER} mb-6 md:mb-10`;
@@ -81,7 +86,7 @@ export const HOME_BUTTON_SECONDARY_VARIANT_CLASS = `${HEADING_5_CLASS} bg-transp
 // Para la sección de enlaces en el Home (HomeLinksSection.tsx)
 export const HOME_LINKS_SECTION_TITLE_CLASS = `${HEADING_1_CLASS} ${TEXT_CENTER} mb-16`;
 export const HOME_LINKS_SECTION_SUBTITLE_CLASS = `${HEADING_4_CLASS} ${TEXT_CENTER} mb-2 sm:mb-3 md:mb-4`;
-export const HOME_LINKS_SECTION_SUBTITLE_DETAIL_CLASS = `${HEADING_4_CLASS} ${TEXT_CENTER} mb-12 sm:mb-16 md:mb-20 lg:mb-24 xl:mb-28`;
+export const HOME_LINKS_SECTION_SUBTITLE_DETAIL_CLASS = `${HEADING_4_CLASS} ${TEXT_CENTER} mb-36 sm:mb-16 md:mb-20 lg:mb-24 xl:mb-28`;
 export const HOME_LINKS_CARD_LABEL_CLASS = `${FONT_FAMILY_PRIMARY} text-white text-lg`;
 
 // Para la sección de Marcas en Home (HomeBrandsSection.tsx)
