@@ -28,12 +28,14 @@ const UGCMainSection: React.FC<UGCMainSectionProps> = ({
       <UGCLeftSection {...leftSectionProps} />
       {/* Right Section (Image) */}
       <div className="ugc-seccion-derecha md:w-1/2 w-full">
-        <SmoothImage
-          src={imageObject?.webp}
-          alt="Imagen UGC"
-          className="ugc-image h-full w-full object-cover block"
-          loading="lazy"
-        />
+        <div className="aspect-[4/5] overflow-hidden w-full h-full">
+          <SmoothImage
+            src={imageObject?.webp}
+            alt="Imagen UGC"
+            className="ugc-image w-full h-full object-cover block"
+            loading="lazy"
+          />
+        </div>
       </div>
     </section>
   );

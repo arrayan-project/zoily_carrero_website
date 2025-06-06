@@ -31,7 +31,7 @@ const PhoneImageContainer: React.FC<PhoneImageContainerProps> = ({
         <SmoothImage
           src={contentObj?.webp}
           alt={alt}
-          className="ugc-image-example-png w-[91.7%] h-[96.9%] rounded-[16px] md:w-[94%] md:h-[99%] md:rounded-[50px] object-cover aspect-[0.7]"
+          className="ugc-image-example-png w-[91.7%] h-[96.9%] rounded-[30px] md:w-[94%] md:h-[99%] md:rounded-[50px] object-cover aspect-[0.7]"
           loading="lazy"
         />
       </div>

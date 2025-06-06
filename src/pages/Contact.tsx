@@ -2,7 +2,7 @@
 import { lazy, Suspense } from "react";
 import { useTheme } from "../components/context/themeContext";
 import "../GlobalStyles.css";
-import { Helmet } from "react-helmet-async";
+import { LazyHelmetProvider, LazyHelmet } from "../utils/LazyHelmet";
 import ContactSkeleton from "../components/skeletons/ContactSkeleton";
 import useScrollToHash from "../hooks/useScrollToHash";
 import { ErrorBoundary } from "react-error-boundary";
@@ -31,21 +31,28 @@ function Contact({}: ContactProps) {
   };
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorComponent} onReset={handleResetBoundary}>
+    <ErrorBoundary
+      FallbackComponent={ErrorComponent}
+      onReset={handleResetBoundary}
+    >
       <div
         className={`min-h-screen`}
         style={{ backgroundColor: colors.background, color: colors.text }}
       >
         {!isMobile && (
-          <Helmet>
-            <title>
-              Contacta con Zoily Carrero MakeUp | Maquillaje Profesional
-            </title>
-            <meta
-              name="description"
-              content="¿Lista para tu transformación? Contacta con Zoily Carrero MakeUp para agendar tu cita de maquillaje profesional, cursos o colaboraciones UGC. ¡Hablemos!"
-            />
-          </Helmet>
+          <Suspense fallback={null}>
+            <LazyHelmetProvider>
+              <LazyHelmet>
+                <title>
+                  Contacta con Zoily Carrero MakeUp | Maquillaje Profesional
+                </title>
+                <meta
+                  name="description"
+                  content="¿Lista para tu transformación? Contacta con Zoily Carrero MakeUp para agendar tu cita de maquillaje profesional, cursos o colaboraciones UGC. ¡Hablemos!"
+                />
+              </LazyHelmet>
+            </LazyHelmetProvider>
+          </Suspense>
         )}
 
         <section id="contact" className="max-w-6xl mx-auto px-4 py-16 md:py-24">

@@ -5,10 +5,11 @@
  * @component
  * @returns {JSX.Element}
  */
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CoursesCarouselNavigation from "./CourseCarouselNavigation";
 import CoursesContent from "./CourseCarouselContent";
-import { coursesData } from "../../data/coursesData";
+import { loadCoursesData, getCourseByIndex } from "../../data/coursesData";
+import type { Course} from "../../types/CourseInterfaces";
 import { useModal } from "../modals/modalServ-Cour/ModalContextServices";
 import "./CoursesCarousel.css";
 import RevealWrapper from "../common/RevealWrapper";
@@ -20,9 +21,39 @@ import CoursesLogic from "./CourseCarouselLogic";
 const CoursesCarouselSection: React.FC = () => {
   const { openModal, closeModal } = useModal();
   const openerRef = useRef<HTMLButtonElement | null>(null);
+  const [coursesArray, setCoursesArray] = useState<Course[] | null>(null);
 
-  const { currentItem, handleCourseTransition, isTransitioning, currentIndex } =
-    CoursesLogic({ initialCourseItems: coursesData });
+  // 1) Hook para cargar datos dinámicamente
+  useEffect(() => {
+    loadCoursesData()
+      .then((data) => setCoursesArray(data))
+      .catch((err) => console.error("Error cargando coursesData:", err));
+  }, []);
+
+  // 2) Preparamos un array “vacío” mientras no cargan los datos,
+  //    para llamar siempre a MakeUpCarouselLogic sin romper el orden de hooks.
+  const itemsForLogic: Course[] = coursesArray ?? [];
+
+  // 3) Hook de la lógica RETIRA datos de itemsForLogic  (que será [] o el array real).
+  //    Este hook se ejecutará en cada render, independientemente de si servicesArray ya existe.
+  const {
+    currentItem,
+    handleCourseTransition,
+    isTransitioning,
+    currentIndex,
+  } = CoursesLogic({ initialCourseItems: itemsForLogic });
+
+  // 4) Si aún no tenemos servicios cargados, mostramos “Cargando…”.
+  //    Pero **aquí ya hemos llamado a MakeUpCarouselLogic** (el hook), respetando el orden.
+  if (coursesArray === null) { 
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        Cargando servicios...
+      </div>
+    );
+  }
+
+  // 5) Funciones para navegar y abrir modal
 
   const handleNext = () => {
     if (!isTransitioning.current) {
@@ -36,24 +67,33 @@ const CoursesCarouselSection: React.FC = () => {
     }
   };
 
-    const handleOpenModal = (modalContent: ModalContentType, e: React.MouseEvent<HTMLButtonElement>) => {
-
-    openerRef.current = e.currentTarget;
-    openModal({ ...modalContent, showTabs: true, onClose: handleCloseModal });
-  };
-
-  const handleCloseModal = () => {
-    closeModal();
-    openerRef.current?.focus();
-  };
-
-  if (!currentItem) {
-    return (
-      <div className="w-full h-screen flex items-center justify-center">
-        Cargando servicios...
-      </div>
-    ); // O un esqueleto
-  }
+  const handleOpenModal = async (
+      e: React.MouseEvent<HTMLButtonElement>
+    ) => {
+      openerRef.current = e.currentTarget;
+      try {
+        const modalContent: ModalContentType = await getCourseByIndex(
+          currentIndex
+        );
+        openModal({ ...modalContent, showTabs: true, onClose: handleCloseModal });
+      } catch (err) {
+        console.error("Error obteniendo contenido del modal:", err);
+      }
+    };
+  
+    const handleCloseModal = () => {
+      closeModal();
+      openerRef.current?.focus();
+    };
+  
+    // 6) currentItem ya está garantizado porque servicesArray no es null
+    if (!currentItem) {
+      return (
+        <div className="w-full h-screen flex items-center justify-center">
+          Cargando servicios...
+        </div>
+      );
+    }
 
   const imageObject = getImageObject(currentItem.imageKey);
   const placeholderBgStyle = imageObject?.placeholder
@@ -88,6 +128,8 @@ const CoursesCarouselSection: React.FC = () => {
                   alt={currentItem.category} // Alt descriptivo
                   className="absolute inset-0 w-full h-full object-cover -z-10" // Se quitó opacity-90
                   loading={currentIndex === 0 ? "eager" : "lazy"} // Carga eager para el primer slide
+                  width={1955}
+                  height={1303}
                 />
               </picture>
               {/* Velo oscuro sobre la imagen */}
@@ -108,7 +150,7 @@ const CoursesCarouselSection: React.FC = () => {
               {/* Nueva Flecha "Ver más" */}
               <button
                 aria-label={`Ver más sobre ${currentItem.category}`}
-                onClick={(e) => handleOpenModal(currentItem.modalContent, e)}
+                onClick={handleOpenModal}
                 className="absolute top-2/3 md:top-1/2 md:-translate-y-1/2 right-1 md:right-8 z-30 p-3 text-white opacity-75 hover:opacity-100 focus:opacity-100 rounded-full transition-all duration-300 ease-in-out transform hover:scale-110 focus:scale-110 focus:outline-none"
               >
                 <svg

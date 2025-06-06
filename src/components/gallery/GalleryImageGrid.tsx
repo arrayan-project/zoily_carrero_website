@@ -9,13 +9,15 @@
 import React, { useEffect, useState } from "react";
 import { getImageObject } from "../../utils/getImageObject"; // Ajusta el path si es necesario
 
-
 interface GalleryImageGridProps {
   images: string[];
   onImageClick: (index: number) => void;
 }
 
-const GalleryImageGrid: React.FC<GalleryImageGridProps> = ({ images, onImageClick }) => {
+const GalleryImageGrid: React.FC<GalleryImageGridProps> = ({
+  images,
+  onImageClick,
+}) => {
   const [visible, setVisible] = useState(false);
   const [mountedImages, setMountedImages] = useState(images);
 
@@ -34,19 +36,27 @@ const GalleryImageGrid: React.FC<GalleryImageGridProps> = ({ images, onImageClic
       {mountedImages.map((imageKey, index) => {
         const imageObject = getImageObject(imageKey);
         return (
-          <div key={imageKey} className="overflow-hidden aspect-[4/3]">
-            <img
-              src={imageObject?.webp}
-              alt={`Imagen ${index + 1}`}
-              loading="lazy"
-              className={`w-full h-full object-cover cursor-pointer transition-transform duration-300 fade-in-up-animation ${
-                visible ? "visible" : ""
-              }`}
-              style={{ animationDelay: `${index * 100}ms` }}
-              onClick={() => onImageClick(index)}
-              onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
-              onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-            />
+          <div key={imageKey} className="overflow-hidden aspect-[4/5]">
+            <picture>
+              <source srcSet={imageObject.avif} type="image/avif" />
+              <source srcSet={imageObject.webp} type="image/webp" />
+              <img
+                src={imageObject.webp}
+                alt={`Imagen ${index + 1}`}
+                loading="lazy"
+                className={`w-full h-full object-cover cursor-pointer transition-transform duration-300 fade-in-up-animation ${
+                  visible ? "visible" : ""
+                }`}
+                style={{ animationDelay: `${index * 100}ms` }}
+                onClick={() => onImageClick(index)}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.transform = "scale(1.05)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.transform = "scale(1)")
+                }
+              />
+            </picture>
           </div>
         );
       })}

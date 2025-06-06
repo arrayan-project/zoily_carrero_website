@@ -1,7 +1,7 @@
 // src/pages/UGC.tsx
 import React, { lazy, Suspense } from "react";
 import { useTheme } from "../components/context/themeContext";
-import { Helmet } from "react-helmet-async";
+import { LazyHelmetProvider, LazyHelmet } from "../utils/LazyHelmet";
 import UGCMainSectionSkeleton from "../components/skeletons/UGC/UGCMainSectionSkeleton";
 import UGCPhoneExampleSectionSkeleton from "../components/skeletons/UGC/UGCPhoneExampleSectionSkeleton";
 import useScrollToHash from "../hooks/useScrollToHash";
@@ -33,20 +33,28 @@ const UGC: React.FC<UGCProps> = () => {
   };
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorComponent} onReset={handleResetBoundary}>
+    <ErrorBoundary
+      FallbackComponent={ErrorComponent}
+      onReset={handleResetBoundary}
+    >
       <main
         className="ugc-page-container"
         style={{ backgroundColor: colors.background, color: colors.text }}
       >
-        <Helmet>
-          <title>
-            Creadora Contenido UGC Belleza | Zoily Carrero | Auténtica y Creativa
-          </title>
-          <meta
-            name="description"
-            content="Zoily Carrero: Creadora de contenido UGC especializada en belleza. Genero fotos y videos auténticos que conectan con tu audiencia. ¡Colaboremos!"
-          />
-        </Helmet>
+        <Suspense fallback={null}>
+          <LazyHelmetProvider>
+            <LazyHelmet>
+              <title>
+                Creadora Contenido UGC Belleza | Zoily Carrero | Auténtica y
+                Creativa
+              </title>
+              <meta
+                name="description"
+                content="Zoily Carrero: Creadora de contenido UGC especializada en belleza. Genero fotos y videos auténticos que conectan con tu audiencia. ¡Colaboremos!"
+              />
+            </LazyHelmet>
+          </LazyHelmetProvider>
+        </Suspense>
 
         {/* Main UGC Section */}
         <Suspense fallback={<UGCMainSectionSkeleton />}>
@@ -110,7 +118,7 @@ const UGC: React.FC<UGCProps> = () => {
         </Suspense>
       </main>
     </ErrorBoundary>
-   );
- };
- 
- export default UGC;
+  );
+};
+
+export default UGC;

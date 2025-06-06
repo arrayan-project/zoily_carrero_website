@@ -33,7 +33,7 @@ const AboutImagesSection: React.FC = React.memo(() => {
             animationClass="fade-in-up-animation"
           >
             <div
-              className="aspect-[4/3] overflow-hidden rounded-lg shadow-xl"
+              className="aspect-[17/10] overflow-hidden rounded-lg shadow-xl"
               style={placeholderBgStyle}
             >
               <picture>

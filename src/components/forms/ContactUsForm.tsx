@@ -5,12 +5,12 @@
  * @component
  * @returns {JSX.Element}
  */
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, Suspense } from "react";
 import FormInput from "./ContactUsFormInput";
 import RevealWrapper from "../common/RevealWrapper";
-import ReCAPTCHA from "react-google-recaptcha";
+import type RecaptchaType from "react-google-recaptcha";
+import { LazyReCAPTCHA as RecaptchaComponent } from "../../utils/LazyReCAPTCHA";
 import { CONTACT_FORM_SUBMIT_BUTTON_CLASS } from "../../constants/styles";
-
 
 interface FormData {
   name: string;
@@ -36,7 +36,7 @@ const ContactForm: React.FC = () => {
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [isRecaptchaLoaded, setIsRecaptchaLoaded] = useState<boolean>(false);
   const [scriptInjected, setScriptInjected] = useState<boolean>(false);
-  const recaptchaRef = useRef<ReCAPTCHA | null>(null);
+  const recaptchaRef = useRef<RecaptchaType | null>(null);
 
   const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
@@ -185,17 +185,17 @@ const ContactForm: React.FC = () => {
         />
 
         <div className="flex justify-center items-center my-4 min-h-[78px]">
-          {isRecaptchaLoaded ? (
-            <ReCAPTCHA
-              ref={recaptchaRef}
-              sitekey={RECAPTCHA_SITE_KEY}
-              onChange={handleRecaptchaChange}
-            />
-          ) : (
-            <div className="relative w-8 h-8">
-              <div className="absolute w-full h-full border-4 border-pink-600 border-t-transparent rounded-full animate-spin"></div>
-            </div>
-          )}
+          <Suspense
+            fallback={<div className="relative w-8 h-8">…spinner…</div>}
+          >
+            {isRecaptchaLoaded && (
+              <RecaptchaComponent
+                ref={recaptchaRef}
+                sitekey={RECAPTCHA_SITE_KEY}
+                onChange={handleRecaptchaChange}
+              />
+            )}
+          </Suspense>
         </div>
 
         {formErrors.recaptcha && (

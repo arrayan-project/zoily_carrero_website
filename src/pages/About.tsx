@@ -1,6 +1,6 @@
 // src/pages/About.tsx
 import React, { lazy, Suspense } from "react";
-import { Helmet } from "react-helmet-async";
+import { LazyHelmetProvider, LazyHelmet } from "../utils/LazyHelmet";
 import { useTheme } from "../components/context/themeContext";
 import useWindowSize from "../hooks/useWindowSize";
 import LazySectionLoader from "../components/common/LazySectionLoader";
@@ -15,7 +15,6 @@ import ErrorComponent from "../components/common/ErrorComponent";
 import AboutMainContentSkeleton from "../components/skeletons/About/AboutMainContentSkeleton";
 import AboutWhyUsSkeleton from "../components/skeletons/About/AboutMainContentSkeleton";
 import AboutImagesSkeleton from "../components/skeletons/About/AboutImagesSkeleton";
-
 
 // Importaciones para la sección Hero
 const BackgroundImageHero = lazy(
@@ -86,15 +85,19 @@ const About: React.FC = React.memo(() => {
         </Suspense>
 
         {!isMobileView && (
-          <Helmet>
-            <title>
-              Sobre Zoily Carrero | Maquilladora Profesional Apasionada
-            </title>
-            <meta
-              name="description"
-              content="Conoce a Zoily Carrero, maquilladora profesional apasionada por realzar tu belleza única. Descubre mi historia, filosofía y por qué elegirme."
-            />
-          </Helmet>
+          <Suspense fallback={null}>
+            <LazyHelmetProvider>
+              <LazyHelmet>
+                <title>
+                  Sobre Zoily Carrero | Maquilladora Profesional Apasionada
+                </title>
+                <meta
+                  name="description"
+                  content="Conoce a Zoily Carrero, maquilladora profesional apasionada por realzar tu belleza única. Descubre mi historia, filosofía y por qué elegirme."
+                />
+              </LazyHelmet>
+            </LazyHelmetProvider>
+          </Suspense>
         )}
 
         <main

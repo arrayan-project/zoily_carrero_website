@@ -1,14 +1,8 @@
 // src/pages/Home.tsx
 import { lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  homeInfo,
-  homeLinks,
-  homeFeatures,
-  homeBrands,
-  galleryFeatures,
-} from "../data/homeData"; // imageArrays no se usa directamente aquí ahora
-import { Helmet } from "react-helmet-async";
+import {homeInfo,homeLinks,homeFeatures,homeBrands,galleryFeatures} from "../data/homeData"; // imageArrays no se usa directamente aquí ahora
+import { LazyHelmetProvider, LazyHelmet } from "../utils/LazyHelmet";
 import { useTheme } from "../components/context/themeContext";
 import HomeButton from "../components/buttons/HomeButton";
 import HomeTitle from "../components/home/HomeTitle";
@@ -83,13 +77,17 @@ export default function Home() {
           </div>
         </Suspense>
 
-        <Helmet>
-          <title>Zoily Carrero MakeUp – Maquillaje Profesional y Cursos</title>
-          <meta
-            name="description"
-            content="Descubre el arte del maquillaje profesional con Zoily Carrero. Servicios personalizados, cursos de automaquillaje y UGC. ¡Agenda tu cita!"
-          />
-        </Helmet>
+        <Suspense fallback={null}>
+          <LazyHelmetProvider>
+            <LazyHelmet>
+              <title>Zoily Carrero MakeUp – Maquillaje Profesional y Cursos</title>
+              <meta
+                name="description"
+                content="Descubre el arte del maquillaje profesional con Zoily Carrero. Servicios personalizados, cursos de automaquillaje y UGC. ¡Agenda tu cita!"
+              />
+          </LazyHelmet>
+        </LazyHelmetProvider>
+      </Suspense>
 
         {/* Secciones Home cargadas bajo demanda */}
         <Suspense fallback={null}>

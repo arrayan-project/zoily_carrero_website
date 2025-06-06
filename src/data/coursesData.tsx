@@ -1,21 +1,32 @@
+// src/data/coursesData.tsx
+
 /**
  * Datos y utilidades para los cursos y sus modales.
  * Incluye descripciones, términos, estructura de cursos y contenido para los modales de detalle.
- *
+ * y aquí solo mantenemos las funciones que devuelven JSX o que cargan dinámicamente el JSON.
+ * 
  * @module coursesData
  */
 import { ModalContent } from "../components/modals/ModalInterfaces"; // Importamos ModalContent
 import { Course} from "../types/CourseInterfaces"; // Importamos Course y CourseItem
 
-// Funciones para las descripciones
-export const getCoursesDescription = () => {
+/**
+ * getCoursesDescription:
+ * Devuelve un array de textos estáticos para la parte introductoria de cursos.
+ */
+export function getCoursesDescription(): string[] {
   return [
     "Aprende a maquillarte como un profesional con nuestros cursos!",
     "Resalta tu belleza y domina el arte del maquillaje.",
   ];
 };
 
-export const termsContent = () => {
+/**
+ * termsContent:
+ * Devuelve el JSX (React.ReactNode) con los Términos y Condiciones del curso.
+ * Esta función sigue viva aquí, porque genera contenido HTML/JSX en runtime.
+ */
+export function termsContent(): JSX.Element {
   try {
     return (
       <div>
@@ -40,180 +51,52 @@ export const termsContent = () => {
   }
 };
 
-export const coursesData: Course[] = [
-  {
-    category: "Curso Básico",
-    imageKey: "cbasico", // Clave de imagen para la vista de columna/carrusel
-    description: "Aprende las bases del maquillaje profesional.",
-    items: [
-      {
-        name: "Maquillaje de día",
-        price: "$45.000",
-        description: [
-          "Preparación de la piel",
-          "Aplicación de bases",
-          "Uso de correctores",
-          "Sellado del maquillaje",
-          "Uso de iluminador",
-          "Aplicación de rubor",
-          "Aplicación de sombras",
-          "Técnica de delineado",
-          "Aplicación de labial",
-        ],
-      },
-    ],
-    modalContent: {
-      images: ["cbasico"], // Usar la URL de la imagen .webp
-      title: "Curso Básico",
-      infoContent: (
-        <div className="font-cinzel">
-          <div className="mb-6">
-            <h4 className="font-bold mb-4 text-sm md:text-base">
-              Maquillaje de día
-            </h4>
-            <p className="mb-2 text-xs md:text-sm">Precio: $45.000</p>
-            <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
-              <li>Preparación de la piel</li>
-              <li>Aplicación de bases</li>
-              <li>Uso de correctores</li>
-              <li>Sellado del maquillaje</li>
-              <li>Uso de iluminador</li>
-              <li>Aplicación de rubor</li>
-              <li>Aplicación de sombras</li>
-              <li>Técnica de delineado</li>
-              <li>Aplicación de labial</li>
-            </ul>
-          </div>
-        </div>
-      ),
-      termsContent: termsContent(),
-    },
-  },
-  {
-    category: "Curso Intermedio",
-    imageKey: "cintermedio", // Clave de imagen
-    description: "Curso intermedio de maquillaje donde aprenderás técnicas de perfeccionamiento y acabados más sofisticados.",
-    items: [
-      {
-        name: "Curso Intermedio",
-        price: "$45.000",
-        description: [
-          "Corrección de cejas y técnicas avanzadas de diseño",
-          "Maquillaje de ojos ahumado para ocasiones especiales",
-          "Corte de cuenca y delineado avanzado",
-          "Aplicación de pigmentos y glitters para efectos especiales",
-          "Piel madura: Técnicas y productos para una aplicación perfecta",
-        ],
-      },
-    ],
-    modalContent: {
-      images: ["cintermedio"], // Usar la URL de la imagen .webp
-      title: "Curso Intermedio",
-      infoContent: (
-        <div className="font-cinzel">
-          <div className="mb-6">
-            <h4 className="font-bold mb-4 text-sm md:text-base">
-              Curso Intermedio
-            </h4>
-            <p className="mb-2 text-xs md:text-sm">Precio: $45.000</p>
-            <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
-              <li>Corrección de cejas y técnicas avanzadas de diseño</li>
-              <li>Maquillaje de ojos ahumado para ocasiones especiales</li>
-              <li>Corte de cuenca y delineado avanzado</li>
-              <li>Aplicación de pigmentos y glitters para efectos especiales</li>
-              <li>Piel madura: Técnicas y productos para una aplicación perfecta</li>
-            </ul>
-          </div>
-        </div>
-      ),
-      termsContent: termsContent(),
-    },
-  },
-  {
-    category: "Curso Avanzado",
-    imageKey: "cavanzado", // Clave de imagen
-    description: "Curso avanzado de maquillaje para llevar tus habilidades a un nivel profesional con técnicas complejas.",
-    items: [
-      {
-        name: "Curso Avanzado",
-        price: "$45.000",
-        description: [
-          "Maquillaje de novias y eventos especiales",
-          "Maquillaje editorial y para fotografía de alta gama",
-          "Maquillaje de quinceañeras y looks juveniles",
-          "Delineado gráfico y técnicas de diseño",
-          "Corte de cuenca profundo para ojos dramáticos",
-        ],
-      },
-    ],
-    modalContent: {
-      images: ["cavanzado"], // Usar la URL de la imagen .webp
-      title: "Curso Avanzado",
-      infoContent: (
-        <div className="font-cinzel">
-          <div className="mb-6">
-            <h4 className="font-bold mb-4 text-sm md:text-base">
-              Curso Avanzado
-            </h4>
-            <p className="mb-2 text-xs md:text-sm">Precio: $45.000</p>
-            <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
-              <li>Maquillaje de novias y eventos especiales</li>
-              <li>Maquillaje editorial y para fotografía de alta gama</li>
-              <li>Maquillaje de quinceañeras y looks juveniles</li>
-              <li>Delineado gráfico y técnicas de diseño</li>
-              <li>Corte de cuenca profundo para ojos dramáticos</li>
-            </ul>
-          </div>
-        </div>
-      ),
-      termsContent: termsContent(),
-    },
-  },
-  {
-    category: "Curso Profesional",
-    imageKey: "cprofesional", // Clave de imagen
-    description: "Curso profesional intensivo para especializarte en técnicas avanzadas y adaptadas a las necesidades de tus clientes.",
-    items: [
-      {
-        name: "Curso Profesional",
-        price: "$45.000",
-        description: [
-          "Práctica en modelos reales y maquillaje personalizado",
-          "Maquillaje para todos los tonos y tipos de piel",
-          "Maquillaje profesional para distintas estructuras faciales",
-          "Técnicas avanzadas de aplicación de pestañas postizas",
-          "Asesoría en marca personal y redes sociales para maquilladoras",
-        ],
-      },
-    ],
-    modalContent: {
-      images: ["cprofesional"], // Usar la URL de la imagen .webp
-      title: "Curso Profesional",
-      infoContent: (
-        <div className="font-cinzel">
-          <div className="mb-6">
-            <h4 className="font-bold mb-4 text-sm md:text-base">
-              Curso Profesional
-            </h4>
-            <p className="mb-2 text-xs md:text-sm">Precio: $45.000</p>
-            <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
-              <li>Práctica en modelos reales y maquillaje personalizado</li>
-              <li>Maquillaje para todos los tonos y tipos de piel</li>
-              <li>Maquillaje profesional para distintas estructuras faciales</li>
-              <li>Técnicas avanzadas de aplicación de pestañas postizas</li>
-              <li>Asesoría en marca personal y redes sociales para maquilladoras</li>
-            </ul>
-          </div>
-        </div>
-      ),
-      termsContent: termsContent(),
-    },
-  },
-];
+/**
+ * loadCoursesData:
+ * Carga en tiempo de ejecución el JSON ubicado en public/data/coursesData.json.
+ * La ruta “/data/coursesData.json” asume que el JSON fue colocado en “public/data/”.
+ */
 
-export const getInfoContent = (index: number): ModalContent => {
-  const course = coursesData[index];
-  return course ? course.modalContent : coursesData[0].modalContent;
-};
+export async function loadCoursesData(): Promise<Course[]> {
+  const res = await fetch("/data/coursesData.json");
+  if (!res.ok) throw new Error("No se pudo cargar coursesData.json");
+  return (await res.json()) as Course[];
+}
 
-export const coursesArray: Course[] = coursesData;
+/**
+ * getCourseByIndex:
+ * Devuelve un objeto ModalContent para el índice indicado, completando
+ * la parte de “images” y “title” desde el JSON, y usando los fragmentos JSX
+ * definidos en este módulo para infoContent y termsContent.
+ */
+
+export async function getCourseByIndex(
+  index: number
+): Promise<ModalContent> {
+  const coursesArray = await loadCoursesData();
+  const course = coursesArray[index] ?? coursesArray[0];
+
+  // Tomamos siempre el primer ítem para mostrar en el modal (asume que cada curso tiene al menos uno)
+  const firstItem = course.items[0];
+
+  return {
+    images: course.modalContent.images,
+    title: course.modalContent.title,
+    infoContent: (
+      <div className="font-cinzel">
+        <div className="mb-6">
+          <h4 className="font-bold mb-4 text-sm md:text-base">
+            {course.modalContent.title}
+          </h4>
+          <p className="mb-2 text-xs md:text-sm">Precio: {firstItem.price}</p>
+          <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
+            {firstItem.description.map((desc, idx) => (
+              <li key={idx}>{desc}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    ),
+    termsContent: termsContent(),
+  };
+}

@@ -1,21 +1,33 @@
+// src/data/servicesData.tsx
+
 /**
  * Datos y utilidades para los servicios y sus modales.
- * Incluye descripciones, términos, estructura de servicios y contenido para los modales de detalle.
+ * Ahora, la mayor parte de la información está en servicesData.json (en public/data),
+ * y aquí solo mantenemos las funciones que devuelven JSX o que cargan dinámicamente el JSON.
  *
  * @module servicesData
  */
-import { ModalContent } from "../components/modals/ModalInterfaces"; // Importamos ModalContent
-import { Service} from "../types/ServiceInterfaces"; // Importamos Service y ServiceItem
 
-// Funciones para las descripciones
-export const getServicesDescription = () => {
+import type { ModalContent } from "../components/modals/ModalInterfaces";
+import type { Service } from "../types/ServiceInterfaces";
+
+/**
+ * getServicesDescription:
+ * Devuelve un array de textos estáticos para la parte introductoria de servicios.
+ */
+export function getServicesDescription(): string[] {
   return [
     "Realza tu belleza con nuestros servicios de maquillaje.",
     "Reserva tu sesión y luce espectacular en tu evento especial.",
   ];
-};
+}
 
-export const termsContent = () => {
+/**
+ * termsContent:
+ * Devuelve el JSX (React.ReactNode) con los Términos y Condiciones del servicio.
+ * Esta función sigue viva aquí, porque genera contenido HTML/JSX en runtime.
+ */
+export function termsContent(): JSX.Element {
   try {
     return (
       <div>
@@ -119,379 +131,51 @@ export const termsContent = () => {
       </div>
     );
   }
-};
+}
 
-// Centralized Service Data Array
-export const servicesData: Service[] = [
-  {
-    category: "Novia",
-    imageKey: "novia", // Clave de imagen para la vista de columna/carrusel
-    description:
-      "El servicio de maquillaje para novias incluye todo lo necesario para realzar tu belleza en el día más importante de tu vida.",
-    items: [
-      {
-        name: "Maquillaje Novia (incluye prueba)",
-        price: "$90.000",
-        description: [
-          "Limpieza facial",
-          "Hidratación",
-          "Maquillaje según la hora y el lugar del evento",
-          "Pestañas",
-          "Sellado del maquillaje",
-          "Aplicación de brillo para labios",
-          "Corrección de la piel",
-        ],
-      },
-      {
-        name: "Maquillaje Novia a Domicilio (incluye prueba)",
-        price: "$110.000",
-        description: [
-          "Limpieza facial",
-          "Hidratación",
-          "Maquillaje según la hora y el lugar del evento",
-          "Pestañas",
-          "Sellado del maquillaje",
-          "Aplicación de brillo para labios",
-          "Corrección de la piel",
-        ],
-      },
-    ],
-    modalContent: {
-      images: ["novia"], // Usar la URL de la imagen .webp
-      title: "Maquillaje Novia",
-      infoContent: (
-        <div className="font-cinzel">
-          <div className="mb-6">
-            <h4 className="font-bold mb-4 text-sm md:text-base">
-              Maquillaje Novia (incluye prueba)
-            </h4>
-            <p className="mb-2 text-xs md:text-sm">Precio: $90.000</p>
-            <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
-              <li>Limpieza facial</li>
-              <li>Hidratación</li>
-              <li>Maquillaje según la hora y el lugar del evento</li>
-              <li>Pestañas</li>
-              <li>Sellado del maquillaje</li>
-              <li>Aplicación de brillo para labios</li>
-              <li>Corrección de la piel</li>
-            </ul>
-          </div>
-          <div className="mb-6">
-            <h4 className="font-bold mb-4 text-sm md:text-base">
-              Maquillaje Novia a Domicilio (incluye prueba)
-            </h4>
-            <p className="mb-2 text-xs md:text-sm">Precio: $110.000</p>
-            <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
-              <li>Limpieza facial</li>
-              <li>Hidratación</li>
-              <li>Maquillaje según la hora y el lugar del evento</li>
-              <li>Pestañas</li>
-              <li>Sellado del maquillaje</li>
-              <li>Aplicación de brillo para labios</li>
-              <li>Corrección de la piel</li>
-            </ul>
-          </div>
-        </div>
-      ),
-      termsContent: termsContent(),
-    },
-  },
-  {
-    category: "Quinceañera",
-    imageKey: "glam", // Clave de imagen (usando glam2 como ejemplo, ajustar si es otra)
-    description:
-      "El maquillaje express es perfecto para quinceañeras que desean lucir jóvenes y frescas en su gran día.",
-    items: [
-      {
-        name: "Maquillaje Quinceañera Basic",
-        price: "$75.000.-",
-        description: [
-          "Incluye Tratamiento de hidratación facial previo al maquillaje del día de la celebración.",
-          "Maquillaje Soft Mate adaptado al estilo de la cliente.",
-          "Pestañas de cortina.",
-          "No incluye prueba de Maquillaje",
-          "Verificar disponibilidad de fechas antes de realizar los abonos.",
-        ],
-      },
-      {
-        name: "Maquillaje y Peinado Quinceañera Full",
-        price: "$110.000.-",
-        description: [
-          "Incluye Tratamiento de hidratación facial previo al maquillaje del día de la celebración con mascarilla hidratante.",
-          "Maquillaje a elección (Soft o Glam) con productos alta gama.",
-          "Maquillaje de cuello y escote.",
-          "Pestañas de cortina.",
-          "Peinado a elección.",
-          "Incluye prueba de Maquillaje y peinado.",
-          "Kit de Retoque: polvo traslúcido, esponjita, papel de arroz, muestra del labial, cepillito de cejas, cotonitos.",
-          "Verificar disponibilidad de fechas antes de realizar los abonos.",
-        ],
-      },
-    ],
-    modalContent: {
-      images: ["glam"], // Usar la URL de la imagen .webp
-      title: "Maquillaje Quinceañera",
-      infoContent: (
-        <div className="font-cinzel">
-          <div className="mb-6">
-            <h4 className="font-bold mb-4 text-sm md:text-base">
-              Maquillaje Quinceañera Basic
-            </h4>
-            <p className="mb-2 text-xs md:text-sm">Precio: $75.000.-</p>
-            <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
-              <li>
-                Incluye Tratamiento de hidratación facial previo al maquillaje del
-                día de la celebración.
-              </li>
-              <li>Maquillaje Soft Mate adaptado al estilo de la cliente.</li>
-              <li>Pestañas de cortina.</li>
-              <li>No incluye prueba de Maquillaje</li>
-              <li>
-                Verificar disponibilidad de fechas antes de realizar los abonos.
-              </li>
-            </ul>
-          </div>
-          <div className="mb-6">
-            <h4 className="font-bold mb-4 text-sm md:text-base">
-              Maquillaje y Peinado Quinceañera Full
-            </h4>
-            <p className="mb-2 text-xs md:text-sm">Precio: $110.000.-</p>
-            <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
-              <li>
-                Incluye Tratamiento de hidratación facial previo al maquillaje del
-                día de la celebración con mascarilla hidratante.
-              </li>
-              <li>
-                Maquillaje a elección (Soft o Glam) con productos alta gama.
-              </li>
-              <li>Maquillaje de cuello y escote.</li>
-              <li>Pestañas de cortina.</li>
-              <li>Peinado a elección.</li>
-              <li>Incluye prueba de Maquillaje y peinado.</li>
-              <li>
-                Kit de Retoque: polvo traslúcido, esponjita, papel de arroz,
-                muestra del labial, cepillito de cejas, cotonitos.
-              </li>
-              <li>
-                Verificar disponibilidad de fechas antes de realizar los abonos.
-              </li>
-            </ul>
-          </div>
-        </div>
-      ),
-      termsContent: termsContent(),
-    },
-  },
-  {
-    category: "Glam",
-    imageKey: "glam2", // Clave de imagen
-    description:
-      "Si buscas un look impactante y sofisticado, el maquillaje Glam es ideal para ti. ",
-    items: [
-      {
-        name: "Maquillaje Glam",
-        price: "$45.000",
-        description: [
-          "Limpieza facial",
-          "Hidratación",
-          "Maquillaje glam con brillos y glitter",
-          "Pestañas",
-          "Sellado del maquillaje",
-          "Aplicación de brillo para labios",
-        ],
-      },
-    ],
-    modalContent: {
-      images: ["glam2"], // Usar la URL de la imagen .webp
-      title: "Maquillaje Glam",
-      infoContent: (
-        <div className="font-cinzel">
-          <div className="mb-6">
-            <h4 className="font-bold mb-4 text-sm md:text-base">
-              Maquillaje Glam
-            </h4>
-            <p className="mb-2 text-xs md:text-sm">Precio: $45.000</p>
-            <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
-              <li>Limpieza facial</li>
-              <li>Hidratación</li>
-              <li>Maquillaje glam con brillos y glitter</li>
-              <li>Pestañas</li>
-              <li>Sellado del maquillaje</li>
-              <li>Aplicación de brillo para labios</li>
-            </ul>
-          </div>
-        </div>
-      ),
-      termsContent: termsContent(),
-    },
-  },
-  {
-    category: "Piel Madura",
-    imageKey: "pmadura", // Clave de imagen
-    description:
-      "El servicio de maquillaje para piel madura es especial y cuidado, diseñado para realzar la belleza natural.",
-    items: [
-      {
-        name: "Maquillaje Piel Madura",
-        price: "$35.000",
-        description: [
-          "Limpieza facial",
-          "Hidratación",
-          "Maquillaje diseñado para pieles maduras",
-          "Pestañas",
-          "Sellado del maquillaje",
-          "Aplicación de brillo para labios",
-        ],
-      },
-    ],
-    modalContent: {
-      images: ["pmadura"], // Usar la URL de la imagen .webp
-      title: "Maquillaje Piel Madura",
-      infoContent: (
-        <div className="font-cinzel">
-          <div className="mb-6">
-            <h4 className="font-bold mb-4 text-sm md:text-base">
-              Maquillaje Piel Madura
-            </h4>
-            <p className="mb-2 text-xs md:text-sm">Precio: $35.000</p>
-            <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
-              <li>Limpieza facial</li>
-              <li>Hidratación</li>
-              <li>Maquillaje diseñado para pieles maduras</li>
-              <li>Pestañas</li>
-              <li>Sellado del maquillaje</li>
-              <li>Aplicación de brillo para labios</li>
-            </ul>
-          </div>
-        </div>
-      ),
-      termsContent: termsContent(),
-    },
-  },
-  {
-    category: "Maquillaje & Peinado",
-    imageKey: "m_peinado2", // Clave de imagen
-    description:
-      "El servicio de maquillaje y peinado te ofrece una experiencia completa para realzar tu belleza.",
-    items: [
-      {
-        name: "Maquillaje y Peinado",
-        price: "$60.000",
-        description: [
-          "Limpieza facial",
-          "Hidratación",
-          "Maquillaje a elección del cliente",
-          "Pestañas",
-          "Sellado del maquillaje",
-          "Aplicación de brillo para labios",
-          "Peinado según la ocasión",
-        ],
-      },
-    ],
-    modalContent: {
-      images: ["m_peinado2"], // Usar la URL de la imagen .webp
-      title: "Maquillaje y Peinado",
-      infoContent: (
-        <div className="font-cinzel">
-          <div className="mb-6">
-            <h4 className="font-bold mb-4 text-sm md:text-base">
-              Maquillaje y Peinado
-            </h4>
-            <p className="mb-2 text-xs md:text-sm">Precio: $60.000</p>
-            <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
-              <li>Limpieza facial</li>
-              <li>Hidratación</li>
-              <li>Maquillaje a elección del cliente</li>
-              <li>Pestañas</li>
-              <li>Sellado del maquillaje</li>
-              <li>Aplicación de brillo para labios</li>
-              <li>Peinado según la ocasión</li>
-            </ul>
-          </div>
-        </div>
-      ),
-      termsContent: termsContent(),
-    },
-  },
-  {
-    category: "Social",
-    imageKey: "social", // Clave de imagen
-    description:
-      "El servicio de maquillaje social es ideal para cualquier evento especial, donde desees lucir radiante y destacar tu belleza natural.",
-    items: [
-      {
-        name: "Maquillaje Social Glam",
-        price: "$60.000.-",
-        description: [
-          "Incluye Tu eliges entre Glam o Look de Día.",
-          "Maquillaje de rostro, técnicas de ojos Soft o Glam que involucran brillo, cortes de cuenca, ahumados entre otros, además hidratación facial, bronzer y contornos, iluminador.",
-          "Pestañas de cortina.",
-          "Verificar disponibilidad de fechas antes de realizar los abonos.",
-        ],
-      },
-      {
-        name: "Maquillaje Social Soft Basic",
-        price: "$38.000.-",
-        description: [
-          "Incluye Maquillaje Soft.",
-          "Hidratación facial previa, Look suave, tonos tierra, trabajo de piel natural.",
-          "Pestañas de cortina.",
-          "Verificar disponibilidad de fechas antes de realizar los abonos.",
-        ],
-      },
-    ],
-    modalContent: {
-      images: ["social"], // Usar la URL de la imagen .webp
-      title: "Maquillaje Social",
-      infoContent: (
-        <div className="font-cinzel">
-          <div className="mb-6">
-            <h4 className="font-bold mb-4 text-sm md:text-base">
-              Maquillaje Social Glam
-            </h4>
-            <p className="mb-2 text-xs md:text-sm">Precio: $60.000.-</p>
-            <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
-              <li>Incluye Tu eliges entre Glam o Look de Día.</li>
-              <li>
-                Maquillaje de rostro, técnicas de ojos Soft o Glam que involucran
-                brillo, cortes de cuenca, ahumados entre otros, además hidratación
-                facial, bronzer y contornos, iluminador.
-              </li>
-              <li>Pestañas de cortina.</li>
-              <li>
-                Verificar disponibilidad de fechas antes de realizar los abonos.
-              </li>
-            </ul>
-          </div>
-          <div className="mb-6">
-            <h4 className="font-bold mb-4 text-sm md:text-base">
-              Maquillaje Social Soft Basic
-            </h4>
-            <p className="mb-2 text-xs md:text-sm">Precio: $38.000.-</p>
-            <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
-              <li>Incluye Maquillaje Soft.</li>
-              <li>
-                Hidratación facial previa, Look suave, tonos tierra, trabajo de
-                piel natural.
-              </li>
-              <li>Pestañas de cortina.</li>
-              <li>
-                Verificar disponibilidad de fechas antes de realizar los abonos.
-              </li>
-            </ul>
-          </div>
-        </div>
-      ),
-      termsContent: termsContent(),
-    },
-  },
-];
+/**
+ * loadServicesData:
+ * Carga en tiempo de ejecución el JSON ubicado en public/data/servicesData.json.
+ * La ruta “/data/servicesData.json” asume que el JSON fue colocado en “public/data/”.
+ */
+export async function loadServicesData(): Promise<Service[]> {
+  const response = await fetch("/data/servicesData.json");
+  if (!response.ok) {
+    throw new Error("No se pudo cargar servicesData.json");
+  }
+  const data: Service[] = await response.json();
+  return data;
+}
 
-// Exportamos getInfoContent
-export const getInfoContent = (index: number): ModalContent => {
-  const service = servicesData[index];
-  return service ? service.modalContent : servicesData[0].modalContent;
-};
+/**
+ * getServiceByIndex:
+ * Devuelve un objeto ModalContent para el índice indicado, completando
+ * la parte de “images” y “title” desde el JSON, y usando los fragmentos JSX
+ * definidos en este módulo para infoContent y termsContent.
+ */
+export async function getServiceByIndex(index: number): Promise<ModalContent> {
+  const servicesArray = await loadServicesData();
+  const service = servicesArray[index] ?? servicesArray[0];
 
-// Exportamos servicesArray
-export const servicesArray: Service[] = servicesData;
+  return {
+    images: service.modalContent.images,
+    title: service.modalContent.title,
+    infoContent: (
+      <div className="font-cinzel">
+        <div className="mb-6">
+          <h4 className="font-bold mb-4 text-sm md:text-base">
+            {service.modalContent.title}
+          </h4>
+          <p className="mb-2 text-xs md:text-sm">Precio: {service.items[0].price}</p>
+          <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
+            {service.items[0].description.map((desc, idx) => (
+              <li key={idx}>{desc}</li>
+            ))}
+          </ul>
+        </div>
+        {/* Si hay más de un item, se pueden iterar aquí de forma similar */}
+      </div>
+    ),
+    termsContent: termsContent(),
+  };
+}

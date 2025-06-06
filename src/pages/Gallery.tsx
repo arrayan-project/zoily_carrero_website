@@ -1,8 +1,9 @@
+//src/pages/Gallery.tsx
 import { useState, lazy, Suspense, useRef } from "react";
 import { imageArrays } from "../assets/images";
 import { galleryTitle } from "../data/galleryData";
 import { useTheme } from "../components/context/themeContext";
-import { Helmet } from "react-helmet-async";
+import { LazyHelmetProvider, LazyHelmet } from "../utils/LazyHelmet";
 import LazySectionLoader from "../components/common/LazySectionLoader";
 import GalleryGridSkeleton from "../components/skeletons/Gallery/GalleryGridSkeleton";
 import GalleryTitleSkeleton from "../components/skeletons/Gallery/GalleryTitleSkeleton";
@@ -79,15 +80,19 @@ const Gallery = () => {
           className="px-1 py-12 md:px-4 md:py-24"
           style={{ backgroundColor: colors.background, color: colors.text }}
         >
-          <Helmet>
-            <title>
-              Galería de Maquillaje Profesional | Zoily Carrero MakeUp
-            </title>
-            <meta
-              name="description"
-              content="Explora la galería de Zoily Carrero MakeUp. Descubre transformaciones impactantes, looks de novia, social y más. ¡Inspírate para tu próximo evento!"
-            />
-          </Helmet>
+          <Suspense fallback={null}>
+            <LazyHelmetProvider>
+              <LazyHelmet>
+                <title>
+                  Galería de Maquillaje Profesional | Zoily Carrero MakeUp
+                </title>
+                <meta
+                  name="description"
+                  content="Explora la galería de Zoily Carrero MakeUp. Descubre transformaciones impactantes, looks de novia, social y más. ¡Inspírate para tu próximo evento!"
+                />
+              </LazyHelmet>
+            </LazyHelmetProvider>
+          </Suspense>
 
           <Suspense fallback={<GalleryTitleSkeleton />}>
             <GalleryTitle title={galleryTitle} />
