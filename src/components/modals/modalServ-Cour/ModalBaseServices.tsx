@@ -14,6 +14,7 @@ import { useModalAccessibility } from "../../../hooks/useModalAccessibility";
 import { useBodyScrollLock } from "../../../hooks/useBodyScrollLock";
 import { useScrollIndicators } from "../../../hooks/useScrollIndicators";
 import CloseButton from "../../../components/common/CloseButton";
+import { ServiceItem } from "./ModalInterfacesServices"; // Importar la interfaz
 import ScrollIndicatorArrow from "../../../components/common/ScrollIndicatorArrow";
 
 interface ModalBaseProps {
@@ -25,6 +26,7 @@ interface ModalBaseProps {
   infoContent?: React.ReactNode;
   termsContent?: React.ReactNode;
   showTabs?: boolean;
+  serviceItems?: ServiceItem[]; // Añadir la nueva prop
   children?: React.ReactNode;
   className?: string;
   overlayClassName?: string;
@@ -42,6 +44,7 @@ const ModalBase: React.FC<ModalBaseProps> = ({
   infoContent,
   termsContent,
   showTabs = false,
+  serviceItems = [], // Valor por defecto como array vacío
   children,
   className = "",
   overlayClassName = "",
@@ -94,6 +97,7 @@ const ModalBase: React.FC<ModalBaseProps> = ({
       termsContent,
       images,
       title,
+      serviceItems, // Añadir serviceItems a las dependencias
       description,
     ],
   });
@@ -142,6 +146,7 @@ useEffect(() => {
     termsContent,
     images,
     title,
+    serviceItems, // Añadir serviceItems a las dependencias
     description,
     isOpen,
     isModalRendered, // Añadido isModalRendered
@@ -155,6 +160,34 @@ useEffect(() => {
   return null;
   }
 
+  // Helper para renderizar la lista de items de servicio/curso
+  const renderServiceItemsList = (items: ServiceItem[]) => (
+    <div className="service-items-list mt-4 space-y-6">
+      {items.map((item, index) => (
+        <div
+          key={index}
+          className="service-item pb-4 border-b last:border-b-0"
+          style={{ borderColor: colors.bannerTitle }}
+        >
+          <h4 className="tex-base md:text-lg font-semibold mb-1 font-cinzel" style={{ color: colors.accent }}>
+            {item.name}
+          </h4>
+          <p className="text-sm md:text-md font-semibold mb-2 font-cinzel" style={{ color: colors.text }}>
+            Precio: {item.price}
+          </p>
+          {item.description && item.description.length > 0 && (
+            <div className="mt-1">
+              <ul className="list-disc list-inside ml-4 md:text-sm space-y-1 font-cinzel" style={{ color: colors.text }}>
+                {item.description.map((descPoint, pointIndex) => (
+                  <li key={pointIndex}>{descPoint}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
 
   return (
     <div
@@ -342,8 +375,9 @@ useEffect(() => {
                 {activeTab === "Informacion" && (
                  <div className="absolute top-0 left-0 w-full h-full tab-content-animation">
                     {/* Contenedor para centrar el bloque de contenido */}
-                    <div className="mx-auto max-w-3xl text-left py-4"> {/* Ajusta max-w-* según necesites */}
+                    <div className="mx-auto max-w-3xl text-left py-4">
                       {infoContent}
+                      {serviceItems && serviceItems.length > 0 && renderServiceItemsList(serviceItems)}
                     </div>
                   </div>
                 )}
@@ -375,8 +409,19 @@ useEffect(() => {
               </div>
             </>
           ) : (
-            // Si no hay tabs, renderiza children directamente
-            children
+            // Si no hay tabs, decide qué renderizar:
+            children ? children : // 1. children si se proporciona
+            (serviceItems && serviceItems.length > 0 ? ( // 2. serviceItems si se proporcionan
+              <div className="mx-auto max-w-3xl text-left py-4">
+                {renderServiceItemsList(serviceItems)}
+              </div>
+            ) : ( // 3. infoContent como fallback
+              infoContent && (
+                <div className="mx-auto max-w-3xl text-left py-4">
+                  {infoContent}
+                </div>
+              )
+            ))
           )}
         </div>
 

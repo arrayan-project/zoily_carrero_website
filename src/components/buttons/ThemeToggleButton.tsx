@@ -24,7 +24,7 @@ const ThemeToggleButton: React.FC<ThemeToggleButtonProps> = ({ className }) => {
 
 
   // Variables para las clases condicionales
-  const buttonBase = `relative p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500 transition-colors duration-300 z-[9999] hover:bg-rose-200`;
+  const buttonBase = `relative p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500 transition-colors duration-300 z-[9999] hover:bg-rose-200`;
   const buttonTheme = theme === 'light' ? 'bg-amber-200' : 'bg-gray-600';
   const iconColor = theme === 'light' ? 'text-amber-700' : 'text-rose-400';
   const iconSize = windowWidth < 768 ? 24 : 32;

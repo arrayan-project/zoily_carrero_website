@@ -1,11 +1,5 @@
-/**
- * Hook para obtener el tamaño de la ventana y detectar si es vista móvil.
- * Devuelve el ancho actual de la ventana y un booleano indicando si está bajo el breakpoint móvil.
- *
- * @module useWindowSize
- * @returns {{ windowWidth: number, isMobileView: boolean }} Objeto con el ancho de la ventana y si es vista móvil.
- */
 import { useState, useEffect } from 'react';
+import { debounce } from 'lodash';
 import { MOBILE_BREAKPOINT } from '../constants/breakpoints';
 
 interface WindowSize {
@@ -13,8 +7,7 @@ interface WindowSize {
   isMobileView: boolean;
 }
 
-const getWindowWidth = () =>
-  typeof window !== "undefined" ? window.innerWidth : 1200;
+const getWindowWidth = () => (typeof window !== "undefined" ? window.innerWidth : 1200);
 
 const useWindowSize = (): WindowSize => {
   const [windowSize, setWindowSize] = useState<WindowSize>({
@@ -23,17 +16,18 @@ const useWindowSize = (): WindowSize => {
   });
 
   useEffect(() => {
-    const handleResize = () => {
+    const handleResize = debounce(() => {
       setWindowSize({
         windowWidth: window.innerWidth,
         isMobileView: window.innerWidth < MOBILE_BREAKPOINT,
       });
-    };
+    }, 100);
 
     window.addEventListener('resize', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      handleResize.cancel();
     };
   }, []);
 

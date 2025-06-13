@@ -17,6 +17,8 @@ import {
 import { getImageObject } from "../../utils/getImageObject";
 import { useModalAccessibility } from "../../hooks/useModalAccessibility";
 import { useBodyScrollLock } from "../../hooks/useBodyScrollLock";
+import useSwipeNavigation from "../../hooks/useSwipeNavigation"; // Importar el hook
+
 
 interface GalleryModalProps {
   selectedImage: string;
@@ -37,7 +39,6 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
   isMobileView = false,
 }) => {
   const [zoom, setZoom] = useState(1);
-  const [touchStartX, setTouchStartX] = useState<number | null>(null);
   const [isClosing, setIsClosing] = useState(false);
 
   // NUEVO: refs para accesibilidad
@@ -115,18 +116,13 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
 
   useModalAccessibility(true, triggerClose, modalContainerRef);
 
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    setTouchStartX(e.touches[0].clientX);
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (touchStartX === null) return;
-    const touchEndX = e.changedTouches[0].clientX;
-    const diff = touchStartX - touchEndX;
-    if (diff > 50) nextImage();
-    else if (diff < -50) prevImage();
-    setTouchStartX(null);
-  };
+// Usar el hook de swipe para el modal de galería
+  useSwipeNavigation({
+    targetRef: modalContainerRef,
+    onSwipeLeft: nextImage,  // Swipe a la izquierda -> Siguiente imagen
+    onSwipeRight: prevImage, // Swipe a la derecha -> Imagen anterior
+    isEnabled: true,         // Siempre habilitado si el modal está abierto
+  });
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (modalContainerRef.current && e.target === modalContainerRef.current) {
@@ -138,8 +134,6 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
     <div
       ref={modalContainerRef}
       onClick={handleOverlayClick}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
       className={`fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm ${
         isClosing ? "modal-fade-out" : "modal-animation"
       }`}

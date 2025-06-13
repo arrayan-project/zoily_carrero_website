@@ -25,6 +25,8 @@ const GalleryCategoryMenu: React.FC<GalleryCategoryMenuProps> = ({
 
   return (
     <div
+      role="group"
+      aria-label="Menú de categorías de la galería"
       className="flex flex-nowrap md:justify-center justify-start space-x-4 mb-8 overflow-x-auto px-4"
       style={{ WebkitOverflowScrolling: "touch" }}
     >
@@ -34,8 +36,8 @@ const GalleryCategoryMenu: React.FC<GalleryCategoryMenuProps> = ({
         return (
           <button
             key={category}
-            aria-label="Boton de categoria"
             onClick={() => onCategoryChange(category)}
+            aria-pressed={isActive}
             className={`px-4 py-2 rounded-full whitespace-nowrap border transition-colors duration-300 ${GALLERY_CATEGORY_MENU_BUTTON_CLASS} ${
               isActive
                 ? "bg-pink-700 text-white border-pink-700"

@@ -8,7 +8,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { loadServicesData, getServiceByIndex } from "../../data/servicesData";
 import { useModal } from "../modals/modalServ-Cour/ModalContextServices";
-import {  GENERAL_SECTION_SUPER_TITLE_CLASS,  GENERAL_PAGE_SUPERMAIN_TITLE_CLASS } from "../../constants/styles";
+import {
+  GENERAL_SECTION_SUPER_TITLE_CLASS,
+  GENERAL_PAGE_SUPERMAIN_TITLE_CLASS,
+} from "../../constants/styles";
 import { getImageObject } from "../../utils/getImageObject";
 import type { ModalContent as ModalContentType } from "../modals/modalServ-Cour/ModalInterfacesServices";
 import type { Service } from "../../types/ServiceInterfaces";
@@ -16,12 +19,14 @@ import MakeUpCarouselLogic from "./MakeUpCarouselLogic";
 import MakeUpCarouselNavigation from "./MakeUpCarouselNavigation";
 import MakeUpCarouselContent from "./MakeUpCarouselContent";
 import RevealWrapper from "../common/RevealWrapper";
+import useSwipeNavigation from "../../hooks/useSwipeNavigation"; // Importar el nuevo hook
+import useMobileView from "../../hooks/useMobileView"; // Importar el hook para detectar vista móvil
 import "./MakeUpCarousel.css";
-
 
 const MakeUpCarouselSection: React.FC = () => {
   const { openModal, closeModal } = useModal();
   const openerRef = useRef<HTMLButtonElement | null>(null);
+  const carouselContainerRef = useRef<HTMLDivElement>(null); // Ref para el contenedor del carrusel
   const [servicesArray, setServicesArray] = useState<Service[] | null>(null);
 
   // 1) Hook para cargar datos dinámicamente
@@ -30,6 +35,9 @@ const MakeUpCarouselSection: React.FC = () => {
       .then((data) => setServicesArray(data))
       .catch((err) => console.error("Error cargando servicesData:", err));
   }, []);
+
+  // Hook para detectar si es vista móvil
+  const isMobile = useMobileView();
 
   // 2) Preparamos un array “vacío” mientras no cargan los datos,
   //    para llamar siempre a MakeUpCarouselLogic sin romper el orden de hooks.
@@ -44,17 +52,7 @@ const MakeUpCarouselSection: React.FC = () => {
     currentIndex,
   } = MakeUpCarouselLogic({ initialServiceItems: itemsForLogic });
 
-  // 4) Si aún no tenemos servicios cargados, mostramos “Cargando…”.
-  //    Pero **aquí ya hemos llamado a MakeUpCarouselLogic** (el hook), respetando el orden.
-  if (servicesArray === null) {
-    return (
-      <div className="w-full h-screen flex items-center justify-center">
-        Cargando servicios...
-      </div>
-    );
-  }
-
-  // 5) Funciones para navegar y abrir modal
+  // 5) Funciones para navegar. Deben definirse antes de usarlas en useSwipeNavigation.
   const handleNext = () => {
     if (!isTransitioning.current) {
       handleServiceTransition("next");
@@ -66,15 +64,50 @@ const MakeUpCarouselSection: React.FC = () => {
     }
   };
 
-  const handleOpenModal = async (
-    e: React.MouseEvent<HTMLButtonElement>
-  ) => {
+  // 6) Usar el hook de swipe. Debe llamarse incondicionalmente.
+  useSwipeNavigation({
+    targetRef: carouselContainerRef,
+    onSwipeLeft: handleNext, // Swipe a la izquierda -> Siguiente item
+    onSwipeRight: handlePrev, // Swipe a la derecha -> Item anterior
+    isEnabled: isMobile, // Activar solo en móviles
+  });
+
+  // 7) Renderizado condicional después de que todos los hooks se hayan llamado.
+  if (servicesArray === null || !currentItem) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        Cargando servicios...
+      </div>
+    );
+  }
+
+  // 8) Lógica para abrir el modal
+  const handleOpenModal = async (e: React.MouseEvent<HTMLButtonElement>) => {
     openerRef.current = e.currentTarget;
+    if (!currentItem) {
+      console.error("No hay un item actual para abrir el modal.");
+      return;
+    }
+
     try {
-      const modalContent: ModalContentType = await getServiceByIndex(
+      // 1. Obtener la información base para el modal (títulos, descripciones generales, etc.)
+      //    Esto podría ser una parte de `currentItem` o lo que devuelve `getServiceByIndex`.
+      //    Asumiremos que `getServiceByIndex` devuelve la estructura base de ModalContent
+      //    pero quizás sin los `serviceItems` detallados o con una versión limitada.
+      const baseModalData: ModalContentType = await getServiceByIndex(
         currentIndex
       );
-      openModal({ ...modalContent, showTabs: true, onClose: handleCloseModal });
+
+      // 2. Construir el contenido final para el modal, asegurándonos de usar
+      //    los `items` del `currentItem` que se está mostrando en el carrusel.
+      const finalModalContent: ModalContentType = {
+        ...baseModalData, // Título, descripción general, imágenes del modal, infoContent, termsContent
+        serviceItems: currentItem.items || [], // <-- Clave: Usar los items del servicio actual del carrusel
+        showTabs: true,
+        onClose: handleCloseModal,
+      };
+
+      openModal(finalModalContent);
     } catch (err) {
       console.error("Error obteniendo contenido del modal:", err);
     }
@@ -85,15 +118,6 @@ const MakeUpCarouselSection: React.FC = () => {
     openerRef.current?.focus();
   };
 
-  // 6) currentItem ya está garantizado porque servicesArray no es null
-  if (!currentItem) {
-    return (
-      <div className="w-full h-screen flex items-center justify-center">
-        Cargando servicios...
-      </div>
-    );
-  }
-
   const imageObject = getImageObject(currentItem.imageKey);
   const placeholderBgStyle = imageObject?.placeholder
     ? { backgroundImage: `url("${imageObject.placeholder}")` }
@@ -103,6 +127,7 @@ const MakeUpCarouselSection: React.FC = () => {
     <RevealWrapper animationClass="fade-in-animation">
       <div
         id="services-carousel"
+        ref={carouselContainerRef} // Asignar la ref al contenedor principal del carrusel
         className="relative w-full h-screen overflow-hidden"
       >
         {/* Cada render aún ejecuta hooks en el mismo orden */}
@@ -140,7 +165,7 @@ const MakeUpCarouselSection: React.FC = () => {
                   {currentItem.category}
                 </div>
                 <div
-                  className={`description text-left ${GENERAL_SECTION_SUPER_TITLE_CLASS} my-[20px] mb-[20px] md:text-xl lg:text-2xl`}
+                  className={`description text-left ${GENERAL_SECTION_SUPER_TITLE_CLASS} my-[20px] mb-[-80px]`}
                 >
                   {currentItem.description}
                 </div>

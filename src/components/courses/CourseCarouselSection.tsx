@@ -6,21 +6,28 @@
  * @returns {JSX.Element}
  */
 import React, { useEffect, useRef, useState } from "react";
-import CoursesCarouselNavigation from "./CourseCarouselNavigation";
-import CoursesContent from "./CourseCarouselContent";
 import { loadCoursesData, getCourseByIndex } from "../../data/coursesData";
-import type { Course} from "../../types/CourseInterfaces";
 import { useModal } from "../modals/modalServ-Cour/ModalContextServices";
-import "./CoursesCarousel.css";
-import RevealWrapper from "../common/RevealWrapper";
-import { GENERAL_SECTION_SUPER_TITLE_CLASS, GENERAL_PAGE_SUPERMAIN_TITLE_CLASS } from "../../constants/styles";
+import {
+  GENERAL_SECTION_SUPER_TITLE_CLASS,
+  GENERAL_PAGE_SUPERMAIN_TITLE_CLASS,
+} from "../../constants/styles";
 import { getImageObject } from "../../utils/getImageObject";
 import { ModalContent as ModalContentType } from "../modals/modalServ-Cour/ModalInterfacesServices"; // Alias to avoid conflict
+import type { Course } from "../../types/CourseInterfaces";
 import CoursesLogic from "./CourseCarouselLogic";
+import CoursesCarouselNavigation from "./CourseCarouselNavigation";
+import CoursesContent from "./CourseCarouselContent";
+import RevealWrapper from "../common/RevealWrapper";
+import useSwipeNavigation from "../../hooks/useSwipeNavigation"; // Importar el nuevo hook
+import useMobileView from "../../hooks/useMobileView"; // Importar el hook para detectar vista móvil
+import "./CoursesCarousel.css";
+
 
 const CoursesCarouselSection: React.FC = () => {
   const { openModal, closeModal } = useModal();
   const openerRef = useRef<HTMLButtonElement | null>(null);
+  const carouselContainerRef = useRef<HTMLDivElement>(null); // Ref para el contenedor del carrusel
   const [coursesArray, setCoursesArray] = useState<Course[] | null>(null);
 
   // 1) Hook para cargar datos dinámicamente
@@ -30,22 +37,44 @@ const CoursesCarouselSection: React.FC = () => {
       .catch((err) => console.error("Error cargando coursesData:", err));
   }, []);
 
+  // Hook para detectar si es vista móvil
+  const isMobile = useMobileView();
+
   // 2) Preparamos un array “vacío” mientras no cargan los datos,
   //    para llamar siempre a MakeUpCarouselLogic sin romper el orden de hooks.
   const itemsForLogic: Course[] = coursesArray ?? [];
 
   // 3) Hook de la lógica RETIRA datos de itemsForLogic  (que será [] o el array real).
   //    Este hook se ejecutará en cada render, independientemente de si servicesArray ya existe.
-  const {
-    currentItem,
-    handleCourseTransition,
-    isTransitioning,
-    currentIndex,
+  const { 
+    currentItem, 
+    handleCourseTransition, 
+    isTransitioning, 
+    currentIndex 
   } = CoursesLogic({ initialCourseItems: itemsForLogic });
 
-  // 4) Si aún no tenemos servicios cargados, mostramos “Cargando…”.
-  //    Pero **aquí ya hemos llamado a MakeUpCarouselLogic** (el hook), respetando el orden.
-  if (coursesArray === null) { 
+  // 5) Funciones para navegar. Deben definirse antes de usarlas en useSwipeNavigation.
+  const handleNext = () => {
+    if (!isTransitioning.current) {
+      handleCourseTransition("next");
+    }
+  };
+  const handlePrev = () => {
+    if (!isTransitioning.current) {
+      handleCourseTransition("prev");
+    }
+  };
+
+   // 6) Usar el hook de swipe. Debe llamarse incondicionalmente.
+  useSwipeNavigation({
+    targetRef: carouselContainerRef,
+    onSwipeLeft: handleNext, // Swipe a la izquierda -> Siguiente item
+    onSwipeRight: handlePrev, // Swipe a la derecha -> Item anterior
+    isEnabled: isMobile, // Activar solo en móviles
+  });
+
+  // 7) Renderizado condicional después de que todos los hooks se hayan llamado.
+  if (coursesArray === null || !currentItem) {
     return (
       <div className="w-full h-screen flex items-center justify-center">
         Cargando servicios...
@@ -53,47 +82,42 @@ const CoursesCarouselSection: React.FC = () => {
     );
   }
 
-  // 5) Funciones para navegar y abrir modal
-
-  const handleNext = () => {
-    if (!isTransitioning.current) {
-      handleCourseTransition("next");
-    }
-  };
-
-  const handlePrev = () => {
-    if (!isTransitioning.current) {
-      handleCourseTransition("prev");
-    }
-  };
-
-  const handleOpenModal = async (
-      e: React.MouseEvent<HTMLButtonElement>
-    ) => {
-      openerRef.current = e.currentTarget;
-      try {
-        const modalContent: ModalContentType = await getCourseByIndex(
-          currentIndex
-        );
-        openModal({ ...modalContent, showTabs: true, onClose: handleCloseModal });
-      } catch (err) {
-        console.error("Error obteniendo contenido del modal:", err);
-      }
-    };
-  
-    const handleCloseModal = () => {
-      closeModal();
-      openerRef.current?.focus();
-    };
-  
-    // 6) currentItem ya está garantizado porque servicesArray no es null
+  // 8) Lógica para abrir el modal
+  const handleOpenModal = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    openerRef.current = e.currentTarget;
     if (!currentItem) {
-      return (
-        <div className="w-full h-screen flex items-center justify-center">
-          Cargando servicios...
-        </div>
-      );
+      console.error("No hay un item actual para abrir el modal.");
+      return;
     }
+
+    try {
+      // 1. Obtener la información base para el modal (títulos, descripciones generales, etc.)
+      //    Esto podría ser una parte de `currentItem` o lo que devuelve `getServiceByIndex`.
+      //    Asumiremos que `getServiceByIndex` devuelve la estructura base de ModalContent
+      //    pero quizás sin los `serviceItems` detallados o con una versión limitada.
+      const baseModalData: ModalContentType = await getCourseByIndex(
+        currentIndex
+      );
+
+      // 2. Construir el contenido final para el modal, asegurándonos de usar
+      //    los `items` del `currentItem` que se está mostrando en el carrusel.
+      const finalModalContent: ModalContentType = {
+        ...baseModalData, // Título, descripción general, imágenes del modal, infoContent, termsContent
+        serviceItems: currentItem.items || [], // <-- Clave: Usar los items del servicio actual del carrusel
+        showTabs: true,
+        onClose: handleCloseModal,
+      };
+
+      openModal(finalModalContent);
+    } catch (err) {
+      console.error("Error obteniendo contenido del modal:", err);
+    }
+  };
+
+  const handleCloseModal = () => {
+    closeModal();
+    openerRef.current?.focus();
+  };
 
   const imageObject = getImageObject(currentItem.imageKey);
   const placeholderBgStyle = imageObject?.placeholder
@@ -104,6 +128,7 @@ const CoursesCarouselSection: React.FC = () => {
     <RevealWrapper animationClass="fade-in-animation">
       <div
         id="courses-carousel"
+        ref={carouselContainerRef} // Asignar la ref al contenedor principal del carrusel
         className="relative w-full h-screen overflow-hidden" // Cambiado a overflow-hidden
       >
         {/* Contenedor para el slide actual, la key ayuda a React a animar el cambio */}
@@ -142,7 +167,7 @@ const CoursesCarouselSection: React.FC = () => {
                   {currentItem.category}
                 </div>
                 <div
-                  className={`description text-left ${GENERAL_SECTION_SUPER_TITLE_CLASS} my-[20px] mb-[20px] md:text-xl lg:text-2xl`}
+                  className={`description text-left ${GENERAL_SECTION_SUPER_TITLE_CLASS} my-[20px] mb-[-80px]`}
                 >
                   {currentItem.description}
                 </div>

@@ -1,8 +1,9 @@
 import { useTheme } from "../context/themeContext";
-import logo from "/img/logo/logowhite2.png"; // Asegúrate de ponerlo en public/img
+import logowhite from "/img/logo/logowhite2.png"; // Asegúrate de ponerlo en public/img
+import logoblack from "/img/logo/logoblack2.png"; // Asegúrate de ponerlo en public/img
 
 const AppLoader = () => {
-  const { colors } = useTheme();
+  const { theme, colors } = useTheme(); // Obtenemos el tema actual
 
   return (
     <div
@@ -15,7 +16,7 @@ const AppLoader = () => {
         
         {/* Logo en el centro */}
         <img
-          src={logo}
+          src={theme === 'dark' ? logowhite : logoblack}
           alt="Logo Zoily Carrero"
           className="w-24 h-24 object-contain absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         />

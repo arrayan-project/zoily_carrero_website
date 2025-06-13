@@ -24,9 +24,9 @@ const ScrollToTopButton = () => {
       type="button"
       onClick={scrollToTop}
       className={`
-        fixed bottom-[10px] right-[10px] w-[40px] h-[40px] rounded-[6px]
-        sm:bottom-[15px] sm:right-[15px] sm:w-[50px] sm:h-[50px] sm:rounded-[8px]
-        md:bottom-[20px] md:right-[20px] md:w-[60px] md:h-[60px] md:rounded-[10px]
+        fixed bottom-[10px] right-[10px] w-[35px] h-[35px] rounded-[6px]
+        sm:bottom-[15px] sm:right-[15px] sm:w-[30px] sm:h-[30px] sm:rounded-[8px]
+        md:bottom-[20px] md:right-[20px] md:w-[40px] md:h-[40px] md:rounded-[10px]
         bg-[#b2443a] text-white border-none
         flex justify-center items-center
         cursor-pointer

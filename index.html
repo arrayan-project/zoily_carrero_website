@@ -9,22 +9,40 @@
       name="description"
       content="Servicios de belleza, maquillaje profesional y cursos en línea y presenciales."
     />
+    <link rel="manifest" href="/manifest.webmanifest" />
 
     <!-- Preload AVIF hero desktop -->
     <link
       rel="preload"
       as="image"
-      href="/img/bg-home.avif"
-      imagesrcset="/img/bg-home-d.avif 1536w"
+      href="/img/background-home/bg-home2.avif"
+      imagesrcset="/img/background-home/bg-home2.avif 1536w"
       imagesizes="100vw"
     />
     <!-- Fallback WebP hero desktop -->
     <link
       rel="preload"
       as="image"
-      href="/img/bg-home.webp"
-      imagesrcset="/img/bg-home-d.webp 1536w"
+      href="/img/background-home/bg-home2.webp"
+      imagesrcset="/img/background-home/bg-home2.webp 1536w"
       imagesizes="100vw"
+    />
+
+    <!-- Preload AVIF hero móvil -->
+    <link
+      rel="preload"
+      as="image"
+      href="/img/background-home/bg-home2-m.avif"
+      imagesrcset="/img/background-home/bg-home2-m.avif 640w"
+      imagesizes="(max-width: 639px) 100vw"
+    />
+    <!-- Fallback WebP hero móvil -->
+    <link
+      rel="preload"
+      as="image"
+      href="/img/background-home/bg-home2-m.webp"
+      imagesrcset="/img/background-home/bg-home2-m.webp 640w"
+      imagesizes="(max-width: 639px) 100vw"
     />
 
     <!-- Favicon -->
@@ -78,6 +96,12 @@
 
     <!-- Scripts con defer (type=module ya implica defer) -->
     <script type="module" src="/src/main.tsx" defer></script>
+    <script>
+      window.addEventListener("load", () => {
+        // avisa al prerenderer que ya puede capturar el HTML
+        document.dispatchEvent(new Event("render-event"));
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>

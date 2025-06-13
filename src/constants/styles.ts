@@ -75,8 +75,8 @@ export const GENERAL_SECTION_PARAGRAPH_DESCRIPTION_CLASS = `${TEXT_SIZE_BASE} ${
 
 // --- HOME ---
 // Para el título principal y subtítulo del Hero Banner en Home.tsx (usado por HomeTitle.tsx como default)
-export const HOME_HERO_TITLE_CLASS = `${FONT_FAMILY_PRIMARY} text-white text-3xl md:text-3xl tracking-[0.2em] mb-12 md:mb-6`;
-export const HOME_HERO_SUBTITLE_CLASS = `${FONT_FAMILY_PRIMARY} text-white text-lg md:text-base tracking-[0.3em] mb-12`;
+export const HOME_HERO_TITLE_CLASS = `${FONT_FAMILY_PRIMARY} text-white text-2xl md:text-2xl lg:text-3xl xl:text-4xl tracking-[0.2em] mb-12 md:mb-6`;
+export const HOME_HERO_SUBTITLE_CLASS = `${FONT_FAMILY_PRIMARY} text-white text-sm md:text-sm tracking-[0.3em] mb-12`;
 
 // Para botones principales en la página de Home
 export const HOME_BUTTON_BASE_CLASS = `${FONT_WEIGHT_NORMAL} ${FONT_FAMILY_PRIMARY} px-2 py-3 shadow transition duration-200`;

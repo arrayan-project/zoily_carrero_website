@@ -95,6 +95,53 @@ const About: React.FC = React.memo(() => {
                   name="description"
                   content="Conoce a Zoily Carrero, maquilladora profesional apasionada por realzar tu belleza única. Descubre mi historia, filosofía y por qué elegirme."
                 />
+
+                {/* ––– Open Graph ––– */}
+                <meta
+                  property="og:title"
+                  content="Sobre Zoily Carrero | Maquilladora Profesional Apasionada"
+                />
+                <meta
+                  property="og:description"
+                  content="Conoce a Zoily Carrero, maquilladora profesional apasionada por realzar tu belleza única. Descubre mi historia, filosofía y por qué elegirme."
+                />
+                <meta
+                  property="og:image"
+                  content="https://zoilycarrero.web.app/img/zoilynegro.webp"
+                />
+                {/* Ahora apuntamos a /about o la ruta real de “Sobre” */}
+                <meta
+                  property="og:url"
+                  content="https://zoilycarrero.web.app/about"
+                />
+                <meta property="og:type" content="website" />
+                <meta
+                  property="og:site_name"
+                  content="SoyZoilyCarrero MakeUp"
+                />
+                <meta property="og:locale" content="es_CL" />
+
+                {/* ––– Twitter Card ––– */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta
+                  name="twitter:title"
+                  content="Sobre Zoily Carrero | Maquilladora Profesional Apasionada"
+                />
+                <meta
+                  name="twitter:description"
+                  content="Conoce a Zoily Carrero, maquilladora profesional apasionada por realzar tu belleza única. Descubre mi historia, filosofía y por qué elegirme."
+                />
+                <meta
+                  name="twitter:image"
+                  content="https://zoilycarrero.web.app/img/zoilynegro.webp"
+                />
+
+                {/* ––– Canonical ––– */}
+                {/* Ahora apuntamos a /about */}
+                <link
+                  rel="canonical"
+                  href="https://zoilycarrero.web.app/about"
+                />
               </LazyHelmet>
             </LazyHelmetProvider>
           </Suspense>

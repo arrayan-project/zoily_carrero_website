@@ -20,7 +20,6 @@ const HomeButton: React.FC<HomeButtonProps> = ({ onClick, primary = false, child
   return (
     <button
       type="button"
-      aria-label="Boton de home"
       onClick={onClick}
       className={`${HOME_BUTTON_BASE_CLASS} ${primary ? HOME_BUTTON_PRIMARY_VARIANT_CLASS : HOME_BUTTON_SECONDARY_VARIANT_CLASS} ${className}`}
     >

@@ -53,8 +53,10 @@ import phoneUGCPlaceholder from "../assets/placeholders/phoneugc-lqip.txt?raw";
 //Placeholder varios
 import zoilyNegroPlaceholder from "../assets/placeholders/zoilynegro-lqip.txt?raw";
 import zoilynegroheroPlaceholder from "../assets/placeholders/zoilynegrohero-lqip.txt?raw";
+import zoilynegroheromPlaceholder from "../assets/placeholders/zoilynegroherom-lqip.txt?raw";
 import zoilywhite2Placeholder from "../assets/placeholders/zoilywhite2-lqip.txt?raw";
 import bgHome2Placeholder from "../assets/placeholders/bg-home2-lqip.txt?raw";
+import bgHome2MPlaceholder from "../assets/placeholders/bg-home2-m-lqip.txt?raw";
 import logoblack2Placeholder from "../assets/placeholders/logoblack2-lqip.txt?raw";
 import logowhite2Placeholder from "../assets/placeholders/logowhite2-lqip.txt?raw";
 import ChatGPTPlaceholder from "../assets/placeholders/ChatGPTImage-lqip.txt?raw";
@@ -327,10 +329,21 @@ const images: Record<string, Image> = {
     webp: "/img/zoilynegrohero.webp",
     placeholder: zoilynegroheroPlaceholder,
   },
+  zoilynegroherom: {
+    avif: "/img/zoilynegroherom.avif",
+    webp: "/img/zoilynegroherom.webp",
+    placeholder: zoilynegroheromPlaceholder,
+  }, 
+
   backgroundHome2: {
     avif: "/img/background-home/bg-home2.avif",
     webp: "/img/background-home/bg-home2.webp",
     placeholder: bgHome2Placeholder,
+  },
+    backgroundHome2m: {
+    avif: "/img/background-home/bg-home2-m.avif",
+    webp: "/img/background-home/bg-home2-m.webp",
+    placeholder: bgHome2MPlaceholder,
   },
   zoilywhite2: {
     avif: "/img/zoilywhite2.avif",

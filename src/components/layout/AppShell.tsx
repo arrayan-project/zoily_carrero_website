@@ -14,7 +14,7 @@ import LogoComponent from "../layout/LogoComponent";
 import FloatingContactButton from "../buttons/FloatingContactButton";
 import ContactUsModal from "../modals/ContactUsModal";
 import AppLoader from "../../components/loader/AppLoader";
-
+import { Helmet } from "react-helmet-async";
 
 const Navigation = lazy(() => import("../navigation/NavBarMenu"));
 const AppRoutes = lazy(() => import("../../Routes"));
@@ -24,17 +24,8 @@ const Footer = lazy(() => import("../common/LazyFooter"));
 export default function AppShell() {
   const { pathname } = useLocation();
 
-  const scrollRoutes = [
-    "/home",
-    "/gallery",
-    "/makeup",
-    "/courses",
-    "/ugc",
-    "/store",
-    "/about",
-    "/contact",
-  ];
-  const showScroll = scrollRoutes.includes(pathname);
+  const scrollTopEnabledRoutes = ["/home", "/gallery", "/ugc", "/store"];
+  const showScrollTopButton = scrollTopEnabledRoutes.includes(pathname);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = useCallback(() => setIsModalOpen(true), []);
@@ -52,6 +43,14 @@ export default function AppShell() {
 
   return (
     <Suspense fallback={<AppLoader />}>
+      <Helmet>
+        <html lang="es" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="index,follow" />
+        <meta name="theme-color" content="#000000" />
+        <link rel="icon" href="/favicon.ico" />
+      </Helmet>
+
       <div
         style={{
           background: colors.background,
@@ -74,17 +73,24 @@ export default function AppShell() {
         </div>
         <Navigation currentPathname={pathname} />
         <AppRoutes />
-        {showScroll && (
-          <div className="fixed bottom-4 right-4 z-50">
-            <ScrollTopButton />
-          </div>
-        )}
-        <div className="fixed bottom-20 left-4 z-50">
+
+        {/* ScrollToTopButton: Renders if on an enabled route. Positions itself. */}
+        {showScrollTopButton && <ScrollTopButton />}
+
+        {/* ThemeToggleButton: Positioned by its wrapper div. */}
+        <div className="fixed bottom-3 left-3 z-50">
+          {/* z-50 for wrapper, button itself has higher z-index */}
           <ThemeToggleButton />
         </div>
-        <div className="fixed bottom-4 left-4 z-50">
-          <FloatingContactButton ref={floatingBtnRef} onClick={openModal} />
-        </div>
+
+        {/* FloatingContactButton: Positions itself based on whether ScrollTopButton is shown. */}
+        <FloatingContactButton
+          ref={floatingBtnRef}
+          onClick={openModal}
+          positionVariant={
+            showScrollTopButton ? "default" : "scrollTopReplacement"
+          }
+        />
         <Footer />
         {isModalOpen && (
           <ContactUsModal

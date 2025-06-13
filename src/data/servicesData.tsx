@@ -8,7 +8,7 @@
  * @module servicesData
  */
 
-import type { ModalContent } from "../components/modals/ModalInterfaces";
+import type { ModalContent } from "../components/modals/modalServ-Cour/ModalInterfacesServices";
 import type { Service } from "../types/ServiceInterfaces";
 
 /**
@@ -155,27 +155,34 @@ export async function loadServicesData(): Promise<Service[]> {
  */
 export async function getServiceByIndex(index: number): Promise<ModalContent> {
   const servicesArray = await loadServicesData();
-  const service = servicesArray[index] ?? servicesArray[0];
+   const service = servicesArray[index] ?? servicesArray[0]; // Fallback for safety
+
+  // Defensive check para asegurar que el servicio y su modalContent existen
+  if (!service || !service.modalContent) {
+    console.error(`Servicio o modalContent no encontrado para el índice: ${index}`);
+    return {
+      title: "Error",
+      // description: "Por favor, intente más tarde.", // Opcional: descripción de error
+      infoContent: "La información para este servicio no está disponible.",
+      termsContent: termsContent(), // O un mensaje de error específico para términos
+      serviceItems: [], // Asegurar que serviceItems sea un array vacío
+    };
+  }
 
   return {
     images: service.modalContent.images,
     title: service.modalContent.title,
-    infoContent: (
-      <div className="font-cinzel">
-        <div className="mb-6">
-          <h4 className="font-bold mb-4 text-sm md:text-base">
-            {service.modalContent.title}
-          </h4>
-          <p className="mb-2 text-xs md:text-sm">Precio: {service.items[0].price}</p>
-          <ul className="text-[0.7rem] text-xs md:text-sm list-disc list-inside">
-            {service.items[0].description.map((desc, idx) => (
-              <li key={idx}>{desc}</li>
-            ))}
-          </ul>
-        </div>
-        {/* Si hay más de un item, se pueden iterar aquí de forma similar */}
-      </div>
-    ),
+    // Si tu JSON (en service.modalContent) tiene un campo 'description' para la descripción general
+    // que aparece debajo del título principal del modal, asígnalo aquí:
+    // description: service.modalContent.description,
+
+    // infoContent ya no debe incluir detalles del primer item ni repetir el título del modal.
+    // Se establece en null para que solo la lista de serviceItems (manejada por MakeUpCarouselSection)
+    // se muestre en la sección de información de la pestaña.
+    // Si tienes un texto introductorio general específico para la pestaña "Información"
+    // (que no sea el título del modal ni la lista de items), podrías obtenerlo de
+    // service.modalContent.algunaOtraPropiedad (ej. service.modalContent.tabIntroduction) y renderizarlo aquí.
+    infoContent: null,
     termsContent: termsContent(),
   };
 }

@@ -1,101 +1,110 @@
-/**
- * Componente para mostrar una imagen de fondo optimizada en el hero del Home.
- * Usa placeholder, overlay y soporta diferentes posiciones para móvil y desktop.
- *
- * @component
- * @param {Props} props - Props del hero, incluyendo clave de imagen, clases, overlay y posiciones.
- * @returns {JSX.Element}
- */
+// src/components/BackgroundImageHero.tsx
+
 import { FC, useState, useEffect } from "react";
-import images from "../../assets/images"; // Importamos el objeto images
-import { getImageObject } from "../../utils/getImageObject";
+import images from "../../assets/images";
 
 interface Props {
   className?: string;
-  imageKey: keyof typeof images; // Clave para la imagen en el objeto images
+  /** Key base en el objeto `images` (por ejemplo "bg-home2") */
+  imageKey: keyof typeof images;
+  /** Opacidad del overlay cuando la imagen carga (Tailwind class) */
   overlayOpacityClass?: string;
   alt?: string;
-   mobileObjectPositionClass?: string;
+  /** object-position en móvil (Tailwind class) */
+  mobileObjectPositionClass?: string;
+  /** object-position en desktop (Tailwind class) */
   desktopObjectPositionClass?: string;
 }
 
 const BackgroundImageHero: FC<Props> = ({
   className = "",
   imageKey,
-  alt = "Hero image",
+  alt = "Imagen Hero",
   overlayOpacityClass = "opacity-45",
   mobileObjectPositionClass = "object-center",
   desktopObjectPositionClass = "object-center",
 }) => {
-  const image = getImageObject(imageKey);
+  // Objeto desktop (e.g. "bg-home2")
+  const desktop = images[imageKey];
+  // Objeto mobile (key + "-m", e.g. "bg-home2-m")
+  const mobileKey = `${imageKey}m` as keyof typeof images;
+  const mobile = images[mobileKey];
+
   const [isLoaded, setIsLoaded] = useState(false);
 
-  if (!image) {
-    console.error("Error: Image key not found in images object", { imageKey });
+  if (!desktop || !mobile) {
+    console.error("Error: keys inválidas en images", { imageKey, mobileKey });
     return (
-      <div
-        className={`${className} fixed inset-x-0 top-0 h-[95vh] z-0 bg-red-500`}
-      >
+      <div className="fixed inset-0 h-[95vh] bg-red-500 z-0">
         Error al cargar imagen de fondo.
       </div>
     );
   }
 
-  const placeholderBgStyle = image.placeholder
-    ? { backgroundImage: `url("${image.placeholder}")` }
+  // Placeholder borroso como fondo inline
+  const placeholderStyle = desktop.placeholder
+    ? { backgroundImage: `url("${desktop.placeholder}")` }
     : {};
 
+  // Resetear estado de carga cuando cambie la key
   useEffect(() => {
-    // Resetea el estado isLoaded si imageKey cambia, para manejar posibles re-renderizados con diferentes imágenes.
     setIsLoaded(false);
   }, [imageKey]);
 
   return (
     <div
-      className={`${className} absolute inset-0 w-full h-full z-0 bg-center bg-cover`}
-      style={placeholderBgStyle} // Placeholder se aplica como fondo de este div
+      className={`absolute inset-0 w-screen h-[95vh] overflow-hidden z-0 ${className}`}
+      style={placeholderStyle}
     >
-      <picture>
-        {/* móvil primero */}
+      <picture className="absolute inset-0 w-full h-full">
+        {/* Mobile: max-width 639px */}
         <source
           media="(max-width: 639px)"
           type="image/avif"
-          srcSet={image.avif} // Usar la misma imagen para móvil
+          srcSet={mobile.avif}
         />
         <source
           media="(max-width: 639px)"
           type="image/webp"
-          srcSet={image.webp} // Usar la misma imagen para móvil
+          srcSet={mobile.webp}
         />
-        {/* desktop */}
+
+        {/* Desktop: min-width 640px */}
         <source
           media="(min-width: 640px)"
           type="image/avif"
-          srcSet={image.avif}
+          srcSet={desktop.avif}
         />
         <source
           media="(min-width: 640px)"
           type="image/webp"
-          srcSet={image.webp}
+          srcSet={desktop.webp}
         />
-        {/* fallback */}
+
+        {/* Fallback <img> */}
         <img
-          src={image.webp} // Fallback a WebP
+          src={desktop.webp}
           alt={alt}
-          className={`w-full h-full object-cover ${mobileObjectPositionClass} sm:${desktopObjectPositionClass} transition-opacity duration-500 ease-in-out ${
-            isLoaded ? "opacity-100" : "opacity-0" // Control de opacidad de la imagen principal
-          }`}
-          loading="lazy"
-          onLoad={() => setIsLoaded(true)} // Marcar como cargada cuando la imagen real esté lista
+          loading="eager"
+          onLoad={() => setIsLoaded(true)}
+          className={`
+            absolute inset-0 w-full h-full object-cover
+            ${mobileObjectPositionClass} sm:${desktopObjectPositionClass}
+            transition-opacity duration-500 ease-in-out
+            ${isLoaded ? "opacity-100" : "opacity-0"}
+          `}
         />
-        {/* Overlay oscuro sobre la imagen. Se muestra cuando la imagen principal está cargada. */}
-        <div
-          className={`absolute inset-0 w-full h-full bg-black transition-opacity duration-500 ease-in-out ${
-            isLoaded ? overlayOpacityClass : "opacity-0" // Control de opacidad del overlay
-          }`}
-          aria-hidden="true"
-        ></div>{" "}
       </picture>
+
+      {/* Overlay oscuro */}
+      <div
+        className={`
+          absolute inset-0 w-full h-full bg-black
+          transition-opacity duration-500 ease-in-out
+          ${isLoaded ? overlayOpacityClass : "opacity-0"}
+        `}
+        aria-hidden="true"
+      />
     </div>
   );
 };

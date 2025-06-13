@@ -44,6 +44,7 @@ const UGC: React.FC<UGCProps> = () => {
         <Suspense fallback={null}>
           <LazyHelmetProvider>
             <LazyHelmet>
+              {/* Título y descripción */}
               <title>
                 Creadora Contenido UGC Belleza | Zoily Carrero | Auténtica y
                 Creativa
@@ -52,6 +53,45 @@ const UGC: React.FC<UGCProps> = () => {
                 name="description"
                 content="Zoily Carrero: Creadora de contenido UGC especializada en belleza. Genero fotos y videos auténticos que conectan con tu audiencia. ¡Colaboremos!"
               />
+
+              {/* ––– Open Graph ––– */}
+              <meta
+                property="og:title"
+                content="Creadora Contenido UGC Belleza | Zoily Carrero | Auténtica y Creativa"
+              />
+              <meta
+                property="og:description"
+                content="Zoily Carrero: Creadora de contenido UGC especializada en belleza. Genero fotos y videos auténticos que conectan con tu audiencia. ¡Colaboremos!"
+              />
+              <meta
+                property="og:image"
+                content="https://zoilycarrero.web.app/img/zoilynegro.webp"
+              />
+              <meta
+                property="og:url"
+                content="https://zoilycarrero.web.app/ugc"
+              />
+              <meta property="og:type" content="website" />
+              <meta property="og:site_name" content="SoyZoilyCarrero MakeUp" />
+              <meta property="og:locale" content="es_CL" />
+
+              {/* ––– Twitter Card ––– */}
+              <meta name="twitter:card" content="summary_large_image" />
+              <meta
+                name="twitter:title"
+                content="Creadora Contenido UGC Belleza | Zoily Carrero | Auténtica y Creativa"
+              />
+              <meta
+                name="twitter:description"
+                content="Zoily Carrero: Creadora de contenido UGC especializada en belleza. Genero fotos y videos auténticos que conectan con tu audiencia. ¡Colaboremos!"
+              />
+              <meta
+                name="twitter:image"
+                content="https://zoilycarrero.web.app/img/zoilynegro.webp"
+              />
+
+              {/* ––– Canonical ––– */}
+              <link rel="canonical" href="https://zoilycarrero.web.app/ugc" />
             </LazyHelmet>
           </LazyHelmetProvider>
         </Suspense>

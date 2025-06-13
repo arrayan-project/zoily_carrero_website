@@ -1,7 +1,13 @@
 // src/pages/Home.tsx
 import { lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
-import {homeInfo,homeLinks,homeFeatures,homeBrands,galleryFeatures} from "../data/homeData"; // imageArrays no se usa directamente aquí ahora
+import {
+  homeInfo,
+  homeLinks,
+  homeFeatures,
+  homeBrands,
+  galleryFeatures,
+} from "../data/homeData"; // imageArrays no se usa directamente aquí ahora
 import { LazyHelmetProvider, LazyHelmet } from "../utils/LazyHelmet";
 import { useTheme } from "../components/context/themeContext";
 import HomeButton from "../components/buttons/HomeButton";
@@ -17,12 +23,19 @@ import HomeBrandsSkeleton from "../components/skeletons/Home/HomeBrandsSkeleton"
 import HomeFeaturesSkeleton from "../components/skeletons/Home/HomeFeaturesSkeleton";
 import HomeLinksSkeleton from "../components/skeletons/Home/HomeLinksSkeleton";
 
-const HomeLinksSection = lazy(() => import("../components/home/HomeLinksSection"));
-const HomeFeaturesSection = lazy(() => import("../components/home/HomeFeaturesSection"));
-const HomeBrandsSection = lazy(() => import("../components/home/HomeBrandsSection"));
-const HomeGallerySection = lazy(() => import("../components/home/HomeGallerySection"));
+const HomeLinksSection = lazy(
+  () => import("../components/home/HomeLinksSection")
+);
+const HomeFeaturesSection = lazy(
+  () => import("../components/home/HomeFeaturesSection")
+);
+const HomeBrandsSection = lazy(
+  () => import("../components/home/HomeBrandsSection")
+);
+const HomeGallerySection = lazy(
+  () => import("../components/home/HomeGallerySection")
+);
 const StatsSection = lazy(() => import("../components/StatsSection"));
-
 
 export default function Home() {
   const navigate = useNavigate();
@@ -80,14 +93,56 @@ export default function Home() {
         <Suspense fallback={null}>
           <LazyHelmetProvider>
             <LazyHelmet>
-              <title>Zoily Carrero MakeUp – Maquillaje Profesional y Cursos</title>
+              {/* Título y descripción */}
+              <title>
+                SoyZoilyCarrero MakeUp – Maquillaje Profesional y Cursos
+              </title>
               <meta
                 name="description"
                 content="Descubre el arte del maquillaje profesional con Zoily Carrero. Servicios personalizados, cursos de automaquillaje y UGC. ¡Agenda tu cita!"
               />
-          </LazyHelmet>
-        </LazyHelmetProvider>
-      </Suspense>
+
+              {/* ––– Open Graph ––– */}
+              <meta
+                property="og:title"
+                content="SoyZoilyCarrero MakeUp – Maquillaje Profesional y Cursos"
+              />
+              <meta
+                property="og:description"
+                content="Descubre el arte del maquillaje profesional con Zoily Carrero. Servicios personalizados, cursos de automaquillaje y UGC. ¡Agenda tu cita!"
+              />
+              <meta
+                property="og:image"
+                content="https://zoilycarrero.web.app/img/zoilynegro.webp"
+              />
+              <meta
+                property="og:url"
+                content="https://zoilycarrero.web.app/home"
+              />
+              <meta property="og:type" content="website" />
+              <meta property="og:site_name" content="SoyZoilyCarrero MakeUp" />
+              <meta property="og:locale" content="es_CL" />
+
+              {/* ––– Twitter Card ––– */}
+              <meta name="twitter:card" content="summary_large_image" />
+              <meta
+                name="twitter:title"
+                content="SoyZoilyCarrero MakeUp – Maquillaje Profesional y Cursos"
+              />
+              <meta
+                name="twitter:description"
+                content="Descubre el arte del maquillaje profesional con Zoily Carrero. Servicios personalizados, cursos de automaquillaje y UGC. ¡Agenda tu cita!"
+              />
+              <meta
+                name="twitter:image"
+                content="https://zoilycarrero.web.app/img/zoilynegro.webp"
+              />
+
+              {/* ––– Canonical ––– */}
+              <link rel="canonical" href="https://zoilycarrero.web.app/home" />
+            </LazyHelmet>
+          </LazyHelmetProvider>
+        </Suspense>
 
         {/* Secciones Home cargadas bajo demanda */}
         <Suspense fallback={null}>
@@ -100,8 +155,7 @@ export default function Home() {
           </LazySectionLoader>
 
           <LazySectionLoader>
-            <StatsSection >
-            </StatsSection> 
+            <StatsSection></StatsSection>
           </LazySectionLoader>
 
           <LazySectionLoader

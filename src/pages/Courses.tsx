@@ -59,6 +59,44 @@ function Services({}: ServicesProps) {
                   name="description"
                   content="Descubre los servicios de maquillaje (novias, social, quinceañera, glam, basico, full, eventos, piel madura, señoras) y cursos de automaquillaje ofrecidos por Zoily Carrero. ¡Transforma tu look o aprende nuevas técnicas!"
                 />
+                {/* ––– Open Graph ––– */}
+              <meta
+                property="og:title"
+                content="Servicios y Cursos de Maquillaje Profesional | Zoily Carrero"
+              />
+              <meta
+                property="og:description"
+                content="Descubre los servicios de maquillaje (novias, social, quinceañera, glam, basico, full, eventos, piel madura, señoras) y cursos de automaquillaje ofrecidos por Zoily Carrero. ¡Transforma tu look o aprende nuevas técnicas!"
+              />
+              <meta
+                property="og:image"
+                content="https://zoilycarrero.web.app/img/zoilynegro.webp"
+              />
+              <meta
+                property="og:url"
+                content="https://zoilycarrero.web.app/home"
+              />
+              <meta property="og:type" content="website" />
+              <meta property="og:site_name" content="SoyZoilyCarrero MakeUp" />
+              <meta property="og:locale" content="es_CL" />
+
+              {/* ––– Twitter Card ––– */}
+              <meta name="twitter:card" content="summary_large_image" />
+              <meta
+                name="twitter:title"
+                content="Servicios y Cursos de Maquillaje Profesional | Zoily Carrero"
+              />
+              <meta
+                name="twitter:description"
+                content="Descubre los servicios de maquillaje (novias, social, quinceañera, glam, basico, full, eventos, piel madura, señoras) y cursos de automaquillaje ofrecidos por Zoily Carrero. ¡Transforma tu look o aprende nuevas técnicas!"
+              />
+              <meta
+                name="twitter:image"
+                content="https://zoilycarrero.web.app/img/zoilynegro.webp"
+              />
+
+              {/* ––– Canonical ––– */}
+              <link rel="canonical" href="https://zoilycarrero.web.app/courses" />
               </LazyHelmet>
             </LazyHelmetProvider>
           </Suspense>

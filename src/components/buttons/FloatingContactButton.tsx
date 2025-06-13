@@ -13,10 +13,11 @@ import './FloatingContactButton.css';
 
 interface FloatingContactButtonProps {
   onClick: () => void;
+  positionVariant?: 'default' | 'scrollTopReplacement';
 }
 
 const FloatingContactButton = forwardRef<HTMLButtonElement, FloatingContactButtonProps>(
-  ({ onClick }, ref) => {
+  ({ onClick, positionVariant = 'default' }, ref) => {
     const [error, setError] = useState<string | null>(null);
 
     const handleClick = useCallback(() => {
@@ -39,15 +40,22 @@ const FloatingContactButton = forwardRef<HTMLButtonElement, FloatingContactButto
       );
     }
 
+    const baseContainerClasses = "fixed z-[1000] flex items-center justify-center";
+    let positionSpecificClasses = '';
+    if (positionVariant === 'scrollTopReplacement') {
+      positionSpecificClasses = "bottom-[10px] right-[10px] sm:bottom-[15px] sm:right-[15px] md:bottom-[20px] md:right-[20px]";
+    } else {
+      positionSpecificClasses = "bottom-[75px] right-[10px] sm:bottom-[90px] md:bottom-[90px] md:right-[20px]";
+    }
+
     return (
-      <div
-        className={`fixed z-[1000] flex items-center justify-center bottom-[75px] right-[10px] sm:bottom-[90px] md:bottom-[100px] md:right-[20px]`}
-      >
+      <div className={`${baseContainerClasses} ${positionSpecificClasses}`}>
         <button
           ref={ref}
           type="button"
           onClick={handleClick}
           aria-label="Abrir modal de contacto"
+          aria-haspopup="dialog"
           className={`
             flex justify-center items-center
             bg-[pink] text-white
@@ -56,13 +64,13 @@ const FloatingContactButton = forwardRef<HTMLButtonElement, FloatingContactButto
             transition duration-300 ease-in-out
             hover:bg-[#ff4081]
             animate-pulse
-            w-[40px] h-[40px] rounded-[6px]
-            sm:w-[50px] sm:h-[50px] sm:rounded-full
-            md:w-[60px] md:h-[60px]
+            w-[35px] h-[35px] rounded-[6px]
+            sm:w-[40px] sm:h-[40px] sm:rounded-full
+            md:w-[40px] md:h-[40px]
           `}
         >
           <Mail
-            className={`text-white w-[20px] h-[20px] md:w-[30px] md:h-[30px]`}
+            className={`text-white w-[15px] h-[15px] md:w-[15px] md:h-[15px]`}
           />
         </button>
       </div>

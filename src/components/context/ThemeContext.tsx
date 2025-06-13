@@ -1,7 +1,7 @@
 /**
  * 🌸 PALETA ROSA DORADO - Elegancia Moderna y Sofisticación Cálida
  */
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React, { createContext, useState, useEffect, useContext, useCallback, useMemo } from "react";
 
 type Theme = "light" | "dark";
 
@@ -94,46 +94,34 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window !== "undefined") {
-      try {
-        const storedTheme = localStorage.getItem("theme");
-        if (storedTheme === "light" || storedTheme === "dark") {
-          return storedTheme;
-        }
-      } catch (error) {
-        console.error("Error al acceder a localStorage:", error);
-      }
-    }
-    return "light";
+    const storedTheme = localStorage.getItem("theme");
+    return storedTheme === "dark" ? "dark" : "light";
   });
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
-  };
+  }, []);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      try {
-        localStorage.setItem("theme", theme);
-        document.body.className = theme;
-      } catch (error) {
-        console.error("Error al guardar en localStorage:", error);
-      }
-    }
+    localStorage.setItem("theme", theme);
+    document.body.className = theme;
+
     return () => {
-      if (typeof window !== "undefined") {
-        document.body.classList.remove(theme);
-      }
+      document.body.classList.remove(theme);
     };
   }, [theme]);
 
-  const value: ThemeContextType = {
+  const value = useMemo(() => ({
     theme,
     toggleTheme,
     colors: themeColors[theme],
-  };
+  }), [theme, toggleTheme]);
 
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+  return (
+    <ThemeContext.Provider value={value}>
+      {children}
+    </ThemeContext.Provider>
+  );
 };
 
 export const useTheme = () => {

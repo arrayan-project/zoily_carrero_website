@@ -33,4 +33,7 @@ export default {
     },
   },
   plugins: [],
+  build: {
+    cssCodeSplit: true,
+  },
 };

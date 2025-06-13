@@ -1,21 +1,12 @@
-/**
- * Hook de lógica para el carrusel de servicios.
- * Gestiona el índice principal, la lista de servicios y las transiciones animadas.
- *
- * @module ServicesCarouselLogic
- * @param {ServicesLogicProps} props - Props con el array inicial de servicios.
- * @returns {ServicesLogicReturn} Índice actual, servicios, función de transición y ref de transición.
- */
-import { useState, useRef } from "react";
-import { Service } from "../../types/ServiceInterfaces"; // Importamos Service
+import { useState, useRef, useCallback, useEffect } from "react";
+import { Service } from "../../types/ServiceInterfaces";
 
-// Duraciones de las animaciones (en milisegundos)
 const FADE_OUT_DURATION = 300;
 const FADE_IN_DURATION = 300;
-const TOTAL_TRANSITION_COOLDOWN = FADE_OUT_DURATION + FADE_IN_DURATION + 100; //
+const TOTAL_TRANSITION_COOLDOWN = FADE_OUT_DURATION + FADE_IN_DURATION + 100;
 
 interface ServicesLogicProps {
-  initialServiceItems: Service[]; // Usamos Service
+  initialServiceItems: Service[];
 }
 
 interface ServicesLogicReturn {
@@ -31,46 +22,49 @@ const ServicesLogic = ({
   initialServiceItems,
 }: ServicesLogicProps): ServicesLogicReturn => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentAnimationClass, setCurrentAnimationClass] = useState(""); // Clase para la animación del wrapper
-  // Mantenemos initialServiceItems como una referencia estable.
+  const [currentAnimationClass, setCurrentAnimationClass] = useState("");
   const serviceItems = initialServiceItems;
   const totalItems = serviceItems.length;
   const isTransitioning = useRef(false);
 
-  const handleServiceTransition = (direction: "next" | "prev") => {
+  const handleServiceTransition = useCallback((direction: "next" | "prev") => {
     if (isTransitioning.current || totalItems === 0) return;
     isTransitioning.current = true;
-    setCurrentAnimationClass("carousel-item-fade-out"); // Inicia fade-out
+    setCurrentAnimationClass("carousel-item-fade-out");
 
-    // Duración del fade-out antes de cambiar el contenido
-    setTimeout(() => {
+    const fadeOutTimer = setTimeout(() => {
       setCurrentIndex((prevIndex) => {
-        let newIndex = prevIndex;
-        if (direction === "next") {
-          newIndex = (prevIndex + 1) % totalItems;
-        } else if (direction === "prev") {
-          newIndex = (prevIndex - 1 + totalItems) % totalItems;
-        }
-        return newIndex;
+        return direction === "next"
+          ? (prevIndex + 1) % totalItems
+          : (prevIndex - 1 + totalItems) % totalItems;
       });
-      // El contenido se actualiza aquí debido a setCurrentIndex.
-      // Ahora, el nuevo contenido debe hacer fade-in.
-      setCurrentAnimationClass("carousel-item-fade-in"); // Esto quitará opacity-0 y permitirá el fade-in
+      setCurrentAnimationClass("carousel-item-fade-in");
     }, FADE_OUT_DURATION);
 
-    setTimeout(() => {
+    const cooldownTimer = setTimeout(() => {
       isTransitioning.current = false;
-      setCurrentAnimationClass(""); // Resetea la clase para que el item sea visible sin animar activamente
+      setCurrentAnimationClass("");
     }, TOTAL_TRANSITION_COOLDOWN);
-  };
+
+    return () => {
+      clearTimeout(fadeOutTimer);
+      clearTimeout(cooldownTimer);
+    };
+  }, [totalItems]);
+
+  useEffect(() => {
+    return () => {
+      isTransitioning.current = false;
+    };
+  }, []);
 
   return {
     currentIndex,
     currentItem: serviceItems[currentIndex],
     handleServiceTransition,
-    isTransitioning, // Mantener la referencia para control externo si es necesario
+    isTransitioning,
     totalItems,
-    currentAnimationClass, // Exponer la clase de animación
+    currentAnimationClass,
   };
 };
 

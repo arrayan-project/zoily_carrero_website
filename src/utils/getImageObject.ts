@@ -14,6 +14,8 @@ export interface ImageObject {
   webp: string;
   avif: string;
   placeholder: string;
+  width?: number;
+  height?: number;
 }
 
 export function getImageObject(imageKey: string): ImageObject {

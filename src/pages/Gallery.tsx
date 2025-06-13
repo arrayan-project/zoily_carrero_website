@@ -83,12 +83,58 @@ const Gallery = () => {
           <Suspense fallback={null}>
             <LazyHelmetProvider>
               <LazyHelmet>
+                {/* Título y descripción */}
                 <title>
                   Galería de Maquillaje Profesional | Zoily Carrero MakeUp
                 </title>
                 <meta
                   name="description"
                   content="Explora la galería de Zoily Carrero MakeUp. Descubre transformaciones impactantes, looks de novia, social y más. ¡Inspírate para tu próximo evento!"
+                />
+
+                {/* ––– Open Graph ––– */}
+                <meta
+                  property="og:title"
+                  content="Galería de Maquillaje Profesional | Zoily Carrero MakeUp"
+                />
+                <meta
+                  property="og:description"
+                  content="Explora la galería de Zoily Carrero MakeUp. Descubre transformaciones impactantes, looks de novia, social y más. ¡Inspírate para tu próximo evento!"
+                />
+                <meta
+                  property="og:image"
+                  content="https://zoilycarrero.web.app/img/zoilynegro.webp"
+                />
+                <meta
+                  property="og:url"
+                  content="https://zoilycarrero.web.app/gallery"
+                />
+                <meta property="og:type" content="website" />
+                <meta
+                  property="og:site_name"
+                  content="SoyZoilyCarrero MakeUp"
+                />
+                <meta property="og:locale" content="es_CL" />
+
+                {/* ––– Twitter Card ––– */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta
+                  name="twitter:title"
+                  content="Galería de Maquillaje Profesional | Zoily Carrero MakeUp"
+                />
+                <meta
+                  name="twitter:description"
+                  content="Explora la galería de Zoily Carrero MakeUp. Descubre transformaciones impactantes, looks de novia, social y más. ¡Inspírate para tu próximo evento!"
+                />
+                <meta
+                  name="twitter:image"
+                  content="https://zoilycarrero.web.app/img/zoilynegro.webp"
+                />
+
+                {/* ––– Canonical ––– */}
+                <link
+                  rel="canonical"
+                  href="https://zoilycarrero.web.app/gallery"
                 />
               </LazyHelmet>
             </LazyHelmetProvider>

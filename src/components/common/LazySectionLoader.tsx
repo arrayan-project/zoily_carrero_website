@@ -10,7 +10,7 @@ import React, { Suspense, ReactNode } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 interface LazySectionLoaderProps {
-  children: ReactNode; // El componente lazy que queremos cargar (ej: <Home />)
+  children?: ReactNode; // El componente lazy que queremos cargar (ej: <Home />)
   fallback?: ReactNode; // Lo que se muestra mientras carga (opcional)
   minHeight?: string;   // Altura mínima para reservar espacio (importante para evitar saltos)
   rootMargin?: string;  // Margen para empezar a cargar antes de que sea visible (opcional)

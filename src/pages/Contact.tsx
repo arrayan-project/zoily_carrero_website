@@ -50,6 +50,53 @@ function Contact({}: ContactProps) {
                   name="description"
                   content="¿Lista para tu transformación? Contacta con Zoily Carrero MakeUp para agendar tu cita de maquillaje profesional, cursos o colaboraciones UGC. ¡Hablemos!"
                 />
+
+                {/* ––– Open Graph ––– */}
+                <meta
+                  property="og:title"
+                  content="Contacta con Zoily Carrero MakeUp | Maquillaje Profesional"
+                />
+                <meta
+                  property="og:description"
+                  content="¿Lista para tu transformación? Contacta con Zoily Carrero MakeUp para agendar tu cita de maquillaje profesional, cursos o colaboraciones UGC. ¡Hablemos!"
+                />
+                <meta
+                  property="og:image"
+                  content="https://zoilycarrero.web.app/img/zoilynegro.webp"
+                />
+                {/* Ahora apuntamos a /contact */}
+                <meta
+                  property="og:url"
+                  content="https://zoilycarrero.web.app/contact"
+                />
+                <meta property="og:type" content="website" />
+                <meta
+                  property="og:site_name"
+                  content="SoyZoilyCarrero MakeUp"
+                />
+                <meta property="og:locale" content="es_CL" />
+
+                {/* ––– Twitter Card ––– */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta
+                  name="twitter:title"
+                  content="Contacta con Zoily Carrero MakeUp | Maquillaje Profesional"
+                />
+                <meta
+                  name="twitter:description"
+                  content="¿Lista para tu transformación? Contacta con Zoily Carrero MakeUp para agendar tu cita de maquillaje profesional, cursos o colaboraciones UGC. ¡Hablemos!"
+                />
+                <meta
+                  name="twitter:image"
+                  content="https://zoilycarrero.web.app/img/zoilynegro.webp"
+                />
+
+                {/* ––– Canonical ––– */}
+                {/* Ahora apuntamos a /contact */}
+                <link
+                  rel="canonical"
+                  href="https://zoilycarrero.web.app/contact"
+                />
               </LazyHelmet>
             </LazyHelmetProvider>
           </Suspense>

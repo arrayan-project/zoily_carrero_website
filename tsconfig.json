@@ -2,6 +2,9 @@
   "compilerOptions": {
     "strict": true,
     "baseUrl": "src",
+    "lib": ["esnext", "dom", "webworker"],
+    "moduleResolution": "node",
+    "skipLibCheck": true,
     "paths": {
       "*": ["*"]
     }
