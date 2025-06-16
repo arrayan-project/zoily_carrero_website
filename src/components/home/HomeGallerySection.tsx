@@ -31,7 +31,7 @@ const HomeGallerySection: React.FC<HomeGallerySectionProps> = ({
   gallery,
 }) => {
   const navigate = useNavigate();
-  const { colors } = useTheme();
+  const { colors, theme } = useTheme(); // Obtener 'theme' además de 'colors'
   const imageObject = getImageObject(imageKey);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -61,6 +61,20 @@ const HomeGallerySection: React.FC<HomeGallerySectionProps> = ({
   const handleViewMoreClick = () => {
     navigate("/gallery#gallery");
   };
+
+  // Determinar si el tema actual es claro con fondo blanco para ajustar estilos del botón
+  const isLightTheme = theme === 'light';
+
+  const buttonStyle: React.CSSProperties = {
+    minWidth: "fit-content",
+    borderColor: colors.bannerTitle,
+  };
+
+  if (isLightTheme) {
+    buttonStyle.backgroundColor = colors.accent; // Fondo del botón con color de acento
+    buttonStyle.borderColor = colors.accent;     // Borde del botón con color de acento
+    buttonStyle.color = colors.background;
+    }
 
   return (
     <section
@@ -96,10 +110,7 @@ const HomeGallerySection: React.FC<HomeGallerySectionProps> = ({
                       aria-label="Abrir Galería de imágenes"
                       onClick={handleViewMoreClick}
                       className={HOME_GALLERY_SECTION_BUTTON_CLASS}
-                      style={{
-                        minWidth: "fit-content",
-                        borderColor: colors.bannerTitle,
-                      }}
+                      style={buttonStyle}
                     >
                       VER MÁS
                     </button>

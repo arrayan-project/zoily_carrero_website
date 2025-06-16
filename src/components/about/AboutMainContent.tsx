@@ -17,29 +17,27 @@ const AboutMainContent: React.FC = React.memo(() => {
   const { description1, description2 } = aboutInfo || {};
 
   return (
-    <div className="lg:flex lg:items-start lg:justify-between lg:gap-8 flex-col-reverse lg:flex-row md:mt-24">
-      <section className="lg:w-3/5 lg:ml-32 pt-12">
-        <div className="max-w-lg">
-
-          <div className="prose prose-lg" style={{ color: colors.text }}>
+    // Parent component (About.tsx) now controls layout (e.g., width, column placement).
+    // This component focuses on rendering its specific content.
+    <section> {/* Removed layout-specific classes like lg:w-1/2, lg:ml-32, p-6 and the outer flex div */}
+        {/* The 'prose' class often defines its own max-width. mx-auto will center it. */}
+        <div className="prose prose-lg mx-auto" style={{ color: colors.text }}>
             {description1 && (
               <RevealWrapper animationClass="fade-in-text">
-                <p className={`${PARAGRAPH_CLASS} leading-relaxed`}>
+                <p className={`${PARAGRAPH_CLASS} leading-relaxed text-center lg:text-left`}>
                   {description1}
                 </p>
               </RevealWrapper>
             )}
             {description2 && (
               <RevealWrapper animationClass="fade-in-text">
-                <p className={`${PARAGRAPH_CLASS} mt-4 leading-relaxed`}>
+                <p className={`${PARAGRAPH_CLASS} mt-4 leading-relaxed text-center lg:text-left`}>
                   {description2}
                 </p>
               </RevealWrapper>
             )}
-          </div>
         </div>
       </section>
-    </div>
   );
 });
 

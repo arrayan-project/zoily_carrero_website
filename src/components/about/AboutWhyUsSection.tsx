@@ -10,7 +10,7 @@ import { CheckCircle } from '../../assets/icons';
 import { whyUsPoints, aboutInfo } from '../../data/aboutData';
 import { useTheme } from '../context/themeContext';
 import RevealWrapper from '../common/RevealWrapper';
-import { FONT_FAMILY_PRIMARY, FONT_WEIGHT_NORMAL, PARAGRAPH_CLASS, TEXT_CENTER } from '../../constants/styles'; // Assuming normal weight for this title
+import { FONT_FAMILY_PRIMARY, FONT_WEIGHT_NORMAL, PARAGRAPH_CLASS } from '../../constants/styles'; // Assuming normal weight for this title
 
 const AboutWhyUsSection: React.FC = React.memo(() => {
   const { colors } = useTheme();
@@ -19,13 +19,15 @@ const AboutWhyUsSection: React.FC = React.memo(() => {
   if (!whyUsPoints.length) return null;
 
   return (
-    <section className="mt-24 lg:mt-32 py-16 px-4 md:px-6 lg:px-8 xl:px-16 2xl:px-24">
-      <div className="max-w-screen-lg mx-auto">
+    // Parent component (About.tsx) now controls layout (e.g., width, column placement, vertical spacing via gap).
+    // This component focuses on rendering its specific content.
+    <section> {/* Removed padding/margin classes like py-16, p-6, lg:ml-32 */}
+      <div className="max-w-full mx-auto"> {/* Uses full width of its column. Or use max-w-lg/md etc. if a narrower block is desired */}
         {title && (
           <RevealWrapper animationClass="fade-in-text">
             <h3
-              // Using base font family, specific size, and TEXT_CENTER. Assuming normal weight.
-              className={`${FONT_FAMILY_PRIMARY} ${FONT_WEIGHT_NORMAL} text-2xl ${TEXT_CENTER} md:text-left mb-12`}
+              // Using base font family, specific size. Ensuring left alignment on all screens for consistency.
+              className={`${FONT_FAMILY_PRIMARY} ${FONT_WEIGHT_NORMAL} text-2xl text-center lg:text-left mb-12`}
               style={{ color: colors.accent }}
             >
               {title}
@@ -34,12 +36,12 @@ const AboutWhyUsSection: React.FC = React.memo(() => {
         )}
 
         <RevealWrapper animationClass="fade-in-text">
-          <ul className="space-y-4">
+          <ul className="space-y-4 mb-12">
             {whyUsPoints.map((point, index) => (
               <li key={`why-us-${index}`} className="flex items-center space-x-6">
                 <CheckCircle className="h-6 w-6 flex-shrink-0" style={{ color: colors.accent }} />
                 <p
-                  className={`${PARAGRAPH_CLASS} leading-relaxed`}
+                  className={`${PARAGRAPH_CLASS} leading-relaxed text-center lg:text-left`}
                   style={{ color: colors.text }}
                 >
                   {point}

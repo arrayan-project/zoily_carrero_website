@@ -50,7 +50,7 @@ const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({
 
   return (
     <section
-      className=" mb-16 md:mb-1" // Reducido el margen inferior
+      className="mb-16 md:mb-32" // Reducido el margen inferior
       style={{ backgroundColor: colors.background, color: colors.text }}
     >
       {/* Títulos y subtítulos */}

@@ -35,7 +35,6 @@ const HomeBrandsSection = lazy(
 const HomeGallerySection = lazy(
   () => import("../components/home/HomeGallerySection")
 );
-const StatsSection = lazy(() => import("../components/StatsSection"));
 
 export default function Home() {
   const navigate = useNavigate();
@@ -64,7 +63,7 @@ export default function Home() {
         }}
       >
         <Suspense fallback={<HomeHeroSkeleton />}>
-          <div className="relative w-full min-h-[100dvh] mb-10 md:mb-24 flex items-center justify-center">
+          <div className="relative w-full min-h-[100dvh] mb-4 md:mb-24 flex items-center justify-center">
             <BackgroundImageHero
               imageKey="backgroundHome2"
               alt="Maquillaje profesional Zoily Carrero"
@@ -152,10 +151,6 @@ export default function Home() {
             fallback={<HomeLinksSkeleton />}
           >
             <HomeLinksSection {...homeLinks} />
-          </LazySectionLoader>
-
-          <LazySectionLoader>
-            <StatsSection></StatsSection>
           </LazySectionLoader>
 
           <LazySectionLoader
