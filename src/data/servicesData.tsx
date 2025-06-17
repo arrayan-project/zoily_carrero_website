@@ -165,7 +165,7 @@ export async function getServiceByIndex(index: number): Promise<ModalContent> {
       // description: "Por favor, intente más tarde.", // Opcional: descripción de error
       infoContent: "La información para este servicio no está disponible.",
       termsContent: termsContent(), // O un mensaje de error específico para términos
-      serviceItems: [], // Asegurar que serviceItems sea un array vacío
+      serviceItems: [], // Asegurar que serviceItems sea un array vacío,
     };
   }
 
@@ -184,5 +184,6 @@ export async function getServiceByIndex(index: number): Promise<ModalContent> {
     // service.modalContent.algunaOtraPropiedad (ej. service.modalContent.tabIntroduction) y renderizarlo aquí.
     infoContent: null,
     termsContent: termsContent(),
+    galleryCategorySlug: service.modalContent.galleryCategorySlug,
   };
 }

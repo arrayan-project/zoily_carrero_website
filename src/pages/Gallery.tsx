@@ -1,5 +1,6 @@
 //src/pages/Gallery.tsx
-import { useState, lazy, Suspense, useRef } from "react";
+import { useState, lazy, Suspense, useRef, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom"; // Importar hooks de react-router-dom
 import { imageArrays } from "../assets/images";
 import { galleryTitle } from "../data/galleryData";
 import { useTheme } from "../components/context/themeContext";
@@ -30,8 +31,24 @@ const categoryMap: Record<string, string[]> = {
   Express: imageArrays.galleryExpressImages,
 };
 
+// Helper para normalizar texto a formato slug (minúsculas, guiones por espacios)
+const normalizeTextToSlug = (text: string = ""): string => text.toLowerCase().replace(/\s+/g, '-');
+
+// Helper para obtener el nombre de la categoría a partir de un slug normalizado
+const getCategoryNameFromSlug = (slug: string | undefined): string | undefined => {
+  if (!slug) return undefined;
+  const normalizedSlug = normalizeTextToSlug(slug); // Asegurarse que el slug de entrada también esté normalizado
+  return Object.keys(categoryMap).find(catName => normalizeTextToSlug(catName) === normalizedSlug);
+};
+
 const Gallery = () => {
-  const [activeCategory, setActiveCategory] = useState("Novia");
+  const { categorySlug } = useParams<{ categorySlug?: string }>(); // Leer el slug de la URL
+  const navigate = useNavigate(); // Hook para la navegación programática
+
+  // Determinar la categoría inicial basada en el slug de la URL o usar "Novia" como default
+  const initialCategoryName = getCategoryNameFromSlug(categorySlug) || "Novia";
+  const [activeCategory, setActiveCategory] = useState<string>(initialCategoryName);
+
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isModalTransitioning] = useState(false); // por si necesitas en el futuro
@@ -39,6 +56,27 @@ const Gallery = () => {
   const isMobileView = window.innerWidth <= 768;
   const { colors } = useTheme();
   const galleryRef = useRef<HTMLDivElement>(null);
+
+  // Efecto para sincronizar activeCategory con el categorySlug de la URL
+  useEffect(() => {
+    const categoryNameFromUrl = getCategoryNameFromSlug(categorySlug);
+
+    if (categorySlug) { // Si hay un slug en la URL
+      if (categoryNameFromUrl) { // Y es un slug de categoría válido
+        if (activeCategory !== categoryNameFromUrl) {
+          setActiveCategory(categoryNameFromUrl); // Sincronizar el estado interno
+        }
+      } else {
+        // Slug inválido en la URL, redirigir a la galería por defecto o a home
+        console.warn(`Slug de categoría desconocido: ${categorySlug}. Redirigiendo a galería por defecto.`);
+        navigate("/gallery", { replace: true }); // Redirige a /gallery (que mostrará "Novia")
+      }
+    } else { // No hay slug en la URL (ej. se navegó a /gallery)
+      if (activeCategory !== "Novia") { // Establecer la categoría por defecto
+        setActiveCategory("Novia");
+      }
+    }
+  }, [categorySlug, navigate, activeCategory]);
 
   const currentGalleryImages = categoryMap[activeCategory] || [];
 
@@ -148,14 +186,13 @@ const Gallery = () => {
             <GalleryCategoryMenu
               categories={Object.keys(categoryMap)}
               activeCategory={activeCategory}
-              onCategoryChange={(category) => {
-                setActiveCategory(category);
-                setTimeout(() => {
-                  galleryRef.current?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                  });
-                }, 100);
+              onCategoryChange={(newCategoryName) => {
+                const newSlug = normalizeTextToSlug(newCategoryName);
+                // Solo navegar si la categoría seleccionada es diferente a la activa (basado en slug)
+                if (normalizeTextToSlug(activeCategory) !== newSlug) {
+                  navigate(`/galeria/${newSlug}`, { replace: true });
+                }
+                // El useEffect se encargará de actualizar setActiveCategory basado en el cambio de URL
               }}
             />
           </Suspense>

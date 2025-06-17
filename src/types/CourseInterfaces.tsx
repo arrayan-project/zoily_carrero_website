@@ -4,7 +4,7 @@
  *
  * @module CourseInterfaces
  */
-import { ModalContent } from "../components/modals/ModalInterfaces";
+import { ModalContent } from "../components/modals/modalServ-Cour/ModalInterfacesServices";
 import images from "../assets/images"; // Importar images para usar keyof typeof images
 
 export interface CourseItem {

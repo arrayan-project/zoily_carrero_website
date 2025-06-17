@@ -48,7 +48,8 @@ const ModalContainer: React.FC<ModalContainerProps> = ({
         termsContent={modalContent.termsContent}
         description={modalContent.description}
         showTabs={modalContent.showTabs}
-        serviceItems={modalContent.serviceItems} // <-- Añadir esta línea
+        serviceItems={modalContent.serviceItems}
+        galleryCategorySlug={modalContent.galleryCategorySlug}
         onAnimationEnd={clearModalContent}
       >
         {modalContent.children}

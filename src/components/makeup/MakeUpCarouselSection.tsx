@@ -98,10 +98,17 @@ const MakeUpCarouselSection: React.FC = () => {
         currentIndex
       );
 
+      // Preparamos el infoContent para el modal usando la descripción del carrusel.
+      // Esto aparecerá en la pestaña "Información" antes de la lista de serviceItems.
+      const infoContentForModal = currentItem.description ? (
+        <p className="mb-6 text-sm md:text-base font-cinzel">{currentItem.description}</p>
+      ) : undefined;
+
       // 2. Construir el contenido final para el modal, asegurándonos de usar
       //    los `items` del `currentItem` que se está mostrando en el carrusel.
       const finalModalContent: ModalContentType = {
-        ...baseModalData, // Título, descripción general, imágenes del modal, infoContent, termsContent
+        ...baseModalData, // Esto trae title, images, galleryCategorySlug, y termsContent de getServiceByIndex
+        infoContent: infoContentForModal, // Sobrescribimos o establecemos infoContent aquí
         serviceItems: currentItem.items || [], // <-- Clave: Usar los items del servicio actual del carrusel
         showTabs: true,
         onClose: handleCloseModal,

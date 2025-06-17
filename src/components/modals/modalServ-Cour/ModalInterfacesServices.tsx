@@ -30,4 +30,5 @@ export interface ModalContent {
   children?: React.ReactNode; // Para modales personalizados sin tabs
   onClose?: () => void;
   serviceItems?: ServiceItem[]; // Array de items de servicio/curso
+  galleryCategorySlug?: string;
 }
