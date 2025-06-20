@@ -24,7 +24,7 @@ export interface ModalContent {
   images?: string[]; // Opcional, solo si hay imágenes/tab de imágenes
   title?: string;
   infoContent?: React.ReactNode;
-  termsContent?: React.ReactNode;
+  termsContent?: React.ComponentType | React.ReactNode;
   description?: string;
   showTabs?: boolean; // Para activar/desactivar tabs
   children?: React.ReactNode; // Para modales personalizados sin tabs

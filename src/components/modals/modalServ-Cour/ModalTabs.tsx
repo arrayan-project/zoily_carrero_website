@@ -20,7 +20,7 @@ interface ModalTabsProps {
   onTabSelect: (tab: ActiveTabType) => void;
   images?: string[];
   infoContent?: React.ReactNode;
-  termsContent?: React.ReactNode;
+  termsContent?: React.ComponentType | React.ReactNode;
   serviceItems?: ServiceItem[];
   title?: string; // For image alt text and potentially other uses
   galleryCategorySlug?: string;
@@ -128,39 +128,45 @@ const ModalTabs: React.FC<ModalTabsProps> = ({
         {activeTab === "Informacion" && (
           <div className="absolute top-0 left-0 w-full h-full tab-content-animation">
             <div className="mx-auto max-w-3xl text-left py-4">
+              {/* Renderiza infoContent si existe */}
               {infoContent}
-              <ServiceItemsList items={serviceItems} />
+              {/* Renderiza ServiceItemsList si hay items, independientemente de infoContent */}
+              {serviceItems && serviceItems.length > 0 && (
+                <ServiceItemsList items={serviceItems} />
+              )}
             </div>
           </div>
         )}
-        {activeTab === "Terminos" && (
+        {activeTab === "Terminos" && termsContent && (
           <div className="absolute top-0 left-0 w-full h-full tab-content-animation">
             <div className="mx-auto max-w-3xl text-left py-4">
-              {termsContent}
+              {typeof termsContent === 'function' ? React.createElement(termsContent as React.ComponentType) : termsContent}
             </div>
           </div>
         )}
         {activeTab === "Imagenes" && images && images.length > 0 && (
           <div className="absolute top-0 left-0 w-full h-full tab-content-animation flex flex-col items-center">
             {/* Contenedor para la imagen, para que el botón quede debajo */}
-            <div className="w-full flex-grow flex items-center justify-center">
+            <div className="w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto flex-grow flex items-center justify-center mb-4">
               {images.map((imageKey, index) => {
-                // Idealmente, aquí se mostraría una imagen a la vez o un carrusel
                 const imageObject = getImageObject(imageKey);
                 if (!imageObject) return null;
-                // Si hay múltiples imágenes, considera un carrusel o mostrar solo la primera.
-                // Por ahora, se mostrarán todas apiladas, lo cual no es ideal para múltiples imágenes.
-                // Para este ejemplo, asumiremos que solo se muestra la primera imagen o que el diseño maneja múltiples.
                 if (index === 0 || images.length === 1) {
-                  // Mostrando solo la primera imagen como ejemplo
                   return (
-                    <img
-                      key={index}
-                      src={imageObject.webp}
-                      alt={title || `Imagen ${index + 1}`}
-                      className="max-w-full max-h-[calc(24rem-4rem)] object-contain object-center" // Ajustar max-h para dejar espacio al botón
-                      loading="lazy"
-                    />
+                   <div 
+                      key={index} 
+                      className="w-full aspect-[3/4] overflow-hidden rounded-lg shadow-lg" 
+                      // style={{ maxHeight: 'calc(100% - 4rem)' }} // Puedes mantener esto si necesitas limitar la altura máxima
+                    >                      <img
+                        src={imageObject.webp}
+                        alt={title || `Imagen ${index + 1}`}
+                        className="w-full h-full object-cover object-center" // object-cover para llenar y recortar
+                        loading="lazy"
+                        // Para un aspect ratio específico, podrías añadir clases como aspect-[3/4] o aspect-[9/16] si usas Tailwind JIT
+                        // o definirlo en el div contenedor.
+                        // Por ahora, w-full h-full con object-cover en un contenedor con max-h la hará vertical si la imagen original lo permite.
+                      />
+                    </div>
                   );
                 }
                 return null;

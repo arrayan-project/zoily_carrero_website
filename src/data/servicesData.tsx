@@ -7,7 +7,8 @@
  *
  * @module servicesData
  */
-
+import React from "react";
+import { useTheme } from "../components/context/themeContext";
 import type { ModalContent } from "../components/modals/modalServ-Cour/ModalInterfacesServices";
 import type { Service } from "../types/ServiceInterfaces";
 
@@ -23,19 +24,20 @@ export function getServicesDescription(): string[] {
 }
 
 /**
- * termsContent:
+ * ServiceTermsContent:
  * Devuelve el JSX (React.ReactNode) con los Términos y Condiciones del servicio.
- * Esta función sigue viva aquí, porque genera contenido HTML/JSX en runtime.
+ * Ahora es un componente para acceder al tema.
  */
-export function termsContent(): JSX.Element {
+export const ServiceTermsContent: React.FC = () => {
+  const { colors } = useTheme();
   try {
     return (
       <div>
-        <h1 className="font-cinzel font-bold mb-8 text-sm md:text-base">
+        <h1 className="font-cinzel font-bold mb-8 text-sm md:text-base" style={{ color: colors.accent }}>
           Términos y Condiciones del Servicio
         </h1>
 
-        <h2 className="font-cinzel mb-2 text-xs md:text-base">
+        <h2 className="font-cinzel mb-2 text-xs md:text-base" style={{ color: colors.accent }}>
           Reservas y Pagos
         </h2>
         <ul className="list-disc pl-6 font-cinzel text-xs md:text-sm">
@@ -55,7 +57,7 @@ export function termsContent(): JSX.Element {
           </li>
         </ul>
 
-        <h2 className="font-cinzel mb-2 mt-6 text-base md:text-base">
+        <h2 className="font-cinzel mb-2 mt-6 text-base md:text-base" style={{ color: colors.accent }}>
           Condiciones del Servicio
         </h2>
         <ul className="list-disc pl-6 font-cinzel text-xs md:text-sm">
@@ -72,7 +74,7 @@ export function termsContent(): JSX.Element {
           </li>
         </ul>
 
-        <h2 className="font-cinzel mb-2 mt-6 text-base md:text-base">
+        <h2 className="font-cinzel mb-2 mt-6 text-base md:text-base" style={{ color: colors.accent }}>
           Pruebas y Atención en Estudio
         </h2>
         <ul className="list-disc pl-6 font-cinzel text-xs md:text-sm">
@@ -94,7 +96,7 @@ export function termsContent(): JSX.Element {
           </li>
         </ul>
 
-        <h2 className="font-cinzel mb-2 mt-6 text-base md:text-base">
+        <h2 className="font-cinzel mb-2 mt-6 text-base md:text-base" style={{ color: colors.accent }}>
           Servicio a Domicilio
         </h2>
         <ul className="list-disc pl-6 font-cinzel text-xs md:text-sm">
@@ -108,7 +110,7 @@ export function termsContent(): JSX.Element {
           </li>
         </ul>
 
-        <h2 className="font-cinzel mb-2 mt-6 text-base md:text-base">
+        <h2 className="font-cinzel mb-2 mt-6 text-base md:text-base" style={{ color: colors.accent }}>
           Recomendaciones
         </h2>
         <ul className="list-disc pl-6 font-cinzel text-xs md:text-sm">
@@ -164,7 +166,7 @@ export async function getServiceByIndex(index: number): Promise<ModalContent> {
       title: "Error",
       // description: "Por favor, intente más tarde.", // Opcional: descripción de error
       infoContent: "La información para este servicio no está disponible.",
-      termsContent: termsContent(), // O un mensaje de error específico para términos
+      termsContent: ServiceTermsContent, // O un mensaje de error específico para términos
       serviceItems: [], // Asegurar que serviceItems sea un array vacío,
     };
   }
@@ -183,7 +185,7 @@ export async function getServiceByIndex(index: number): Promise<ModalContent> {
     // (que no sea el título del modal ni la lista de items), podrías obtenerlo de
     // service.modalContent.algunaOtraPropiedad (ej. service.modalContent.tabIntroduction) y renderizarlo aquí.
     infoContent: null,
-    termsContent: termsContent(),
+    termsContent: ServiceTermsContent,
     galleryCategorySlug: service.modalContent.galleryCategorySlug,
   };
 }

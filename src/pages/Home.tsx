@@ -83,7 +83,7 @@ export default function Home() {
                 )}
               </div>
             </div>
-            <div className="absolute bottom-8 w-full flex justify-center z-10">
+            <div className="absolute bottom-36 w-full flex justify-center z-10">
               <ScrollDownArrow />
             </div>
           </div>

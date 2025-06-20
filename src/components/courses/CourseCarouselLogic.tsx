@@ -1,3 +1,4 @@
+// CourseCarouselLogic.tsx
 /**
  * Hook de lógica para el carrusel de cursos.
  * Gestiona el índice principal, la lista de cursos y las transiciones animadas.
@@ -6,13 +7,12 @@
  * @param {CourseLogicProps} props - Props con el array inicial de cursos.
  * @returns {CourseLogicReturn} Índice actual, cursos, función de transición y ref de transición.
  */
-import { useState, useRef } from 'react';
-import { Course } from '../../types/CourseInterfaces';
+import { useState, useRef, useCallback, useEffect } from "react";
+import { Course } from "../../types/CourseInterfaces";
 
-// Duraciones de las animaciones (en milisegundos)
-const FADE_OUT_DURATION = 300;
-const FADE_IN_DURATION = 300;
-const TOTAL_TRANSITION_COOLDOWN = FADE_OUT_DURATION + FADE_IN_DURATION + 100; //
+// Duración de la animación de deslizamiento (en milisegundos)
+// Asegúrate de que coincida con la duración definida en tu CSS (ej. 0.7s = 700ms)
+const SLIDE_ANIMATION_DURATION = 1200;
 
 interface CourseLogicProps {
   initialCourseItems: Course[];
@@ -21,56 +21,92 @@ interface CourseLogicProps {
 interface CourseLogicReturn {
   currentIndex: number;
   currentItem: Course | undefined;
-  handleCourseTransition: (direction: 'next' | 'prev') => void;
+  previousIndex: number | null;
+  previousItem: Course | undefined;
+  handleCourseTransition: (direction: "next" | "prev") => void;
   isTransitioning: React.MutableRefObject<boolean>;
-  totalItems: number;
-  currentAnimationClass: string;
+  animationClasses: { current: string; previous: string };
 }
 
-const CourseLogic = ({ 
+const CourseLogic = ({
   initialCourseItems,
- }: CourseLogicProps): CourseLogicReturn => {
+}: CourseLogicProps): CourseLogicReturn => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentAnimationClass, setCurrentAnimationClass] = useState(""); // Clase para la animación del wrapper
-  // Mantenemos initialServiceItems como una referencia estable.
+  const [direction, setDirection] = useState<"next" | "prev" | null>(null);
+  const [previousIndex, setPreviousIndex] = useState<number | null>(null);
   const courseItems = initialCourseItems;
   const totalItems = courseItems.length;
   const isTransitioning = useRef(false);
+  const animationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const handleCourseTransition = (direction: 'next' | 'prev') => {
-    if (isTransitioning.current || totalItems === 0) return;
-    isTransitioning.current = true;
-    setCurrentAnimationClass("carousel-item-fade-out"); // Inicia fade-out
+  const handleCourseTransition = useCallback(
+    (directionParam: "next" | "prev") => {
+      if (isTransitioning.current || totalItems === 0) return;
+      isTransitioning.current = true;
+      setDirection(directionParam);
+      setPreviousIndex(currentIndex); // El actual se convierte en el previo
 
-    setTimeout(() => {
       setCurrentIndex((prevIndex) => {
-        let newIndex = prevIndex;
-        if (direction === 'next') {
-          newIndex = (prevIndex + 1) % totalItems;
-        } else if (direction === 'prev') {
-          newIndex = (prevIndex - 1 + totalItems) % totalItems;
-        }
+        const newIndex =
+          directionParam === "next"
+            ? (prevIndex + 1) % totalItems
+            : (prevIndex - 1 + totalItems) % totalItems;
         return newIndex;
       });
-      // El contenido se actualiza aquí debido a setCurrentIndex.
-      // Ahora, el nuevo contenido debe hacer fade-in.
-      setCurrentAnimationClass("carousel-item-fade-in"); // Esto quitará opacity-0 y permitirá el fade-in
-    }, FADE_OUT_DURATION);
 
-    setTimeout(() => {
-      isTransitioning.current = false;
-      setCurrentAnimationClass(""); // Resetea la clase para que el item sea visible sin animar activamente
-    }, TOTAL_TRANSITION_COOLDOWN);
-  };
+      if (animationTimeoutRef.current)
+        clearTimeout(animationTimeoutRef.current);
+      animationTimeoutRef.current = setTimeout(() => {
+        isTransitioning.current = false;
+        setDirection(null);
+        setPreviousIndex(null); // Limpiar el índice previo después de la transición
+      }, SLIDE_ANIMATION_DURATION);
+    },
+    [totalItems, currentIndex]
+  ); // directionParam no es una dependencia porque se pasa como argumento
 
-  return { 
-    currentIndex, 
-    currentItem: courseItems[currentIndex], 
+  // Limpiar el timeout si el componente se desmonta
+  useEffect(() => {
+    return () => {
+      if (animationTimeoutRef.current) {
+        clearTimeout(animationTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const previousItem =
+    previousIndex !== null ? courseItems[previousIndex] : undefined;
+
+  let currentItemAnimClass = "active "; // Siempre activo si es el current
+  let previousItemAnimClass = "";
+  
+  if (direction === "next") {
+    currentItemAnimClass += "carousel-item-slide-in-from-right";
+    if (previousIndex !== null) {
+      previousItemAnimClass = "exiting carousel-item-slide-out-to-left";
+    }
+  } else if (direction === "prev") {
+    currentItemAnimClass += "carousel-item-slide-in-from-left";
+    if (previousIndex !== null) {
+      previousItemAnimClass = "exiting carousel-item-slide-out-to-right";
+    }
+  } else {
+    // Si no hay dirección de transición activa (estado inicial o después de la transición)
+    // No aplicamos animate-fadeIn aquí para evitar el flash post-transición.
+  }
+
+  return {
+    currentIndex,
+    currentItem: courseItems[currentIndex],
+    previousIndex,
+    previousItem,
     handleCourseTransition,
-    isTransitioning, // Mantener la referencia para control externo si es necesario
-    totalItems,
-    currentAnimationClass, // Exponer la clase de animación
-   };
+    isTransitioning,
+    animationClasses: {
+      current: currentItemAnimClass,
+      previous: previousItemAnimClass,
+    },
+  };
 };
 
 export default CourseLogic;

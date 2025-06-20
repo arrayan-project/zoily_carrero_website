@@ -1,10 +1,12 @@
 [
   {
+    "id": "novia",
     "category": "Novia",
     "imageKey": "novia",
     "description": "El servicio de maquillaje para novias incluye todo lo necesario para realzar tu belleza en el día más importante de tu vida.",
     "items": [
       {
+        "id": "novia-maquillaje-con-prueba",
         "name": "Maquillaje Novia (incluye prueba)",
         "price": "$90.000",
         "description": [
@@ -18,6 +20,7 @@
         ]
       },
       {
+        "id": "novia-maquillaje-domicilio-con-prueba",
         "name": "Maquillaje Novia a Domicilio (incluye prueba)",
         "price": "$110.000",
         "description": [
@@ -32,17 +35,20 @@
       }
     ],
     "modalContent": {
+      "id": "modal-novia",
       "images": ["novia"],
       "title": "Maquillaje Novia",
       "galleryCategorySlug": "novias"
     }
   },
   {
+    "id": "quinceanera",
     "category": "Quinceañera",
     "imageKey": "glam",
-    "description": "El maquillaje express es perfecto para quinceañeras que desean lucir jóvenes y frescas en su gran día.",
+    "description": "El maquillaje para quinceañera es perfecto para quinceañeras que desean lucir jóvenes y frescas en su gran día.",
     "items": [
       {
+        "id": "quinceanera-basic",
         "name": "Maquillaje Quinceañera Basic",
         "price": "$75.000.-",
         "description": [
@@ -54,6 +60,7 @@
         ]
       },
       {
+        "id": "quinceanera-full",
         "name": "Maquillaje y Peinado Quinceañera Full",
         "price": "$110.000.-",
         "description": [
@@ -69,17 +76,20 @@
       }
     ],
     "modalContent": {
+      "id": "modal-quinceanera",
       "images": ["glam"],
       "title": "Maquillaje Quinceañera",
-      "galleryCategorySlug": "quinceaneras"
+      "galleryCategorySlug": "quinceañera"
     }
   },
   {
+    "id": "glam",
     "category": "Glam",
     "imageKey": "glam2",
     "description": "Si buscas un look impactante y sofisticado, el maquillaje Glam es ideal para ti. ",
     "items": [
       {
+        "id": "glam-maquillaje",
         "name": "Maquillaje Glam",
         "price": "$45.000",
         "description": [
@@ -93,17 +103,20 @@
       }
     ],
     "modalContent": {
+      "id": "modal-glam",
       "images": ["glam2"],
       "title": "Maquillaje Glam",
       "galleryCategorySlug": "glam"
     }
   },
   {
+    "id": "piel-madura",
     "category": "Piel Madura",
     "imageKey": "pmadura",
     "description": "El servicio de maquillaje para piel madura es especial y cuidado, diseñado para realzar la belleza natural.",
     "items": [
       {
+        "id": "piel-madura-maquillaje",
         "name": "Maquillaje Piel Madura",
         "price": "$35.000",
         "description": [
@@ -117,17 +130,20 @@
       }
     ],
     "modalContent": {
+      "id": "modal-piel-madura",
       "images": ["pmadura"],
       "title": "Maquillaje Piel Madura",
       "galleryCategorySlug": "piel-madura"
     }
   },
   {
+    "id": "maquillaje-y-peinado",
     "category": "Maquillaje & Peinado",
     "imageKey": "m_peinado2",
     "description": "El servicio de maquillaje y peinado te ofrece una experiencia completa para realzar tu belleza.",
     "items": [
       {
+        "id": "maquillaje-y-peinado-completo",
         "name": "Maquillaje y Peinado",
         "price": "$60.000",
         "description": [
@@ -142,17 +158,20 @@
       }
     ],
     "modalContent": {
+      "id": "modal-maquillaje-y-peinado",
       "images": ["m_peinado2"],
       "title": "Maquillaje y Peinado",
       "galleryCategorySlug": "maquillaje-y-peinado"
     }
   },
   {
+    "id": "social",
     "category": "Social",
     "imageKey": "social",
     "description": "El servicio de maquillaje social es ideal para cualquier evento especial, donde desees lucir radiante y destacar tu belleza natural.",
     "items": [
       {
+        "id": "social-glam",
         "name": "Maquillaje Social Glam",
         "price": "$60.000.-",
         "description": [
@@ -163,6 +182,7 @@
         ]
       },
       {
+        "id": "social-soft-basic",
         "name": "Maquillaje Social Soft Basic",
         "price": "$38.000.-",
         "description": [
@@ -174,6 +194,7 @@
       }
     ],
     "modalContent": {
+      "id": "modal-social",
       "images": ["social"],
       "title": "Maquillaje Social",
       "galleryCategorySlug": "social"

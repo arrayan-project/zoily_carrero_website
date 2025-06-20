@@ -28,7 +28,7 @@ const categoryMap: Record<string, string[]> = {
   "Peinado + Maquillaje": imageArrays.galleryHairAndMakeupImages,
   "Piel madura": imageArrays.galleryMatureSkinImages,
   Glam: imageArrays.galleryGlamImages,
-  Express: imageArrays.galleryExpressImages,
+  Quinceañera: imageArrays.galleryQuinceañeraImages,
 };
 
 // Helper para normalizar texto a formato slug (minúsculas, guiones por espacios)

@@ -26,67 +26,49 @@ interface ThemeContextType {
 
 const themeColors: Record<Theme, ThemeColors> = {
   light: {
-    // Fondo principal - Blanco rosado muy suave, cálido y premium
-    background: "#FFFBFC",
-    
-    // Texto principal - Carbón suave con matices cálidos
-    text: "#2D2A2E",
-    
-    // Secciones - Rosa empolvado muy suave, elegante
-    section: "#FDF2F8",
-    
-    // Texto secundario - Gris rosado, sofisticado y cálido
-    secondaryText: "#78716C",
-    
-    // Color de acento - Rosa dorado, moderno y distintivo
-    accent: "#E11D48",
-    
-    // Hover - Rosa muy claro para interacciones delicadas
-    hover: "#FCE7F3",
-    
-    // Bordes - Rosa gris suave, delicado y refinado
-    border: "#F3D4DA",
-    
-    // Banner background - Overlay rosa muy sutil
-    bannerBackground: "rgba(253, 242, 248, 0.95)",
-    
-    // Título del banner - Rosa vibrante para impacto
-    bannerTitle: "#E11D48",
-    
-    // Overlay de imagen - Gris cálido para contraste suave
-    bannerImageOverlay: "rgba(45, 42, 46, 0.4)",
+    // Fondo principal - Blanco cálido muy sutil, base limpia y lujosa
+    background: "#FDFCFB", // Un blanco muy ligeramente cálido
+    // Texto principal - Carbón profundo, para legibilidad y sofisticación
+    text: "#2F2F2F", // Un gris muy oscuro, casi negro pero más suave
+    // Secciones - Un beige/gris muy claro, para separación sutil
+    section: "#F5F3F1", // Un tono ligeramente más oscuro que el fondo
+    // Texto secundario - Gris medio, para información menos prominente
+    secondaryText: "#7A7A7A",
+    // Color de acento - Dorado apagado/Bronce, para un toque de lujo discreto
+    accent: "#B08D57",
+    // Hover - Un gris muy claro o una versión más clara del color base del elemento
+    hover: "#EAE8E6", // Un tono más claro que 'section'
+    // Bordes - Un gris muy suave, casi imperceptible
+    border: "#E0DEDC",
+    // Banner background - Overlay del color de fondo principal con transparencia
+    bannerBackground: "rgba(253, 252, 251, 0.97)", // Muy sutil
+    // Título del banner - Puede usar el color de acento o el texto principal
+    bannerTitle: "#B08D57", // Acento dorado
+    // Overlay de imagen - Un gris oscuro translúcido para contraste
+    bannerImageOverlay: "rgba(47, 47, 47, 0.4)", // Basado en 'text'
   },
   
   dark: {
-    // Fondo principal - Gris muy oscuro con matices cálidos
-    background: "#161618",
-    
-    // Texto principal - Blanco rosado suave para calidez
-    text: "#FAF7F8",
-    
-    // Secciones - Gris oscuro con tinte rosado
-    section: "#2A2A2C",
-    
-    // Texto secundario - Rosa suave, cálido en oscuro
-    secondaryText: "#F9A8D4",
-    
-    // Color de acento - Rosa brillante, vibrante y moderno
-    accent: "#F472B6",
-    
-    // Hover - Gris medio con tinte rosado
-    hover: "#3F3F41",
-    
-    // Bordes - Gris rosado medio
-    border: "#57534E",
-    
-    // Banner background - Overlay gris oscuro cálido
-    bannerBackground: "rgba(22, 22, 24, 0.95)",
-    
-    // Título del banner - Rosa brillante
-    bannerTitle: "#FBCFE8",
-    
-    // Overlay de imagen - Negro cálido con tinte rosado
-    bannerImageOverlay: "rgba(22, 22, 24, 0.6)",
+    // Fondo principal - Carbón muy oscuro, base elegante y moderna
+    background: "#1A1A1A",
+    // Texto principal - Blanco hueso/Gris muy claro, para contraste suave
+    text: "#E0E0E0",
+    // Secciones - Un gris ligeramente más claro que el fondo
+    section: "#242424",
+    // Texto secundario - Gris claro/medio, para jerarquía visual
+    secondaryText: "#A0A0A0",
+    // Color de acento - Un dorado más brillante pero aún sofisticado para destacar en oscuro
+    accent: "#C8A770", // Un poco más brillante que el light accent
+    // Hover - Un gris un poco más claro que el color base del elemento
+    hover: "#333333", // Un tono más claro que 'section'
+    // Bordes - Un gris oscuro sutil
+    border: "#383838",
+    // Banner background - Overlay del color de fondo principal con transparencia
+    bannerBackground: "rgba(26, 26, 26, 0.97)", // Muy sutil
+    // Título del banner - Puede usar el color de acento o el texto principal
+    bannerTitle: "#C8A770", // Acento dorado para dark mode
+    // Overlay de imagen - Negro translúcido para profundidad
+    bannerImageOverlay: "rgba(0, 0, 0, 0.5)",
   },
 };
 

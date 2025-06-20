@@ -1,108 +1,78 @@
-/**
- * Estilos para el carrusel de servicios.
- * Estilos para un slider de una sola imagen con transición de fundido.
- *
- * @file ServicesCarousel.css
- */
+/* En MakeUpCarousel.css y CoursesCarousel.css */
 
-/* Contenedor principal del carrusel */
+/* Estilos del contenedor principal del carrusel de servicios */
 #services-carousel {
   position: relative;
   width: 100%;
-  height: 100vh; /* o la altura que necesites, ej. h-screen de Tailwind */
+  height: 100vh; /* O la altura que necesites */
   overflow: hidden; /* Muy importante para que no se vea nada fuera del slide actual */
+  background-color: #1A1A1A; /* Fondo oscuro para el contenedor principal */
 }
 
-/*
-  Wrapper exterior del slide (item-wrapper).
-  Este div persistirá y su opacidad se animará para el crossfade.
-  Inicialmente es transparente si no tiene clases de animación activas,
-  o se basa en la opacidad final de su animación.
-*/
 .item-wrapper {
   width: 100%;
   height: 100%;
-  /* Opacidad por defecto es 1, las animaciones la modificarán */
+  position: absolute; /* Clave: ambos items estarán posicionados absolutamente */
+  top: 0;
+  left: 0;
+  opacity: 0; /* Por defecto invisibles, las clases de animación controlan la opacidad */
+  will-change: transform, opacity; /* Optimización para animaciones */
+  backface-visibility: hidden; /* Puede ayudar a prevenir flickering */
+  transform: translateZ(0); /* Forzar capa de composición */
+  background-color: #1A1A1A; /* Un color oscuro, ej. el fondo de tu tema oscuro */
 }
 
-/* Estilo para el slide individual (.item dentro de .item-wrapper) */
-/* Usamos un selector más específico para evitar conflictos si '.item' es una clase genérica */
-/* Este .item ahora sería el .slide-content-wrapper > .item si sigues esa estructura,
-   o directamente el contenido si .item-wrapper es el único que anima opacidad
-   y el contenido interno se re-renderiza con key.
-   Para la última implementación, el .item-wrapper es el que tiene las clases
-   carousel-item-fade-out/in, y el .slide-content-wrapper (con key) tiene .animate-fadeIn.
-*/
-#services-carousel .slide-content-wrapper > .item { /* Asumiendo la estructura con slide-content-wrapper */
-  width: 100%;
-  height: 100%;
-  position: relative; /* Para posicionar la imagen y ServicesContent dentro */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+.item-wrapper.active {
+  opacity: 1;
+  z-index: 10; /* El item activo está encima */
+}
+
+.item-wrapper.exiting {
+  z-index: 5; /* El item que sale está debajo del que entra */
 }
 
 
-/*
-  Animación de fundido para el contenido interno de cada slide (slide-content-wrapper).
-  Esta se dispara cuando el key={currentIndex} cambia en slide-content-wrapper.
-*/
-@keyframes contentFadeInAnimation {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+/* --- Animaciones de Entrada --- */
+@keyframes slideInFromRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0%); opacity: 1; }
+}
+.carousel-item-slide-in-from-right {
+  animation: slideInFromRight 1.2s ease-in-out forwards;
+  opacity: 1; /* Asegurar que sea visible al final */
+  z-index: 10;
 }
 
-/* Clase que aplica la animación de fundido al contenido interno del slide */
-.animate-fadeIn {
-  animation: contentFadeInAnimation 0.7s ease-in-out forwards; /* 'forwards' mantiene el estado final */
+@keyframes slideInFromLeft {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0%); opacity: 1; }
+}
+.carousel-item-slide-in-from-left {
+  animation: slideInFromLeft 1.2s ease-in-out forwards;
+  opacity: 1; /* Asegurar que sea visible al final */
+  z-index: 10;
 }
 
-/* Animaciones para el crossfade del item-wrapper */
-@keyframes carouselItemFadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
+/* --- Animaciones de Salida --- */
+@keyframes slideOutToLeft {
+  from { transform: translateX(0%); opacity: 1; }
+  to { transform: translateX(-100%); opacity: 0; }
 }
-.carousel-item-fade-out {
-  animation: carouselItemFadeOut 0.3s ease-in-out forwards;
-}
-
-@keyframes carouselItemFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-.carousel-item-fade-in {
-  animation: carouselItemFadeIn 0.3s ease-in-out forwards;
+.carousel-item-slide-out-to-left {
+  animation: slideOutToLeft 1.2s ease-in-out forwards;
+  opacity: 0; /* Asegurar que sea invisible al final */
+  z-index: 5;
 }
 
-/* Animaciones para el contenido textual dentro de cada slide */
-#services-carousel .content .name,
-#services-carousel .content .description,
-#services-carousel .content button { /* Asumiendo que el botón "Ver más" también se anima así */
-  opacity: 0; /* Estado inicial para la animación */
-  animation: animateContent 1s ease-in-out forwards;
+@keyframes slideOutToRight {
+  from { transform: translateX(0%); opacity: 1; }
+  to { transform: translateX(100%); opacity: 0; }
+}
+.carousel-item-slide-out-to-right {
+  animation: slideOutToRight 1.2s ease-in-out forwards;
+  opacity: 0; /* Asegurar que sea invisible al final */
+  z-index: 5;
 }
 
-#services-carousel .content .description {
-  animation-delay: 0.3s;
-}
 
-#services-carousel .content button { /* Si el botón "Ver más" tiene esta animación */
-  animation-delay: 0.6s;
-}
-
-@keyframes animateContent {
-  from {
-    opacity: 0;
-    transform: translateY(20px); /* Sutilmente desde abajo */
-    filter: blur(5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-}
+/* ... (tus animaciones de texto existentes) ... */

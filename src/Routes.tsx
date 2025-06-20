@@ -27,7 +27,6 @@ export default function AppRoutes() {
         <Route path="/makeup" element={<MakeUp />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/gallery" element={<Gallery />} />
-        {/* Nueva ruta para manejar slugs de categoría en la galería */}
         <Route path="/galeria/:categorySlug" element={<Gallery />} />
         <Route path="/ugc" element={<UGC />} />
         <Route path="/store" element={<Store />} />

@@ -721,7 +721,7 @@ const imageArrays: ImageArray = {
     "glamG9",
     "glamG10",
   ],
-  galleryExpressImages: [
+  galleryQuinceañeraImages: [
     "xpressG1", 
     "xpressG2", 
     "xpressG3"

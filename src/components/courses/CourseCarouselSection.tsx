@@ -50,7 +50,9 @@ const CoursesCarouselSection: React.FC = () => {
     currentItem, 
     handleCourseTransition, 
     isTransitioning, 
-    currentIndex 
+    currentIndex,    
+    previousItem,
+    animationClasses,
   } = CoursesLogic({ initialCourseItems: itemsForLogic });
 
   // 5) Funciones para navegar. Deben definirse antes de usarlas en useSwipeNavigation.
@@ -119,22 +121,17 @@ const CoursesCarouselSection: React.FC = () => {
     openerRef.current?.focus();
   };
 
-  const imageObject = getImageObject(currentItem.imageKey);
-  const placeholderBgStyle = imageObject?.placeholder
-    ? { backgroundImage: `url("${imageObject.placeholder}")` }
-    : {};
+  // Helper para renderizar un slide
+  const renderSlide = (item: Course | undefined, animClass: string, isCurrent: boolean) => {
+    if (!item) return null;
+    const imageObject = getImageObject(item.imageKey);
+    const placeholderBgStyle = imageObject?.placeholder ? { backgroundImage: `url("${imageObject.placeholder}")` } : {};
+
 
   return (
-    <RevealWrapper animationClass="fade-in-animation">
-      <div
-        id="courses-carousel"
-        ref={carouselContainerRef} // Asignar la ref al contenedor principal del carrusel
-        className="relative w-full h-screen overflow-hidden" // Cambiado a overflow-hidden
-      >
-        {/* Contenedor para el slide actual, la key ayuda a React a animar el cambio */}
         <div
-          key={currentIndex}
-          className="item-wrapper w-full h-full animate-fadeIn" // Esta clase manejará la animación de entrada
+          key={item.id} // Usar un ID único del item para la key
+          className={`item-wrapper w-full h-full ${animClass}`}
         >
           {!imageObject ? (
             <div className="item-fallback w-full h-full bg-gray-300 flex items-center justify-center text-white">
@@ -149,9 +146,9 @@ const CoursesCarouselSection: React.FC = () => {
                 <source srcSet={imageObject.avif} type="image/avif" />
                 <source srcSet={imageObject.webp} type="image/webp" />
                 <img
-                  src={imageObject.webp}
-                  alt={currentItem.category} // Alt descriptivo
-                  className="absolute inset-0 w-full h-full object-cover -z-10" // Se quitó opacity-90
+                  src={imageObject.webp} // Fallback
+                  alt={item.category} // Alt descriptivo
+                  className="absolute inset-0 w-full h-full object-cover" // z-index se maneja en item-wrapper
                   loading={currentIndex === 0 ? "eager" : "lazy"} // Carga eager para el primer slide
                   width={1955}
                   height={1303}
@@ -160,45 +157,59 @@ const CoursesCarouselSection: React.FC = () => {
               {/* Velo oscuro sobre la imagen */}
               <div className="absolute inset-0 bg-black/30 z-0"></div>
 
-              <CoursesContent>
-                <div
-                  className={`name uppercase font-bold text-left ${GENERAL_PAGE_SUPERMAIN_TITLE_CLASS} md:text-5xl lg:text-6xl`}
-                >
-                  {currentItem.category}
-                </div>
-                <div
-                  className={`description text-left ${GENERAL_SECTION_SUPER_TITLE_CLASS} my-[20px] mb-[-80px]`}
-                >
-                  {currentItem.description}
-                </div>
-              </CoursesContent>
-              {/* Nueva Flecha "Ver más" */}
-              <button
-                aria-label={`Ver más sobre ${currentItem.category}`}
-                onClick={handleOpenModal}
-                className="absolute top-2/3 md:top-1/2 md:-translate-y-1/2 right-1 md:right-8 z-30 p-3 text-white opacity-75 hover:opacity-100 focus:opacity-100 rounded-full transition-all duration-300 ease-in-out transform hover:scale-110 focus:scale-110 focus:outline-none"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1} // Un poco más grueso para "grande"
-                  stroke="currentColor"
-                  className="w-16 h-16 md:w-24 md:h-24" // Tamaño de la flecha
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
-                  />
-                </svg>
-              </button>
+              {isCurrent && ( // Solo mostrar contenido y botón en el slide actual
+                <>
+                  <CoursesContent>
+                    <div
+                      className={`name uppercase font-bold text-left ${GENERAL_PAGE_SUPERMAIN_TITLE_CLASS} md:text-5xl lg:text-6xl`}
+                    >
+                      {item.category}
+                    </div>
+                    <div
+                      className={`description text-left ${GENERAL_SECTION_SUPER_TITLE_CLASS} my-[20px] mb-[-80px]`}
+                    >
+                      {item.description}
+                    </div>
+                  </CoursesContent>
+                  <button
+                    aria-label={`Ver más sobre ${item.category}`}
+                    onClick={handleOpenModal}
+                    className="absolute top-2/3 md:top-1/2 md:-translate-y-1/2 right-1 md:right-8 z-30 p-3 text-white opacity-75 hover:opacity-100 focus:opacity-100 rounded-full transition-all duration-300 ease-in-out transform hover:scale-110 focus:scale-110 focus:outline-none"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={0.5}
+                      stroke="currentColor"
+                      className="w-16 h-16 md:w-24 md:h-24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+                      />
+                    </svg>
+                  </button>
+                </>
+              )}
             </div>
           )}
         </div>
+    );
+  };
 
-        {/* La sección de precarga con div y src ha sido eliminada por ser ineficaz. */}
-        {/* La imagen principal ya tiene una estrategia de carga (eager/lazy). */}
+  return (
+    <RevealWrapper animationClass="fade-in-animation">
+      <div
+        id="courses-carousel"
+        ref={carouselContainerRef}
+        className="relative w-full h-screen overflow-hidden"
+      >
+        {/* Renderizar el slide previo si existe y está en transición */}
+        {previousItem && renderSlide(previousItem, animationClasses.previous, false)}
+        {/* Renderizar el slide actual */}
+        {currentItem && renderSlide(currentItem, animationClasses.current, true)}
 
         <CoursesCarouselNavigation onNext={handleNext} onPrev={handlePrev} />
       </div>

@@ -15,7 +15,7 @@ export interface Category {
     { name: "Peinado", value: "peinado" },
     { name: "Piel Madura", value: "pielMadura" },
     { name: "Glam", value: "glam" },
-    { name: "Express", value: "express" },
+    { name: "Quinceañera", value: "quinceañera" },
   ];
   
   export const galleryTitle = "MIRA NUESTROS TRABAJOS";

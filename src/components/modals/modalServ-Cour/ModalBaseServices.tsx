@@ -26,7 +26,7 @@ interface ModalBaseProps {
   description?: string;
   images?: string[];
   infoContent?: React.ReactNode;
-  termsContent?: React.ReactNode;
+  termsContent?: React.ComponentType | React.ReactNode;
   showTabs?: boolean;
   serviceItems?: ServiceItem[]; // Añadir la nueva prop
   children?: React.ReactNode;
@@ -200,7 +200,7 @@ const ModalBase: React.FC<ModalBaseProps> = ({
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            strokeWidth={1} // Ajustado para mejor visibilidad en tamaño pequeño
+            strokeWidth={0.5} // Ajustado para mejor visibilidad en tamaño pequeño
             stroke="currentColor"
             className="w-10 h-10 md:w-15 md:h-15 lg:w-20 lg:h-20" // Tamaño ajustado para el modal
           >

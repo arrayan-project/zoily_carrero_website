@@ -53,7 +53,7 @@ const BackgroundImageHero: FC<Props> = ({
 
   return (
     <div
-      className={`absolute inset-0 w-screen h-[95vh] overflow-hidden z-0 ${className}`}
+      className={`absolute inset-0 w-screen h-[85vh] overflow-hidden z-0 ${className}`}
       style={placeholderStyle}
     >
       <picture className="absolute inset-0 w-full h-full">

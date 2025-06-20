@@ -7,6 +7,8 @@
  *
  * @module coursesData
  */
+import React from "react";
+import { useTheme } from "../components/context/themeContext";
 import type { ModalContent } from "../components/modals/modalServ-Cour/ModalInterfacesServices";
 import { Course } from "../types/CourseInterfaces"; // Importamos Course y CourseItem
 
@@ -22,19 +24,20 @@ export function getCoursesDescription(): string[] {
 }
 
 /**
- * termsContent:
+ * CourseTermsContent:
  * Devuelve el JSX (React.ReactNode) con los Términos y Condiciones del curso.
- * Esta función sigue viva aquí, porque genera contenido HTML/JSX en runtime.
+ * Ahora es un componente para acceder al tema y renombrado para claridad.
  */
-export function termsContent(): JSX.Element {
+export const CourseTermsContent: React.FC = () => {
+  const { colors } = useTheme();
   try {
     return (
       <div>
-        <h1 className="font-cinzel font-bold mb-8 text-sm md:text-base">
+        <h1 className="font-cinzel font-bold mb-8 text-sm md:text-base" style={{ color: colors.accent }}>
           Términos y Condiciones del Curso
         </h1>
         <div>
-          <h2 className="font-cinzel font-bold mb-4 text-sm md:text-base">
+        <h2 className="font-cinzel mb-2 text-xs md:text-base" style={{ color: colors.accent }}>
             Materiales:
           </h2>
           <p className="font-cinzel mb-4 text-xs md:text-sm">
@@ -42,7 +45,7 @@ export function termsContent(): JSX.Element {
           </p>
         </div>
         <div>
-          <h2 className="font-cinzel font-bold mb-4 text-sm md:text-base">
+        <h2 className="font-cinzel mb-2 text-xs md:text-base" style={{ color: colors.accent }}>
             Requisitos:
           </h2>
           <p className="font-cinzel mb-4 text-xs md:text-sm">
@@ -91,8 +94,9 @@ export async function getCourseByIndex(index: number): Promise<ModalContent> {
       title: "Error",
       // description: "Por favor, intente más tarde.", // Opcional: descripción de error
       infoContent: "La información para este servicio no está disponible.",
-      termsContent: termsContent(), // O un mensaje de error específico para términos
-      serviceItems: [], // Asegurar que serviceItems sea un array vacío
+      termsContent: CourseTermsContent, // Usar el componente renombrado
+      serviceItems: course.items,
+
     };
   }
 
@@ -111,6 +115,7 @@ export async function getCourseByIndex(index: number): Promise<ModalContent> {
     // (que no sea el título del modal ni la lista de items), podrías obtenerlo de
     // service.modalContent.algunaOtraPropiedad (ej. service.modalContent.tabIntroduction) y renderizarlo aquí.
     infoContent: null,
-    termsContent: termsContent(),
+    termsContent: CourseTermsContent, // Usar el componente renombrado
+    serviceItems: [],
   };
 }

@@ -8,12 +8,14 @@ import { ModalContent } from "../components/modals/modalServ-Cour/ModalInterface
 import images from "../assets/images"; // Importar images para usar keyof typeof images
 
 export interface CourseItem {
+  id: string; // o number
   name: string;
   price: string;
   description: string[];
 }
 
 export interface Course {
+  id: string; // o number, asegúrate que sea único por curso
   category: string;
   imageKey: keyof typeof images; // Añadir la propiedad imageKey
   description?: string;
