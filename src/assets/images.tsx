@@ -11,9 +11,21 @@
 // Importa placeholders Base64 desde archivos .txt en src/assets/placeholders
 
 //Placeholders para About.tsx
-import about1Placeholder from "../assets/placeholders/about1-lqip.txt?raw";
-import about2Placeholder from "../assets/placeholders/about2-lqip.txt?raw";
-import about3Placeholder from "../assets/placeholders/about3-lqip.txt?raw";
+import about1Placeholder from "../assets/placeholders/cert1-lqip.txt?raw";
+import about2Placeholder from "../assets/placeholders/cert2-lqip.txt?raw";
+import about3Placeholder from "../assets/placeholders/cert3-lqip.txt?raw";
+import about4Placeholder from "../assets/placeholders/cert4-lqip.txt?raw";
+import about5Placeholder from "../assets/placeholders/cert5-lqip.txt?raw";
+import about6Placeholder from "../assets/placeholders/cert6-lqip.txt?raw";
+import about7Placeholder from "../assets/placeholders/cert7-lqip.txt?raw";
+import about8Placeholder from "../assets/placeholders/cert8-lqip.txt?raw";
+import about9Placeholder from "../assets/placeholders/cert9-lqip.txt?raw";
+import about10Placeholder from "../assets/placeholders/cert10-lqip.txt?raw";
+import about11Placeholder from "../assets/placeholders/cert11-lqip.txt?raw";
+import about12Placeholder from "../assets/placeholders/cert12-lqip.txt?raw";
+import about13Placeholder from "../assets/placeholders/cert13-lqip.txt?raw";
+import about14Placeholder from "../assets/placeholders/cert14-lqip.txt?raw";
+import about15Placeholder from "../assets/placeholders/cert15-lqip.txt?raw";
 
 //Placeholders para /services#courses
 import avanzadoPlaceHolder from "../assets/placeholders/avanzado-lqip.txt?raw";
@@ -297,19 +309,79 @@ const images: Record<string, Image> = {
 
   //Imagenes para About.tsx
   about1: {
-    avif: "/img/about/about1.avif",
-    webp: "/img/about/about1.webp",
+    avif: "/img/about/cert1.avif",
+    webp: "/img/about/cert1.webp",
     placeholder: about1Placeholder,
   },
   about2: {
-    avif: "/img/about/about2.avif",
-    webp: "/img/about/about2.webp",
+    avif: "/img/about/cert2.avif",
+    webp: "/img/about/cert2.webp",
     placeholder: about2Placeholder,
   },
   about3: {
-    avif: "/img/about/about3.avif",
-    webp: "/img/about/about3.webp",
+    avif: "/img/about/cert3.avif",
+    webp: "/img/about/cert3.webp",
     placeholder: about3Placeholder,
+  },
+    about4: {
+    avif: "/img/about/cert4.avif",
+    webp: "/img/about/cert4.webp",
+    placeholder: about4Placeholder,
+  },
+    about5: {
+    avif: "/img/about/cert5.avif",
+    webp: "/img/about/cert5.webp",
+    placeholder: about5Placeholder,
+  },
+    about6: {
+    avif: "/img/about/cert6.avif",
+    webp: "/img/about/cert6.webp",
+    placeholder: about6Placeholder,
+  },
+    about7: {
+    avif: "/img/about/cert7.avif",
+    webp: "/img/about/cert7.webp",
+    placeholder: about7Placeholder,
+  },
+    about8: {
+    avif: "/img/about/cert8.avif",
+    webp: "/img/about/cert8.webp",
+    placeholder: about8Placeholder,
+  },
+    about9: {
+    avif: "/img/about/cert9.avif",
+    webp: "/img/about/cert9.webp",
+    placeholder: about9Placeholder,
+  },
+    about10: {
+    avif: "/img/about/cert10.avif",
+    webp: "/img/about/cert10.webp",
+    placeholder: about10Placeholder,
+  },
+    about11: {
+    avif: "/img/about/cert11.avif",
+    webp: "/img/about/cert11.webp",
+    placeholder: about11Placeholder,
+  },
+    about12: {
+    avif: "/img/about/cert12.avif",
+    webp: "/img/about/cert12.webp",
+    placeholder: about12Placeholder,
+  },
+    about13: {
+    avif: "/img/about/cert13.avif",
+    webp: "/img/about/cert13.webp",
+    placeholder: about13Placeholder,
+  },
+    about14: {
+    avif: "/img/about/cert14.avif",
+    webp: "/img/about/cert14.webp",
+    placeholder: about14Placeholder,
+  },
+    about15: {
+    avif: "/img/about/cert15.avif",
+    webp: "/img/about/cert15.webp",
+    placeholder: about15Placeholder,
   },
 
   //Imagenes para logo

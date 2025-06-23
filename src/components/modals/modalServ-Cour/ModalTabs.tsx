@@ -65,13 +65,9 @@ const ModalTabs: React.FC<ModalTabsProps> = ({
             background:
               activeTab === "Informacion" ? colors.section : "transparent",
             color:
-              activeTab === "Informacion"
-                ? colors.accent
-                : colors.secondaryText,
+              activeTab === "Informacion" ? colors.accent : colors.secondaryText,
             borderBottom:
-              activeTab === "Informacion"
-                ? `2px solid ${colors.accent}`
-                : "none",
+              activeTab === "Informacion" ? `2px solid ${colors.accent}` : "none",
           }}
           onClick={() => onTabSelect("Informacion")}
           aria-label="Pestaña Informacion"
@@ -106,9 +102,7 @@ const ModalTabs: React.FC<ModalTabsProps> = ({
               color:
                 activeTab === "Imagenes" ? colors.accent : colors.secondaryText,
               borderBottom:
-                activeTab === "Imagenes"
-                  ? `2px solid ${colors.accent}`
-                  : "none",
+                activeTab === "Imagenes"  ? `2px solid ${colors.accent}` : "none",
             }}
             onClick={() => onTabSelect("Imagenes")}
             aria-label="Pestaña Imagen"
@@ -140,7 +134,9 @@ const ModalTabs: React.FC<ModalTabsProps> = ({
         {activeTab === "Terminos" && termsContent && (
           <div className="absolute top-0 left-0 w-full h-full tab-content-animation">
             <div className="mx-auto max-w-3xl text-left py-4">
-              {typeof termsContent === 'function' ? React.createElement(termsContent as React.ComponentType) : termsContent}
+              {typeof termsContent === "function"
+                ? React.createElement(termsContent as React.ComponentType)
+                : termsContent}
             </div>
           </div>
         )}
@@ -153,11 +149,13 @@ const ModalTabs: React.FC<ModalTabsProps> = ({
                 if (!imageObject) return null;
                 if (index === 0 || images.length === 1) {
                   return (
-                   <div 
-                      key={index} 
-                      className="w-full aspect-[3/4] overflow-hidden rounded-lg shadow-lg" 
+                    <div
+                      key={index}
+                      className="w-full aspect-[3/4] overflow-hidden rounded-lg shadow-lg"
                       // style={{ maxHeight: 'calc(100% - 4rem)' }} // Puedes mantener esto si necesitas limitar la altura máxima
-                    >                      <img
+                    >
+                      {" "}
+                      <img
                         src={imageObject.webp}
                         alt={title || `Imagen ${index + 1}`}
                         className="w-full h-full object-cover object-center" // object-cover para llenar y recortar

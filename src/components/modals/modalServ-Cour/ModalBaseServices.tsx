@@ -165,8 +165,6 @@ const ModalBase: React.FC<ModalBaseProps> = ({
         style={{
           background: colors.bannerBackground,
           color: colors.text,
-          // Considera eliminar el borde para un look de pantalla completa más limpio:
-          // border: `1px solid ${colors.border}`,
         }}
         onClick={(e) => e.stopPropagation()} // Evita que el clic en el modal cierre el modal.
       >

@@ -20,7 +20,7 @@ const BackgroundImageHero: FC<Props> = ({
   className = "",
   imageKey,
   alt = "Imagen Hero",
-  overlayOpacityClass = "opacity-45",
+  overlayOpacityClass = "opacity-60",
   mobileObjectPositionClass = "object-center",
   desktopObjectPositionClass = "object-center",
 }) => {
@@ -35,7 +35,7 @@ const BackgroundImageHero: FC<Props> = ({
   if (!desktop || !mobile) {
     console.error("Error: keys inválidas en images", { imageKey, mobileKey });
     return (
-      <div className="fixed inset-0 h-[95vh] bg-red-500 z-0">
+      <div className="fixed inset-0 h-[100vh] bg-red-500 z-0">
         Error al cargar imagen de fondo.
       </div>
     );
@@ -53,7 +53,7 @@ const BackgroundImageHero: FC<Props> = ({
 
   return (
     <div
-      className={`absolute inset-0 w-screen h-[85vh] overflow-hidden z-0 ${className}`}
+      className={`absolute inset-0 w-screen h-[100vh] overflow-hidden z-0 ${className}`}
       style={placeholderStyle}
     >
       <picture className="absolute inset-0 w-full h-full">

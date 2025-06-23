@@ -1,9 +1,10 @@
 /**
  * Sección "Por qué elegirnos" para la página "Sobre mí".
- * Muestra una lista de puntos destacados con íconos y animaciones, usando estilos adaptados al tema.
+ * Muestra un título y una lista de puntos destacados con íconos y animaciones.
+ * Los estilos se adaptan al tema actual de la aplicación.
  *
  * @component
- * @returns {JSX.Element | null}
+ * @returns {JSX.Element | null} La sección "Por qué elegirnos" o null si no hay puntos para mostrar.
  */
 import React from 'react';
 import { CheckCircle } from '../../assets/icons';

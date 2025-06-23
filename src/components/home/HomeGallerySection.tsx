@@ -121,7 +121,7 @@ const HomeGallerySection: React.FC<HomeGallerySectionProps> = ({
           </div>
 
           {/* Imagen optimizada */}
-          <div className="overflow-hidden">
+          <div className="overflow-hidden mb-24">
             <RevealWrapper animationClass="slide-in-right-animation">
               <div className="relative w-full" style={containerStyle}>
                 <picture className="absolute inset-0 w-full h-full">

@@ -1,9 +1,10 @@
 /**
- * Componente principal de contenido para la página "Sobre mí".
- * Muestra el título, descripciones y la imagen principal con animaciones y estilos adaptados al tema.
+ * Componente de contenido principal para la página "Sobre mí".
+ * Muestra los párrafos de descripción principales sobre Zoily Carrero.
+ * Utiliza animaciones de revelado y estilos del tema para una presentación elegante.
  *
  * @component
- * @returns {JSX.Element}
+ * @returns {JSX.Element} La sección de contenido principal con los textos descriptivos.
  */
 import React from 'react';
 import { aboutInfo } from '../../data/aboutData';

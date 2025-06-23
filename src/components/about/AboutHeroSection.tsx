@@ -1,4 +1,14 @@
 // src/components/about/AboutHeroSection.tsx
+/**
+ * Componente para la sección "Hero" de la página "Sobre Mí".
+ * Muestra una imagen de fondo a pantalla completa con un título y subtítulo superpuestos.
+ * Utiliza componentes reutilizables como `BackgroundImageHero` y `HomeTitle` para su construcción.
+ *
+ * @component
+ * @param {AboutHeroSectionProps} props - Propiedades para configurar el héroe.
+ * @property {HeroInfo} heroInfo - Objeto con el título, subtítulo y texto alternativo para la imagen.
+ * @returns {JSX.Element} La sección de héroe renderizada.
+ */
 import React, { Suspense, lazy } from 'react';
 import {
   ABOUT_HERO_TITLE_CLASS,

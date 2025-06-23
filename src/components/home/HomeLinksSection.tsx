@@ -55,7 +55,7 @@ const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({
     >
       {/* Títulos y subtítulos */}
       <div
-        className="container mx-auto text-center mb-8 md:mb-18"
+        className="container mx-auto text-center mt-24 mb-8 md:mb-18"
         style={{ color: colors.text }}
       >
         <RevealWrapper animationClass="fade-in-up-animation">
@@ -86,7 +86,7 @@ const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({
 
       <div className="w-full"> {/* Aseguramos que ocupe todo el ancho, margen inferior se maneja en la section */}
         {/* --- DESKTOP LAYOUT (md and up) --- */}
-        <div className="hidden md:grid md:grid-cols-2 md:h-[600px] lg:h-[1000px]">
+        <div className="hidden md:grid md:grid-cols-2 md:h-[90vh]">
           {/* Columna Izquierda: Servicios (asumiendo links[0]) */}
           {links[0] && (() => {
             const link = links[0];

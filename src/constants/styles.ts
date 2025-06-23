@@ -94,11 +94,11 @@ export const HOME_BRANDS_SECTION_TITLE_CLASS = `${FONT_FAMILY_PRIMARY} ${FONT_WE
 
 // Para la sección de Características en Home (HomeFeaturesSection.tsx)
 export const HOME_FEATURES_ITEM_TITLE_CLASS = `${PARAGRAPH_CLASS} ${FONT_WEIGHT_LIGHT} mb-4`;
-export const HOME_FEATURES_ITEM_DESCRIPTION_CLASS = `${FONT_FAMILY_PRIMARY} ${HEADING_5_CLASS}`;
+export const HOME_FEATURES_ITEM_DESCRIPTION_CLASS = `${FONT_FAMILY_PRIMARY} ${HEADING_5_CLASS} `;
 
 // Para la sección de Galería en Home (HomeGallerySection.tsx)
 export const HOME_GALLERY_SECTION_ITEM_TITLE_CLASS = `${HEADING_1_CLASS} ${FONT_FAMILY_PRIMARY} mb-12`;
-export const HOME_GALLERY_SECTION_ITEM_DESCRIPTION_CLASS = `${HEADING_5_CLASS} ${PARAGRAPH_CLASS} px-4 mb-12`;
+export const HOME_GALLERY_SECTION_ITEM_DESCRIPTION_CLASS = `${HEADING_5_CLASS} ${PARAGRAPH_CLASS} px-4 mb-12 text-justify`;
 export const HOME_GALLERY_SECTION_BUTTON_CLASS = `${HEADING_5_CLASS} ${FONT_FAMILY_PRIMARY} ${TEXT_SIZE_BASE} px-8 py-3 bg-white/20 backdrop-blur-sm text-white hover:bg-gray-200/80 hover:backdrop-blur-sm hover:text-black transition-colors duration-200`;
 
 

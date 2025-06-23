@@ -31,7 +31,7 @@ const ServiceItemsList: React.FC<ServiceItemsListProps> = ({ items }) => {
           className="service-item pb-4 border-b last:border-b-0"
           style={{ borderColor: colors.bannerTitle }}
         >
-          <h4 className="tex-base md:text-lg font-semibold mb-1 font-cinzel" style={{ color: colors.accent }}>
+          <h4 className="text-sm md:text-base font-semibold mb-1 font-cinzel" style={{ color: colors.accent }}>
             {item.name}
           </h4>
           <p className="text-sm md:text-md font-semibold mb-2 font-cinzel" style={{ color: colors.text }}>
@@ -39,7 +39,7 @@ const ServiceItemsList: React.FC<ServiceItemsListProps> = ({ items }) => {
           </p>
           {item.description && item.description.length > 0 && (
             <div className="mt-1">
-              <ul className="list-disc list-inside ml-4 md:text-sm space-y-1 font-cinzel" style={{ color: colors.text }}>
+              <ul className="list-disc list-inside ml-4 text-xs md:text-sm space-y-1 font-cinzel" style={{ color: colors.text }}>
                 {item.description.map((descPoint, pointIndex) => (
                   <li key={pointIndex}>{descPoint}</li>
                 ))}

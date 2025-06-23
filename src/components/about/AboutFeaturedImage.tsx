@@ -1,16 +1,29 @@
 // src/components/about/AboutFeaturedImage.tsx
+/**
+ * Componente para mostrar la imagen destacada en la página "Sobre Mí".
+ * Se encarga de la carga diferida (lazy loading) de la imagen, mostrando un esqueleto (skeleton)
+ * mientras la imagen se carga para mejorar la experiencia del usuario.
+ *
+ * @component
+ * @param {AboutFeaturedImageProps} props - Propiedades para la imagen destacada.
+ * @property {string} src - La URL de la imagen a mostrar.
+ * @property {string} alt - El texto alternativo para la imagen.
+ * @property {string} [minHeight] - Altura mínima para el contenedor del lazy loader.
+ * @returns {JSX.Element} El componente de imagen renderizado.
+ */
 import React, { Suspense } from 'react';
 import LazySectionLoader from '../common/LazySectionLoader';
+import { ImageObject } from '../../utils/getImageObject';
 
 interface AboutFeaturedImageProps {
-  src: string;
+  imageObject: ImageObject | null;
   alt: string;
   minHeight?: string; // Para LazySectionLoader
   skeletonMinHeightClass?: string; // Para el div del esqueleto
 }
 
 const AboutFeaturedImage: React.FC<AboutFeaturedImageProps> = React.memo(({
-  src,
+  imageObject,
   alt,
   minHeight = "400px",
   skeletonMinHeightClass = "h-[400px] lg:h-[600px]"
@@ -24,12 +37,16 @@ const AboutFeaturedImage: React.FC<AboutFeaturedImageProps> = React.memo(({
     >
       <Suspense fallback={skeleton}>
         <div className="w-full h-full min-h-[300px] md:min-h-[400px] lg:min-h-[500px] xl:min-h-[600px] rounded-lg shadow-xl overflow-hidden">
-          <img
-            src={src}
-            alt={alt}
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
+          <picture>
+            {imageObject?.avif && <source srcSet={imageObject.avif} type="image/avif" />}
+            {imageObject?.webp && <source srcSet={imageObject.webp} type="image/webp" />}
+            <img
+              src={imageObject?.webp || '/img/default-image.png'}
+              alt={alt}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </picture>
         </div>
       </Suspense>
     </LazySectionLoader>
