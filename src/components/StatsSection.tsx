@@ -7,6 +7,7 @@
  */
 "use client";
 import { PersonStanding, Brush, Handshake } from "../assets/icons";
+import { useTheme } from "./context/themeContext";
 import images from '../assets/images';
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 import { useCounterAnimation } from "../hooks/useCounterAnimation";
@@ -62,6 +63,7 @@ const StatItem: React.FC<StatItemProps> = ({
 };
 
 const StatsSection = () => {
+const { colors } = useTheme();
 const { ref, isVisible } = useRevealOnScroll({ threshold: 0.1 });
   const bannerRef = ref;
   const isBannerVisible = isVisible;
@@ -90,13 +92,14 @@ const { ref, isVisible } = useRevealOnScroll({ threshold: 0.1 });
   return (
     <section
       ref={bannerRef}
-      className="relative bg-rose-200 py-28 w-full overflow-hidden"
+      className="relative py-28 w-full overflow-hidden"
+      style={{ backgroundColor: colors.accent }}
     >
       <div className="absolute inset-0">
         <img
           src={images.zoilyblack.avif}
           alt="Fondo de estadísticas"
-          className="w-full h-full object-cover opacity-20 md:object-[50%_25%]"
+          className="w-full h-full object-cover opacity-45 md:object-[50%_25%]"
           loading="lazy"
         />
       </div>

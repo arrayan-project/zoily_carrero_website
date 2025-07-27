@@ -17,13 +17,10 @@ const Footer = () => {
   const Year = new Date().getFullYear();
 
   return (
-    <footer
-      className="relative bg-black text-white z-10"
-      style={{ color: colors.bannerTitle }}
-    >
+    <footer className="relative z-10">
       <div
         className="top-0 left-0 w-[100%]"
-        style={{ backgroundColor: colors.section }}
+        style={{ backgroundColor: colors.footerbackground }}
       >
         <svg
           data-name="Layer 1"
@@ -39,17 +36,18 @@ const Footer = () => {
             style={{ fill: colors.background }}
           ></path>
         </svg>
-        <div className="grid lg:grid-cols-4 gap-20 sm:grid-cols-1 px-10 py-10 md:px-20 md:py-20">
+        {/* Grilla principal: 1.5fr para la marca, 2.5fr para el resto, con un gap reducido */}
+        <div className="grid lg:grid-cols-[1.5fr_2.5fr] gap-10 sm:grid-cols-1 px-10 py-10 md:px-20 md:py-20">
           <div className="flex flex-col gap-5">
             <h2
-              className="text-xl text-pink-500 font-cinzel"
-              style={{ color: colors.bannerTitle }}
+              className="text-xl md:text-5xl text-pink-500 font-cinzel"
+              style={{ color: colors.text }}
             >
               SoyZoilyCarrero
             </h2>
             <p
               className="font-cinzel text-sm"
-              style={{ color: colors.bannerTitle }}
+              style={{ color: colors.secondaryText }}
             >
               Maquillaje profesional que se adapta a ti. Porque cada rostro
               tiene su historia, y yo estoy aquí para contarla con brochas y
@@ -57,120 +55,159 @@ const Footer = () => {
             </p>
           </div>
 
-          <div>
-            <h3
-              className="text-xl font-cinzel text-pink-500 py-2 uppercase"
-              style={{ color: colors.bannerTitle }}
-            >
-              Creatividad
-            </h3>
-            <ul className="list-none p-0 m-0">
-              <li className="my-4 font-cinzel text-sm">Guías & Ideas</li>
-              <li className="my-4 font-cinzel text-sm">Tips & Trucos</li>
-              <li className="my-4 font-cinzel text-sm">
-                <Link to="/gallery" className="hover:text-pink-300">
-                  Galería
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {/* Grilla anidada para las otras 3 columnas */}
+          <div className="grid md:grid-cols-3 gap-10 sm:grid-cols-1">
+            <div>
+              <h3
+                className="text-xl md:text-3xl font-cinzel text-pink-500 py-2 uppercase"
+                style={{ color: colors.text }}
+              >
+                Creatividad
+              </h3>
+              <ul className="list-none p-0 m-0">
+                <li
+                  className="my-4 font-cinzel text-sm"
+                  style={{ color: colors.text }}
+                >
+                  Guías & Ideas
+                </li>
+                <li
+                  className="my-4 font-cinzel text-sm"
+                  style={{ color: colors.text }}
+                >
+                  Tips & Trucos
+                </li>
+                <li className="my-4 font-cinzel text-sm">
+                  <Link
+                    to="/gallery"
+                    className="hover:text-pink-300 transition-colors"
+                    style={{ color: colors.text }}
+                  >
+                    Galería
+                  </Link>
+                </li>
+              </ul>
+            </div>
 
-          <div>
-            <h3
-              className="text-xl font-cinzel text-pink-500 py-2 uppercase"
-              style={{ color: colors.bannerTitle }}
-            >
-              Link Útiles
-            </h3>
-            <ul className="list-none p-0 m-0">
-              <li className="my-4 font-cinzel text-sm">
-                <Link to="/policy" className="hover:text-pink-300">
-                  Políticas de Privacidad
-                </Link>
-              </li>
-              <li className="my-4 font-cinzel text-sm">
-                <Link to="/terms" className="hover:text-pink-300">
-                  Terminos & Condiciones
-                </Link>
-              </li>
-              <li className="my-4 font-cinzel text-sm">
-                <Link to="/faq" className="hover:text-pink-300">
-                  FAQ
-                </Link>
-              </li>
-            </ul>
-          </div>
+            <div>
+              <h3
+                className="text-xl md:text-3xl font-cinzel text-pink-500 py-2 uppercase"
+                style={{ color: colors.text }}
+              >
+                Link Útiles
+              </h3>
+              <ul className="list-none p-0 m-0">
+                <li className="my-4 font-cinzel text-sm">
+                  <Link
+                    to="/policy"
+                    className="hover:text-pink-300 transition-colors"
+                    style={{ color: colors.text }}
+                  >
+                    Políticas de Privacidad
+                  </Link>
+                </li>
+                <li className="my-4 font-cinzel text-sm">
+                  <Link
+                    to="/terms"
+                    className="hover:text-pink-300 transition-colors"
+                    style={{ color: colors.text }}
+                  >
+                    Terminos & Condiciones
+                  </Link>
+                </li>
+                <li className="my-4 font-cinzel text-sm">
+                  <Link
+                    to="/faq"
+                    className="hover:text-pink-300 transition-colors"
+                    style={{ color: colors.text }}
+                  >
+                    FAQ
+                  </Link>
+                </li>
+              </ul>
+            </div>
 
-          <div className="mb-4 md:mb-0">
-            <h2
-              className="text-xl font-cinzel text-pink-500 py-2 uppercase"
-              style={{ color: colors.bannerTitle }}
-            >
-              Contacto
-            </h2>
-            <p className="text-sm my-4 font-cinzel">
-              Email: youremail@gmail.com
-            </p>
-            <p className="text-sm my-4 font-cinzel">
-              Teléfono: +1 113-456-7890{" "}
-            </p>
-            <div className="flex space-x-4 font-cinzel">
-              <a
-                href="URL_DE_TU_GITHUB"
-                aria-label="Github"
-                target="_blank"
-                rel="noopener noreferrer"
+            <div className="mb-4 md:mb-0">
+              <h2
+                className="text-xl md:text-3xl font-cinzel text-pink-500 py-2 uppercase"
+                style={{ color: colors.text }}
               >
-              <Suspense fallback={null}>
-                <Github
-                  size={24}
-                  strokeWidth={1.5}
-                  className="text-white hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out"
-                />
-              </Suspense>
-              </a>
-              <a
-                href="URL_DE_TU_LINKEDIN"
-                aria-label="LinkedIn"
-                target="_blank"
-                rel="noopener noreferrer"
+                Contacto
+              </h2>
+              <p
+                className="text-sm my-4 font-cinzel"
+                style={{ color: colors.text }}
               >
+                Email: youremail@gmail.com
+              </p>
+              <p
+                className="text-sm my-4 font-cinzel"
+                style={{ color: colors.text }}
+              >
+                Teléfono: +1 113-456-7890{" "}
+              </p>
+              <div className="flex space-x-4 font-cinzel">
+                <a
+                  href="URL_DE_TU_GITHUB"
+                  aria-label="Github"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                 <Suspense fallback={null}>
-                <Linkedin
-                  size={24}
-                  strokeWidth={1.5}
-                  className="text-white hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out"
-                />
+                  <Github
+                    size={24}
+                    strokeWidth={1.5}
+                    className="hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out"
+                    style={{ color: colors.text }}
+                  />
                 </Suspense>
-              </a>
-              <a
-                href="URL_DE_TU_TWITTER"
-                aria-label="Twitter"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Suspense fallback={null}>
-                <Twitter
-                  size={24}
-                  strokeWidth={1.5}
-                  className="text-white hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out"
-                />
-                </Suspense>
-              </a>
-              <a
-                href="URL_DE_TU_INSTAGRAM"
-                aria-label="Instagram"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Suspense fallback={null}>
-                <Instagram
-                  size={24}
-                  strokeWidth={1.5}
-                  className="text-white hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out"
-                />
-                </Suspense>
-              </a>
+                </a>
+                <a
+                  href="URL_DE_TU_LINKEDIN"
+                  aria-label="LinkedIn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Suspense fallback={null}>
+                  <Linkedin
+                    size={24}
+                    strokeWidth={1.5}
+                    className="hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out"
+                    style={{ color: colors.text }}
+                  />
+                  </Suspense>
+                </a>
+                <a
+                  href="URL_DE_TU_TWITTER"
+                  aria-label="Twitter"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Suspense fallback={null}>
+                  <Twitter
+                    size={24}
+                    strokeWidth={1.5}
+                    className="hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out"
+                    style={{ color: colors.text }}
+                  />
+                  </Suspense>
+                </a>
+                <a
+                  href="URL_DE_TU_INSTAGRAM"
+                  aria-label="Instagram"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Suspense fallback={null}>
+                  <Instagram
+                    size={24}
+                    strokeWidth={1.5}
+                    className="hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out"
+                    style={{ color: colors.text }}
+                  />
+                  </Suspense>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -203,7 +240,10 @@ const Footer = () => {
             </form>
           </div>
         </div>
-        <p className="text-center p-6">
+        <p
+          className="text-center p-6 font-cinzel"
+          style={{ color: colors.secondaryText }}
+        >
           &copy; Desarrollado con ♥ por ZoilyCarrero {Year}
         </p>
       </div>

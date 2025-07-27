@@ -12,7 +12,7 @@ const MakeUp = lazy(() => import("./pages/MakeUp"));
 const Courses = lazy(() => import("./pages/Courses"));
 const Gallery = lazy(() => import("./pages/Gallery"));
 const UGC = lazy(() => import("./pages/UGC"));
-const Store = lazy(() => import("./pages/Store"));
+const Shop = lazy(() => import("./pages/Shop"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const FAQ = lazy(() => import("./pages/FAQ"));
@@ -29,7 +29,7 @@ export default function AppRoutes() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/galeria/:categorySlug" element={<Gallery />} />
         <Route path="/ugc" element={<UGC />} />
-        <Route path="/store" element={<Store />} />
+        <Route path="/shop" element={<Shop />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/faq" element={<FAQ />} />

@@ -243,3 +243,16 @@
   -ms-overflow-style: none;  /* IE y Edge (versión antigua) */
   scrollbar-width: none;  /* Firefox */
 }
+
+/* Anillo de logo responsivo para UGCBrandsAlliances */
+.logo-ring {
+  outline-width: 1px;
+  outline-style: solid;
+  outline-offset: 6px; /* Distancia para móvil */
+}
+
+@media (min-width: 768px) { /* Breakpoint 'md' de Tailwind */
+  .logo-ring {
+    outline-offset: 12px; /* Distancia para desktop */
+  }
+}

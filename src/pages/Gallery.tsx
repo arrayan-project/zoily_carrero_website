@@ -3,6 +3,7 @@ import { useState, lazy, Suspense, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom"; // Importar hooks de react-router-dom
 import { imageArrays } from "../assets/images";
 import { galleryTitle } from "../data/galleryData";
+import { gallerySubtitle } from "../data/galleryData";
 import { useTheme } from "../components/context/themeContext";
 import { LazyHelmetProvider, LazyHelmet } from "../utils/LazyHelmet";
 import LazySectionLoader from "../components/common/LazySectionLoader";
@@ -179,7 +180,9 @@ const Gallery = () => {
           </Suspense>
 
           <Suspense fallback={<GalleryTitleSkeleton />}>
-            <GalleryTitle title={galleryTitle} />
+            <GalleryTitle 
+            title={galleryTitle}
+            subtitle={gallerySubtitle} />
           </Suspense>
 
           <Suspense fallback={<GalleryCategoryMenuSkeleton />}>

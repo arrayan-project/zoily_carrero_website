@@ -33,7 +33,7 @@ const LogoComponent: React.FC<LogoComponentProps> = ({ className, variant }) => 
 
   return (
     <Link
-      to="/"
+      to="/home"
       className={`block ${className || ''}`} // block para que tome dimensiones
       aria-label="Ir a la página de inicio"
     >

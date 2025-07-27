@@ -19,4 +19,5 @@ export interface Category {
   ];
   
   export const galleryTitle = "MIRA NUESTROS TRABAJOS";
+  export const gallerySubtitle = "— DETALLES";
   

@@ -19,7 +19,8 @@ import AboutFeaturedImage from './AboutFeaturedImage';
 import { ImageObject } from '../../utils/getImageObject';
 
 // Lazy load de los componentes de contenido
-const AboutMainContent = lazy(() => import('./AboutMainContent'));
+const AboutParagraphContent = lazy(() => import('./AboutParagraphContent'));
+const AboutTitlesContent = lazy(() => import('./AboutTitlesContent'));
 const AboutWhyUsSection = lazy(() => import('./AboutWhyUsSection'));
 
 interface AboutContentLayoutProps {
@@ -32,40 +33,47 @@ const AboutContentLayout: React.FC<AboutContentLayoutProps> = React.memo(({
   featuredImageAlt
 }) => {
   return (
-    <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 py-12 md:py-16">
-      {/* Left Column */}
-      <div className="lg:w-1/2 flex flex-col gap-8 md:gap-12">
-        <LazySectionLoader
-          minHeight="200px"
-          fallback={<AboutMainContentSkeleton />}
-        >
-          <Suspense fallback={<AboutMainContentSkeleton />}>
-            <AboutMainContent />
-          </Suspense>
-        </LazySectionLoader>
+    <div className="py-12 md:py-16">
+      {/* Títulos y "Por qué nosotros" en la columna izquierda */}
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+        <div className="lg:w-1/2 flex flex-col gap-8 md:gap-12">
+          <LazySectionLoader
+            minHeight="200px"
+            fallback={<AboutMainContentSkeleton />}
+          >
+            <Suspense fallback={<AboutMainContentSkeleton />}>
+              <AboutTitlesContent />
+            </Suspense>
+          </LazySectionLoader>
 
-        <LazySectionLoader
-          minHeight="200px"
-          fallback={<AboutWhyUsSkeleton />}
-        >
-          <Suspense fallback={<AboutWhyUsSkeleton />}>
-            <div className='mt-12'>
-              <AboutWhyUsSection />
-            </div>
-          </Suspense>
-        </LazySectionLoader>
+          <LazySectionLoader
+            minHeight="200px"
+            fallback={<AboutWhyUsSkeleton />}
+          >
+            <Suspense fallback={<AboutWhyUsSkeleton />}>
+              <div className='mt-12'>
+                <AboutWhyUsSection />
+              </div>
+            </Suspense>
+          </LazySectionLoader>
+        </div>
+        <div className="lg:w-1/2 flex justify-center z-10">
+          <AboutFeaturedImage imageObject={imageObject} alt={featuredImageAlt} />
+        </div>
       </div>
 
-      {/* Right Column - Image */}
-      {/* Removed items-center to allow the child to stretch vertically (items-stretch is default) */}
-      <div className="lg:w-1/2 flex justify-center">
-        <AboutFeaturedImage
-          imageObject={imageObject}
-          alt={featuredImageAlt}
-        />
+      {/* Párrafos adicionales debajo */}
+      <div className="mt-12 lg:mt-16">
+        <LazySectionLoader
+          minHeight="150px" // Ajusta según sea necesario
+          fallback={<AboutMainContentSkeleton />} // O un esqueleto más pequeño
+        >
+          <Suspense fallback={<AboutMainContentSkeleton />}>
+            <AboutParagraphContent />
+          </Suspense>
+        </LazySectionLoader>
       </div>
     </div>
   );
 });
-
 export default AboutContentLayout;

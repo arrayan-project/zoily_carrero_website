@@ -10,13 +10,11 @@ import { Suspense, useState, useCallback, lazy, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useTheme } from "../context/themeContext";
 import ThemeToggleButton from "../buttons/ThemeToggleButton";
-import LogoComponent from "../layout/LogoComponent";
-import FloatingContactButton from "../buttons/FloatingContactButton";
 import ContactUsModal from "../modals/ContactUsModal";
 import AppLoader from "../../components/loader/AppLoader";
 import { Helmet } from "react-helmet-async";
-
-const Navigation = lazy(() => import("../navigation/NavBarMenu"));
+import AppHeader from "./AppHeader";
+import CartSidebar from "../shop/CartSidebar";
 const AppRoutes = lazy(() => import("../../Routes"));
 const ScrollTopButton = lazy(() => import("../buttons/ScrollTopButton"));
 const Footer = lazy(() => import("../common/LazyFooter"));
@@ -24,16 +22,12 @@ const Footer = lazy(() => import("../common/LazyFooter"));
 export default function AppShell() {
   const { pathname } = useLocation();
 
-  const scrollTopEnabledRoutes = ["/home", "/gallery", "/ugc", "/store"];
+  const scrollTopEnabledRoutes = ["/home", "/gallery", "/ugc", "/shop"];
   const showScrollTopButton = scrollTopEnabledRoutes.includes(pathname);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = useCallback(() => setIsModalOpen(true), []);
   const closeModal = useCallback(() => setIsModalOpen(false), []);
   const { colors } = useTheme();
-
-  const forceDarkLogoRoutes = ["/ugc", "/store"];
-  const shouldForceDarkLogo = forceDarkLogoRoutes.includes(pathname);
 
   const forceLightLogoRoutes = ["/home", "/makeup", "/courses", "/about"]; // Actualizado
   const shouldForceLightLogo = forceLightLogoRoutes.includes(pathname);
@@ -60,18 +54,11 @@ export default function AppShell() {
           overflowX: "hidden",
         }}
       >
-        <div className="fixed top-4 left-4 z-[1001] flex flex-col items-center space-y-2">
-          <LogoComponent
-            variant={
-              shouldForceDarkLogo
-                ? "dark"
-                : shouldForceLightLogo
-                ? "light"
-                : undefined
-            }
-          />
-        </div>
-        <Navigation currentPathname={pathname} />
+        <AppHeader
+          pathname={pathname}
+          shouldForceLightLogo={shouldForceLightLogo}
+        />
+        <CartSidebar />
         <AppRoutes />
 
         {/* ScrollToTopButton: Renders if on an enabled route. Positions itself. */}
@@ -82,15 +69,6 @@ export default function AppShell() {
           {/* z-50 for wrapper, button itself has higher z-index */}
           <ThemeToggleButton />
         </div>
-
-        {/* FloatingContactButton: Positions itself based on whether ScrollTopButton is shown. */}
-        <FloatingContactButton
-          ref={floatingBtnRef}
-          onClick={openModal}
-          positionVariant={
-            showScrollTopButton ? "default" : "scrollTopReplacement"
-          }
-        />
         <Footer />
         {isModalOpen && (
           <ContactUsModal

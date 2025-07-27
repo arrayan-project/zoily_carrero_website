@@ -107,7 +107,8 @@ const UGC: React.FC<UGCProps> = () => {
         {/* UGC Content Title */}
         <Suspense fallback={<div className="h-32" />}>
           <UGCContentTitleSection
-            title="FOTOGRAFÍAS DE CONTENIDO UGC"
+            title="CONTENIDO UGC"
+            subtitle="— FOTOGRAFÍAS"
             description={[
               "Aquí podrás ver algunos ejemplos de fotografías de contenido UGC.",
               "Si te gusta lo que ves, no dudes en contactarme.",
@@ -150,7 +151,10 @@ const UGC: React.FC<UGCProps> = () => {
         </Suspense>
 
         <Suspense fallback={<div className="h-64" />}>
-          <UGCBrandsAlliances />
+          <UGCBrandsAlliances
+            title="ALGUNAS COLABORACIONES"
+            subtitle="— Alianzas"
+          />
         </Suspense>
 
         <Suspense fallback={<div className="h-24" />}>

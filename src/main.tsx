@@ -10,6 +10,7 @@ import React, { lazy, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+import { CartProvider } from './components/context/CartContext'; // 1. Importa el CartProvider
 import { ThemeProvider } from './components/context/themeContext';
 import './GlobalStyles.css';
 
@@ -20,11 +21,13 @@ createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <HelmetProvider>
       <ThemeProvider>
+        <CartProvider>
         <BrowserRouter>
           <Suspense fallback={null}>
             <AppShell />
           </Suspense>
         </BrowserRouter>
+        </CartProvider>
       </ThemeProvider>
     </HelmetProvider>
   </React.StrictMode>

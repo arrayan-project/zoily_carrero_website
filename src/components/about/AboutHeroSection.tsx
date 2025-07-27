@@ -34,7 +34,7 @@ interface AboutHeroSectionProps {
 const AboutHeroSection: React.FC<AboutHeroSectionProps> = React.memo(({ heroInfo }) => {
   return (
     <Suspense fallback={<AboutHeroSkeleton />}>
-      <div className="relative w-full h-screen flex items-center justify-center text-center">
+      <div className="relative w-full h-[80vh] flex items-center justify-center text-center mb-12 md:mb-24">
         <BackgroundImageHero
           imageKey="zoilynegrohero" // Podrías pasar esto como prop si varía
           alt={heroInfo.imageAlt}

@@ -1,26 +1,31 @@
 /**
  * Sección de galería en el Home.
- * Muestra información de la galería, imagen destacada y botón para ver más, con animaciones, placeholder
- * y formatos AVIF/WebP. Se asegura un contenedor con “padding-top hack” para reservar espacio y evitar CLS.
+ * Muestra información de la galería, imagen destacada y botón para ver más, con animaciones y estilos adaptados al tema.
  *
  * @component
+ * @param {HomeGallerySectionProps} props - Props del componente, incluyendo la imagen, alt y el array de galerías.
+ * @returns {JSX.Element}
  */
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import SmoothImage from "../smoothImages/SmoothImage";
 import RevealWrapper from "../common/RevealWrapper";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../components/context/themeContext";
 import {
-  HOME_GALLERY_SECTION_ITEM_TITLE_CLASS,
-  HOME_GALLERY_SECTION_ITEM_DESCRIPTION_CLASS,
-  HOME_GALLERY_SECTION_BUTTON_CLASS,
+  HEADING_4_CLASS,
+  FONT_FAMILY_PRIMARY,
+  PARAGRAPH_CLASS,
+  TEXT_SIZE_BASE,
 } from "../../constants/styles";
 import { getImageObject } from "../../utils/getImageObject";
 
 interface HomeGallerySectionProps {
   imageKey: string;
   alt: string;
+  subtitle3: string;
   gallery: {
     title: string;
+    title1: string;
     description: string;
   }[];
 }
@@ -28,140 +33,113 @@ interface HomeGallerySectionProps {
 const HomeGallerySection: React.FC<HomeGallerySectionProps> = ({
   imageKey,
   alt,
+  subtitle3,
   gallery,
 }) => {
   const navigate = useNavigate();
-  const { colors, theme } = useTheme(); // Obtener 'theme' además de 'colors'
+  const { colors } = useTheme();
   const imageObject = getImageObject(imageKey);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  if (!imageObject) {
-    console.error("Error: Image key not found in images object", { imageKey });
-    return null;
-  }
-
-  const { avif, webp, placeholder, width, height } = imageObject;
-
-  // Calcular padding-top en porcentaje para reservar espacio según proporción (height/width)
-  const paddingTopPercent =
-    width && height ? `${(height / width) * 100}%` : "56.25%"; // fallback 16:9
-
-  // Estilo inline para contenedor: placeholder + padding-top
-  const containerStyle: React.CSSProperties = {
-    backgroundImage: placeholder ? `url("${placeholder}")` : undefined,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    paddingTop: paddingTopPercent,
-  };
-
-  useEffect(() => {
-    setIsLoaded(false);
-  }, [imageKey]);
+  const [isButtonHovered, setButtonHovered] = useState(false);
 
   const handleViewMoreClick = () => {
     navigate("/gallery#gallery");
   };
 
-  // Determinar si el tema actual es claro con fondo blanco para ajustar estilos del botón
-  const isLightTheme = theme === 'light';
-
-  const buttonStyle: React.CSSProperties = {
-    minWidth: "fit-content",
-    borderColor: colors.bannerTitle,
-  };
-
-  if (isLightTheme) {
-    buttonStyle.backgroundColor = colors.accent; // Fondo del botón con color de acento
-    buttonStyle.borderColor = colors.accent;     // Borde del botón con color de acento
-    buttonStyle.color = colors.background;
-    }
-
   return (
     <section
-      className="py-1 md:py-1 md:px-1"
+      className={`py-4 md:py-16 md:px-4`}
       style={{ backgroundColor: colors.background, color: colors.section }}
     >
-      <div className="mx-auto w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
-          {/* Texto */}
-          <div className="flex flex-col items-center justify-center gap-8 text-center">
-            {gallery.map((galleryItem, index) => (
-              <div key={index} className="w-full">
-                <div className="px-6 py-8 flex flex-col items-center justify-center">
-                  <RevealWrapper animationClass="slide-in-left-animation">
-                    <h3
-                      className={HOME_GALLERY_SECTION_ITEM_TITLE_CLASS}
-                      style={{ color: colors.accent }}
-                    >
-                      {galleryItem.title}
-                    </h3>
-                  </RevealWrapper>
+      <div className={`mx-auto w-full`}>
+        {/* Usamos items-stretch para que ambas columnas tengan la misma altura */}
+        <div className="grid grid-cols-1 md:grid-cols-2 items-stretch gap-8">
+          {/* Columna de Texto: usamos flexbox para posicionar el título al final */}
+          <div className="relative z-0 flex flex-col py-8 pl-8 pr-4 md:pl-20 md:pr-10">
+            {/* Contenido principal que empuja el título hacia abajo */}
+            <div className="flex-grow">
+              {gallery.map((galleryItem, index) => (
+                <div key={index}>
                   <RevealWrapper animationClass="slide-in-left-animation">
                     <p
-                      className={HOME_GALLERY_SECTION_ITEM_DESCRIPTION_CLASS}
-                      style={{ color: colors.bannerTitle }}
+                      className={`${HEADING_4_CLASS} text-base mb-4`}
+                      style={{ color: colors.text }}
+                    >
+                      {subtitle3}
+                    </p>
+                  </RevealWrapper>
+                  <RevealWrapper animationClass="slide-in-left-animation">
+                    <h2
+                      className={`${FONT_FAMILY_PRIMARY} text-2xl lg:text-4xl xl:text-5xl`}
+                      style={{ color: colors.secondaryText }}
+                    >
+                      {galleryItem.title}
+                    </h2>
+                    <h2
+                      className={`${FONT_FAMILY_PRIMARY} text-2xl lg:text-4xl xl:text-5xl mb-12`}
+                      style={{ color: colors.text }}
+                    >
+                      {galleryItem.title1}
+                    </h2>
+                  </RevealWrapper>
+
+                  <RevealWrapper animationClass="slide-in-left-animation">
+                    <p
+                      className={`${PARAGRAPH_CLASS} mb-12`}
+                      style={{ color: colors.text }}
                     >
                       {galleryItem.description}
                     </p>
                   </RevealWrapper>
+
                   <RevealWrapper animationClass="slide-in-left-animation">
                     <button
                       type="button"
-                      aria-label="Abrir Galería de imágenes"
+                      aria-label="Abrir Galeria de imagenes"
                       onClick={handleViewMoreClick}
-                      className={HOME_GALLERY_SECTION_BUTTON_CLASS}
-                      style={buttonStyle}
+                      onMouseEnter={() => setButtonHovered(true)}
+                      onMouseLeave={() => setButtonHovered(false)}
+                      className={`px-12 border py-4 md:px-12 md:py-3 ${FONT_FAMILY_PRIMARY} ${TEXT_SIZE_BASE} transition-colors duration-300`}
+                      style={{
+                        minWidth: "fit-content",
+                        borderColor: colors.border,
+                        color: isButtonHovered
+                          ? colors.background
+                          : colors.text,
+                        backgroundColor: isButtonHovered
+                          ? colors.accent
+                          : "transparent",
+                      }}
                     >
                       VER MÁS
                     </button>
                   </RevealWrapper>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+
+            {/* Título decorativo al final de la columna */}
+            <div className="mt-auto pt-12">
+              <RevealWrapper animationClass="fade-in-up-animation">
+                <h3
+                  className={`${FONT_FAMILY_PRIMARY} text-4xl md:text-8xl lg:text-9xl whitespace-nowrap -ml-4`}
+                  style={{ color: `${colors.accent}20` }}
+                >
+                  {gallery[0]?.title} {gallery[0]?.title1}
+                </h3>
+              </RevealWrapper>
+            </div>
           </div>
 
-          {/* Imagen optimizada */}
-          <div className="overflow-hidden mb-24">
+          {/* Columna de Imagen: con z-index mayor para que se superponga al texto si es necesario */}
+          <div className="relative z-10 overflow-hidden">
             <RevealWrapper animationClass="slide-in-right-animation">
-              <div className="relative w-full" style={containerStyle}>
-                <picture className="absolute inset-0 w-full h-full">
-                  {/* Para pantallas pequeñas */}
-                  <source
-                    media="(max-width: 639px)"
-                    type="image/avif"
-                    srcSet={avif}
-                  />
-                  <source
-                    media="(max-width: 639px)"
-                    type="image/webp"
-                    srcSet={webp}
-                  />
-
-                  {/* Para pantallas ≥ 640px */}
-                  <source
-                    media="(min-width: 640px)"
-                    type="image/avif"
-                    srcSet={avif}
-                  />
-                  <source
-                    media="(min-width: 640px)"
-                    type="image/webp"
-                    srcSet={webp}
-                  />
-
-                  {/* Fallback */}
-                  <img
-                    src={webp}
-                    alt={alt}
-                    className={`absolute inset-0 w-full h-full object-cover rounded-base shadow-md
-                      transition-opacity duration-500 ease-in-out ${
-                        isLoaded ? "opacity-100" : "opacity-0"
-                      }`}
-                    loading="lazy"
-                    onLoad={() => setIsLoaded(true)}
-                  />
-                </picture>
-              </div>
+              <SmoothImage
+                src={imageObject.webp}
+                alt={alt}
+                className="w-full h-full object-cover rounded-base shadow-md transition-transform duration-500 ease-in-out hover:scale-110"
+                disableInternalTransition={true}
+                loading="lazy"
+              />
             </RevealWrapper>
           </div>
         </div>

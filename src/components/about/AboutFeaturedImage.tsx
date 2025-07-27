@@ -1,6 +1,6 @@
 // src/components/about/AboutFeaturedImage.tsx
 /**
- * Componente para mostrar la imagen destacada en la página "Sobre Mí".
+ * Componente para mostrar la imagen destacada de Zoily vistiendo una bata beige en la página "Sobre Mí".
  * Se encarga de la carga diferida (lazy loading) de la imagen, mostrando un esqueleto (skeleton)
  * mientras la imagen se carga para mejorar la experiencia del usuario.
  *
@@ -36,7 +36,7 @@ const AboutFeaturedImage: React.FC<AboutFeaturedImageProps> = React.memo(({
       fallback={skeleton}
     >
       <Suspense fallback={skeleton}>
-        <div className="w-full h-full min-h-[300px] md:min-h-[400px] lg:min-h-[500px] xl:min-h-[600px] rounded-lg shadow-xl overflow-hidden">
+        <div className="w-full h-full min-h-[300px] md:min-h-[400px] lg:min-h-[500px] xl:min-h-[600px] shadow-xl overflow-hidden ">
           <picture>
             {imageObject?.avif && <source srcSet={imageObject.avif} type="image/avif" />}
             {imageObject?.webp && <source srcSet={imageObject.webp} type="image/webp" />}

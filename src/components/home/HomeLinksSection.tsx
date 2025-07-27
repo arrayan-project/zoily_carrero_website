@@ -1,21 +1,8 @@
-/**
- * Sección de enlaces destacados en el Home.
- * Muestra un título, subtítulos y una grilla de enlaces con imágenes y animaciones.
- *
- * @component
- * @param {HomeLinksSectionProps} props - Props del componente, incluyendo título, subtítulos y array de enlaces.
- * @returns {JSX.Element}
- */
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import RevealWrapper from "../common/RevealWrapper";
 import { useTheme } from "../context/themeContext";
-import {
-  HOME_LINKS_SECTION_TITLE_CLASS,
-  HOME_LINKS_SECTION_SUBTITLE_CLASS,
-  HOME_LINKS_SECTION_SUBTITLE_DETAIL_CLASS,
-  HOME_LINKS_CARD_LABEL_CLASS,
-} from "../../constants/styles";
+import { HEADING_4_CLASS, FONT_FAMILY_PRIMARY } from "../../constants/styles";
 import { getImageObject } from "../../utils/getImageObject";
 
 interface Link {
@@ -30,193 +17,184 @@ interface Link {
 interface HomeLinksSectionProps {
   title: string;
   subtitle: string;
-  subtitle1: string;
   links: Link[];
 }
 
 const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({
   title,
   subtitle,
-  subtitle1,
   links,
 }) => {
   const navigate = useNavigate();
   const { colors } = useTheme();
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const [isAtStart, setIsAtStart] = useState(true);
+  const [isAtEnd, setIsAtEnd] = useState(false);
+  const [isLeftHovered, setIsLeftHovered] = useState(false);
+  const [isRightHovered, setIsRightHovered] = useState(false);
 
   const handleClick = (link: Link) => {
     const path = link.hash ? `${link.to}${link.hash}` : link.to;
     navigate(path);
   };
 
+  const handleScroll = (direction: "left" | "right") => {
+    if (sliderRef.current) {
+      const scrollAmount = sliderRef.current.clientWidth * 0.8; // aún desplazamos 80% del viewport
+      sliderRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  useEffect(() => {
+    const slider = sliderRef.current;
+    if (!slider) return;
+
+    const checkScrollPosition = () => {
+      const { scrollLeft, scrollWidth, clientWidth } = slider;
+      setIsAtStart(scrollLeft < 10);
+      setIsAtEnd(scrollLeft + clientWidth >= scrollWidth - 10);
+      if (scrollWidth <= clientWidth) setIsAtEnd(true);
+    };
+
+    checkScrollPosition();
+    slider.addEventListener("scroll", checkScrollPosition);
+    window.addEventListener("resize", checkScrollPosition);
+
+    return () => {
+      slider.removeEventListener("scroll", checkScrollPosition);
+      window.removeEventListener("resize", checkScrollPosition);
+    };
+  }, [links]);
+
   return (
     <section
-      className="mb-16 md:mb-32" // Reducido el margen inferior
+      className="py-16 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16"
       style={{ backgroundColor: colors.background, color: colors.text }}
     >
-      {/* Títulos y subtítulos */}
-      <div
-        className="container mx-auto text-center mt-24 mb-8 md:mb-18"
-        style={{ color: colors.text }}
-      >
-        <RevealWrapper animationClass="fade-in-up-animation">
-          <h2
-            className={HOME_LINKS_SECTION_TITLE_CLASS}
-            style={{ color: colors.accent }}
-          >
-            {title}
-          </h2>
-        </RevealWrapper>
-        <RevealWrapper animationClass="fade-in-up-animation">
-          <p
-            className={HOME_LINKS_SECTION_SUBTITLE_CLASS}
-            style={{ color: colors.bannerTitle }}
-          >
-            {subtitle}
-          </p>
-        </RevealWrapper>
-        <RevealWrapper animationClass="fade-in-up-animation">
-          <p
-            className={HOME_LINKS_SECTION_SUBTITLE_DETAIL_CLASS}
-            style={{ color: colors.bannerTitle }}
-          >
-            {subtitle1}
-          </p>
-        </RevealWrapper>
-      </div>
-
-      <div className="w-full"> {/* Aseguramos que ocupe todo el ancho, margen inferior se maneja en la section */}
-        {/* --- DESKTOP LAYOUT (md and up) --- */}
-        <div className="hidden md:grid md:grid-cols-2 md:h-[90vh]">
-          {/* Columna Izquierda: Servicios (asumiendo links[0]) */}
-          {links[0] && (() => {
-            const link = links[0];
-            const imageObject = getImageObject(link.imageKey);
-            if (!imageObject) return null;
-            return (
-              <div
-                key={link.id + "-desktop"}
-                onClick={() => handleClick(link)}
-                className="cursor-pointer group relative w-full h-full overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-center justify-center"
-              >
-                <img
-                  src={imageObject.webp}
-                  alt={link.alt}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  loading="lazy"
-                />
-                <div
-                  className="absolute inset-0 bg-black opacity-20 group-hover:opacity-50 transition-opacity duration-300"
-                />
-                <p className={`${HOME_LINKS_CARD_LABEL_CLASS} text-center !text-2xl md:!text-5xl text-white relative z-10 transition-transform duration-300 group-hover:scale-110`}
-                   style={{ textShadow: '0px 2px 4px rgba(0,0,0,0.7)' }}
-                >
-                  {link.label}
-                </p>
-              </div>
-            );
-          })()}
-
-          {/* Columna Derecha: Cursos y UGC (asumiendo links[1] y links[2]) */}
-          {links.length > 2 && (
-            <div className="flex flex-col h-full">
-              {/* Fila Superior Derecha: Cursos */}
-              {links[1] && (() => {
-                const link = links[1];
-                const imageObject = getImageObject(link.imageKey);
-                if (!imageObject) return null;
-                return (
-                  <div
-                    key={link.id + "-desktop"}
-                    onClick={() => handleClick(link)}
-                    className="cursor-pointer group relative w-full h-1/2 overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-center justify-center"
-                  >
-                    <img
-                      src={imageObject.webp}
-                      alt={link.alt}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                    <div
-                      className="absolute inset-0 bg-black opacity-20 group-hover:opacity-50 transition-opacity duration-300"
-                    />
-                    <p className={`${HOME_LINKS_CARD_LABEL_CLASS} text-center !text-xl md:!text-3xl text-white relative z-10 transition-transform duration-300 group-hover:scale-110`}
-                       style={{ textShadow: '0px 2px 4px rgba(0,0,0,0.7)' }}
-                    >
-                      {link.label}
-                    </p>
-                  </div>
-                );
-              })()}
-
-              {/* Fila Inferior Derecha: UGC */}
-              {links[2] && (() => {
-                const link = links[2];
-                const imageObject = getImageObject(link.imageKey);
-                if (!imageObject) return null;
-                return (
-                  <div
-                    key={link.id + "-desktop"}
-                    onClick={() => handleClick(link)}
-                    className="cursor-pointer group relative w-full h-1/2 overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-center justify-center"
-                  >
-                    <img
-                      src={imageObject.webp}
-                      alt={link.alt}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                    <div
-                      className="absolute inset-0 bg-black opacity-20 group-hover:opacity-50 transition-opacity duration-300"
-                    />
-                    <p className={`${HOME_LINKS_CARD_LABEL_CLASS} text-center !text-xl md:!text-3xl text-white relative z-10 transition-transform duration-300 group-hover:scale-110`}
-                       style={{ textShadow: '0px 2px 4px rgba(0,0,0,0.7)' }}
-                    >
-                      {link.label}
-                    </p>
-                  </div>
-                );
-              })()}
-            </div>
-          )}
+      <div className="flex justify-between items-start mb-8 md:mb-12 flex-nowrap gap-36">
+        {/* Títulos originales a la izquierda */}
+        <div className="text-left mb-8 md:mb-0 flex-shrink-0">
+          <RevealWrapper animationClass="fade-in-up-animation">
+            <p className={`${HEADING_4_CLASS} text-base mb-4`} style={{ color: colors.text }}>
+              {subtitle}
+            </p>
+          </RevealWrapper>
+          <RevealWrapper animationClass="fade-in-up-animation">
+                <h2 className={`${FONT_FAMILY_PRIMARY} text-2xl lg:text-4xl xl:text-5xl`} style={{ color: colors.text }}>
+              {title}
+            </h2>
+          </RevealWrapper>
         </div>
 
-        {/* --- MOBILE LAYOUT (sm and down) --- */}
-        {/* Se mantiene el layout móvil original ya que la solicitud se centró en el de escritorio 
-            y el móvil ya tiene un diseño diferente que podría ser intencional.
-            Si deseas cambiar el móvil también para que el texto esté centrado en la imagen,
-            se necesitarían ajustes similares a los del escritorio.
-        */}
-        <div className="md:hidden grid grid-cols-1"> {/* Aumentado el gap para móvil */}
-          {links.map((link, ) => {
-            const imageObject = getImageObject(link.imageKey);
-            if (!imageObject) return null;
-
+        {/* Título grande a la derecha */}
+        <div className="text-right">
+          <RevealWrapper animationClass="fade-in-up-animation">
+            <h3 className={`${FONT_FAMILY_PRIMARY} text-4xl md:text-9xl whitespace-nowrap`} 
+                style={{ color:  `${colors.accent}20` }}
+                >{title}</h3>
+          </RevealWrapper>
+        </div>
+      </div>
+        {/* Vista para Móvil */}
+        <div className="grid grid-cols-1 md:hidden gap-8">
+          {links.map((link) => {
+            const img = getImageObject(link.imageKey);
             return (
-              <div
-                key={link.id + "-mobile"}
-                onClick={() => handleClick(link)}
-                className="cursor-pointer group relative w-full h-[60vw] sm:h-[50vw] overflow-hidden shadow-lg flex items-center justify-center"
-              >
-                <img
-                  src={imageObject.webp}
-                  alt={link.alt}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  loading="lazy"
-                />
-                <div
-                  className="absolute inset-0 bg-black opacity-20 group-hover:opacity-50 transition-opacity duration-300"
-                />
-                <p
-                  className={`${HOME_LINKS_CARD_LABEL_CLASS} !text-xl text-white relative z-10 transition-transform duration-300 group-hover:scale-110 text-center px-4`}
-                  style={{ textShadow: '0px 1px 3px rgba(0,0,0,0.7)' }}
-                >
-                  {link.label}
-                </p>
-              </div>
+              <RevealWrapper key={link.id} animationClass="fade-in-up-animation">
+                <div className="cursor-pointer group" onClick={() => handleClick(link)}>
+                  <div className="w-full aspect-[5/3] overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                    <img
+                      src={img.webp}
+                      alt={link.alt}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                  </div>
+                  <p
+                    className={`${FONT_FAMILY_PRIMARY} text-lg mt-4 text-left`}
+                    style={{ color: colors.text }}
+                  >
+                    {link.label}
+                  </p>
+                </div>
+              </RevealWrapper>
             );
           })}
         </div>
-      </div>
+
+        {/* Vista para Escritorio (Slider) */}
+        <div className="hidden md:block relative">
+          <div
+            ref={sliderRef}
+            className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar"
+          >
+            {links.map((link) => {
+              const img = getImageObject(link.imageKey);
+              return (
+                <div
+                  key={link.id}
+                  className="flex-shrink-0 w-full md:w-[40%] snap-start px-4"
+                >
+                  <div className="cursor-pointer group" onClick={() => handleClick(link)}>
+                    <div className="w-full aspect-[3/2] overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                      <img
+                        src={img.webp}
+                        alt={link.alt}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        loading="lazy"
+                      />
+                    </div>
+                    <p
+                      className={`${FONT_FAMILY_PRIMARY} text-2xl mt-4 text-left`}
+                      style={{ color: colors.text }}
+                    >
+                      {link.label}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Controles */}
+          {!isAtStart && (
+            <button
+              onClick={() => handleScroll("left")}
+              onMouseEnter={() => setIsLeftHovered(true)}
+              onMouseLeave={() => setIsLeftHovered(false)}
+              className="absolute top-1/2 -translate-y-1/2 left-0 rounded-full p-2 shadow-md z-10 transition-colors duration-300"
+              style={{
+                backgroundColor: isLeftHovered ? colors.accent : colors.bannerBackground,
+              }}
+              aria-label="Anterior"
+            >
+              {/* Icono flecha izquierda */}
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" style={{ color: isLeftHovered ? colors.background : colors.text }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+          )}
+          {!isAtEnd && (
+            <button
+              onClick={() => handleScroll("right")}
+              onMouseEnter={() => setIsRightHovered(true)}
+              onMouseLeave={() => setIsRightHovered(false)}
+              className="absolute top-1/2 -translate-y-1/2 right-0 rounded-full p-2 shadow-md z-10 transition-colors duration-300"
+              style={{
+                backgroundColor: isRightHovered ? colors.accent : colors.bannerBackground,
+              }}
+              aria-label="Siguiente"
+            >
+              {/* Icono flecha derecha */}
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" style={{ color: isRightHovered ? colors.background : colors.text }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          )}
+        </div>
     </section>
   );
 };

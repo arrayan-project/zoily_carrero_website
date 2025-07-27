@@ -1,5 +1,5 @@
 /**
- * Sección de imágenes para la página "Sobre mí".
+ * Sección de imágenes de certificados para la página "Sobre mí".
  * Muestra una grilla responsive de imágenes optimizadas (AVIF/WebP) con placeholders
  * y animaciones de aparición para una carga visualmente atractiva.
  *
@@ -8,10 +8,16 @@
  * @property {Array<{key: string, alt: string}>} images - Array de objetos de imagen a mostrar.
  * @returns {JSX.Element | null} La sección de la grilla de imágenes o null si no hay imágenes para mostrar.
  */
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import useWindowSize from "../../hooks/useWindowSize";
 import RevealWrapper from "../common/RevealWrapper";
 import { getImageObject } from "../../utils/getImageObject";
+import { aboutInfo } from "../../data/aboutData";
+import LazySectionLoader from "../common/LazySectionLoader";
+import AboutMainContentSkeleton from "../skeletons/About/AboutMainContentSkeleton";
+
+// Carga diferida del componente de títulos
+const AboutTitlesContent = lazy(() => import("./AboutTitlesContent"));
 
 interface ImageInfo {
   key: string;
@@ -40,6 +46,7 @@ const ImageCard: React.FC<{
     : {};
 
   return (
+    
     <div
       className="aspect-[17/10] overflow-hidden rounded-lg shadow-xl cursor-pointer"
       style={placeholderBgStyle}
@@ -72,13 +79,25 @@ const AboutImagesSection: React.FC<AboutImagesSectionProps> = React.memo(
     if (isMobileView) {
       return (
         <section className="mt-16">
-          <div className="flex overflow-x-auto space-x-4 pb-4 scrollbar-hide snap-x snap-mandatory">
+          <LazySectionLoader
+            minHeight="200px"
+            fallback={<AboutMainContentSkeleton />}
+          >
+            <Suspense fallback={<AboutMainContentSkeleton />}>
+              <AboutTitlesContent
+                subtitle={aboutInfo.subtitle1}
+                title={aboutInfo.title2}
+                bigTitle="LOGROS"
+              />
+            </Suspense>
+          </LazySectionLoader>
+          <div className="mt-12 flex overflow-x-auto overflow-y-hidden space-x-4 pb-4 scrollbar-hide snap-x snap-mandatory">
             {images.map((image, index) => (
               <div
                 key={`about-img-mobile-${index}`}
                 className="flex-shrink-0 w-4/5 snap-center"
               >
-                <RevealWrapper animationClass="fade-in-up-animation">
+                <RevealWrapper animationClass="fade-in-text">
                   <ImageCard image={image} onClick={() => onImageClick(index)} />
                 </RevealWrapper>
               </div>
@@ -90,15 +109,30 @@ const AboutImagesSection: React.FC<AboutImagesSectionProps> = React.memo(
 
     // Vista de Escritorio: Grilla de imágenes
     return (
-      <section className="mt-24 lg:mt-32 grid grid-cols-1 md:grid-cols-5 gap-6">
-        {images.map((image, index) => (
-          <RevealWrapper
-            key={`about-img-desktop-${index}`}
-            animationClass="fade-in-up-animation"
-          >
-            <ImageCard image={image} onClick={() => onImageClick(index)} />
-          </RevealWrapper>
-        ))}
+      <section className="mt-24 lg:mt-32">
+        <LazySectionLoader
+          minHeight="200px"
+          fallback={<AboutMainContentSkeleton />}
+        >
+          <Suspense fallback={<AboutMainContentSkeleton />}>
+            <AboutTitlesContent
+              subtitle={aboutInfo.subtitle1}
+              title={aboutInfo.title2}
+              bigTitle="LOGROS"
+            />
+          </Suspense>
+        </LazySectionLoader>
+
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-4 gap-6">
+          {images.map((image, index) => (
+            <RevealWrapper
+              key={`about-img-desktop-${index}`}
+              animationClass="fade-in-up-animation"
+            >
+              <ImageCard image={image} onClick={() => onImageClick(index)} />
+            </RevealWrapper>
+          ))}
+        </div>
       </section>
     );
   }

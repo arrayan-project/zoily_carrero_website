@@ -32,7 +32,11 @@ export const aboutImages = [
 ];
 
 export const aboutInfo = {
-  title: "ACERCA DE MI",
+  subtitle:"— ACERCA DE MI",
+  subtitle1:"— MIS LOGROS",
+  title: "UBICO A MIS CLIENTAS",
+  title1: "EN EL CORAZÓN DE LO QUE HAGO",
+  title2: "CERTIFICACIONES PARA SERVICIOS DE EXCELENCIA",
   description1:
     "Hola, soy Zoily! licenciada en ciencias fiscales, y creadora de contenido especializada en maquillaje, estilismo e imagen personal. Mi trayectoria comenzó en el mundo de la danza y el modelaje, donde descubrí mi pasión por el cuidado personal y la belleza.",
   description2:

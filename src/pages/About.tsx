@@ -128,8 +128,9 @@ const About: React.FC = React.memo(() => {
 
         <main
           id="about-content"
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" // Container for overall page content
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
         >
+          {/* Seccion que agrupa 3 compontentes: AboutMainContent, AboutWhyUsSection y AboutFeaturedImage */}
           <AboutContentLayout
             imageObject={featuredImageObject}
             featuredImageAlt={featuredImageData?.alt || "Imagen destacada sobre Zoily Carrero"}
@@ -145,9 +146,9 @@ const About: React.FC = React.memo(() => {
           </Suspense>
         </LazySectionLoader>
 
-        {/* Contained Images Section */}
+        {/* Certificates Image Section */}
         <main
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" // Container for overall page content
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
         >
           <LazySectionLoader minHeight="200px" fallback={<AboutImagesSkeleton />}>
             <Suspense fallback={<AboutImagesSkeleton />}>

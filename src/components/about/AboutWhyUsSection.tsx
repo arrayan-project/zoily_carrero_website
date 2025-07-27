@@ -29,14 +29,14 @@ const AboutWhyUsSection: React.FC = React.memo(() => {
             <h3
               // Using base font family, specific size. Ensuring left alignment on all screens for consistency.
               className={`${FONT_FAMILY_PRIMARY} ${FONT_WEIGHT_NORMAL} text-2xl text-center lg:text-left mb-12`}
-              style={{ color: colors.accent }}
+              style={{ color: colors.text }}
             >
               {title}
             </h3>
           </RevealWrapper>
         )}
 
-        <RevealWrapper animationClass="fade-in-text">
+        <RevealWrapper animationClass="fade-in-up-animation">
           <ul className="space-y-4 mb-12">
             {whyUsPoints.map((point, index) => (
               <li key={`why-us-${index}`} className="flex items-center space-x-6">

@@ -8,7 +8,12 @@
  */
 import React, { useRef, useState, useEffect } from "react";
 import SmoothImage from "../smoothImages/SmoothImage";
-import { HOME_BRANDS_SECTION_TITLE_CLASS } from "../../constants/styles";
+import { useTheme } from "../../components/context/themeContext";
+import {
+  FONT_FAMILY_PRIMARY,
+  FONT_WEIGHT_LIGHT,
+  TEXT_CENTER,
+} from "../../constants/styles";
 import { getImageObject } from "../../utils/getImageObject";
 import { useAutoScroll } from "../../hooks/useAutoScroll";
 
@@ -24,6 +29,7 @@ const HomeBrandsSection: React.FC<HomeBrandsSectionProps> = ({ brands }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [totalWidth, setTotalWidth] = useState(0);
   const scrollSpeed = 1;
+  const { colors } = useTheme();
 
   // Calcula el ancho total del slider duplicado cuando cambian las marcas o el tamaño
   useEffect(() => {
@@ -45,10 +51,11 @@ const HomeBrandsSection: React.FC<HomeBrandsSectionProps> = ({ brands }) => {
   }, totalWidth > 0);
 
   return (
-    <section className="py-16 px-1 bg-gray-100 mb-16 md:mb-32">
+    <section className="py-36 px-4 bg-gray-100">
       <div className="container mx-auto">
         <h2
-          className={HOME_BRANDS_SECTION_TITLE_CLASS}
+          className={`${FONT_FAMILY_PRIMARY} ${FONT_WEIGHT_LIGHT} text-3xl ${TEXT_CENTER} mb-8`}
+          style={{ color: colors.accent }}
         >
           Nuestras Marcas
         </h2>

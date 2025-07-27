@@ -29,7 +29,7 @@ const MobileServicesSubMenu: React.FC<MobileServicesSubMenuProps> = ({
     >
       <button
         onClick={onCloseSubMenu}
-        className={`absolute top-80 left-1/2 -translate-x-1/2 p-2 ${backButtonColor} hover:text-pink-500`}
+        className={`absolute top-60 left-1/2 -translate-x-1/2 p-2 ${backButtonColor} hover:text-pink-500`}
         aria-label="Volver al menú principal"
       >
         {/* Icono de flecha hacia atrás */}

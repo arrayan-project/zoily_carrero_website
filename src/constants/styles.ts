@@ -7,6 +7,7 @@
 
 // --- Base Font Properties ---
 export const FONT_FAMILY_PRIMARY = "font-cinzel";
+export const FONT_FAMILY_SECONDARY = "font-cinzel";
 export const FONT_WEIGHT_LIGHT = "font-extralight"; // Common for titles
 export const FONT_WEIGHT_NORMAL = "font-normal"; // Default weight for paragraphs if needed
 export const TRACKING_WIDE = "tracking-wider"; // Common for titles
