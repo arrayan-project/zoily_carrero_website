@@ -1,0 +1,4 @@
+{
+  "typescript.tsserver.disableProjectReferences": true,
+  "typescript.tsserver.skipLibCheck": true
+}
