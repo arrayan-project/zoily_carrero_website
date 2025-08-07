@@ -160,7 +160,7 @@ const MakeUpCarouselSection: React.FC = () => {
                   height={3032}
                 />
               </picture>
-              <div className="absolute inset-0 bg-black/30 z-0"></div>
+              <div className="absolute inset-0 bg-black/50 z-0"></div>
 
               {isCurrent && ( // Solo mostrar contenido y botón en el slide actual
                 <>

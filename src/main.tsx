@@ -10,8 +10,9 @@ import React, { lazy, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { CartProvider } from './components/context/CartContext'; // 1. Importa el CartProvider
+import { CartProvider } from './components/context/CartContext';
 import { ThemeProvider } from './components/context/themeContext';
+
 import './GlobalStyles.css';
 
 const AppShell = lazy(() => import('./components/layout/AppShell'));

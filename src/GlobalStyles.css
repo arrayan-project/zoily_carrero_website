@@ -256,3 +256,8 @@
     outline-offset: 12px; /* Distancia para desktop */
   }
 }
+
+/* Efecto smoothScroll para navegacion con el mouse */
+html.lenis {
+  height: auto;
+}

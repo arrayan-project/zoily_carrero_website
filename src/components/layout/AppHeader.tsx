@@ -53,8 +53,8 @@ const AppHeader: React.FC<AppHeaderProps> = ({
     <header
       className={`fixed top-0 left-0 w-full z-[1000] transition-all duration-500 ease-in-out ${headerBgClass}`}
     >
-      <div className="relative w-full h-[80px] sm:h-[70px] md:h-[110px]">
-        <div className="absolute top-4 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center space-y-2">
+      <div className="relative w-full h-[80px] sm:h-[70px] md:h-[97px]">
+        <div className="absolute top-2 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center space-y-2">
           <LogoComponent variant={getLogoVariant()} />
         </div>
         <Navigation

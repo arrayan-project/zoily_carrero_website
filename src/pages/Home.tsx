@@ -1,10 +1,8 @@
 // src/pages/Home.tsx
 import { lazy, Suspense } from "react";
-import { useNavigate } from "react-router-dom";
 import {  homeInfo,  homeLinks,  homeFeatures,  homeBrands,  galleryFeatures} from "../data/homeData"; // imageArrays no se usa directamente aquí ahora
 import { Helmet } from "react-helmet-async";
 import { useTheme } from "../components/context/themeContext";
-import HomeButton from "../components/buttons/HomeButton";
 import HomeTitle from "../components/home/HomeTitle";
 import BackgroundImageHero from "../components/home/BackgroundImageHero"; // Importamos el componente
 import ScrollDownArrow from "../components/common/ScrollDownArrow";
@@ -19,10 +17,7 @@ const HomeBrandsSection = lazy(() => import("../components/home/HomeBrandsSectio
 const HomeGallerySection = lazy(() => import("../components/home/HomeGallerySection"));
 
 export default function Home() {
-  const navigate = useNavigate();
   const { colors } = useTheme();
-
-  const handleVerServiciosClick = () => navigate("/services");
 
   useScrollToHash();
 
@@ -49,13 +44,6 @@ export default function Home() {
           {homeInfo.title && homeInfo.subtitle && (
             <HomeTitle title={homeInfo.title} subtitle={homeInfo.subtitle} />
           )}
-          <div className="flex flex-col sm:flex-row gap-4 mt-8">
-            {homeInfo.button1Text && (
-              <HomeButton onClick={handleVerServiciosClick}>
-                {homeInfo.button1Text}
-              </HomeButton>
-            )}
-          </div>
         </div>
 
         {/* Flecha al pie del hero */}

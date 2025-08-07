@@ -12,15 +12,20 @@ import { useRevealOnScroll } from "../../hooks/useRevealOnScroll";
 interface RevealWrapperProps {
   animationClass: string;
   children: ReactNode;
+  className?: string;
 }
 
-const RevealWrapper: React.FC<RevealWrapperProps> = ({ animationClass, children }) => {
+const RevealWrapper: React.FC<RevealWrapperProps> = ({
+  animationClass,
+  children,
+  className = "",
+}) => {
   const { ref, isVisible } = useRevealOnScroll();
 
   return (
     <div
       ref={ref}
-      className={`${animationClass} ${isVisible ? "visible" : ""}`}
+      className={`${className} ${animationClass} ${isVisible ? "visible" : ""}`}
     >
       {children}
     </div>

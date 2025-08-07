@@ -35,7 +35,8 @@ const HomeFeaturesSection: React.FC<HomeFeaturesSectionProps> = ({ imageKey, alt
     <section className="py-20 px-4 lg:px-12" style={{ backgroundColor: colors.background, color: colors.text }}>
       <div className="mx-auto max-w-7xl">
         {/* Layout dinámico con proporciones fr */}
-        <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] items-stretch gap-16">
+        {/* Móvil: 1 columna. Tablet: 2 columnas 50/50. Desktop: 2 columnas con proporción 3/2. */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[3fr_2fr] items-stretch gap-8 md:gap-12 lg:gap-16">
 
           {/* IMAGEN */}
           <div className="flex justify-start items-center p-4">
@@ -66,19 +67,19 @@ const HomeFeaturesSection: React.FC<HomeFeaturesSectionProps> = ({ imageKey, alt
                 </h2>
               </RevealWrapper>
               <RevealWrapper animationClass="fade-in-up-animation">
-                <h2 className={`${FONT_FAMILY_PRIMARY} text-2xl lg:text-4xl xl:text-5xl mb-2`} style={{ color: colors.secondaryText }}>
+                <h2 className={`${FONT_FAMILY_PRIMARY} text-3xl lg:text-4xl xl:text-5xl mb-2`} style={{ color: colors.secondaryText }}>
                   {subtitle1}
                 </h2>
               </RevealWrapper>
               <RevealWrapper animationClass="fade-in-up-animation">
-                <h2 className={`${FONT_FAMILY_PRIMARY} text-2xl lg:text-4xl xl:text-5xl`} style={{ color: colors.text }}>
+                <h2 className={`${FONT_FAMILY_PRIMARY} text-3xl lg:text-4xl xl:text-5xl`} style={{ color: colors.text }}>
                   {subtitle2}
                 </h2>
               </RevealWrapper>
             </div>
 
             {/* Lista de features más arriba */}
-            <div className="space-y-8 px-6 lg:px-12 mt-8 md:mt-16">
+            <div className="space-y-8 px-6 lg:px-12 mt-8">
               {features.map((feature, index) => (
                 <RevealWrapper key={index} animationClass="slide-in-right-animation">
                   <div>

@@ -31,7 +31,7 @@ const themeColors: Record<Theme, ThemeColors> = {
     // Secciones con tono claro cercano al fondo para sutil separación
     section: "#EFEAE3",
     // Texto secundario en marrón medio para coherencia con acentos tierra
-    secondaryText: "#7A624A",
+    secondaryText: "#8c6e47",
     // Acento dorado elegante
     accent: "#B59C51",
     // Estado hover con dorado pálido
@@ -45,7 +45,7 @@ const themeColors: Record<Theme, ThemeColors> = {
     // Overlay de imagen oscuro para contraste sobre foto
     bannerImageOverlay: "rgba(0, 0, 0, 0.4)",
     //FooterBackground
-    footerbackground: "#e5ddd2",
+    footerbackground: "#4b382e",
   },
   dark: {
     // Fondo principal carbón profundo

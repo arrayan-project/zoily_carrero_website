@@ -83,7 +83,7 @@ const HomeLinksSection: React.FC<HomeLinksSectionProps> = ({
             </p>
           </RevealWrapper>
           <RevealWrapper animationClass="fade-in-up-animation">
-                <h2 className={`${FONT_FAMILY_PRIMARY} text-2xl lg:text-4xl xl:text-5xl`} style={{ color: colors.text }}>
+                <h2 className={`${FONT_FAMILY_PRIMARY} text-3xl lg:text-4xl xl:text-5xl`} style={{ color: colors.text }}>
               {title}
             </h2>
           </RevealWrapper>

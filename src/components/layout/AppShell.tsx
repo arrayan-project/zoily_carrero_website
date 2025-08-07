@@ -9,6 +9,7 @@
 import { Suspense, useState, useCallback, lazy, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useTheme } from "../context/themeContext";
+import { useSmoothScroll } from "../../hooks/useSmoothScroll";
 import ThemeToggleButton from "../buttons/ThemeToggleButton";
 import ContactUsModal from "../modals/ContactUsModal";
 import AppLoader from "../../components/loader/AppLoader";
@@ -20,6 +21,9 @@ const ScrollTopButton = lazy(() => import("../buttons/ScrollTopButton"));
 const Footer = lazy(() => import("../common/LazyFooter"));
 
 export default function AppShell() {
+  // Activa el scroll suave en toda la aplicación
+  useSmoothScroll();
+
   const { pathname } = useLocation();
 
   const scrollTopEnabledRoutes = ["/home", "/gallery", "/ugc", "/shop"];

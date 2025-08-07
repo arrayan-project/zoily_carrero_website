@@ -40,14 +40,12 @@ const Footer = () => {
         <div className="grid lg:grid-cols-[1.5fr_2.5fr] gap-10 sm:grid-cols-1 px-10 py-10 md:px-20 md:py-20">
           <div className="flex flex-col gap-5">
             <h2
-              className="text-xl md:text-5xl text-pink-500 font-cinzel"
-              style={{ color: colors.text }}
+              className="text-xl md:text-4xl xl:text-5xl text-white font-cinzel"
             >
               SoyZoilyCarrero
             </h2>
             <p
-              className="font-cinzel text-sm"
-              style={{ color: colors.secondaryText }}
+              className="font-cinzel text-sm text-white"
             >
               Maquillaje profesional que se adapta a ti. Porque cada rostro
               tiene su historia, y yo estoy aquí para contarla con brochas y
@@ -59,29 +57,25 @@ const Footer = () => {
           <div className="grid md:grid-cols-3 gap-10 sm:grid-cols-1">
             <div>
               <h3
-                className="text-xl md:text-3xl font-cinzel text-pink-500 py-2 uppercase"
-                style={{ color: colors.text }}
+                className="text-xl md:text-3xl font-cinzel text-white py-2 uppercase"
               >
                 Creatividad
               </h3>
               <ul className="list-none p-0 m-0">
                 <li
-                  className="my-4 font-cinzel text-sm"
-                  style={{ color: colors.text }}
+                  className="my-4 font-cinzel text-sm text-white"
                 >
                   Guías & Ideas
                 </li>
                 <li
-                  className="my-4 font-cinzel text-sm"
-                  style={{ color: colors.text }}
+                  className="my-4 font-cinzel text-sm text-white"
                 >
                   Tips & Trucos
                 </li>
-                <li className="my-4 font-cinzel text-sm">
+                <li className="my-4 font-cinzel text-sm text-white">
                   <Link
                     to="/gallery"
-                    className="hover:text-pink-300 transition-colors"
-                    style={{ color: colors.text }}
+                    className="hover:text-pink-300 transition-colors text-white"
                   >
                     Galería
                   </Link>
@@ -91,8 +85,7 @@ const Footer = () => {
 
             <div>
               <h3
-                className="text-xl md:text-3xl font-cinzel text-pink-500 py-2 uppercase"
-                style={{ color: colors.text }}
+                className="text-xl md:text-3xl font-cinzel text-pink-500 py-2 uppercase text-white"
               >
                 Link Útiles
               </h3>
@@ -100,8 +93,7 @@ const Footer = () => {
                 <li className="my-4 font-cinzel text-sm">
                   <Link
                     to="/policy"
-                    className="hover:text-pink-300 transition-colors"
-                    style={{ color: colors.text }}
+                    className="hover:text-pink-300 transition-colors text-white"
                   >
                     Políticas de Privacidad
                   </Link>
@@ -109,8 +101,7 @@ const Footer = () => {
                 <li className="my-4 font-cinzel text-sm">
                   <Link
                     to="/terms"
-                    className="hover:text-pink-300 transition-colors"
-                    style={{ color: colors.text }}
+                    className="hover:text-pink-300 transition-colors text-white"
                   >
                     Terminos & Condiciones
                   </Link>
@@ -118,8 +109,7 @@ const Footer = () => {
                 <li className="my-4 font-cinzel text-sm">
                   <Link
                     to="/faq"
-                    className="hover:text-pink-300 transition-colors"
-                    style={{ color: colors.text }}
+                    className="hover:text-pink-300 transition-colors text-white"
                   >
                     FAQ
                   </Link>
@@ -129,20 +119,17 @@ const Footer = () => {
 
             <div className="mb-4 md:mb-0">
               <h2
-                className="text-xl md:text-3xl font-cinzel text-pink-500 py-2 uppercase"
-                style={{ color: colors.text }}
+                className="text-xl md:text-3xl font-cinzel text-pink-500 py-2 uppercase text-white"
               >
                 Contacto
               </h2>
               <p
-                className="text-sm my-4 font-cinzel"
-                style={{ color: colors.text }}
+                className="text-sm my-4 font-cinzel text-white"
               >
                 Email: youremail@gmail.com
               </p>
               <p
-                className="text-sm my-4 font-cinzel"
-                style={{ color: colors.text }}
+                className="text-sm my-4 font-cinzel text-white"
               >
                 Teléfono: +1 113-456-7890{" "}
               </p>
@@ -157,8 +144,7 @@ const Footer = () => {
                   <Github
                     size={24}
                     strokeWidth={1.5}
-                    className="hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out"
-                    style={{ color: colors.text }}
+                    className="hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out text-white"
                   />
                 </Suspense>
                 </a>
@@ -172,8 +158,7 @@ const Footer = () => {
                   <Linkedin
                     size={24}
                     strokeWidth={1.5}
-                    className="hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out"
-                    style={{ color: colors.text }}
+                    className="hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out text-white"
                   />
                   </Suspense>
                 </a>
@@ -187,8 +172,7 @@ const Footer = () => {
                   <Twitter
                     size={24}
                     strokeWidth={1.5}
-                    className="hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out"
-                    style={{ color: colors.text }}
+                    className="hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out text-white"
                   />
                   </Suspense>
                 </a>
@@ -202,8 +186,7 @@ const Footer = () => {
                   <Instagram
                     size={24}
                     strokeWidth={1.5}
-                    className="hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out"
-                    style={{ color: colors.text }}
+                    className="hover:text-pink-500 transform hover:scale-150 transition-all duration-150 ease-in-out text-white"
                   />
                   </Suspense>
                 </a>
@@ -241,8 +224,7 @@ const Footer = () => {
           </div>
         </div>
         <p
-          className="text-center p-6 font-cinzel"
-          style={{ color: colors.secondaryText }}
+          className="text-center p-6 font-cinzel text-white"
         >
           &copy; Desarrollado con ♥ por ZoilyCarrero {Year}
         </p>

@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useTheme } from "../context/themeContext";
 import { useBodyScrollLock } from "../../hooks/useBodyScrollLock";
+import { useHeaderStyles } from "../../hooks/useHeaderStyles";
 import AnimatedDecorativeLines from "../animation/AnimatedDecorativeLines";
+import NavLinksList from "./NavLinksList";
 import CartIcon from "./CartIcon";
 
 interface NavigationProps {
@@ -43,6 +45,14 @@ const navItems: NavItem[] = [
   { id: "contact", label: "CONTACTO", path: "/contact", prefetch: () => import("../../pages/Contact") }
 ];
 
+const footerNavItems = [
+  { label: "Guías & Ideas", path: "/guides" },
+  { label: "Tips & Trucos", path: "/tips" },
+  { label: "FAQ", path: "/faq" },
+  { label: "Términos", path: "/terms" },
+  { label: "Privacidad", path: "/policy" },
+];
+
 export default function NavBarMenu({
   className,
   currentPathname,
@@ -50,12 +60,14 @@ export default function NavBarMenu({
   isMenuOpen,
   setIsMenuOpen,
 }: NavigationProps) {
-  const [submenuOpen, setSubmenuOpen] = useState<string | null>(null);
-  const { theme, colors } = useTheme();
+  const { colors } = useTheme();
   const location = useLocation();
 
   // Bloquear scroll cuando el menú está abierto
   useBodyScrollLock(isMenuOpen);
+
+  const { navBarMenuButtonColor, decorativeLineColorClass, headerButtonClasses } =
+    useHeaderStyles({ hasScrolled, currentPathname });
 
   // Líneas decorativas
   // El ancho de cada línea se calcula para dejar espacio para el gap y un padding a los costados.
@@ -63,32 +75,13 @@ export default function NavBarMenu({
   // md: 50vw - (56px (gap-14) + 48px) = 50vw - 104px
   const sideContainerWidthClasses = "w-[calc(50vw-80px)] sm:w-[calc(50vw-80px)] md:w-[calc(50vw-104px)]";
   const linePositionClasses = "top-[80px] sm:top-[70px] md:top-[100px]";
-  // Colores dinámicos
-  const whiteMenuRoutes = ["/home", "/makeup", "/courses", "/about"];
-  const isWhiteMenuRoute = currentPathname ? whiteMenuRoutes.includes(currentPathname) : false;
-  // Determina si el texto y los botones del header deben ser blancos.
-  // Son blancos si:
-  // 1. El tema es oscuro.
-  // 2. O si no se ha hecho scroll y la ruta actual requiere un menú blanco (ej. sobre un hero oscuro).
-  // En cualquier otro caso (tema claro con scroll, o tema claro en ruta con fondo claro), serán negros.
-  const useWhiteText = theme === "dark" || (!hasScrolled && isWhiteMenuRoute);
-  const navBarBaseTextColor = useWhiteText ? "text-white" : "text-black";
-  // El color de las líneas decorativas debe coincidir con el color del texto.
-  const decorativeLineColorClass = useWhiteText ? "bg-white" : "bg-black";
-  const navBarMenuButtonColor = navBarBaseTextColor;
-  // Clases de enlaces
-  const baseLinkClasses = "py-3 text-2xl md:text-4xl font-cinzel transition-colors text-left group";
-  const headerButtonClasses = useWhiteText
-    ? "text-white border-white hover:bg-white hover:text-black"
-    : "text-black border-black hover:bg-black hover:text-white";
   // Líneas del icono hamburguesa
   const menuButtonSpanBase = `block w-full h-px bg-current transition-transform duration-300 scale-y-50`;
 
   // Cerrar menú al cambiar de ruta
   useEffect(() => {
     setIsMenuOpen(false);
-    setSubmenuOpen(null);
-  }, [location.pathname]);
+  }, [location.pathname, setIsMenuOpen]);
 
   return (
     <nav className={`${className} relative z-40 h-full`} aria-label="Menú principal">
@@ -96,9 +89,8 @@ export default function NavBarMenu({
       <button
         onClick={() => {
           setIsMenuOpen(o => !o);
-          if (isMenuOpen) setSubmenuOpen(null);
         }}
-        className={`absolute top-1/2 -translate-y-1/2 left-8 md:left-48 p-4 z-50 hover:opacity-80 transition-colors duration-300 ${!isMenuOpen ? navBarMenuButtonColor : ''}`}
+        className={`absolute top-1/2 -translate-y-1/2 left-8 md:left-36 p-4 z-50 hover:opacity-80 transition-colors duration-300 ${!isMenuOpen ? navBarMenuButtonColor : ''}`}
         style={{ color: isMenuOpen ? colors.text : undefined }}
         aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
         aria-expanded={isMenuOpen}
@@ -110,10 +102,10 @@ export default function NavBarMenu({
       </button>
 
       {/* Botón "Agenda tu cita" en el header */}
-      <div className="absolute top-1/2 -translate-y-1/2 right-4 md:right-48 z-50 flex items-center">
+      <div className="absolute top-1/2 -translate-y-1/2 right-1 md:right-12 xl:right-56  z-50 flex items-center">
         <NavLink
           to="/contact"
-          className={`font-cinzel border px-2 py-1 md:px-6 md:py-3 text-xs md:text-sm transition-colors duration-300 ${!isMenuOpen ? headerButtonClasses : 'hover:opacity-80'}`}
+          className={`font-cinzel border px-2 py-1 md:px-4 md:py-1 text-xs md:text-sm transition-colors duration-300 ${!isMenuOpen ? headerButtonClasses : 'hover:opacity-80'}`}
           style={isMenuOpen ? { color: colors.text, borderColor: colors.border } : {}}
         >
           AGENDA AHORA
@@ -130,75 +122,24 @@ export default function NavBarMenu({
           className="fixed inset-0 h-screen w-screen z-40 flex flex-col items-start justify-center pl-8 md:pl-40"
           style={{ backgroundColor: colors.background }}
         >
-          {navItems.map(item => (
-            <div key={item.id} className="w-full flex flex-col items-start">
-              {item.subItems ? (
-                <>
-                  <button
-                    onClick={() => setSubmenuOpen(submenuOpen === item.id ? null : item.id)}
-                    className={`${baseLinkClasses}`}
-                    style={{
-                      color: submenuOpen === item.id ? colors.accent : colors.text,
-                      textDecoration: submenuOpen === item.id ? 'underline' : 'none',
-                    }}
-                  >
-                    <div className="flex items-center relative">
-                      <span className="absolute left-0 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-0 -translate-x-4 text-current">
-                        —
-                      </span>
-                      <span className="block transition-transform duration-300 ease-in-out group-hover:translate-x-8">
-                        {item.label}
-                      </span>
-                    </div>
-                  </button>
-                  {submenuOpen === item.id && (
-                    <div className="mt-2 flex flex-col items-start space-y-2 pl-6">
-                      {item.subItems.map(sub => (
-                        <NavLink
-                          key={sub.path}
-                          to={sub.path}
-                          onClick={() => setIsMenuOpen(false)}
-                          className={`${baseLinkClasses} !text-xl md:!text-2xl`}
-                          style={({ isActive }) => ({
-                            color: isActive ? colors.accent : colors.text,
-                            textDecoration: isActive ? 'underline' : 'none',
-                          })}
-                        >
-                          <div className="flex items-center relative">
-                            <span className="absolute left-0 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-0 -translate-x-4 text-current">
-                              —
-                            </span>
-                            <span className="block transition-transform duration-300 ease-in-out group-hover:translate-x-8">
-                              {sub.label}
-                            </span>
-                          </div>
-                        </NavLink>
-                      ))}
-                    </div>
-                  )}
-                </>
-              ) : (
+          <NavLinksList navItems={navItems} onLinkClick={() => setIsMenuOpen(false)} />
+
+          {/* Footer Links */}
+          <div className="absolute bottom-0 left-0 right-0 w-full px-8 md:px-40 py-8">
+            <div className="flex flex-wrap justify-start items-center gap-x-6 gap-y-2">
+              {footerNavItems.map((item) => (
                 <NavLink
-                  to={item.path!}
+                  key={item.path}
+                  to={item.path}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`${baseLinkClasses}`}
-                  style={({ isActive }) => ({
-                    color: isActive ? colors.accent : colors.text,
-                    textDecoration: isActive ? 'underline' : 'none',
-                  })}
+                  className="font-cinzel text-xs md:text-sm transition-colors hover:underline"
+                  style={{ color: colors.text }}
                 >
-                  <div className="flex items-center relative">
-                    <span className="absolute left-0 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-0 -translate-x-4 text-current">
-                      —
-                    </span>
-                    <span className="block transition-transform duration-300 ease-in-out group-hover:translate-x-8">
-                      {item.label}
-                    </span>
-                  </div>
+                  {item.label}
                 </NavLink>
-              )}
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       )}
 

@@ -16,6 +16,7 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
+    "@studio-freight/lenis": "^1.0.42",
     "@types/dompurify": "^3.0.5",
     "axios": "^1.8.4",
     "dompurify": "^3.2.6",
