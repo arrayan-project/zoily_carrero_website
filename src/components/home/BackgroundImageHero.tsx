@@ -8,10 +8,8 @@ interface Props {
   imageKey: keyof typeof images;
   overlayOpacityClass?: string;
   alt?: string;
-  mobileObjectPositionClass?: string;
-  desktopObjectPositionClass?: string;
-  /** If provided, overrides bundle asset with a PUBLIC path to match <link rel=preload> */
-  publicSrcOverride?: string; // e.g. "/img/background-home/bg-home2.avif"
+  objectPositionClass?: string;
+  publicSrcOverride?: string;
 }
 
 const BackgroundImageHero: FC<Props> = ({
@@ -19,8 +17,7 @@ const BackgroundImageHero: FC<Props> = ({
   imageKey,
   alt = "Maquillaje profesional Zoily Carrero",
   overlayOpacityClass = "opacity-60",
-  mobileObjectPositionClass = "object-center",
-  desktopObjectPositionClass = "object-center",
+  objectPositionClass = "object-center",
   publicSrcOverride,
 }) => {
   const image = getImageObject(imageKey);
@@ -33,28 +30,20 @@ const BackgroundImageHero: FC<Props> = ({
     return <div className={`${className} absolute inset-0`} />;
   }
 
-  // Use a single public URL for the hero so it matches your <link rel="preload"> in index.html.
-  const src = publicSrcOverride ?? image.webp; // fallback to bundled webp if not provided
+ const src = publicSrcOverride ?? image.webp;
 
   return (
-    <div className={`${className} absolute inset-0 w-full h-full z-0`}>
+    <div className={`absolute inset-0 w-full h-full z-0 ${className}`}>
       <picture className="absolute inset-0 block">
-        {/* Provide both AVIF/WEBP with the SAME public path if you have them */}
         {publicSrcOverride ? (
           <>
             <source
               type="image/avif"
-              srcSet={publicSrcOverride.replace(
-                /\.webp$|\.jpg$|\.png$/i,
-                ".avif"
-              )}
+              srcSet={publicSrcOverride.replace(/\.(webp|jpg|png|avif)$/i, ".avif")}
             />
             <source
               type="image/webp"
-              srcSet={publicSrcOverride.replace(
-                /\.avif$|\.jpg$|\.png$/i,
-                ".webp"
-              )}
+              srcSet={publicSrcOverride.replace(/\.(webp|jpg|png|avif)$/i, ".webp")}
             />
           </>
         ) : (
@@ -63,21 +52,19 @@ const BackgroundImageHero: FC<Props> = ({
             <source type="image/webp" srcSet={image.webp} />
           </>
         )}
-
         <img
           src={src}
           alt={alt}
-          className="w-full h-full object-cover ..."
+          className={`w-full h-full object-cover ${objectPositionClass}`}
           loading="eager"
           decoding="async"
-          fetchPriority="high" // ← aquí el camelCase
+          fetchPriority="high"
           width={1920}
           height={1080}
           onLoad={() => setIsLoaded(true)}
         />
       </picture>
 
-      {/* Overlay must be a sibling, not inside <picture> */}
       <div
         className={`absolute inset-0 bg-black transition-opacity duration-500 ease-in-out ${
           isLoaded ? overlayOpacityClass : "opacity-0"

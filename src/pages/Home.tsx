@@ -1,12 +1,6 @@
 // src/pages/Home.tsx
 import { lazy, Suspense } from "react";
-import {
-  homeInfo,
-  homeLinks,
-  homeFeatures,
-  homeBrands,
-  galleryFeatures,
-} from "../data/homeData"; // imageArrays no se usa directamente aquí ahora
+import {  homeInfo, homeLinks,  homeFeatures,  homeBrands,  galleryFeatures,} from "../data/homeData"; // imageArrays no se usa directamente aquí ahora
 import { Helmet } from "react-helmet-async";
 import { useTheme } from "../components/context/themeContext";
 import HomeTitle from "../components/home/HomeTitle";
@@ -16,18 +10,10 @@ import LazySectionLoader from "../components/common/LazySectionLoader";
 import HomeSkeleton from "../components/skeletons/Home/HomeBrandsSkeleton";
 import useScrollToHash from "../hooks/useScrollToHash";
 
-const HomeLinksSection = lazy(
-  () => import("../components/home/HomeLinksSection")
-);
-const HomeFeaturesSection = lazy(
-  () => import("../components/home/HomeFeaturesSection")
-);
-const HomeBrandsSection = lazy(
-  () => import("../components/home/HomeBrandsSection")
-);
-const HomeGallerySection = lazy(
-  () => import("../components/home/HomeGallerySection")
-);
+const HomeLinksSection = lazy(() => import("../components/home/HomeLinksSection"));
+const HomeFeaturesSection = lazy(() => import("../components/home/HomeFeaturesSection"));
+const HomeBrandsSection = lazy(() => import("../components/home/HomeBrandsSection"));
+const HomeGallerySection = lazy(() => import("../components/home/HomeGallerySection"));
 
 export default function Home() {
   const { colors } = useTheme();
@@ -43,22 +29,15 @@ export default function Home() {
         color: colors.text,
       }}
     >
-      {/* Hero ajustado a viewport */}
       <div className="relative w-full h-screen mb-10 md:mb-24 flex items-center justify-center">
-        {/* BackgroundImageHero ahora está dentro del div del hero y es absolute */}
         <BackgroundImageHero
           imageKey="backgroundHome2"
-          alt="Maquillaje profesional Zoily Carrero"
-          overlayOpacityClass="opacity-60"
-          publicSrcOverride="/img/background-home/bg-home2.avif" // ← matches your HEAD preload
         />
         <div className="relative z-10 flex flex-col items-center justify-center w-full h-full text-center">
           {homeInfo.title && homeInfo.subtitle && (
             <HomeTitle title={homeInfo.title} subtitle={homeInfo.subtitle} />
           )}
         </div>
-
-        {/* Flecha al pie del hero */}
         <div className="absolute bottom-8 w-full flex justify-center z-10">
           <ScrollDownArrow />
         </div>
