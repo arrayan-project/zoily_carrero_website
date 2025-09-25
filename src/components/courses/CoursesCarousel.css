@@ -1,0 +1,78 @@
+/* En MakeUpCarousel.css y CoursesCarousel.css */
+
+/* Estilos del contenedor principal del carrusel de servicios */
+#services-carousel {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* O la altura que necesites */
+  overflow: hidden; /* Muy importante para que no se vea nada fuera del slide actual */
+  background-color: #1A1A1A; /* Fondo oscuro para el contenedor principal */
+}
+
+.item-wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute; /* Clave: ambos items estarán posicionados absolutamente */
+  top: 0;
+  left: 0;
+  opacity: 0; /* Por defecto invisibles, las clases de animación controlan la opacidad */
+  will-change: transform, opacity; /* Optimización para animaciones */
+  backface-visibility: hidden; /* Puede ayudar a prevenir flickering */
+  transform: translateZ(0); /* Forzar capa de composición */
+  background-color: #1A1A1A; /* Un color oscuro, ej. el fondo de tu tema oscuro */
+}
+
+.item-wrapper.active {
+  opacity: 1;
+  z-index: 10; /* El item activo está encima */
+}
+
+.item-wrapper.exiting {
+  z-index: 5; /* El item que sale está debajo del que entra */
+}
+
+
+/* --- Animaciones de Entrada --- */
+@keyframes slideInFromRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0%); opacity: 1; }
+}
+.carousel-item-slide-in-from-right {
+  animation: slideInFromRight 1.2s ease-in-out forwards;
+  opacity: 1; /* Asegurar que sea visible al final */
+  z-index: 10;
+}
+
+@keyframes slideInFromLeft {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0%); opacity: 1; }
+}
+.carousel-item-slide-in-from-left {
+  animation: slideInFromLeft 1.2s ease-in-out forwards;
+  opacity: 1; /* Asegurar que sea visible al final */
+  z-index: 10;
+}
+
+/* --- Animaciones de Salida --- */
+@keyframes slideOutToLeft {
+  from { transform: translateX(0%); opacity: 1; }
+  to { transform: translateX(-100%); opacity: 0; }
+}
+.carousel-item-slide-out-to-left {
+  animation: slideOutToLeft 1.2s ease-in-out forwards;
+  opacity: 0; /* Asegurar que sea invisible al final */
+  z-index: 5;
+}
+
+@keyframes slideOutToRight {
+  from { transform: translateX(0%); opacity: 1; }
+  to { transform: translateX(100%); opacity: 0; }
+}
+.carousel-item-slide-out-to-right {
+  animation: slideOutToRight 1.2s ease-in-out forwards;
+  opacity: 0; /* Asegurar que sea invisible al final */
+  z-index: 5;
+}
+
+
+/* ... (tus animaciones de texto existentes) ... */

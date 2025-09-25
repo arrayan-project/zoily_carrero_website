@@ -1,0 +1,268 @@
+/**
+ * Estilos globales y utilidades para la aplicación.
+ * Incluye definiciones de fuentes, directivas de Tailwind, animaciones, utilidades y estilos específicos de componentes.
+ *
+ * @file GlobalStyles.css
+ */
+
+/* ==========================================================================
+   1. Font Definitions & Tailwind Setup
+   ========================================================================== */
+@font-face {
+  font-family: 'Cinzel';
+  src: url('/fonts/Cinzel-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  /* Métricas opcionales para cero CLS */
+  ascent-override: 92%;
+  descent-override: 20%;
+  line-gap-override: 0%;
+  size-adjust: 100%;
+}
+  
+  /* Tailwind Directives */
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+  
+  /* ==========================================================================
+     2. Animation Keyframes Definitions
+     ========================================================================== */
+  
+  /* Escala para botones interactivos */
+  @keyframes color-change {
+    0% {
+      transform: scale(1);
+      background-color: var(--color-secondary);
+    }
+    100% {
+      transform: scale(1.1);
+      background-color: var(--color-primary);
+    }
+  }
+  
+  /* Entrada desde los lados */
+  @keyframes slide-in-left {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slide-in-right {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Fade desde abajo */
+  @keyframes fade-in-up {
+    from {
+      transform: translateY(60px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Solo opacidad (fade lento) */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Otros */
+  @keyframes modal-fade-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes modal-fade-out {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+  }
+  
+  @keyframes tab-content-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  /* ==========================================================================
+     3. Animation & Transition Utility Classes
+     ========================================================================== */
+  
+  /* Clases base con @keyframes (uso general) */
+  .slide-in-left {
+    animation: slide-in-left 1.5s ease-out forwards;
+  }
+  .slide-in-right {
+    animation: slide-in-right 1.5s ease-out forwards;
+  }
+  .fade-in-up {
+    animation: fade-in-up 2.5s ease-out forwards;
+  }
+  .modal-animation {
+    animation: modal-fade-in 0.3s ease-in-out;
+  }
+  .modal-fade-out {
+    animation: modal-fade-out 0.3s ease-in-out;
+  }
+  .tab-content-animation {
+    animation: tab-content-fade-in 0.3s ease-in-out;
+  }
+  
+  /* === RevealWrapper compatible === */
+  
+  /* Solo opacidad */
+  .fade-in-animation {
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+  }
+  .fade-in-animation.visible {
+    opacity: 1;
+  }
+  
+  /* Fade-in desde abajo (60px) */
+  .fade-in-up-animation {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+  }
+  .fade-in-up-animation.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Fade-in-text más sutil (30px) */
+  .fade-in-text {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+  }
+  .fade-in-text.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Slide desde izquierda */
+  .slide-in-left-animation {
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: transform 1s ease-out, opacity 1s ease-out;
+  }
+  .slide-in-left-animation.visible {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  
+  /* Slide desde derecha */
+  .slide-in-right-animation {
+    opacity: 0;
+    transform: translateX(60px);
+    transition: transform 1s ease-out, opacity 1s ease-out;
+  }
+  .slide-in-right-animation.visible {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  /* Slide galeria */
+  .modal-image-fade {
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+  }
+  
+  .modal-image-fade.visible {
+    opacity: 1;
+  }
+  
+  /* ==========================================================================
+     4. Utility & Helper Classes
+     ========================================================================== */
+  
+  .visible-important {
+    opacity: 1 !important;
+  }
+  
+  /* ==========================================================================
+     5. Specific Component / Visual Element Styles
+     ========================================================================== */
+  
+  .ugc-background-text span {
+    line-height: 0.8;
+  }
+
+  /* Ocultar scrollbar para navegadores WebKit (Chrome, Safari, Edge nuevo) */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ocultar scrollbar para IE, Edge (versión antigua) y Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE y Edge (versión antigua) */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Anillo de logo responsivo para UGCBrandsAlliances */
+.logo-ring {
+  outline-width: 1px;
+  outline-style: solid;
+  outline-offset: 6px; /* Distancia para móvil */
+}
+
+@media (min-width: 768px) { /* Breakpoint 'md' de Tailwind */
+  .logo-ring {
+    outline-offset: 12px; /* Distancia para desktop */
+  }
+}
+
+/* Efecto smoothScroll para navegacion con el mouse */
+html.lenis {
+  height: auto;
+}

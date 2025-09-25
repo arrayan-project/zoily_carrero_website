@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Zoily Carrero</title>
+    <meta
+      name="description"
+      content="Servicios de belleza, maquillaje profesional y cursos en línea y presenciales."
+    />
+
+    <!-- Manifest & favicon -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/png" href="/img/logo/logoZC-mobile.png" />
+
+    <!-- ────────────── CSS crítico inline (~1 KiB) ────────────── -->
+    <style id="critical-css">
+      /* Fuente principal → evita FOUT */
+      @font-face {
+        font-family: "Cinzel";
+        src: url("/fonts/Cinzel-Light.woff2") format("woff2");
+        font-weight: 300;
+        font-style: normal;
+        font-display: optional; /* decouple from LCP (or keep 'swap' if you prefer guaranteed swap) */
+        ascent-override: 92%;
+        descent-override: 20%;
+        line-gap-override: 0%;
+        size-adjust: 100%;
+      }
+      /* Reset mínimo */
+      html { box-sizing: border-box; }
+      *,*::before,*::after { box-sizing: inherit; margin: 0; padding: 0; }
+      :root { --serif-fallback: ui-serif, Georgia, "Times New Roman", serif; }
+      body {
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        line-height: 1.5;
+        background: #fff;
+        color: #000;
+      }
+      /* Headings / brand use Cinzel when ready */
+      h1, h2, h3, .font-cinzel { font-family: "Cinzel", var(--serif-fallback); }
+      #root { min-height: 100vh; }
+    </style>
+    <!-- ───────────────────────────────────────────────────────── -->
+
+    <!-- Pre-load de la hero por encima del pliegue -->
+    <link
+      rel="preload"
+      as="image"
+      href="/img/background-home/bg-home2.avif"
+      imagesizes="100vw"
+    />
+
+    <!-- Vite: el CSS y el JS se inyectan automáticamente                  -->
+    <!-- (el import './assets/GlobalStyles.css' en main.tsx genera el <link>) -->
+    <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Marca de “render-complete” para prerender / Lighthouse CI -->
+    <script>
+      addEventListener("load", () =>
+        document.dispatchEvent(new Event("render-event"))
+      );
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+/*
+ * Animaciones y estilos para el botón flotante de contacto.
+ * Incluye la animación "pulse" utilizada para resaltar el botón.
+ *
+ * @file FloatingContactButton.css
+ */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3); /* Menor aumento */
+  }
+  100% {
+    transform: scale(1);
+  }
+}

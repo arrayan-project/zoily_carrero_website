@@ -1,0 +1,106 @@
+[
+  {
+    "id": "curso-basico",
+    "category": "Curso Básico",
+    "imageKey": "cbasico",
+    "description": "Aprende las bases del maquillaje profesional.",
+    "items": [
+      {
+        "id": "basico-maquillaje-dia",
+        "name": "Maquillaje de día",
+        "price": "$45.000",
+        "description": [
+          "Preparación de la piel",
+          "Aplicación de bases",
+          "Uso de correctores",
+          "Sellado del maquillaje",
+          "Uso de iluminador",
+          "Aplicación de rubor",
+          "Aplicación de sombras",
+          "Técnica de delineado",
+          "Aplicación de labial"
+        ]
+      }
+    ],
+    "modalContent": {
+      "id": "modal-curso-basico",
+      "images": ["cbasico"],
+      "title": "Curso Básico"
+    }
+  },
+  {
+    "id": "curso-intermedio",
+    "category": "Curso Intermedio",
+    "imageKey": "cintermedio",
+    "description": "Curso intermedio de maquillaje donde aprenderás técnicas de perfeccionamiento y acabados más sofisticados.",
+    "items": [
+      {
+        "id": "intermedio-tecnicas",
+        "name": "Curso Intermedio",
+        "price": "$45.000",
+        "description": [
+          "Corrección de cejas y técnicas avanzadas de diseño",
+          "Maquillaje de ojos ahumado para ocasiones especiales",
+          "Corte de cuenca y delineado avanzado",
+          "Aplicación de pigmentos y glitters para efectos especiales",
+          "Piel madura: Técnicas y productos para una aplicación perfecta"
+        ]
+      }
+    ],
+    "modalContent": {
+      "id": "modal-curso-intermedio",
+      "images": ["cintermedio"],
+      "title": "Curso Intermedio"
+    }
+  },
+  {
+    "id": "curso-avanzado",
+    "category": "Curso Avanzado",
+    "imageKey": "cavanzado",
+    "description": "Curso avanzado de maquillaje para llevar tus habilidades a un nivel profesional con técnicas complejas.",
+    "items": [
+      {
+        "id": "avanzado-tecnicas-complejas",
+        "name": "Curso Avanzado",
+        "price": "$45.000",
+        "description": [
+          "Maquillaje de novias y eventos especiales",
+          "Maquillaje editorial y para fotografía de alta gama",
+          "Maquillaje de quinceañeras y looks juveniles",
+          "Delineado gráfico y técnicas de diseño",
+          "Corte de cuenca profundo para ojos dramáticos"
+        ]
+      }
+    ],
+    "modalContent": {
+      "id": "modal-curso-avanzado",
+      "images": ["cavanzado"],
+      "title": "Curso Avanzado"
+    }
+  },
+  {
+    "id": "curso-profesional",
+    "category": "Curso Profesional",
+    "imageKey": "cprofesional",
+    "description": "Curso profesional intensivo para especializarte en técnicas avanzadas y adaptadas a las necesidades de tus clientes.",
+    "items": [
+      {
+        "id": "profesional-intensivo",
+        "name": "Curso Profesional",
+        "price": "$45.000",
+        "description": [
+          "Práctica en modelos reales y maquillaje personalizado",
+          "Maquillaje para todos los tonos y tipos de piel",
+          "Maquillaje profesional para distintas estructuras faciales",
+          "Técnicas avanzadas de aplicación de pestañas postizas",
+          "Asesoría en marca personal y redes sociales para maquilladoras"
+        ]
+      }
+    ],
+    "modalContent": {
+      "id": "modal-curso-profesional",
+      "images": ["cprofesional"],
+      "title": "Curso Profesional"
+    }
+  }
+]

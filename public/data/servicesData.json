@@ -1,0 +1,203 @@
+[
+  {
+    "id": "novia",
+    "category": "Novia",
+    "imageKey": "novia",
+    "description": "El servicio de maquillaje para novias incluye todo lo necesario para realzar tu belleza en el día más importante de tu vida.",
+    "items": [
+      {
+        "id": "novia-maquillaje-con-prueba",
+        "name": "Maquillaje Novia (incluye prueba)",
+        "price": "$90.000",
+        "description": [
+          "Limpieza facial",
+          "Hidratación",
+          "Maquillaje según la hora y el lugar del evento",
+          "Pestañas",
+          "Sellado del maquillaje",
+          "Aplicación de brillo para labios",
+          "Corrección de la piel"
+        ]
+      },
+      {
+        "id": "novia-maquillaje-domicilio-con-prueba",
+        "name": "Maquillaje Novia a Domicilio (incluye prueba)",
+        "price": "$110.000",
+        "description": [
+          "Limpieza facial",
+          "Hidratación",
+          "Maquillaje según la hora y el lugar del evento",
+          "Pestañas",
+          "Sellado del maquillaje",
+          "Aplicación de brillo para labios",
+          "Corrección de la piel"
+        ]
+      }
+    ],
+    "modalContent": {
+      "id": "modal-novia",
+      "images": ["novia"],
+      "title": "Maquillaje Novia",
+      "galleryCategorySlug": "novias"
+    }
+  },
+  {
+    "id": "quinceanera",
+    "category": "Quinceañera",
+    "imageKey": "glam",
+    "description": "El maquillaje para quinceañera es perfecto para quinceañeras que desean lucir jóvenes y frescas en su gran día.",
+    "items": [
+      {
+        "id": "quinceanera-basic",
+        "name": "Maquillaje Quinceañera Basic",
+        "price": "$75.000.-",
+        "description": [
+          "Incluye Tratamiento de hidratación facial previo al maquillaje del día de la celebración.",
+          "Maquillaje Soft Mate adaptado al estilo de la cliente.",
+          "Pestañas de cortina.",
+          "No incluye prueba de Maquillaje",
+          "Verificar disponibilidad de fechas antes de realizar los abonos."
+        ]
+      },
+      {
+        "id": "quinceanera-full",
+        "name": "Maquillaje y Peinado Quinceañera Full",
+        "price": "$110.000.-",
+        "description": [
+          "Incluye Tratamiento de hidratación facial previo al maquillaje del día de la celebración con mascarilla hidratante.",
+          "Maquillaje a elección (Soft o Glam) con productos alta gama.",
+          "Maquillaje de cuello y escote.",
+          "Pestañas de cortina.",
+          "Peinado a elección.",
+          "Incluye prueba de Maquillaje y peinado.",
+          "Kit de Retoque: polvo traslúcido, esponjita, papel de arroz, muestra del labial, cepillito de cejas, cotonitos.",
+          "Verificar disponibilidad de fechas antes de realizar los abonos."
+        ]
+      }
+    ],
+    "modalContent": {
+      "id": "modal-quinceanera",
+      "images": ["glam"],
+      "title": "Maquillaje Quinceañera",
+      "galleryCategorySlug": "quinceañera"
+    }
+  },
+  {
+    "id": "glam",
+    "category": "Glam",
+    "imageKey": "glam2",
+    "description": "Si buscas un look impactante y sofisticado, el maquillaje Glam es ideal para ti. ",
+    "items": [
+      {
+        "id": "glam-maquillaje",
+        "name": "Maquillaje Glam",
+        "price": "$45.000",
+        "description": [
+          "Limpieza facial",
+          "Hidratación",
+          "Maquillaje glam con brillos y glitter",
+          "Pestañas",
+          "Sellado del maquillaje",
+          "Aplicación de brillo para labios"
+        ]
+      }
+    ],
+    "modalContent": {
+      "id": "modal-glam",
+      "images": ["glam2"],
+      "title": "Maquillaje Glam",
+      "galleryCategorySlug": "glam"
+    }
+  },
+  {
+    "id": "piel-madura",
+    "category": "Piel Madura",
+    "imageKey": "pmadura",
+    "description": "El servicio de maquillaje para piel madura es especial y cuidado, diseñado para realzar la belleza natural.",
+    "items": [
+      {
+        "id": "piel-madura-maquillaje",
+        "name": "Maquillaje Piel Madura",
+        "price": "$35.000",
+        "description": [
+          "Limpieza facial",
+          "Hidratación",
+          "Maquillaje diseñado para pieles maduras",
+          "Pestañas",
+          "Sellado del maquillaje",
+          "Aplicación de brillo para labios"
+        ]
+      }
+    ],
+    "modalContent": {
+      "id": "modal-piel-madura",
+      "images": ["pmadura"],
+      "title": "Maquillaje Piel Madura",
+      "galleryCategorySlug": "piel-madura"
+    }
+  },
+  {
+    "id": "maquillaje-y-peinado",
+    "category": "Maquillaje & Peinado",
+    "imageKey": "m_peinado2",
+    "description": "El servicio de maquillaje y peinado te ofrece una experiencia completa para realzar tu belleza.",
+    "items": [
+      {
+        "id": "maquillaje-y-peinado-completo",
+        "name": "Maquillaje y Peinado",
+        "price": "$60.000",
+        "description": [
+          "Limpieza facial",
+          "Hidratación",
+          "Maquillaje a elección del cliente",
+          "Pestañas",
+          "Sellado del maquillaje",
+          "Aplicación de brillo para labios",
+          "Peinado según la ocasión"
+        ]
+      }
+    ],
+    "modalContent": {
+      "id": "modal-maquillaje-y-peinado",
+      "images": ["m_peinado2"],
+      "title": "Maquillaje y Peinado",
+      "galleryCategorySlug": "maquillaje-y-peinado"
+    }
+  },
+  {
+    "id": "social",
+    "category": "Social",
+    "imageKey": "social",
+    "description": "El servicio de maquillaje social es ideal para cualquier evento especial, donde desees lucir radiante y destacar tu belleza natural.",
+    "items": [
+      {
+        "id": "social-glam",
+        "name": "Maquillaje Social Glam",
+        "price": "$60.000.-",
+        "description": [
+          "Incluye Tu eliges entre Glam o Look de Día.",
+          "Maquillaje de rostro, técnicas de ojos Soft o Glam que involucran brillo, cortes de cuenca, ahumados entre otros, además hidratación facial, bronzer y contornos, iluminador.",
+          "Pestañas de cortina.",
+          "Verificar disponibilidad de fechas antes de realizar los abonos."
+        ]
+      },
+      {
+        "id": "social-soft-basic",
+        "name": "Maquillaje Social Soft Basic",
+        "price": "$38.000.-",
+        "description": [
+          "Incluye Maquillaje Soft.",
+          "Hidratación facial previa, Look suave, tonos tierra, trabajo de piel natural.",
+          "Pestañas de cortina.",
+          "Verificar disponibilidad de fechas antes de realizar los abonos."
+        ]
+      }
+    ],
+    "modalContent": {
+      "id": "modal-social",
+      "images": ["social"],
+      "title": "Maquillaje Social",
+      "galleryCategorySlug": "social"
+    }
+  }
+]
