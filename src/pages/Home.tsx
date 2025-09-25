@@ -1,6 +1,12 @@
 // src/pages/Home.tsx
 import { lazy, Suspense } from "react";
-import {  homeInfo,  homeLinks,  homeFeatures,  homeBrands,  galleryFeatures} from "../data/homeData"; // imageArrays no se usa directamente aquí ahora
+import {
+  homeInfo,
+  homeLinks,
+  homeFeatures,
+  homeBrands,
+  galleryFeatures,
+} from "../data/homeData"; // imageArrays no se usa directamente aquí ahora
 import { Helmet } from "react-helmet-async";
 import { useTheme } from "../components/context/themeContext";
 import HomeTitle from "../components/home/HomeTitle";
@@ -10,11 +16,18 @@ import LazySectionLoader from "../components/common/LazySectionLoader";
 import HomeSkeleton from "../components/skeletons/Home/HomeBrandsSkeleton";
 import useScrollToHash from "../hooks/useScrollToHash";
 
-
-const HomeLinksSection = lazy(() => import("../components/home/HomeLinksSection"));
-const HomeFeaturesSection = lazy(() => import("../components/home/HomeFeaturesSection"));
-const HomeBrandsSection = lazy(() => import("../components/home/HomeBrandsSection"));
-const HomeGallerySection = lazy(() => import("../components/home/HomeGallerySection"));
+const HomeLinksSection = lazy(
+  () => import("../components/home/HomeLinksSection")
+);
+const HomeFeaturesSection = lazy(
+  () => import("../components/home/HomeFeaturesSection")
+);
+const HomeBrandsSection = lazy(
+  () => import("../components/home/HomeBrandsSection")
+);
+const HomeGallerySection = lazy(
+  () => import("../components/home/HomeGallerySection")
+);
 
 export default function Home() {
   const { colors } = useTheme();
@@ -31,14 +44,13 @@ export default function Home() {
       }}
     >
       {/* Hero ajustado a viewport */}
-      <div
-        className="relative w-full h-screen mb-10 md:mb-24 flex items-center justify-center"
-      >
+      <div className="relative w-full h-screen mb-10 md:mb-24 flex items-center justify-center">
         {/* BackgroundImageHero ahora está dentro del div del hero y es absolute */}
         <BackgroundImageHero
-          imageKey="backgroundHome2" // Usamos la clave para la imagen única
+          imageKey="backgroundHome2"
           alt="Maquillaje profesional Zoily Carrero"
-          overlayOpacityClass="opacity-60" // Aumenta la opacidad para oscurecer más la imagen
+          overlayOpacityClass="opacity-60"
+          publicSrcOverride="/img/background-home/bg-home2.avif" // ← matches your HEAD preload
         />
         <div className="relative z-10 flex flex-col items-center justify-center w-full h-full text-center">
           {homeInfo.title && homeInfo.subtitle && (
@@ -62,19 +74,35 @@ export default function Home() {
 
       {/* Secciones Home cargadas bajo demanda */}
       <Suspense fallback={null}>
-        <LazySectionLoader minHeight="300px" rootMargin="200px 0px" fallback={<HomeSkeleton />}>
+        <LazySectionLoader
+          minHeight="300px"
+          rootMargin="200px 0px"
+          fallback={<HomeSkeleton />}
+        >
           <HomeLinksSection {...homeLinks} />
         </LazySectionLoader>
 
-        <LazySectionLoader minHeight="400px" rootMargin="200px 0px" fallback={<HomeSkeleton />}>
+        <LazySectionLoader
+          minHeight="400px"
+          rootMargin="200px 0px"
+          fallback={<HomeSkeleton />}
+        >
           <HomeFeaturesSection {...homeFeatures} />
         </LazySectionLoader>
 
-        <LazySectionLoader minHeight="400px" rootMargin="200px 0px" fallback={<HomeSkeleton />}>
+        <LazySectionLoader
+          minHeight="400px"
+          rootMargin="200px 0px"
+          fallback={<HomeSkeleton />}
+        >
           <HomeBrandsSection brands={homeBrands.brands} />
         </LazySectionLoader>
 
-        <LazySectionLoader minHeight="400px" rootMargin="200px 0px" fallback={<HomeSkeleton />}>
+        <LazySectionLoader
+          minHeight="400px"
+          rootMargin="200px 0px"
+          fallback={<HomeSkeleton />}
+        >
           <HomeGallerySection {...galleryFeatures} />
         </LazySectionLoader>
       </Suspense>

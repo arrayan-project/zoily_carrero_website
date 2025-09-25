@@ -40,7 +40,7 @@ const AboutTitlesContent: React.FC<AboutTitlesContentProps> = React.memo(
 
     const subtitle = propSubtitle ?? defaultSubtitle;
     const title = propTitle ?? defaultTitle;
-    const title1 = propTitle1; // No fallback for title1, it's optional
+    const title1 = propTitle1 ?? defaultTitle1; // No fallback for title1, it's optional
     const bigTitle = propBigTitle ?? defaultTitle;
 
     return (

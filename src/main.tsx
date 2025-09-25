@@ -6,16 +6,18 @@
  * Además registra el Service Worker para el fallback offline.
  */
 
-import React, { lazy, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { CartProvider } from './components/context/CartContext';
 import { ThemeProvider } from './components/context/themeContext';
-
 import './GlobalStyles.css';
+import AppShell from './components/layout/AppShell';
 
-const AppShell = lazy(() => import('./components/layout/AppShell'));
+if (location.pathname === '/home') {
+  import('./pages/Home'); // fire-and-forget pre-warm
+}
 
 // Renderizamos la aplicación
 createRoot(document.getElementById('root')!).render(

@@ -16,7 +16,7 @@ interface HomeTitleProps {
       subtitleSizeClass?: string;
 }
 
-    const HomeTitle: React.FC<HomeTitleProps> = ({
+    const HomeTitle: React.FC<HomeTitleProps> = React.memo(({
       title,
       subtitle,
       titleSizeClass = "text-3xl md:text-6xl", // Tamaño por defecto
@@ -44,6 +44,6 @@ interface HomeTitleProps {
       </div>
     </>
   );
-};
+});
 
 export default HomeTitle;

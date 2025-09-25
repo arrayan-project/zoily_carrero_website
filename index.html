@@ -4,103 +4,64 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Zoily Carrero</title>
     <meta
       name="description"
       content="Servicios de belleza, maquillaje profesional y cursos en línea y presenciales."
     />
-    <link rel="manifest" href="/manifest.webmanifest" />
 
-    <!-- Preload AVIF hero desktop -->
+    <!-- Manifest & favicon -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/png" href="/img/logo/logoZC-mobile.png" />
+
+    <!-- ────────────── CSS crítico inline (~1 KiB) ────────────── -->
+    <style id="critical-css">
+      /* Fuente principal → evita FOUT */
+      @font-face {
+        font-family: "Cinzel";
+        src: url("/fonts/Cinzel-Light.woff2") format("woff2");
+        font-weight: 300;
+        font-style: normal;
+        font-display: optional; /* decouple from LCP (or keep 'swap' if you prefer guaranteed swap) */
+        ascent-override: 92%;
+        descent-override: 20%;
+        line-gap-override: 0%;
+        size-adjust: 100%;
+      }
+      /* Reset mínimo */
+      html { box-sizing: border-box; }
+      *,*::before,*::after { box-sizing: inherit; margin: 0; padding: 0; }
+      :root { --serif-fallback: ui-serif, Georgia, "Times New Roman", serif; }
+      body {
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        line-height: 1.5;
+        background: #fff;
+        color: #000;
+      }
+      /* Headings / brand use Cinzel when ready */
+      h1, h2, h3, .font-cinzel { font-family: "Cinzel", var(--serif-fallback); }
+      #root { min-height: 100vh; }
+    </style>
+    <!-- ───────────────────────────────────────────────────────── -->
+
+    <!-- Pre-load de la hero por encima del pliegue -->
     <link
       rel="preload"
       as="image"
       href="/img/background-home/bg-home2.avif"
-      imagesrcset="/img/background-home/bg-home2.avif 1536w"
-      imagesizes="100vw"
-    />
-    <!-- Fallback WebP hero desktop -->
-    <link
-      rel="preload"
-      as="image"
-      href="/img/background-home/bg-home2.webp"
-      imagesrcset="/img/background-home/bg-home2.webp 1536w"
       imagesizes="100vw"
     />
 
-    <!-- Preload AVIF hero móvil -->
-    <link
-      rel="preload"
-      as="image"
-      href="/img/background-home/bg-home2-m.avif"
-      imagesrcset="/img/background-home/bg-home2-m.avif 640w"
-      imagesizes="(max-width: 639px) 100vw"
-    />
-    <!-- Fallback WebP hero móvil -->
-    <link
-      rel="preload"
-      as="image"
-      href="/img/background-home/bg-home2-m.webp"
-      imagesrcset="/img/background-home/bg-home2-m.webp 640w"
-      imagesizes="(max-width: 639px) 100vw"
-    />
+    <!-- Vite: el CSS y el JS se inyectan automáticamente                  -->
+    <!-- (el import './assets/GlobalStyles.css' en main.tsx genera el <link>) -->
+    <script type="module" src="/src/main.tsx"></script>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/img/logo/logoZC-mobile.png" />
-
-    <!-- Preconnect y DNS-prefetch para dominios de recursos críticos -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-
-    <!-- Preload de fuentes críticas -->
-    <link
-      rel="preload"
-      as="font"
-      href="/fonts/SemplicitaPro.woff2"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      as="font"
-      href="/fonts/Cinzel.woff2"
-      type="font/woff2"
-      crossorigin
-    />
-
-    <!-- Critical CSS inline -->
-    <style>
-      /* Reseteo mínimo y estilos críticos para FOUC */
-      html {
-        box-sizing: border-box;
-      }
-      *,
-      *:before,
-      *:after {
-        box-sizing: inherit;
-        margin: 0;
-        padding: 0;
-      }
-      body {
-        font-family: "SemplicitaPro", sans-serif;
-        line-height: 1.5;
-      }
-      header,
-      nav,
-      main {
-        display: block;
-      }
-    </style>
-
-    <!-- Scripts con defer (type=module ya implica defer) -->
-    <script type="module" src="/src/main.tsx" defer></script>
+    <!-- Marca de “render-complete” para prerender / Lighthouse CI -->
     <script>
-      window.addEventListener("load", () => {
-        // avisa al prerenderer que ya puede capturar el HTML
-        document.dispatchEvent(new Event("render-event"));
-      });
+      addEventListener("load", () =>
+        document.dispatchEvent(new Event("render-event"))
+      );
     </script>
   </head>
   <body>

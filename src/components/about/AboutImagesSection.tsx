@@ -29,11 +29,18 @@ interface AboutImagesSectionProps {
   onImageClick: (index: number) => void;
 }
 
-// Componente interno para renderizar cada tarjeta de imagen y evitar repetición de código.
-const ImageCard: React.FC<{
+interface ImageCardProps {
   image: ImageInfo;
-  onClick: () => void;
-}> = ({ image, onClick }) => {
+  index: number;
+  onClick: (index: number) => void;
+}
+
+// Componente interno para renderizar cada tarjeta de imagen y evitar repetición de código.
+const ImageCard: React.FC<ImageCardProps> = React.memo(({ image, index, onClick }) => {
+  const handleClick = React.useCallback(() => {
+    onClick(index);
+  }, [onClick, index]);
+
   const imgObj = getImageObject(image.key);
   // Aplica el placeholder como fondo para una carga más suave
   const placeholderBgStyle = imgObj?.placeholder
@@ -50,7 +57,7 @@ const ImageCard: React.FC<{
     <div
       className="aspect-[17/10] overflow-hidden rounded-lg shadow-xl cursor-pointer"
       style={placeholderBgStyle}
-      onClick={onClick}
+      onClick={handleClick}
     >
       <picture>
         {imgObj?.avif && <source srcSet={imgObj.avif} type="image/avif" />}
@@ -67,7 +74,7 @@ const ImageCard: React.FC<{
       </picture>
     </div>
   );
-};
+});
 
 const AboutImagesSection: React.FC<AboutImagesSectionProps> = React.memo(
   ({ images, onImageClick }) => {
@@ -87,6 +94,7 @@ const AboutImagesSection: React.FC<AboutImagesSectionProps> = React.memo(
               <AboutTitlesContent
                 subtitle={aboutInfo.subtitle1}
                 title={aboutInfo.title2}
+                title1=""
                 bigTitle="LOGROS"
               />
             </Suspense>
@@ -98,7 +106,7 @@ const AboutImagesSection: React.FC<AboutImagesSectionProps> = React.memo(
                 className="flex-shrink-0 w-4/5 snap-center"
               >
                 <RevealWrapper animationClass="fade-in-text">
-                  <ImageCard image={image} onClick={() => onImageClick(index)} />
+                  <ImageCard image={image} index={index} onClick={onImageClick} />
                 </RevealWrapper>
               </div>
             ))}
@@ -118,6 +126,7 @@ const AboutImagesSection: React.FC<AboutImagesSectionProps> = React.memo(
             <AboutTitlesContent
               subtitle={aboutInfo.subtitle1}
               title={aboutInfo.title2}
+              title1=""
               bigTitle="LOGROS"
             />
           </Suspense>
@@ -129,7 +138,7 @@ const AboutImagesSection: React.FC<AboutImagesSectionProps> = React.memo(
               key={`about-img-desktop-${index}`}
               animationClass="fade-in-up-animation"
             >
-              <ImageCard image={image} onClick={() => onImageClick(index)} />
+              <ImageCard image={image} index={index} onClick={onImageClick} />
             </RevealWrapper>
           ))}
         </div>

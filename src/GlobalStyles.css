@@ -8,13 +8,18 @@
 /* ==========================================================================
    1. Font Definitions & Tailwind Setup
    ========================================================================== */
-   @font-face {
-    font-family: 'Cinzel';
-    src: url('/fonts/Cinzel-Light.woff2') format('woff2');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-  }
+@font-face {
+  font-family: 'Cinzel';
+  src: url('/fonts/Cinzel-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  /* Métricas opcionales para cero CLS */
+  ascent-override: 92%;
+  descent-override: 20%;
+  line-gap-override: 0%;
+  size-adjust: 100%;
+}
   
   /* Tailwind Directives */
   @tailwind base;

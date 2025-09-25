@@ -23,6 +23,7 @@ const HomeTitle = lazy(() => import('../home/HomeTitle'));
 
 interface HeroInfo {
   title: string;
+  title1: string;
   subtitle: string;
   imageAlt: string;
 }

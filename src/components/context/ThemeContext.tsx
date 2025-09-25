@@ -25,7 +25,7 @@ interface ThemeContextType {
 const themeColors: Record<Theme, ThemeColors> = {
   light: {
     // Fondo principal limpio y articulado en crema suave
-    background: "#F5F1EB",
+    background: "#fffcf8ff",
     // Texto principal en negro puro para máxima legibilidad
     text: "#000000",
     // Secciones con tono claro cercano al fondo para sutil separación

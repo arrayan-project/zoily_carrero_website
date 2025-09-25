@@ -1,101 +1,89 @@
-/**
- * Componente para mostrar una imagen de fondo optimizada en el hero del Home.
- * Usa placeholder, overlay y soporta diferentes posiciones para móvil y desktop.
- *
- * @component
- * @param {Props} props - Props del hero, incluyendo clave de imagen, clases, overlay y posiciones.
- * @returns {JSX.Element}
- */
+// BackgroundImageHero.tsx
 import { FC, useState, useEffect } from "react";
-import images from "../../assets/images"; // Importamos el objeto images
+import images from "../../assets/images";
 import { getImageObject } from "../../utils/getImageObject";
 
 interface Props {
   className?: string;
-  imageKey: keyof typeof images; // Clave para la imagen en el objeto images
+  imageKey: keyof typeof images;
   overlayOpacityClass?: string;
   alt?: string;
-   mobileObjectPositionClass?: string;
+  mobileObjectPositionClass?: string;
   desktopObjectPositionClass?: string;
+  /** If provided, overrides bundle asset with a PUBLIC path to match <link rel=preload> */
+  publicSrcOverride?: string; // e.g. "/img/background-home/bg-home2.avif"
 }
 
 const BackgroundImageHero: FC<Props> = ({
   className = "",
   imageKey,
-  alt = "Hero image",
-  overlayOpacityClass = "opacity-45",
+  alt = "Maquillaje profesional Zoily Carrero",
+  overlayOpacityClass = "opacity-60",
   mobileObjectPositionClass = "object-center",
   desktopObjectPositionClass = "object-center",
+  publicSrcOverride,
 }) => {
   const image = getImageObject(imageKey);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  useEffect(() => setIsLoaded(false), [imageKey]);
+
   if (!image) {
-    console.error("Error: Image key not found in images object", { imageKey });
-    return (
-      <div
-        className={`${className} fixed inset-x-0 top-0 h-[95vh] z-0`}
-      >
-        Error al cargar imagen de fondo.
-      </div>
-    );
+    console.error("Image key not found", { imageKey });
+    return <div className={`${className} absolute inset-0`} />;
   }
 
-  const placeholderBgStyle = image.placeholder
-    ? { backgroundImage: `url("${image.placeholder}")` }
-    : {};
-
-  useEffect(() => {
-    // Resetea el estado isLoaded si imageKey cambia, para manejar posibles re-renderizados con diferentes imágenes.
-    setIsLoaded(false);
-  }, [imageKey]);
+  // Use a single public URL for the hero so it matches your <link rel="preload"> in index.html.
+  const src = publicSrcOverride ?? image.webp; // fallback to bundled webp if not provided
 
   return (
-    <div
-      className={`${className} absolute inset-0 w-full h-full z-0 bg-center bg-cover`}
-      style={placeholderBgStyle} // Placeholder se aplica como fondo de este div
-    >
-      <picture className="w-full h-full block">
-        {/* móvil primero */}
-        <source
-          media="(max-width: 639px)"
-          type="image/avif"
-          srcSet={image.avif} // Usar la misma imagen para móvil
-        />
-        <source
-          media="(max-width: 639px)"
-          type="image/webp"
-          srcSet={image.webp} // Usar la misma imagen para móvil
-        />
-        {/* desktop */}
-        <source
-          media="(min-width: 640px)"
-          type="image/avif"
-          srcSet={image.avif}
-        />
-        <source
-          media="(min-width: 640px)"
-          type="image/webp"
-          srcSet={image.webp}
-        />
-        {/* fallback */}
+    <div className={`${className} absolute inset-0 w-full h-full z-0`}>
+      <picture className="absolute inset-0 block">
+        {/* Provide both AVIF/WEBP with the SAME public path if you have them */}
+        {publicSrcOverride ? (
+          <>
+            <source
+              type="image/avif"
+              srcSet={publicSrcOverride.replace(
+                /\.webp$|\.jpg$|\.png$/i,
+                ".avif"
+              )}
+            />
+            <source
+              type="image/webp"
+              srcSet={publicSrcOverride.replace(
+                /\.avif$|\.jpg$|\.png$/i,
+                ".webp"
+              )}
+            />
+          </>
+        ) : (
+          <>
+            <source type="image/avif" srcSet={image.avif} />
+            <source type="image/webp" srcSet={image.webp} />
+          </>
+        )}
+
         <img
-          src={image.webp} // Fallback a WebP
+          src={src}
           alt={alt}
-          className={`w-full h-full object-cover ${mobileObjectPositionClass} sm:${desktopObjectPositionClass} transition-opacity duration-500 ease-in-out ${
-            isLoaded ? "opacity-100" : "opacity-0" // Control de opacidad de la imagen principal
-          }`}
+          className="w-full h-full object-cover ..."
           loading="eager"
-          onLoad={() => setIsLoaded(true)} // Marcar como cargada cuando la imagen real esté lista
+          decoding="async"
+          fetchPriority="high" // ← aquí el camelCase
+          width={1920}
+          height={1080}
+          onLoad={() => setIsLoaded(true)}
         />
-        {/* Overlay oscuro sobre la imagen. Se muestra cuando la imagen principal está cargada. */}
-        <div
-          className={`absolute inset-0 w-full h-full bg-black transition-opacity duration-500 ease-in-out ${
-            isLoaded ? overlayOpacityClass : "opacity-0" // Control de opacidad del overlay
-          }`}
-          aria-hidden="true"
-        ></div>{" "}
       </picture>
+
+      {/* Overlay must be a sibling, not inside <picture> */}
+      <div
+        className={`absolute inset-0 bg-black transition-opacity duration-500 ease-in-out ${
+          isLoaded ? overlayOpacityClass : "opacity-0"
+        }`}
+        aria-hidden="true"
+      />
     </div>
   );
 };
